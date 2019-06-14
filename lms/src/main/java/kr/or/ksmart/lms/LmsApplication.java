@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LmsApplication {
 
 	public static void main(String[] args) {
+		System.out.println("=======================tomcat 실행 전==========================");
 		SpringApplication.run(LmsApplication.class, args);
+		System.out.println("=======================Spring 구동 후==========================");
 	}
 
 }
