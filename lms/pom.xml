@@ -11,6 +11,7 @@
 	<groupId>kr.or.ksmart.lms</groupId>
 	<artifactId>lms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>lms</name>
 	<description>3팀 프로젝트</description>
 
@@ -58,6 +59,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
