@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ksmart.lms.Index.Mapper.IndexMapper">
+	<select id="selectInfoSubjectList"
+			resultType="kr.or.ksmart.lms.Index.VO.InfoSubject">
+		SELECT
+			info_subject_code AS infoSubjectCode
+			, info_lecture_code AS infoLectureCode
+			, info_subject_name AS infoSubjectName
+			, info_subject_difficulty AS infoSubjectDifficulty
+			, info_subject_modification_history AS infoSubjectModificationHistory
+		FROM info_subject
+	</select>
+</mapper>

@@ -11,5 +11,4 @@ public class LmsApplication {
 		SpringApplication.run(LmsApplication.class, args);
 		System.out.println("=======================Spring 구동 후==========================");
 	}
-
 }
