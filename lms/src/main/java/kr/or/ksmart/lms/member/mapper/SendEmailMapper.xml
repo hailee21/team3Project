@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ksmart.lms.member.mapper.SendEmailMapper">
+	<insert id="insertTeacherApproval"
+			parameterType="String">
+		INSERT INTO teacher_approval
+		VALUES (#{teacherApprovalCode})
+	</insert>
+	<insert id="insertInstitutionApproval"
+			parameterType="String">
+		INSERT INTO institution_approval
+		VALUES (#{institutionApprovalCode})
+	</insert>
+</mapper>
