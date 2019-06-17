@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:fragment="configFragment">
+    <meta charset="utf-8">
+    <!-- 공통으로 쓰이는 css파일을넣는다.-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+	    .dropdownatuo {
+	        float: center;
+	        overflow: hidden;
+	    }
+	    .dropdownatuo .dropbtn {
+	        font-size: 16px;  
+	        border: none;
+	        outline: none;
+	        color: white;
+	        padding: 14px 16px;
+	        background-color: inherit;
+	        font-family: inherit;
+	        margin: 0;
+	    }
+	    .navbar a:hover, .dropdownatuo:hover .dropbtn {
+	        background-color: secondary;
+	    }
+	    .dropdownatuo-content {
+	        display: none;
+	        position: absolute;
+	        background-color: #f9f9f9;
+	        min-width: 160px;
+	        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	        z-index: 1;
+	    }
+	    .dropdownatuo-content a {
+	        float: none;
+	        color: black;
+	        padding: 12px 16px;
+	        text-decoration: none;
+	        display: block;
+	        text-align: left;
+	    }
+	    .dropdownatuo-content a:hover {
+	        background-color: #ddd;
+	    }
+	    .dropdownatuo:hover .dropdownatuo-content {
+	        display: block;
+	    }
+	    p {
+	    text-align: center;
+	    }
+	</style>
+	<!-- 컨텐츠페이지의 CSS 영역이 들어감 -->
+    <th:block layout:fragment="css"></th:block>
+
+    <!-- 공통으로 쓰이는 css파일을넣는다.-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> <!-- 컨텐츠페이지의 스크립트 영역이 들어감 -->
+    <th:block layout:fragment="script"></th:block>
+</head>
+
+</html>

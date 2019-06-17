@@ -1,143 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>INDEX</title>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<style>
-    .dropdownatuo {
-        float: center;
-        overflow: hidden;
-    }
-    .dropdownatuo .dropbtn {
-        font-size: 16px;  
-        border: none;
-        outline: none;
-        color: white;
-        padding: 14px 16px;
-        background-color: inherit;
-        font-family: inherit;
-        margin: 0;
-    }
-    .navbar a:hover, .dropdownatuo:hover .dropbtn {
-        background-color: secondary;
-    }
-    .dropdownatuo-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-    .dropdownatuo-content a {
-        float: none;
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-    }
-    .dropdownatuo-content a:hover {
-        background-color: #ddd;
-    }
-    .dropdownatuo:hover .dropdownatuo-content {
-        display: block;
-    }
-    p {
-    text-align: center;
-    }
-</style>
-</head>
-<body>
-<div class="row">
-    <div class="col-sm-2">
-    </div>
-    <div class="col-sm-8">
-        <nav class="navbar navbar-expand-sm bg-light navbar-light">
-            <div class="container-fluid">
-                <p></p>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">로그인</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">회원가입</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container-fluid container bg-info text-white" style="height: 250px">
-            <p style="height: 100px"></p>
-            <p style="font-size: 30px">3팀 평생 교육원 협회</p>
-        </div>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <div class="container-fluid">
-                <p></p>
-                <ul class="nav navbar-nav navbar-center">
-                    <li class="nav-item">
-                        <div class="dropdownatuo">
-                            <button class="dropbtn">협회소개 
-                                <i class="fa fa-caret-down"></i>
-                            </button>
-                            <div class="dropdownatuo-content">
-                                <a href="#">협회소개1</a>
-                                <a href="#">협회소개2</a>
-                                <a href="#">협회소개3</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="dropdownatuo">
-                            <button class="dropbtn">교육원소개 
-                                <i class="fa fa-caret-down"></i>
-                            </button>
-                            <div class="dropdownatuo-content">
-                                <a href="#">교육원소개 1</a>
-                                <a href="#">교육원소개 2</a>
-                                <a href="#">교육원소개 3</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="dropdownatuo">
-                            <button class="dropbtn">자격증소개 
-                                <i class="fa fa-caret-down"></i>
-                            </button>
-                            <div class="dropdownatuo-content">
-                                <a href="#">자격증소개 1</a>
-                                <a href="#">자격증소개 2</a>
-                                <a href="#">자격증소개 3</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <p></p>
-            </div>
-        </nav>
-        <p th:text="${session.memberName}"></p>
-        <h3>과목리스트</h3>
-		<table border="1">
-			<tr>
-				<th>과목코드</th>
-				<th>과목명</th>
-				<th>NCS 수준</th>
-				<th>등록일</th>
-			</tr>
-			<tr th:each="subject:${list}">
-				<td th:text="${subject.infoLectureCode}"></td>
-				<td th:text="${subject.infoSubjectName}"></td>
-				<td th:text="${subject.infoSubjectDifficulty}"></td>
-				<td th:text="${subject.infoSubjectModificationHistory}"></td>			
-			</tr>
-	</table>
-    </div>
-    <div class="col-sm-2">
-    </div>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+<div layout:fragment="content">
+	<form action="/login" method="post">
+		id : 
+		<input type="text" name="memberOnlineId">
+		pw : 
+		<input type="password" name="memberOnlinePw">
+		권한 :
+		<select name="memberRank">
+			<option value="수강생">수강생</option>
+			<option value="강사">강사</option>
+			<option value="교육원">교육원</option>
+			<option value="협회">협회</option>
+		</select>
+		<input type="submit" value="로그인">
+	</form>
 </div>
-</body>
 </html>
