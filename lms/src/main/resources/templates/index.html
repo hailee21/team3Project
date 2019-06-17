@@ -13,6 +13,7 @@
 
 <div layout:fragment="content">
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<h3>배포일 2019-06-17</h3>
 	<h3>과목리스트</h3>
 	<table border="1">
@@ -46,5 +47,22 @@
 			</tr>
 		</table>
 >>>>>>> refs/remotes/origin/kkn
+=======
+	<h3>과목리스트</h3>
+	<table border="1">
+		<tr>
+			<th>과목코드</th>
+			<th>과목명</th>
+			<th>NCS 수준</th>
+			<th>등록일</th>
+		</tr>
+		<tr th:each="subject:${list}">
+			<td th:text="${subject.infoLectureCode}"></td>
+			<td th:text="${subject.infoSubjectName}"></td>
+			<td th:text="${subject.infoSubjectDifficulty}"></td>
+			<td th:text="${subject.infoSubjectModificationHistory}"></td>			
+		</tr>
+	</table>
+>>>>>>> refs/remotes/origin/HJ
 </div>
 </html>
