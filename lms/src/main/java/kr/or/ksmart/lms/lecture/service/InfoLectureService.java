@@ -13,7 +13,7 @@ public class InfoLectureService {
 	@Autowired InfoLectureMapper infoLectureMapper;
 	
 	// infoLecture 리스트 출력
-	public List<InfoLecture> getInfoLectureList() {
+	public List<InfoLecture> selectInfoLectureList() {
 		return infoLectureMapper.selectInfoLectureList();		
 	}
 }
