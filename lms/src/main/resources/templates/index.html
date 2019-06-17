@@ -10,6 +10,7 @@
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 </th:block>
+<<<<<<< HEAD
 
 <div layout:fragment="content">
 <<<<<<< HEAD
@@ -65,4 +66,23 @@
 	</table>
 >>>>>>> refs/remotes/origin/HJ
 </div>
+=======
+	<div layout:fragment="content">
+	        <h3>과목리스트</h3>
+			<table border="1">
+				<tr>
+					<th>과목코드</th>
+					<th>과목명</th>
+					<th>NCS 수준</th>
+					<th>등록일</th>
+				</tr>
+				<tr th:each="subject:${list}">
+					<td th:text="${subject.infoLectureCode}"></td>
+					<td th:text="${subject.infoSubjectName}"></td>
+					<td th:text="${subject.infoSubjectDifficulty}"></td>
+					<td th:text="${subject.infoSubjectModificationHistory}"></td>			
+				</tr>
+		</table>
+	</div>
+>>>>>>> refs/remotes/origin/yhr
 </html>
