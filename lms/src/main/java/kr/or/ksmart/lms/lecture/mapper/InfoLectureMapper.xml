@@ -14,11 +14,11 @@
 	
 	<!--  -->
 	<select id="selectInfoLectureList" 
-			resultType="infoLectureResultMap">
+			resultMap="infoLectureResultMap">
 		SELECT
 			infoLectureCode 
-			,infoLectureSort 
-			,infoLectureName 
+			,infoLectureSort
+			,infoLectureName
 			,infoLectureInsertDate
 		FROM info_lecture
 	</select>	
