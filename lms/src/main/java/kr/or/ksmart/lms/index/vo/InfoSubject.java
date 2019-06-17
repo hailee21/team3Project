@@ -1,4 +1,4 @@
-package kr.or.ksmart.lms.Index.VO;
+package kr.or.ksmart.lms.index.vo;
 
 public class InfoSubject {
 	private String infoSubjectCode;
@@ -6,12 +6,6 @@ public class InfoSubject {
 	private String infoSubjectName;
 	private int infoSubjectDifficulty;
 	private String infoSubjectModificationHistory;
-	@Override
-	public String toString() {
-		return "InfoSubject [infoSubjectCode=" + infoSubjectCode + ", infoLectureCode=" + infoLectureCode
-				+ ", infoSubjectName=" + infoSubjectName + ", infoSubjectDifficulty=" + infoSubjectDifficulty
-				+ ", infoSubjectModificationHistory=" + infoSubjectModificationHistory + "]";
-	}
 	public String getInfoSubjectCode() {
 		return infoSubjectCode;
 	}
@@ -42,4 +36,11 @@ public class InfoSubject {
 	public void setInfoSubjectModificationHistory(String infoSubjectModificationHistory) {
 		this.infoSubjectModificationHistory = infoSubjectModificationHistory;
 	}
+	@Override
+	public String toString() {
+		return "InfoSubject [infoSubjectCode=" + infoSubjectCode + ", infoLectureCode=" + infoLectureCode
+				+ ", infoSubjectName=" + infoSubjectName + ", infoSubjectDifficulty=" + infoSubjectDifficulty
+				+ ", infoSubjectModificationHistory=" + infoSubjectModificationHistory + "]";
+	}
+
 }

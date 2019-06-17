@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ksmart.lms.login.mapper.LoginMapper">
+	<select id="selectMemberOnline"
+			parameterType="kr.or.ksmart.lms.login.vo.LoginRequest"
+			resultType="kr.or.ksmart.lms.login.vo.MemberOnline">
+		SELECT
+			member_online_code AS memberOnlineCode 
+			, member_code AS memberCode
+			, member_name AS memberName
+			, member_online_id AS memberOnlineId
+			, member_rank AS memberRank
+			, institution_code AS institutionCode
+			, institution_name AS institutionName
+		FROM member_online
+		WHERE
+			member_online_id = #{memberOnlineId}
+			AND member_online_pw = #{memberOnlinePw}
+	</select>
+</mapper>
