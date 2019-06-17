@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.or.ksmart.lms.login.service.LonginService;
+import kr.or.ksmart.lms.login.service.LoginService;
 import kr.or.ksmart.lms.login.vo.LoginRequest;
 import kr.or.ksmart.lms.login.vo.MemberOnline;
 
 @Controller
 public class LoginController {
 	@Autowired
-	LonginService longinService;
+	LoginService longinService;
 
 	@GetMapping("/login")
 	public ModelAndView loginForm(ModelAndView mav) {

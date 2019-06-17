@@ -8,7 +8,7 @@ import kr.or.ksmart.lms.login.vo.LoginRequest;
 import kr.or.ksmart.lms.login.vo.MemberOnline;
 
 @Service
-public class LonginService {
+public class LoginService {
 	@Autowired
 	LoginMapper loginMapper;
 	

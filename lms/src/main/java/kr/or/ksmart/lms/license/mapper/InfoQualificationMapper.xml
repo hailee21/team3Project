@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ksmart.lms.license.mapper.InfoQualificationMapper">
+	<select id="selectInfoQualification"
+			parameterType="kr.or.ksmart.lms.login.vo.LoginRequest"
+			resultType="kr.or.ksmart.lms.license.vo.InfoQualification">
+		SELECT
+			info_qualification_code AS infoQualificationCode 
+			, info_qualification_name AS infoQualificationName
+			, info_qualification_required_code AS memberName
+			, info_qualification_required_type AS memberOnlineId
+			, info_qualification_description AS memberRank
+			, info_qualification_renewal_date AS institutionCode
+		FROM info_qualification
+	</select>
+</mapper>
