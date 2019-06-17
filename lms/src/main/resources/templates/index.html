@@ -11,19 +11,21 @@
 <th:block layout:fragment="script">
 </th:block>
 <div layout:fragment="content">
-	<form action="/login" method="post">
-		id : 
-		<input type="text" name="memberOnlineId">
-		pw : 
-		<input type="password" name="memberOnlinePw">
-		권한 :
-		<select name="memberRank">
-			<option value="수강생">수강생</option>
-			<option value="강사">강사</option>
-			<option value="교육원">교육원</option>
-			<option value="협회">협회</option>
-		</select>
-		<input type="submit" value="로그인">
-	</form>
+	<h3>배포일 2019-06-17</h3>
+	<h3>과목리스트</h3>
+	<table border="1">
+		<tr>
+			<th>과목코드</th>
+			<th>과목명</th>
+			<th>NCS 수준</th>
+			<th>등록일</th>
+		</tr>
+		<tr th:each="subject:${list}">
+			<td th:text="${subject.infoLectureCode}"></td>
+			<td th:text="${subject.infoSubjectName}"></td>
+			<td th:text="${subject.infoSubjectDifficulty}"></td>
+			<td th:text="${subject.infoSubjectModificationHistory}"></td>			
+		</tr>
+	</table>
 </div>
 </html>
