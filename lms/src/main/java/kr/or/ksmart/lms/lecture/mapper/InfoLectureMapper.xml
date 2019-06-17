@@ -14,7 +14,7 @@
 	
 	<!--  -->
 	<select id="selectInfoLectureList" 
-			resultType="infoLectureResultMap">
+			resultMap="infoLectureResultMap">
 		SELECT
 			infoLectureCode 
 			,infoLectureSort 
