@@ -2,16 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.ksmart.lms.license.mapper.InfoQualificationMapper">
+	
+	<resultMap type="kr.or.ksmart.lms.license.vo.InfoQualification" id="InfoQualificationMap">
+		<result column="info_qualification_code" property="infoQualificationCode"/>
+		<result column="info_qualification_name" property="infoQualificationName"/>
+		<result column="info_qualification_required_code" property="infoQualificationRequiredCode"/>
+		<result column="info_qualification_required_type" property="infoQualificationRequiredType"/>
+		<result column="info_qualification_description" property="infoQualificationDescription"/>
+		<result column="info_qualification_renewal_date" property="infoQualificationRenewalDate"/>
+		
+	</resultMap>
 	<select id="selectInfoQualification"
-			parameterType="kr.or.ksmart.lms.login.vo.LoginRequest"
-			resultType="kr.or.ksmart.lms.license.vo.InfoQualification">
+			resultMap="InfoQualificationMap">
+			
 		SELECT
-			info_qualification_code AS infoQualificationCode 
-			, info_qualification_name AS infoQualificationName
-			, info_qualification_required_code AS memberName
-			, info_qualification_required_type AS memberOnlineId
-			, info_qualification_description AS memberRank
-			, info_qualification_renewal_date AS institutionCode
+			info_qualification_code
+			, info_qualification_name
+			, info_qualification_required_code
+			, info_qualification_required_type
+			, info_qualification_description
+			, info_qualification_renewal_date
 		FROM info_qualification
 	</select>
 </mapper>
