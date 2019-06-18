@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<meta charset="utf-8">
+
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	$('#infoLectureSortList').change(function(){
+		console.log('비동기 요청 진행..');
+	});
+});
+	
+</script>
+</th:block>
+
+<!-- infoLecture 리스트 출력화면 -->
+<div style="overflow:auto;" layout:fragment="content">
+
+	<h1>강의 개요 list</h1>
+	<select id="infoLectureSortList">
+		<option value="">--강의항목선택--</option>
+		<option th:each="lecSort:${sortList}" th:text="${lecSort.infoLectureSort}" th:value="${lecSort.infoLectureSort}"></option>
+	</select>
+	
+	<select id="infoLectureNameList">
+		<option value="">--강의표준명--</option>
+	</select>
+
+</div>
+</html>

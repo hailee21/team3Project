@@ -13,7 +13,9 @@ public class InfoLectureService {
 	@Autowired InfoLectureMapper infoLectureMapper;
 	
 	// infoLecture 리스트 출력
-	public List<InfoLecture> getInfoLectureList() {
-		return infoLectureMapper.selectInfoLectureList();		
+	public List<InfoLecture> selectInfoLectureList() {
+		System.out.println("[InfoLectureService selectInfoLectureList]");
+		
+		return infoLectureMapper.selectInfoLectureSortList();		
 	}
 }

@@ -16,7 +16,6 @@ public class InfoLectureController {
 	public ModelAndView getInfoLectureList(ModelAndView mav) {
 		mav.setViewName("infoLectureList");
 		
-		
 		return mav;
 	}
 }
