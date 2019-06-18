@@ -18,9 +18,15 @@ public class InfoLectureController {
 	@GetMapping("/infoLecture")
 	public ModelAndView getInfoLectureList(ModelAndView mav) {
 		System.out.println("[InfoLectureController getInfoLectureList]");
-		mav.setViewName("infoLectureList");
-		List<InfoLecture> list = infoLectureService.selectInfoLectureList();
-		mav.addObject("list", list);
+		// mav의 이름 지정
+		mav.setViewName("infoLecture");
+		
+		// infoLectureService에서 가져온 값을 list변수에 담기
+		List<InfoLecture> sortList = infoLectureService.selectInfoLectureList();
+		System.out.println("[InfoLectureController getInfoLectureList] sortList: "+sortList);
+		
+		// mav내부에 list객체 추가하기
+		mav.addObject("sortList", sortList);
 		return mav;
 	}
 }

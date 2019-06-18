@@ -11,15 +11,24 @@
 		<result column="info_lecture_name" property="infoLectureName"/>
 		<result column="info_lecture_insert_date" property="infoLectureInsertDate"/>
 	</resultMap>
-	
-	<!--  -->
+
+	<!-- infoLecture 강의표준명 리스트 출력 / 비동기방식 -->
 	<select id="selectInfoLectureList" 
 			resultMap="infoLectureResultMap">
 		SELECT
-			infoLectureCode 
-			,infoLectureSort 
-			,infoLectureName 
-			,infoLectureInsertDate
+			info_lecture_name
+		FROM 
+			info_lecture
+		WHERE 
+			info_lecture_sort = #{infoLectureSort}
+	</select>	 
+		
+	<!-- infoLecture 강의분류 리스트 출력 -->
+	<select id="selectInfoLectureSortList" 
+			resultMap="infoLectureResultMap">
+		SELECT
+			distinct
+			info_lecture_sort
 		FROM info_lecture
 	</select>	
 </mapper>

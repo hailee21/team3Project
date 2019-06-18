@@ -14,6 +14,8 @@ public class InfoLectureService {
 	
 	// infoLecture 리스트 출력
 	public List<InfoLecture> selectInfoLectureList() {
-		return infoLectureMapper.selectInfoLectureList();		
+		System.out.println("[InfoLectureService selectInfoLectureList]");
+		
+		return infoLectureMapper.selectInfoLectureSortList();		
 	}
 }
