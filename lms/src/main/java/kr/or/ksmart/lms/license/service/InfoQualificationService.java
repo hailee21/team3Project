@@ -10,8 +10,13 @@ import kr.or.ksmart.lms.license.vo.InfoQualification;
 
 @Service
 public class InfoQualificationService {
-	@Autowired
+	@Autowired 
 	InfoQualificationMapper infoQualificationMapper;
+	//2.자격증을 추가 하기 위한 추상 메서드 선언 
+	public void insertInfoQualification() {
+		infoQualificationMapper.insertInfoQualification();
+	}
+	//1.자격 정보 개요 리스트를 보여주기 위한 메서드
 	public List<InfoQualification> getInfoQualification(){
 		List<InfoQualification> list = infoQualificationMapper.selectInfoQualification();
 		return list;

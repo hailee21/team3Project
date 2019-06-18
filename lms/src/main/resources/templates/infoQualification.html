@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
+      layout:decorator="layout/root">
 <meta charset="utf-8">
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -12,7 +12,6 @@
 </th:block>
 
 <div layout:fragment="content">
-	<h3>배포일 2019-06-18</h3>
 	<h3>자격증 리스트</h3>
 	<table border="1">
 		<tr>

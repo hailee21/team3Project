@@ -3,6 +3,8 @@
 
 <mapper namespace="kr.or.ksmart.lms.license.mapper.InfoQualificationMapper">
 	
+	
+	
 	<resultMap type="kr.or.ksmart.lms.license.vo.InfoQualification" id="InfoQualificationMap">
 		<result column="info_qualification_code" property="infoQualificationCode"/>
 		<result column="info_qualification_name" property="infoQualificationName"/>
@@ -12,6 +14,20 @@
 		<result column="info_qualification_renewal_date" property="infoQualificationRenewalDate"/>
 		
 	</resultMap>
+	<insert id="insertInfoQualification">
+		INSERT
+		INTO
+			info_qualification
+		VALUE
+			info_qualification_code
+			, info_qualification_name
+			, info_qualification_required_code
+			, info_qualification_required_type
+			, info_qualification_description
+			, info_qualification_renewal_date
+			
+	</insert>
+	
 	<select id="selectInfoQualification"
 			resultMap="InfoQualificationMap">
 			
