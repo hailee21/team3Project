@@ -20,6 +20,12 @@
 	            <li class="nav-item">
 	                <a class="nav-link" href="#">내정보</a>
 	            </li>
+	            <li th:if="${session.memberRank == '협회직원'}"  class="nav-item">
+	                <a class="nav-link" href="/sendEmailToTeacher">강사승인코드보내기</a>
+	            </li>
+	            <li th:if="${session.memberRank == '협회직원'}"  class="nav-item">
+	                <a class="nav-link" href="/sendEmailToInstitution">교육원승인코드보내기</a>
+	            </li>
 	        </ul>
 	    </div>
 	</nav>
@@ -71,7 +77,5 @@
 	        <p></p>
 	    </div>
 	</nav>
-
 </header>
-
 </html>
