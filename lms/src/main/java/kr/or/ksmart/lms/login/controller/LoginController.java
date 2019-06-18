@@ -17,18 +17,18 @@ public class LoginController {
 	@Autowired
 	LoginService longinService;
 
-	@GetMapping("/login")
-	public ModelAndView loginForm(ModelAndView mav) {
-		mav.setViewName("login");
+	@GetMapping("/LELogin")
+	public ModelAndView LELoginForm(ModelAndView mav) {
+		mav.setViewName("/LELogin");
 		return mav;
 	}
 	
-	@PostMapping("/login")
-	public String loginAction(HttpSession session, LoginRequest loginRequest) {
+	@PostMapping("/LELogin")
+	public String LEloginAction(HttpSession session, LoginRequest loginRequest) {
 		System.out.println(loginRequest);
 		MemberOnline loginMember = longinService.getMemberOnline(loginRequest);
 		if(loginMember == null) {
-			return "redirect:" + "/login";
+			return "redirect:" + "/LElogin";
 		} else {
 			System.out.println("로그인 성공");
 			session.setAttribute("memberName", loginMember.getMemberName());
@@ -37,6 +37,57 @@ public class LoginController {
 			session.setAttribute("memberRank", loginMember.getMemberRank());
 			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
 			return "redirect:" + "/";
+		}
+	}
+	
+	@PostMapping("/associationLogin")
+	public String associationLoginAction(HttpSession session, LoginRequest loginRequest) {
+		System.out.println(loginRequest);
+		MemberOnline loginMember = longinService.getMemberOnline(loginRequest);
+		if(loginMember == null) {
+			return "redirect:" + "/associationLogin";
+		} else {
+			System.out.println("로그인 성공");
+			session.setAttribute("memberName", loginMember.getMemberName());
+			session.setAttribute("memberCode", loginMember.getMemberCode());
+			session.setAttribute("memberOnlineId", loginMember.getMemberOnlineId());
+			session.setAttribute("memberRank", loginMember.getMemberRank());
+			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
+			return "redirect:" + "/associationIndex";
+		}
+	}
+	
+	@PostMapping("/institutionLogin")
+	public String instituteLayoutLoginAction(HttpSession session, LoginRequest loginRequest) {
+		System.out.println(loginRequest);
+		MemberOnline loginMember = longinService.getMemberOnline(loginRequest);
+		if(loginMember == null) {
+			return "redirect:" + "/institutionLogin";
+		} else {
+			System.out.println("로그인 성공");
+			session.setAttribute("memberName", loginMember.getMemberName());
+			session.setAttribute("memberCode", loginMember.getMemberCode());
+			session.setAttribute("memberOnlineId", loginMember.getMemberOnlineId());
+			session.setAttribute("memberRank", loginMember.getMemberRank());
+			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
+			return "redirect:" + "/institutionIndex";
+		}
+	}
+	
+	@PostMapping("/teacherLogin")
+	public String loginAction(HttpSession session, LoginRequest loginRequest) {
+		System.out.println(loginRequest);
+		MemberOnline loginMember = longinService.getMemberOnline(loginRequest);
+		if(loginMember == null) {
+			return "redirect:" + "/teacherLogin";
+		} else {
+			System.out.println("로그인 성공");
+			session.setAttribute("memberName", loginMember.getMemberName());
+			session.setAttribute("memberCode", loginMember.getMemberCode());
+			session.setAttribute("memberOnlineId", loginMember.getMemberOnlineId());
+			session.setAttribute("memberRank", loginMember.getMemberRank());
+			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
+			return "redirect:" + "/teacherIndex";
 		}
 	}
 }
