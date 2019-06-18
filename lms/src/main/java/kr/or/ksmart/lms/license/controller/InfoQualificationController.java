@@ -1,5 +1,27 @@
 package kr.or.ksmart.lms.license.controller;
 
-public class InfoQualificationController {
+import java.util.List;
 
-}
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.or.ksmart.lms.license.service.InfoQualificationService;
+import kr.or.ksmart.lms.license.vo.InfoQualification;
+
+@Controller
+public class InfoQualificationController {
+	@Autowired
+	InfoQualificationService infoQualificationService;
+	
+	@GetMapping("/infoQualification")
+	public ModelAndView infoQualification(ModelAndView mav) {
+		mav.setViewName("infoQualification");
+		List<InfoQualification> list = infoQualificationService.getInfoQualification();
+		mav.addObject("list", list);
+		return mav;
+	
+			}
+	}
+
