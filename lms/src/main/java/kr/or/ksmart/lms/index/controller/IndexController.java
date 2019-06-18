@@ -26,7 +26,7 @@ public class IndexController {
 	@GetMapping("/LEIndex")
 	public ModelAndView LEIndex(HttpSession session, ModelAndView mav,
 			@RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LEIndex");
+		mav.setViewName("LE/LEIndex");
 		IndexInstitution institution = indexService.LEIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
@@ -35,37 +35,37 @@ public class IndexController {
 	
 	@GetMapping("/teacherLogin")
 	public ModelAndView teacherLogin(HttpSession session, ModelAndView mav) {
-		mav.setViewName("teacherLogin");
+		mav.setViewName("teacher/teacherLogin");
 		return mav;
 	}
 	
 	@GetMapping("/teacherIndex")
 	public ModelAndView teacherIndex(HttpSession session, ModelAndView mav) {
-		mav.setViewName("teacherIndex");
+		mav.setViewName("teacher/teacherIndex");
 		return mav;
 	}
 	
 	@GetMapping("/institutionLogin")
 	public ModelAndView institutionLogin(HttpSession session, ModelAndView mav) {
-		mav.setViewName("institutionLogin");
+		mav.setViewName("institution/institutionLogin");
 		return mav;
 	}
 	
 	@GetMapping("/institutionIndex")
 	public ModelAndView institutionIndex(HttpSession session, ModelAndView mav) {
-		mav.setViewName("institutionIndex");
+		mav.setViewName("institution/institutionIndex");
 		return mav;
 	}
 	
 	@GetMapping("/associationLogin")
 	public ModelAndView associationLogin(HttpSession session, ModelAndView mav) {
-		mav.setViewName("associationLogin");
+		mav.setViewName("association/associationLogin");
 		return mav;
 	}
 	
 	@GetMapping("/associationIndex")
 	public ModelAndView associationIndex(HttpSession session, ModelAndView mav) {
-		mav.setViewName("associationIndex");
+		mav.setViewName("association/associationIndex");
 		return mav;
 	}
 	
