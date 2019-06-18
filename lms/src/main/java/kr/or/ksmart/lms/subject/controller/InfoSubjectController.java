@@ -16,7 +16,7 @@ public class InfoSubjectController {
 	private SubjectMapper subjectMapper;
 	@RequestMapping("/infosubject")
 	public ModelAndView informationSubjectList (ModelAndView mav) {
-		mav.setViewName("infoSubject");
+		mav.setViewName("infoSubject/infoSubject");
 		List<InfoSubject> subjectlist = subjectMapper.subjectList();
 		mav.addObject("subjectlist", subjectlist);
 		return mav;

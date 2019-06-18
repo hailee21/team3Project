@@ -9,7 +9,9 @@ import kr.or.ksmart.lms.lecture.vo.InfoLecture;
 @Mapper
 public interface InfoLectureMapper {
 	
-	// infoLecture 리스트 출력하는 메서드
+	// infoLectureSort 리스트 출력하는 메서드
 	public List<InfoLecture> selectInfoLectureSortList();
+	// infoLectureName 리스트 출력하는 메서드
+	public List<InfoLecture > selectInfoLectureNameList(String lectureSort);
 
 }

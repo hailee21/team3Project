@@ -13,9 +13,19 @@ public class InfoLectureService {
 	@Autowired InfoLectureMapper infoLectureMapper;
 	
 	// infoLecture 리스트 출력
-	public List<InfoLecture> selectInfoLectureList() {
-		System.out.println("[InfoLectureService selectInfoLectureList]");
+	// 1. select sort 
+	public List<InfoLecture> getInfoLectureSortList() {
+		System.out.println("[InfoLectureService getInfoLectureSortList]");
+		return infoLectureMapper.selectInfoLectureSortList();		 	
+	}
+	// 2. 비동기 처리를 위한 select name, code
+	public List<InfoLecture> getInfoLectureNameList(String lectureSort) {
+		System.out.println("[InfoLectureService getInfoLectureNameList]");
+		// 단위테스트 준비
+		List<InfoLecture> nameList = infoLectureMapper.selectInfoLectureNameList(lectureSort);
+		// infoLectureMapper 에서 받아온 code, name 출력
+		System.out.println("[InfoLectureService getInfoLectureNameList] infoLectureCode: "+nameList);
 		
-		return infoLectureMapper.selectInfoLectureSortList();		
+		return nameList;
 	}
 }
