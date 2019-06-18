@@ -12,19 +12,55 @@
 </th:block>
 
 <div layout:fragment="content">
-	<form action="/login" method="post">
-		id : 
-		<input type="text" name="memberOnlineId">
-		pw : 
-		<input type="password" name="memberOnlinePw">
-		권한 :
-		<select name="memberRank">
-			<option value="수강생">수강생</option>
-			<option value="강사">강사</option>
-			<option value="교육원">교육원</option>
-			<option value="협회">협회</option>
-		</select>
-		<input type="submit" value="로그인">
-	</form>
+	<div class="row">
+		<div class="col-sm-3">
+			<h4>수강생 로그인</h4>
+			<form action="/login" method="post">
+				id : 
+				<input type="text" value="id011" name="memberOnlineId">
+				<br>
+				pw : 
+				<input type="password" value="pw011" name="memberOnlinePw">
+				<br>
+				<input type="submit" value="로그인">
+			</form>
+		</div>
+		<div class="col-sm-3">
+			<h4>강사 로그인</h4>
+			<form action="/login" method="post">
+				id : 
+				<input type="text" value="id010" name="memberOnlineId">
+				<br>
+				pw : 
+				<input type="password" value="pw010" name="memberOnlinePw">
+				<br>
+				<input type="submit" value="로그인">
+			</form>
+		</div>
+		<div class="col-sm-3">
+			<h4>교육원 로그인</h4>
+			<form action="/login" method="post">
+				id : 
+				<input type="text" value="id004" name="memberOnlineId">
+				<br>
+				pw : 
+				<input type="password" value="pw004" name="memberOnlinePw">
+				<br>
+				<input type="submit" value="로그인">
+			</form>
+		</div>
+		<div class="col-sm-3">
+			<h4>협회 로그인</h4>
+			<form action="/login" method="post">
+				id : 
+				<input type="text" value="id001" name="memberOnlineId">
+				<br>
+				pw : 
+				<input type="password" value="pw001" name="memberOnlinePw">
+				<br>
+				<input type="submit" value="로그인">
+			</form>
+		</div>
+	</div>
 </div>
 </html>

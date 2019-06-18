@@ -25,6 +25,7 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	public String loginAction(HttpSession session, LoginRequest loginRequest) {
+		System.out.println(loginRequest);
 		MemberOnline loginMember = longinService.getMemberOnline(loginRequest);
 		if(loginMember == null) {
 			return "redirect:" + "/login";
