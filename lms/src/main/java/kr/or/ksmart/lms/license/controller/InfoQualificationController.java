@@ -20,7 +20,7 @@ public class InfoQualificationController {
 	@Autowired
 	InfoQualificationService infoQualificationService;
 	
-	@GetMapping("/infoQualification")
+	@PostMapping("/infoQualification")
 	public ModelAndView infoQualification(ModelAndView mav) {
 		mav.setViewName("infoQualification");
 		List<InfoQualification> list = infoQualificationService.getInfoQualification();
