@@ -5,12 +5,16 @@
 <meta charset="utf-8">
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+	<style>
+		div {
+		    text-align: center;
+		}
+	</style>
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 </th:block>
-
 <div layout:fragment="content">
 <h3 th:text="'안녕하세요 '+${institutionName}+' 입니다.'"></h3>
 </div>

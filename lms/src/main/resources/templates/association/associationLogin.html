@@ -17,15 +17,14 @@
 </th:block>
 
 <div layout:fragment="content">
-	<h4>협회 로그인</h4>
-	<form action="/associationLogin" method="post">
-		id : 
-		<input type="text" value="id001" name="memberOnlineId">
-		<br>
-		pw : 
-		<input type="password" value="pw001" name="memberOnlinePw">
-		<br>
-		<input type="submit" value="로그인">
-	</form>
+	<div>
+		<p style="height: 100px"></p>
+		<h4>협회 로그인</h4>
+		<form action="/associationLogin" method="post">
+			<pre>id	<input type="text" value="id001" name="memberOnlineId"><br>pw	<input type="password" value="pw001" name="memberOnlinePw"><br></pre>
+			<input type="submit" value="로그인">
+		</form>
+		<p style="height: 300px"></p>
+	</div>
 </div>
 </html>
