@@ -14,11 +14,11 @@ import kr.or.ksmart.lms.subject.vo.InfoSubject;
 public class InfoSubjectController {
 	@Autowired
 	private SubjectMapper subjectMapper;
-	@RequestMapping("/infoSubject")
+	@RequestMapping("/infosubject")
 	public ModelAndView informationSubjectList (ModelAndView mav) {
 		mav.setViewName("infoSubject");
 		List<InfoSubject> subjectlist = subjectMapper.subjectList();
-		mav.addObject("list", subjectlist);
+		mav.addObject("subjectlist", subjectlist);
 		return mav;
 	}
 	
