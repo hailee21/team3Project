@@ -6,7 +6,12 @@
     <meta charset="utf-8">
     <!-- 공통으로 쓰이는 css파일을넣는다.-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<style>
+	<style>				
+
+		p {
+	    text-align: center;
+	    }
+		<!-- dropdwon css --!>
 	    .dropdownatuo {
 	        float: center;
 	        overflow: hidden;
@@ -46,12 +51,10 @@
 	    .dropdownatuo:hover .dropdownatuo-content {
 	        display: block;
 	    }
-	    p {
-	    text-align: center;
-	    }
+	    
 		.sidenav {
 		  height: 100%;
-		  width: 160px;
+		  width: 200px;
 		  position: fixed;
 		  z-index: 1;
 		  top: 0;
@@ -64,7 +67,7 @@
 		.sidenav a {
 		  padding: 6px 8px 6px 16px;
 		  text-decoration: none;
-		  font-size: 25px;
+		  font-size: 15px;
 		  color: #818181;
 		  display: block;
 		}
@@ -81,8 +84,9 @@
 		
 		@media screen and (max-height: 450px) {
 		  .sidenav {padding-top: 15px;}
-		  .sidenav a {font-size: 18px;}
+		  .sidenav a {font-size: 11px;}
 		}
+
 	</style>
 	<!-- 컨텐츠페이지의 CSS 영역이 들어감 -->
     <th:block layout:fragment="css"></th:block>

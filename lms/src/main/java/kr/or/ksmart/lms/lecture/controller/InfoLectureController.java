@@ -15,7 +15,6 @@ public class InfoLectureController {
 	@GetMapping("/infoLecture")
 	public ModelAndView getInfoLectureList(ModelAndView mav) {
 		mav.setViewName("infoLectureList");
-		
 		return mav;
 	}
 }
