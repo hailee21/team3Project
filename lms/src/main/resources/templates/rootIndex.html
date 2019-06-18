@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/root">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+		div {
+		    text-align: center;
+		}
+	</style>
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<div>
+		<p style="height: 100px"></p>
+		<h3>배포일 2019-06-18</h3>
+		<br>
+		<br>
+		<h4>교육원 바로가기</h4>
+		<p>수강생들이 사용하는 페이지</p>
+		<div class="btn-group btn-group-lg">
+			<a type="button" href="/LEIndex?institutionCode=I1" class="btn btn-primary">전주평생교육원</a>
+			<a type="button" href="/LEIndex?institutionCode=I2" class="btn btn-primary">서울평생교육원</a>
+			<a type="button" href="/LEIndex?institutionCode=I3" class="btn btn-primary">성남평생교육원</a>
+			
+		</div>
+		<br>
+		<br>
+		<br>
+		<h4>권한별 바로가기</h4>
+		<p>각 권한별로 사용하는 페이지</p>
+		<div class="btn-group btn-group-lg">
+			<a type="button" href="/teacherLogin" class="btn btn-primary">강사</a>
+			<a type="button" href="/institutionLogin" class="btn btn-primary">교육원직원</a>
+			<a type="button" href="/associationLogin" class="btn btn-primary">협회직원</a>
+		</div>
+		<p style="height: 200px"></p>
+	</div>
+</div>
+</html>
