@@ -17,9 +17,9 @@ public class LoginController {
 	@Autowired
 	LoginService longinService;
 
-	@GetMapping("/LELogin")
+	@GetMapping("/login")
 	public ModelAndView LELoginForm(ModelAndView mav) {
-		mav.setViewName("/LELogin");
+		mav.setViewName("login");
 		return mav;
 	}
 	
@@ -90,4 +90,10 @@ public class LoginController {
 			return "redirect:" + "/teacherIndex";
 		}
 	}
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:" + "/";
+	}
+	
 }
