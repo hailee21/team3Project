@@ -10,5 +10,5 @@ import kr.or.ksmart.lms.login.vo.MemberOnline;
 public interface LoginMapper {
 	
 	public MemberOnline selectMemberOnline(LoginRequest loginRequest);
-	public IndexInstitution selectInstitution(String institutionCode); 
+	public IndexInstitution selectInstitution(String institutionCode);
 }
