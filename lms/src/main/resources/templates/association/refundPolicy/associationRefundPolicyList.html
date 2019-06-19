@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h3>연회비 환불정책</h3>
+	<a type="button" href="/addRefundPolicyAnnualFee" class="btn btn-primary">연회비 환불정책 추가</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>연회비 환불정책 명</th>
+				<th>연회비 환불정책 상세내용</th>			
+				<th>개정일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="annualFee:${refundPolicyAnnualFeeList}">
+				<td th:text="${annualFee.refundPolicyName}"></td>
+				<td th:text="${annualFee.refundPolicyDescription}"></td>
+				<td th:text="${annualFee.refundPolicyLegislationDate}"></td>		
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<br>
+	<h3>강의 환불정책</h3>
+	<a type="button" href="/addRefundPolicyLectureList" class="btn btn-primary">강의 환불정책 추가</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>강의 환불정책 명</th>
+				<th>강의 환불정책 상세내용</th>			
+				<th>강의 환불률</th>
+				<th>개정일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="lecture:${refundPolicyLectureList}">
+				<td th:text="${lecture.refundPolicyName}"></td>
+				<td th:text="${lecture.refundPolicyDescription}"></td>
+				<td th:text="${lecture.refundPolicyPercentage}"></td>
+				<td th:text="${lecture.refundPolicyLegislationDate}"></td>		
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<br>
+	<h3>자격 환불정책</h3>
+	<a type="button" href="/addRefundPolicyLicense" class="btn btn-primary">자격 환불정책 추가</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>자격 환불정책 명</th>
+				<th>자격 환불정책 상세내용</th>			
+				<th>자격 환불률</th>
+				<th>개정일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="license:${refundPolicyLicenseList}">
+				<td th:text="${license.refundPolicyName}"></td>
+				<td th:text="${license.refundPolicyDescription}"></td>
+				<td th:text="${license.refundPolicyPercentage}"></td>
+				<td th:text="${license.refundPolicyLegislationDate}"></td>		
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<br>
+</div>
+</html>
