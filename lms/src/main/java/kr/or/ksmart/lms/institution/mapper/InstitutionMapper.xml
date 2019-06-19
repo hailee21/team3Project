@@ -11,7 +11,7 @@
 	</resultMap>
 	
     <!-- 최근 연회비 개요 select  -->
-	<select id="InfoAnnualFeeByPayment" 
+	<select id="selectInfoAnnualFee" 
 			resultMap="infoAnnualFeeByPaymentMap">
 		SELECT
 			info_annual_fee_code
@@ -23,8 +23,21 @@
 		LIMIT
 			0,1
 	</select>
+	
+	<!-- 연회비 결제 PK select  -->
+	<select id="selectPaymentAnnualFeePk" 
+			resultType="String">
+		SELECT
+			payment_annual_fee_code
+		FROM 
+			payment_annual_fee
+		ORDER BY
+			payment_annual_fee_date DESC
+		LIMIT
+			0,1
+	</select>
 
-	<!--연회비 결재 -->
+	<!--연회비 결재 추가 -->
 	<insert id="insertPaymentAnnualFeey"
 			parameterType="kr.or.ksmart.lms.institution.vo.PaymentAnnualFee">
 		INSERT INTO 
