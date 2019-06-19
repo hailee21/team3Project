@@ -7,13 +7,16 @@
 	        <p></p>
 	        <ul th:if="${session.memberName == null}" class="nav navbar-nav navbar-right">
 	            <li class="nav-item">
-	                <a class="nav-link" href="/login">로그인</a>
+	                <a class="nav-link" th:href="@{'/login?institutionCode='+${institutionCode}}">로그인</a>
 	            </li>
 	            <li class="nav-item">
 	                <a class="nav-link" href="#">회원가입</a>
 	            </li>
 	        </ul>
 	        <ul th:if="${session.memberName != null}" class="nav navbar-nav navbar-right">
+	            <li class="nav-item">
+	                <p style="font-weight: bold"><a class="nav-link" th:text="${session.memberName}" style=strong>님 로그인중</a></p>
+	            </li>
 	            <li class="nav-item">
 	                <a class="nav-link" href="/logout">로그아웃</a>
 	            </li>
