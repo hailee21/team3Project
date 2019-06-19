@@ -32,7 +32,7 @@ public class AssociationController {
 			System.out.println("[AssociationController getRefundPolicyList] "+infoAnnualFeeList);
 		} else {
 			System.out.println("[AssociationController getInfoAnnualFeeList] 협회직원 아님");
-			mav.setViewName("institution/institutionLogin");
+			mav.setViewName("association/associationLogin");
 		}
 		return mav;
 	}
@@ -50,7 +50,7 @@ public class AssociationController {
 			mav.addObject("refundPolicyLicenseList", refundPolicyListMap.get("refundPolicyLicenseList"));
 		} else {
 			System.out.println("[AssociationController getRefundPolicyList] 협회직원 아님");
-			mav.setViewName("institution/institutionLogin");
+			mav.setViewName("association/associationLogin");
 		}
 		return mav;
 	}
@@ -64,7 +64,7 @@ public class AssociationController {
 			mav.setViewName("association/refundPolicy/addRefundPolicyAnnualFee");
 		} else {
 			System.out.println("[AssociationController getRefundPolicyList] 협회직원 아님");
-			mav.setViewName("institution/institutionLogin");
+			mav.setViewName("association/associationLogin");
 		}
 		return mav;
 	}
@@ -78,7 +78,7 @@ public class AssociationController {
 			mav.setViewName("association/refundPolicy/addRefundPolicyLectureList");
 	} else {
 			System.out.println("[AssociationController getRefundPolicyList] 협회직원 아님");
-			mav.setViewName("institution/institutionLogin");
+			mav.setViewName("association/associationLogin");
 		}
 		return mav;
 	}
@@ -107,7 +107,22 @@ public class AssociationController {
 			mav.setViewName("redirect:/associationRefundPolicyList");
 		} else {
 			System.out.println("[AssociationController addRefundPolicy] 협회직원 아님");
-			mav.setViewName("institution/institutionLogin");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
+	
+	//associationLayout 교육원 사용권한 새로고침 controller
+	@PostMapping("/associationAvailableInstitutionRefresh")
+	public ModelAndView getAvailableInstitutionRefresh(HttpSession session, ModelAndView mav, RefundPolicy refundPolicy) {
+		System.out.println("[AssociationController getAvailableInstitutionRefresh] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank.equals("협회직원")) {
+
+			mav.setViewName("redirect:/associationRefundPolicyList");
+		} else {
+			System.out.println("[AssociationController addRefundPolicy] 협회직원 아님");
+			mav.setViewName("association/associationLogin");
 		}
 		return mav;
 	}
