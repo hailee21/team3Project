@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h3>자격증 추가</h3>
+	<form action="/addinfoQualification" method="post">
+		<table>
+			<tr>
+		<td>자격종목코드 : <input text="text" name="infoQualificationCode"></td>
+			</tr>
+			<tr>
+		<td>자격종목명 : <input text="text" name="infoQualificationName"></td>	
+			</tr>
+			<tr>
+		<td>필요조건코드 : <input text="text" name="infoQualificationRequiredCode"></td>
+			</tr>
+			<tr>
+		<td>필요종류 : <input text="text" name="infoQualificationRequiredType"></td>
+			</tr>
+			<tr>
+		<td>종목개요 : <input text="text" name="infoQualificationDescription"></td>
+			</tr>
+			<tr>
+		<td><button >추가</button></td>
+			</tr>
+		</table>
+		
+	</form>
+	</div>
+</html>

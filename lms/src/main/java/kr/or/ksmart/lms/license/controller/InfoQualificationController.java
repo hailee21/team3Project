@@ -18,8 +18,7 @@ public class InfoQualificationController {
 	InfoQualificationService infoQualificationService;
 	@GetMapping("/addinfoQualification") // 2.자격증을 추가 하기 위한 메서드 선언
 	public ModelAndView addinfoQualification(HttpSession session, ModelAndView mav) {
-		mav.setViewName("/addinfoQualification");
-		infoQualificationService.insertInfoQualification();
+		mav.setViewName("association/addinfoQualification");
 		return mav;
 	}
 		
