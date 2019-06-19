@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/root">
+      layout:decorator="layout/LELayout">
 <meta charset="utf-8">
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -18,7 +18,7 @@
 
 <div layout:fragment="content">
 	<div>
-		<p style="height: 100px"></p>
+		<p style="height: 50px"></p>
 		<h4>수강생 로그인</h4>
 		<form action="/LELogin" method="post">
 			<pre>id	<input type="text" value="id011" name="memberOnlineId"><br>pw	<input type="password" value="pw011" name="memberOnlinePw"><br></pre>

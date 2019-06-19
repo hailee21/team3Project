@@ -27,4 +27,18 @@
 			member_online_id = #{memberOnlineId}
 			AND member_online_pw = #{memberOnlinePw}
 	</select>
+	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="IndexInstitutionMap">
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+	</resultMap>
+	<select id="selectInstitution"
+			parameterType="String"
+			resultMap="IndexInstitutionMap">
+		SELECT
+			institution_code
+			, institution_name
+		FROM institution
+		WHERE
+			institution_code = #{institutionCode}
+	</select>
 </mapper>

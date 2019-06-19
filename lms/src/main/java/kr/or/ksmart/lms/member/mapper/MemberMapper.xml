@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.lms.member.mapper.MemberMapper">
+	<insert id="insertMember" parameterType="kr.or.ksmart.lms.member.vo.MemberOnline">
+		INSERT INTO
+			member (
+			, member_name
+			, member_registration_number_front
+			, member_registration_number_back
+			, member_phone_number
+			, member_address
+			, member_rank)
+		VALUES (
+			#{memberName}
+			, #{registrationNumberFront}
+			, #{registrationNumberBack}
+			, #{memberPhoneNumber}
+			, #{memberAddress}
+			, #{memberGender}
+			, #{memberLevel}
+		)
+	</insert>
+	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="IndexInstitutionMap">
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+	</resultMap>
+	<select id="selectInstitution"
+			parameterType="String"
+			resultMap="IndexInstitutionMap">
+		SELECT
+			institution_code
+			, institution_name
+		FROM institution
+		WHERE
+			institution_code = #{institutionCode}
+	</select>
+</mapper>
