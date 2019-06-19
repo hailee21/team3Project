@@ -9,9 +9,81 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>
+	$(document).ready(function() {
+		//유효성 검사을 위한 변수 선언
+		let refundPolicyNameCheck = true;
+		let refundPolicyDescriptionCheck = true;
+		
+		//refundPolicyName 입력 유효성 검사
+ 		$('#refundPolicyName').blur(function() {
+			if($('#refundPolicyName').val() == "") {
+				console.log('refundPolicyName 공백입력')
+				refundPolicyNameCheck = true;
+			} else {
+                console.log('refundPolicyName 유효성 검사 완료')
+				refundPolicyNameCheck = false;
+			}
+			
+ 		});
+		
+ 		//refundPolicyDescription 입력 유효성 검사
+ 		$('#refundPolicyDescription').blur(function() {
+			if($('#refundPolicyDescription').val() == "") {
+				console.log('refundPolicyDescription 공백입력')
+				refundPolicyDescriptionCheck = true;
+			} else {
+                console.log('refundPolicyDescription 유효성 검사 완료')
+				refundPolicyDescriptionCheck = false;
+			}
+ 		});
+ 		
+ 		//btnAdd 클릭 이벤트 처리
+		$('#btnAdd').on('click',function() {
+			if(refundPolicyNameCheck) {
+				$('h4').addClass('red');
+				$('h4').text('연회비 환불정책 명이 공백 상태 입니다.');
+			} else if(refundPolicyDescriptionCheck) {
+				$('h4').addClass('red');
+				$('h4').text('연회비 환불정책 상세내용이 공백 상태 입니다.');
+			} else {
+				$('#addPolicy').submit()
+			}
+		});
+	});
+</script>
 </th:block>
 
 <div layout:fragment="content">
-
+    <h3 th:text="${session.institutionName}+' 연회비 결제'"></h3>
+	<form id="paymentAnnualFee" action="/paymentAnnualFee" method="post">
+		<div class="form-group">
+			<label>교육원 명 :</label>
+			<input type="text" class="form-control" id="institutionName" name="institutionName" value="${session.institutionName}" readonly="readonly">
+		</div>
+		<div class="form-group">
+			<label>연회비 결재금액 :</label>
+			<input type="text" class="form-control" id="paymentAnnualFeePrice" name="paymentAnnualFeePrice" value="${infoAnnualFee.infoAnnualFeePrice}" readonly="readonly">
+		</div>
+		<div class="form-group">
+			<label>사용권 시작일 :</label>
+			<input type="text" class="form-control" id="paymentAnnualFeePrice" name="paymentAnnualFeePrice" value="${infoAnnualFee.infoAnnualFeePrice}" readonly="readonly">
+		</div>
+		<div class="form-group">
+			<label>사용권 종료일 :</label>
+			<input type="text" class="form-control" id="paymentAnnualFeePrice" name="paymentAnnualFeePrice" value="${infoAnnualFee.infoAnnualFeePrice}" readonly="readonly">
+		</div>
+		<div class="form-group">
+				<label>결제 방법 :</label>
+				<select class="form-control" id="refundPolicyType" name="refundPolicyType">
+					<option>결제 방법 선택</option>
+					<option value="카드">카드</option>
+					<option value="계좌이체">계좌이체</option>
+				</select>
+			</div>	
+		<input type="hidden" id="institutionCode" name="institutionCode" value="${session.institutionCode}">
+		<button type="button" id="btnPay" class="btn btn-primary">결제하기</button>
+		<h4></h4>
+	</form>
 </div>
 </html>

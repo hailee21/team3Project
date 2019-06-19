@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.or.ksmart.lms.index.service.IndexService;
 import kr.or.ksmart.lms.index.vo.IndexInstitution;
 import kr.or.ksmart.lms.login.service.LoginService;
 import kr.or.ksmart.lms.login.vo.LoginRequest;
@@ -44,6 +43,7 @@ public class LoginController {
 			session.setAttribute("memberOnlineId", loginMember.getMemberOnlineId());
 			session.setAttribute("memberRank", loginMember.getMemberRank());
 			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
+			session.setAttribute("institutionName", loginMember.getInstitutionName());
 			return "redirect:" + "/LEIndex?institutionCode=" + loginMember.getInstitutionCode();
 		}
 	}
@@ -61,6 +61,7 @@ public class LoginController {
 			session.setAttribute("memberOnlineId", loginMember.getMemberOnlineId());
 			session.setAttribute("memberRank", loginMember.getMemberRank());
 			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
+			session.setAttribute("institutionName", loginMember.getInstitutionName());
 			return "redirect:" + "/associationIndex";
 		}
 	}
@@ -78,6 +79,7 @@ public class LoginController {
 			session.setAttribute("memberOnlineId", loginMember.getMemberOnlineId());
 			session.setAttribute("memberRank", loginMember.getMemberRank());
 			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
+			session.setAttribute("institutionName", loginMember.getInstitutionName());
 			return "redirect:" + "/institutionIndex";
 		}
 	}
@@ -95,6 +97,7 @@ public class LoginController {
 			session.setAttribute("memberOnlineId", loginMember.getMemberOnlineId());
 			session.setAttribute("memberRank", loginMember.getMemberRank());
 			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
+			session.setAttribute("institutionName", loginMember.getInstitutionName());
 			return "redirect:" + "/teacherIndex";
 		}
 	}

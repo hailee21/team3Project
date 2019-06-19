@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionMapper"> 
+	<!-- 최근 연회비 개요 resultMap -->
+	<resultMap id="infoAnnualFeeByPaymentMap"
+				type="kr.or.ksmart.lms.institution.vo.InfoAnnualFeeByPayment">
+		<result column="info_annual_fee_code" property="infoAnnualFeeCode"/>
+		<result column="info_annual_fee_price" property="infoAnnualFeePrice"/>
+	</resultMap>
+	
+    <!-- 최근 연회비 개요 select  -->
+	<select id="InfoAnnualFeeByPayment" 
+			resultMap="infoAnnualFeeByPaymentMap">
+		SELECT
+			info_annual_fee_code
+            , info_annual_fee_price
+		FROM 
+			info_annual_fee
+		ORDER BY
+			info_annual_fee_establishment_date DESC
+		LIMIT
+			0,1
+	</select>
+
+	<!--연회비 결재 -->
+	<insert id="insertPaymentAnnualFeey"
+			parameterType="kr.or.ksmart.lms.institution.vo.PaymentAnnualFee">
+		INSERT INTO 
+			payment_annual_fee
+		VALUES (
+			#{paymentAnnualFeeCode}
+			, #{institutionCode}
+			, #{institutionName}
+			, #{infoAnnualFeeCode}
+			, #{paymentAnnualFeePrice}
+			, #{paymentAnnualFeeServiceStartDate}
+			, #{paymentAnnualFeeServiceEndDate}
+			, now()
+			, #{paymentAnnualFeeMethod}
+			)
+	</insert>
+</mapper>

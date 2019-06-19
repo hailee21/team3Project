@@ -12,10 +12,42 @@
 </th:block>
 
 <div layout:fragment="content">
-    <h3 th:text="${institutionName}+' 현재 사용권 이용 여부'"></h3>
-
-    <h3 th:text="${institutionName}+' 연회비 결제 내역'"></h3>
+    <h3 th:text="${session.institutionName}+' 현재 사용권 이용 여부'"></h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>사용권 시작일</th>
+                <th>사용권 종료일</th>			
+                <th>남은일</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>	
+            </tr>
+        </tbody>
+    </table>
     <a type="button" href="/paymentAnnualFee" class="btn btn-primary">연회비 결제 하기</a>
-
+    <br>
+    <br>
+    <h3 th:text="${session.institutionName}+' 연회비 결제 내역'"></h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>사용권 시작일</th>
+                <th>사용권 종료일</th>			
+                <th>남은일</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>	
+            </tr>
+        </tbody>
+    </table>
 </div>
 </html>
