@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/institutionLayout">
+      layout:decorator="layout/associationLayout">
 <meta charset="utf-8">
 <!-- html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </th:block>
 
 <!-- html 고유 스크립트 추가 -->
-<th:block layout:fragment="script">]
+<th:block layout:fragment="script">
 <script>
 $(document).ready(function(){
 	// 강의항목 선택
@@ -67,7 +64,7 @@ $(document).ready(function(){
 
 <div layout:fragment="content">
 	<!-- infoLecture 리스트 출력화면 -->
-	<h1>학생 : 과목 조회</h1>
+	<h1>협회 : 과목 조회</h1>
 		<select id="infoLectureSortList">
 			<option value="">--강의항목선택--</option>
 			<option th:each="lecSort:${sortList}" th:text="${lecSort.infoLectureSort}" th:value="${lecSort.infoLectureSort}"></option>
@@ -81,6 +78,18 @@ $(document).ready(function(){
 		
 		<!-- 과목리스트 출력을 위한 table 태그 -->
 		<table id="subjectList" class="table table-striped">
+			<thead>
+				<tr>
+					<th>과목명</th>
+					<th>난이도</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>	
+					<td></td>
+				</tr>
+			</tbody>
 		</table>
 </div>
 </html>
