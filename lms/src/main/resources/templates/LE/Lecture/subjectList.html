@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/LELayout">
+<meta charset="utf-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	// 강의항목 선택
+	$('#infoLectureSortList').change(function(){
+		console.log('비동기 요청 진행..');
+		console.log('infoLectureSortList: '+ $('#infoLectureSortList').val());
+		
+		// 강의표준명 option(nameList) 출력을 위한 비동기방식 시작
+		$.ajax({
+			url:'/getInfoLectureNameList'
+			,data:{lectureSort:$('#infoLectureSortList').val()}
+			,type:'Post'
+			,dataType:'json'
+			,success:function(result){
+				$('#infoLectureNameList').empty();
+				$('#infoLectureNameList').append('<option value="">----</option>');
+				$(result).each(function(i, item){
+					$('#infoLectureNameList').append('<option value="'+item.infoLectureCode+'">'+item.infoLectureName+'</option>');
+				});
+			}
+		});		
+	});
+	//강의표준명 선택
+	$('#infoLectureNameList').change(function(){
+		console.log('infoLectureCode: '+ $('#infoLectureNameList').val());	
+	});	
+	// 과목 출력
+	document.getElementById("searchSubject").addEventListener("click", function(){
+			if(document.getElementById("infoLectureNameList").value ==""){		
+				alert("강의표준명을 선택하여 주십시오");
+			} else{
+				// 강의표준명 option 선택 후 과목리스트 출력을 위한 비동기방식 시작
+				$.ajax({
+					url:'/getSubjectList'
+					,data:{lectureCode:$('#infoLectureNameList').val()}
+					,type:'Post'
+					,dataType:'json'
+					,success:function(result){
+						$('#subjectList').empty();
+						$('#subjectList').append('<thead><tr><th>과목명</th><th>난이도</th></tr></thead><tbody>');
+						$(result).each(function(i, item){
+							$('#subjectList').append('<tr><td>'+item.infoSubjectName+'</td><td>'+item.infoSubjectDifficulty+'</td></tr>');
+						});
+						$('#subjectList').append('</tbody>');
+					}
+				});
+			}
+			console.log("과목조회버튼 클릭..");
+	});
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">	<!-- infoLecture 리스트 출력화면 -->
+	<h1>수강생 : 과목 조회</h1>
+		<select id="infoLectureSortList">
+			<option value="">--강의항목선택--</option>
+			<option th:each="lecSort:${sortList}" th:text="${lecSort.infoLectureSort}" th:value="${lecSort.infoLectureSort}"></option>
+		</select>
+		
+		<select id="infoLectureNameList">
+			<option value="">--강의표준명--</option>
+		</select>
+		
+		<button id="searchSubject" type="button">조회</button><br><br>
+		
+		<!-- 과목리스트 출력을 위한 table 태그 -->
+		<table id="subjectList" class="table table-striped">
+			<thead>
+				<tr>
+					<th>과목명</th>
+					<th>난이도</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>	
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+</div>
+</html>

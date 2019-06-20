@@ -9,16 +9,16 @@ import kr.or.ksmart.lms.association.vo.RefundPolicy;
 
 @Mapper
 public interface AssociationMapper {
-	///associationLayout 연회비 개요 리스트 출력 mapper
+	//associationLayout 연회비 개요 리스트 출력 mapper
 	public List<InfoAnnualFee> selectInfoAnnualFeeList();
 	
-	///associationLayout 연회비 환불 정책 리스트 출력 mapper
+	//associationLayout 연회비 환불 정책 리스트 출력 mapper
 	public List<RefundPolicy> selectRefundPolicyAnnualFeeList();
 	
-	///associationLayout 강의 환불 정책 리스트 출력 mapper
+	//associationLayout 강의 환불 정책 리스트 출력 mapper
 	public List<RefundPolicy> selectRefundPolicyLectureList();
 	
-	///associationLayout 자격증 환불 정책 리스트 출력 mapper
+	//associationLayout 자격증 환불 정책 리스트 출력 mapper
 	public List<RefundPolicy> selectRefundPolicyLicenseList();
 	
 	//associationLayout 환불 정책 PK 출력 mapper

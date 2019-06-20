@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h3>연회비 리스트</h3>
+	<a type="button" href="/associationAddInfoAnnualFee" class="btn btn-primary">연회비 개요 추가</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>연회비 상세내용</th>
+				<th>연회비</th>			
+				<th>개정일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list:${infoAnnualFeelist}">
+				<td th:text="${list.infoAnnualFeeDescription}"></td>
+				<td th:text="${list.infoAnnualFeePrice}"></td>
+				<td th:text="${list.infoAnnualFeeEstablishmentDate}"></td>		
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<br>
+	<h3>교육원 사용여부 확인</h3>
+	<a type="button" href="/associationAddInfoAnnualFee" class="btn btn-primary">사용여부 새로고침</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>교육원 이름</th>
+				<th>사용권 시작일</th>
+				<th>사용권 종료일</th>			
+				<th>남은일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>	
+			</tr>
+		</tbody>
+	</table>
+</div>
+</html>
