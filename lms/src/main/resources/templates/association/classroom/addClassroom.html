@@ -9,12 +9,54 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	// 교육원 조회
+	$('#searchInstitution').click(function(){
+		
+	});
+	// 수용인원 폼 유효성검사
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
 <!-- 강의실 추가 폼 -->
 <form id="addClassroom" action="/association/classroom/addClassroom" method="post">
-	<input>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<td><button id="searchInstitution" type="button">교육원 조회</button></td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<th>교육원명 :</th>
+		    <td><input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="" name="institutionName"></td>
+		</tr>
+		<tr>
+		    <th>지역 : </th>
+		    <td><input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled=""  name="institutionLocation"></td>
+		</tr>
+		<tr>
+			<th>강의실명 : </th>
+		    <td>  <input type="text" class="form-control" placeholder="" id="inputDefault" name="classroomName"></td>
+		</tr>    
+		<tr>
+			<th>강의용도</th>
+			<td>
+			    <select id="classroomUse" class="custom-select">
+			    	<option value="">--선택--</option>
+			    </select>
+		    </td>
+		</tr>
+		<tr>
+		    <th>수용인원 : </th>
+		    <td>  <input type="text" class="form-control" placeholder="숫자만 입력가능합니다" id="inputDefault" name="classroomMaximumNumber"></td>
+		</tr>
+		</tbody>
+	</table>
 </form>
 </div>
 </html>
