@@ -1,60 +1,85 @@
 package kr.or.ksmart.lms.member.vo;
 
 public class Member {
-	private String member_code;
-	private String member_name;
-	private String member_registration_number_front;
-	private String member_registration_number_back;
-	private String member_phone_number;
-	private String member_address;
-	private String member_rank;
+	private String memberCode;
+	private String memberName;
+	private String memberRegistrationNumberFront;
+	private String memberRegistrationNumberBack;
+	private String memberPhoneNumber;
+	private String memberPostcode;
+	private String memberAddress;
+	private String memberAddressDesc;
+	private String memberRank;
+	private String memberDate;
+	
+	public String getMemberCode() {
+		return memberCode;
+	}
+	public void setMemberCode(String memberCode) {
+		this.memberCode = memberCode;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getMemberRegistrationNumberFront() {
+		return memberRegistrationNumberFront;
+	}
+	public void setMemberRegistrationNumberFront(String memberRegistrationNumberFront) {
+		this.memberRegistrationNumberFront = memberRegistrationNumberFront;
+	}
+	public String getMemberRegistrationNumberBack() {
+		return memberRegistrationNumberBack;
+	}
+	public void setMemberRegistrationNumberBack(String memberRegistrationNumberBack) {
+		this.memberRegistrationNumberBack = memberRegistrationNumberBack;
+	}
+	public String getMemberPhoneNumber() {
+		return memberPhoneNumber;
+	}
+	public void setMemberPhoneNumber(String memberPhoneNumber) {
+		this.memberPhoneNumber = memberPhoneNumber;
+	}
+	public String getMemberPostcode() {
+		return memberPostcode;
+	}
+	public void setMemberPostcode(String memberPostcode) {
+		this.memberPostcode = memberPostcode;
+	}
+	public String getMemberAddress() {
+		return memberAddress;
+	}
+	public void setMemberAddress(String memberAddress) {
+		this.memberAddress = memberAddress;
+	}
+	public String getMemberAddressDesc() {
+		return memberAddressDesc;
+	}
+	public void setMemberAddressDesc(String memberAddressDesc) {
+		this.memberAddressDesc = memberAddressDesc;
+	}
+	public String getMemberRank() {
+		return memberRank;
+	}
+	public void setMemberRank(String memberRank) {
+		this.memberRank = memberRank;
+	}
+	public String getMemberDate() {
+		return memberDate;
+	}
+	public void setMemberDate(String memberDate) {
+		this.memberDate = memberDate;
+	}
+	
 	@Override
 	public String toString() {
-		return "Member [member_code=" + member_code + ", member_name=" + member_name
-				+ ", member_registration_number_front=" + member_registration_number_front
-				+ ", member_registration_number_back=" + member_registration_number_back + ", member_phone_number="
-				+ member_phone_number + ", member_address=" + member_address + ", member_rank=" + member_rank + "]";
+		return "Member [memberCode=" + memberCode + ", memberName=" + memberName + ", memberRegistrationNumberFront="
+				+ memberRegistrationNumberFront + ", memberRegistrationNumberBack=" + memberRegistrationNumberBack
+				+ ", memberPhoneNumber=" + memberPhoneNumber + ", memberPostcode=" + memberPostcode + ", memberAddress="
+				+ memberAddress + ", memberAddressDesc=" + memberAddressDesc + ", memberRank=" + memberRank
+				+ ", memberDate=" + memberDate + "]";
 	}
-	public String getMember_code() {
-		return member_code;
-	}
-	public void setMember_code(String member_code) {
-		this.member_code = member_code;
-	}
-	public String getMember_name() {
-		return member_name;
-	}
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
-	}
-	public String getMember_registration_number_front() {
-		return member_registration_number_front;
-	}
-	public void setMember_registration_number_front(String member_registration_number_front) {
-		this.member_registration_number_front = member_registration_number_front;
-	}
-	public String getMember_registration_number_back() {
-		return member_registration_number_back;
-	}
-	public void setMember_registration_number_back(String member_registration_number_back) {
-		this.member_registration_number_back = member_registration_number_back;
-	}
-	public String getMember_phone_number() {
-		return member_phone_number;
-	}
-	public void setMember_phone_number(String member_phone_number) {
-		this.member_phone_number = member_phone_number;
-	}
-	public String getMember_address() {
-		return member_address;
-	}
-	public void setMember_address(String member_address) {
-		this.member_address = member_address;
-	}
-	public String getMember_rank() {
-		return member_rank;
-	}
-	public void setMember_rank(String member_rank) {
-		this.member_rank = member_rank;
-	}
+	
 }

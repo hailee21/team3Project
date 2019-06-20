@@ -12,15 +12,31 @@ import kr.or.ksmart.lms.member.vo.Member;
 @Controller
 public class MemberController {
 	@Autowired MemberService memberService;
-	//	회원가입 페이지 join.html
+	//	회원등록 공통 화면 join.html(교육원/협회직원)
 	@GetMapping("memberInsert")
 	public ModelAndView memberJoin(ModelAndView mav) {
-		mav.setViewName("layout/memberInsertForm");
+		mav.setViewName("member/memberInsertForm");
 		return mav;
 	}
+	//	회원등록 처리
 	@PostMapping("memberInsert")
-	public String memberInsert(Member member) {
+	public ModelAndView memberInsert(Member member, ModelAndView mav) {
+		System.out.println("[MemberController memberInsert] member:" + member);
 		memberService.insertMember(member);
-		return "redirect:/memberList";
+		mav.setViewName("redirect:/memberList");
+		return mav;
+	}
+	//	회원리스트 조회 (미완성)
+	@GetMapping("memberList")
+	public ModelAndView memberList(ModelAndView mav) {
+		mav.setViewName("member/memberList");
+		return mav;
+	}
+	//	회원가입(수강생)
+	@GetMapping("LEJoin")
+	public ModelAndView insertOnlineMember (ModelAndView mav) {
+		System.out.println("[MemberController insertOnlineMember] 호출");
+		mav.setViewName("LE/LEJoin");
+		return mav;
 	}
 }
