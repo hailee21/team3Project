@@ -9,6 +9,32 @@
 		<result column="info_annual_fee_code" property="infoAnnualFeeCode"/>
 		<result column="info_annual_fee_price" property="infoAnnualFeePrice"/>
 	</resultMap>
+
+	<!-- 연회비 결제내역 resultMap -->
+	<resultMap id="paymentAnnualFeeMap"
+				type="kr.or.ksmart.lms.institution.vo.PaymentAnnualFee">
+		<result column="payment_annual_fee_code" property="paymentAnnualFeeCode"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="info_annual_fee_code" property="infoAnnualFeeCode"/>
+		<result column="payment_annual_fee_price" property="paymentAnnualFeePrice"/>
+		<result column="payment_annual_fee_service_start_date" property="paymentAnnualFeeServiceStartDate"/>
+		<result column="payment_annual_fee_service_end_date" property="paymentAnnualFeeServiceEndDate"/>
+		<result column="payment_annual_fee_date" property="paymentAnnualFeeDate"/>
+		<result column="payment_annual_fee_method" property="paymentAnnualFeeMethod"/>
+	</resultMap>
+
+	<!-- 사용 권한 resultMap -->
+	<resultMap id="availableInstitutionMap"
+				type="kr.or.ksmart.lms.institution.vo.AvailableInstitution">
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="payment_annual_fee_code" property="paymentAnnualFeeCode"/>
+		<result column="payment_annual_fee_service_start_date" property="paymentAnnualFeeServiceStartDate"/>
+		<result column="payment_annual_fee_service_end_date" property="paymentAnnualFeeServiceEndDate"/>
+		<result column="available_institution_remaining_date" property="availableInstitutionRemainingDate"/>
+		<result column="available_institution_availability" property="availableInstitutionAvailability"/>
+	</resultMap>
 	
     <!-- 최근 연회비 개요 select  -->
 	<select id="selectInfoAnnualFee" 
@@ -22,6 +48,28 @@
 			info_annual_fee_establishment_date DESC
 		LIMIT
 			0,1
+	</select>
+
+	<!-- 연회비 결제 내역 select  -->
+	<select id="selectPaymentAnnualFeeList"
+			parameterType="String"
+			resultMap="paymentAnnualFeeMap">
+		SELECT
+			payment_annual_fee_code
+			, institution_code
+			, institution_name
+			, info_annual_fee_code
+			, payment_annual_fee_price
+			, payment_annual_fee_service_start_date
+			, payment_annual_fee_service_end_date
+			, payment_annual_fee_date
+			, payment_annual_fee_method
+		FROM 
+			payment_annual_fee
+		WHERE
+			institution_code = #{institutionCode}
+		ORDER BY
+			payment_annual_fee_date DESC
 	</select>
 	
 	<!-- 연회비 결제 PK select  -->
@@ -37,7 +85,7 @@
 			0,1
 	</select>
 
-	<!--연회비 결재 추가 -->
+	<!--연회비 결재 insert -->
 	<insert id="insertPaymentAnnualFeey"
 			parameterType="kr.or.ksmart.lms.institution.vo.PaymentAnnualFee">
 		INSERT INTO 
@@ -54,4 +102,53 @@
 			, #{paymentAnnualFeeMethod}
 			)
 	</insert>
+
+	<!-- 사용권한 출력 select  -->
+	<select id="selectAvailableInstitution"
+			parameterType="String" 
+			resultMap="availableInstitutionMap">
+		SELECT
+			institution_code
+			, institution_name
+			, payment_annual_fee_code
+			, payment_annual_fee_service_start_date
+			, payment_annual_fee_service_end_date
+			, available_institution_remaining_date
+			, available_institution_availability
+		FROM 
+			available_institution
+		WHERE
+			institution_code = #{institutionCode}
+	</select>
+
+	<!--사용권한 insert -->
+	<insert id="insertAvailableInstitution"
+			parameterType="kr.or.ksmart.lms.institution.vo.AvailableInstitution">
+		INSERT INTO 
+			available_institution
+		VALUES (
+			#{institutionCode}
+			, #{institutionName}
+			, #{paymentAnnualFeeCode}
+			, #{paymentAnnualFeeServiceStartDate}
+			, #{paymentAnnualFeeServiceEndDate}
+			, #{availableInstitutionRemainingDate}
+			, #{availableInstitutionAvailability}
+			)
+	</insert>
+
+	<!-- 사용권한 update -->
+	<update id="updateAvailableInstitution"
+			parameterType="kr.or.ksmart.lms.institution.vo.AvailableInstitution">
+		UPDATE 
+			available_institution
+		SET
+			payment_annual_fee_code = #{paymentAnnualFeeCode}
+			, payment_annual_fee_service_start_date = #{paymentAnnualFeeServiceStartDate}
+			, payment_annual_fee_service_end_date = #{paymentAnnualFeeServiceEndDate}
+			, available_institution_remaining_date = #{availableInstitutionRemainingDate}
+			, available_institution_availability = #{availableInstitutionAvailability}
+		WHERE 
+			institution_code = #{institutionCode}
+	</update>
 </mapper>

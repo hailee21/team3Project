@@ -1,5 +1,6 @@
 package kr.or.ksmart.lms.institution.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,10 @@ public class InstitutionController {
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank.equals("교육원직원")) {
 			mav.setViewName("institution/annualFee/annualFee");
+			String institutionCode = (String)session.getAttribute("institutionCode");
+			List<PaymentAnnualFee> paymentAnnualFeeList = institutionService.getAnnualFee(institutionCode);
+			mav.addObject("paymentAnnualFeeList", paymentAnnualFeeList);
+			System.out.println("결과"+paymentAnnualFeeList);
 		} else {
 			System.out.println("[InstitutionController getAvailableInstitution] 교육원직원 아님");
 			mav.setViewName("institution/institutionLogin");
@@ -39,9 +44,10 @@ public class InstitutionController {
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank.equals("교육원직원")) {
 			mav.setViewName("institution/annualFee/paymentAnnualFee");
-			Map<String, Object> map = institutionService.getPaymentAnnualFee();
+			String institutionCode = (String)session.getAttribute("institutionCode");
+			Map<String, Object> map = institutionService.getPaymentAnnualFee(institutionCode);
 			mav.addObject("infoAnnualFee", map.get("infoAnnualFee"));
-			mav.addObject("now", map.get("now"));
+			mav.addObject("startDay", map.get("startDay"));
 			mav.addObject("oneYearLaterDay", map.get("oneYearLaterDay"));
 		} else {
 			System.out.println("[InstitutionController getPaymentAnnualFee] 교육원직원 아님");

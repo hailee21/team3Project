@@ -36,17 +36,21 @@
     <table class="table">
         <thead>
             <tr>
-                <th>사용권 시작일</th>
-                <th>사용권 종료일</th>			
-                <th>남은일</th>
+                <th>연회비 결제 금액</th>
+                <th>연회비 결제 일</th>
+                <th>연회비 결제 방법</th>
+                <th>서비스 시작일</th>			
+                <th>서비스 종료일</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>	
-            </tr>
+			<tr th:each="paymentList:${paymentAnnualFeeList}">
+				<td th:text="${paymentList.paymentAnnualFeePrice}"></td>
+				<td th:text="${paymentList.paymentAnnualFeeDate}"></td>
+                <td th:text="${paymentList.paymentAnnualFeeMethod}"></td>
+                <td th:text="${paymentList.paymentAnnualFeeServiceStartDate}"></td>
+				<td th:text="${paymentList.paymentAnnualFeeServiceEndDate}"></td>		
+			</tr>
         </tbody>
     </table>
 </div>
