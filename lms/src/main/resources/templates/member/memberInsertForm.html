@@ -8,7 +8,7 @@
 		table-align: center;
 		}
 </style>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script><!-- daum post api -->
 <script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -64,6 +64,22 @@
 	<table>
 		<tr>
 			<td>
+				아이디
+			</td>
+			<td>
+				<input type="text" name="memberOnlineId">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				비밀번호
+			</td>
+			<td>
+				<input type="password" name="memberOnlinePw">
+			</td>
+		</tr>
+		<tr>
+			<td>
 				이름
 			</td>
 			<td>
@@ -100,10 +116,25 @@
 		</tr>
 		<tr>
 			<td>
-				회원등급
+				<!-- 회원등급 -->
+				<input type="hidden" name="memberRank" value="수강생">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				교육원
 			</td>
 			<td>
-				<pre><input type="radio" name="memberRank" value="수강생"> 수강생	<input type="radio" name="memberRank" value="강사"> 강사	<input type="radio" name="memberRank" value="교육원직원"> 교육원직원	<input type="radio" name="memberRank" value="협회직원"> 협회직원</pre>
+				<select name="교육원 선택">
+					<option value="">--교육원선택--</option>
+					<option value="I1" name="I1">전주평생교육원</option>
+					<option value="I2" name="I2">서울평생교육원</option>
+					<option value="I3" name="I3">성남평생교육원</option>
+					<option value="I4" name="I4">인천평생교육원</option>
+					<option value="I5" name="I5">광주평생교육원</option>
+					<option value="I6" name="I6">구미평생교육원</option>
+				</select>
+				<input type="hidden" name="optionValue">
 			</td>
 		</tr>
 		<tr>
