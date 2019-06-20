@@ -23,16 +23,16 @@ public class InfoLectureController {
 	@Autowired InfoLectureService infoLectureService;
 	@Autowired SubjectMapper subjectMapper;
 	@Autowired IndexMapper indexMapper;
-	
+	// 협회
 	// association layout 강의항목, 과목 리스트 출력 controller
-	@GetMapping("/association/Lecture/subjectList")
+	@GetMapping("/association/subject/subjectList")
 	public ModelAndView getSubjectListAssociation(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank.equals("협회직원")) {
 			System.out.println("협회직원");
 			
 			System.out.println("[InfoLectureController getSubjectListAssociation] 협회 강의,과목 조회시작");
-			mav.setViewName("/association/Lecture/subjectList");
+			mav.setViewName("/association/subject/subjectList");
 			
 			List<InfoLecture> sortList = infoLectureService.getInfoLectureSortList();
 			System.out.println("[InfoLectureController getSubjectListAssociation] sortList : "+ sortList);
@@ -45,16 +45,19 @@ public class InfoLectureController {
 		}		
 		return mav;
 	}
-
+	
+	
+	
+	// 교육원
 	// institution layout 강의항목, 과목 리스트 출력 controller
-	@GetMapping("/institution/Lecture/subjectList")
+	@GetMapping("/institution/subject/subjectList")
 	public ModelAndView getSubjectListInstitution(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank.equals("교육원직원")) {
 			System.out.println("교육원직원");
 			
 			System.out.println("[InfoLectureController getSubjectListInstitution] 교육원 강의,과목 조회시작");
-			mav.setViewName("/institution/Lecture/subjectList");
+			mav.setViewName("/institution/subject/subjectList");
 			
 			List<InfoLecture> sortList = infoLectureService.getInfoLectureSortList();
 			System.out.println("[InfoLectureController getSubjectListInstitution] sortList : "+ sortList);
@@ -67,9 +70,9 @@ public class InfoLectureController {
 		}		
 		return mav;
 	}
-		
+	// 수강생	
 	// LE layout 강의항목, 과목 리스트 출력 controller
-		@GetMapping("/LE/Lecture/subjectList")
+		@GetMapping("/LE/subject/subjectList")
 		public ModelAndView getSubjectList(ModelAndView mav, HttpSession session
 										, @RequestParam(value="institutionCode", required = true) String institutionCode) {
 			System.out.println("[InfoLectureController getSubjectList] institutionCode:"+institutionCode);	
@@ -83,7 +86,7 @@ public class InfoLectureController {
 			String memberRank = (String)session.getAttribute("memberRank");
 			
 				System.out.println("[InfoLectureController getSubjectList] 수강생 강의,과목 조회시작");
-				mav.setViewName("/LE/Lecture/subjectList");
+				mav.setViewName("/LE/subject/subjectList");
 				
 				List<InfoLecture> sortList = infoLectureService.getInfoLectureSortList();
 				System.out.println("[InfoLectureController getSubjectList] sortList : "+ sortList);
