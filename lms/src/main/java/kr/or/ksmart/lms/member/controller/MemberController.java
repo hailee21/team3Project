@@ -25,10 +25,9 @@ public class MemberController {
 	}
 	//	회원등록 처리
 	@PostMapping("memberInsert")
-	public ModelAndView memberInsert(Member member, MemberOnline memberOnline, ModelAndView mav) {
+	public ModelAndView memberInsert(Member member, MemberOnline memberOnline, String institutionCode, ModelAndView mav) {
 		System.out.println("[MemberController memberInsert] member:" + member);
-		memberService.insertMember(member);
-		memberService.insertMemberOnline(memberOnline, member);
+		memberService.insertMember(member, memberOnline, institutionCode);
 		mav.setViewName("redirect:/memberList");
 		return mav;
 	}

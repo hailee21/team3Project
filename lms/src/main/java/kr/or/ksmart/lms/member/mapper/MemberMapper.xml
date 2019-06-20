@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.member.mapper.MemberMapper">
+	<resultMap type="kr.or.ksmart.lms.institution.vo.Institution" id="InstitutionMap">
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+	</resultMap>
+	<select id="selectInstitutionName"
+			parameterType="String"
+			resultMap="InstitutionMap">
+		SELECT
+			institution_name
+		FROM institution
+		WHERE
+			institution_code = #{institutionCode}
+	</select>
 	<select id="selectMemberCodePk" resultType="String">
 	<!-- MemberCode(Primary Key) 생성을 위한 마지막으로 생성된 코드를 조회 -->
 		SELECT

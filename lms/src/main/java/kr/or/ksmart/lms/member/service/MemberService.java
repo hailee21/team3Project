@@ -15,24 +15,40 @@ public class MemberService {
 	public IndexInstitution LEIndex(String institutionCode) {
 		return memberMapper.selectInstitution(institutionCode);
 	}
-	public void insertMember(Member member) {
-		String memberCodePK=memberMapper.selectMemberCodePk();
+	public void insertMember(Member member, MemberOnline memberOnline, String institutionCode) {
+		String memberCodePK=memberMapper.selectMemberCodePk(); //memberCode 조회
 		int memberCodeNo = Integer.parseInt(memberCodePK.substring(1));
 		memberCodeNo++;
-		String memberCode = "M"+memberCodeNo;
-		member.setMemberCode(memberCode);
+		String memberCode = "M"+memberCodeNo;	//memberCode 생성
+		member.setMemberCode(memberCode);	//Member VO 내 memberCode set
 		
-		memberMapper.insertMember(member);
+		memberMapper.insertMember(member);	//	mapper 실행
+		
+		String memberOnlineCodePK=memberMapper.selectMemberOnlineCodePk();	//	memberOnlineCode 조회
+		int memberOnlineCodeNo = Integer.parseInt(memberOnlineCodePK.substring(2));
+		memberOnlineCodeNo++;
+		String memberOnlineCode = "MO"+memberOnlineCodeNo;	//	memberOnlineCode 생성
+		System.out.println("[MemberService insertMemberOnline] memberOnlineCode : " + memberOnlineCode);
+		memberOnline.setMemberOnlineCode(memberOnlineCode);	//	memberOnline VO 내 memberOnlineCode set
+		memberOnline.setMemberCode(memberCode);
+		//memberMapper.selectInstitutionName(institutionCode);
+		memberMapper.insertMemberOnline(memberOnline);	//mapper 실행		
 	}
-	public void insertMemberOnline(MemberOnline memberOnline, Member member) {
+	/*public void insertMemberOnline(MemberOnline memberOnline, Member member, String institutionCode) {
 		String memberCode = memberMapper.selectMemberCodePk();
+		System.out.println("MemberService insertMemberOnline] memberCode : " + memberCode);
 		String memberOnlineCodePK=memberMapper.selectMemberOnlineCodePk();
+		//System.out.println("[MemberService insertMemberOnline] memberOnlineCode : " + memberOnlineCodePK);
 		int memberOnlineCodeNo = Integer.parseInt(memberOnlineCodePK.substring(2));
 		memberOnlineCodeNo++;
 		String memberOnlineCode = "MO"+memberOnlineCodeNo;
+		//System.out.println("[MemberService insertMemberOnline] memberOnlineCode : " + memberOnlineCode);
 		memberOnline.setMemberOnlineCode(memberOnlineCode);
 		
+		//MemberOnline MO = new MemberOnline();
+		System.out.println("[MemberService insertMemberOnline] memberOnlineCode : " + memberOnline.getMemberOnlineCode());
+		
 		memberMapper.insertMemberOnline(memberOnline);
-	}
+	}*/
 	
 }
