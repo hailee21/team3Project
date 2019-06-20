@@ -14,7 +14,12 @@ public class MemberService {
 	public IndexInstitution LEIndex(String institutionCode) {
 		return memberMapper.selectInstitution(institutionCode);
 	}
-	public int insertMember(Member member) {
-		return memberMapper.insertMember(member);
+	public void insertMember(Member member) {
+		String memberCodePK=memberMapper.selectMemberCodePk();
+		int codeNo = Integer.parseInt(memberCodePK.substring(1));
+		codeNo++;
+		String memberCode = "M"+codeNo;
+		member.setMemberCode(memberCode);
+		memberMapper.insertMember(member);
 	}
 }

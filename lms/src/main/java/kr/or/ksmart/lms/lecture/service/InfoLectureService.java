@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ksmart.lms.lecture.mapper.InfoLectureMapper;
 import kr.or.ksmart.lms.lecture.vo.InfoLecture;
+import kr.or.ksmart.lms.subject.vo.InfoSubject;
 
 @Service
 public class InfoLectureService {
@@ -25,7 +26,15 @@ public class InfoLectureService {
 		List<InfoLecture> nameList = infoLectureMapper.selectInfoLectureNameList(lectureSort);
 		// infoLectureMapper 에서 받아온 code, name 출력
 		System.out.println("[InfoLectureService getInfoLectureNameList] infoLectureCode: "+nameList);
-		
 		return nameList;
 	}
+	// 3. lectureCode를 받아 select subject
+	public List<InfoSubject> getSubjectListByLectureCode(String lectureCode){
+		System.out.println("[InfoLectureService getInfoLectureNameList]");
+		// 단위테스트 준비
+		List<InfoSubject> subjectList = infoLectureMapper.selectSubjectListByLectureCode(lectureCode);
+		// infoLectureMapper 에서 받아온 code, name 출력
+		System.out.println("[InfoLectureService getInfoLectureNameList] infoSubjectCode: "+subjectList);
+		return subjectList;
+	}	
 }

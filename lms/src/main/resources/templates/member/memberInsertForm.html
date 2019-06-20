@@ -50,10 +50,10 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postcode').value = data.zonecode;
-                document.getElementById("addr1").value = addr;
+                document.getElementById('memberPostcode').value = data.zonecode;
+                document.getElementById("memberAddress").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("addr2").focus();
+                document.getElementById("memberAddressDesc").focus();
             }
         }).open();
     }
@@ -75,7 +75,7 @@
 				주민번호
 			</td>
 			<td>
-				<input type="text" name="registrationNumberFront" size="6"> - <input type="password" name="registrationNumberBack" size="7">
+				<input type="text" name="memberRegistrationNumberFront" size="6"> - <input type="password" name="memberRegistrationNumberBack" size="7">
 			</td>
 		</tr>
 		<tr>
@@ -83,7 +83,7 @@
 				전화번호
 			</td>
 			<td>
-				<pre><input type="tel" name="memberPhoneNumber" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>	(숫자만 입력)</pre>
+				<pre><input type="tel" name="memberPhoneNumber" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>	(010-0000-0000)</pre>
 			</td>
 		</tr>
 		<tr>
@@ -91,10 +91,10 @@
 				주소
 			</td>
 			<td>
-				<input type="text" readonly="readonly" maxlength="14" id="postcode" name="post" size="4">
+				<input type="text" readonly="readonly" maxlength="14" id="memberPostcode" name="memberPostcode" size="4">
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호찾기"><br>
-				<input id="addr1" name="addr1" class="inputTypeText" placeholder="도로명주소" readonly="readonly" value="" type="text" size="30"/><br>
-				<input id="addr2" name="addr2" class="inputTypeText" placeholder="상세주소" value="" type="text"/>
+				<input id="memberAddress" name="memberAddress" class="inputTypeText" placeholder="도로명주소" readonly="readonly" value="" type="text" size="30"/><br>
+				<input id="memberAddressDesc" name="memberAddressDesc" class="inputTypeText" placeholder="상세주소" value="" type="text"/>
 				<input type="text" id="sample6_extraAddress" size="7" placeholder="참고항목">
 			</td>
 		</tr>
