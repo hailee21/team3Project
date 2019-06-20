@@ -6,12 +6,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.lms.association.mapper.AssociationMapper;
 import kr.or.ksmart.lms.association.vo.InfoAnnualFee;
 import kr.or.ksmart.lms.association.vo.RefundPolicy;
 
 @Service
+@Transactional
 public class AssociationService {
 	@Autowired
 	AssociationMapper associationMapper;

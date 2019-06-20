@@ -14,6 +14,8 @@
 		//유효성 검사을 위한 변수 선언
 		let refundPolicyNameCheck = true;
 		let refundPolicyDescriptionCheck = true;
+		let refundPolicyPercentageCheck = true;
+		let refundPolicyTypeCheck = true;
 		
 		//refundPolicyName 입력 유효성 검사
  		$('#refundPolicyName').blur(function() {
@@ -38,16 +40,44 @@
 			}
  		});
  		
+ 		//refundPolicyPercentage 입력 유효성 검사
+ 		$('#refundPolicyPercentage').blur(function() {
+			if($('#refundPolicyPercentage').val() == "") {
+				console.log('refundPolicyPercentage 공백입력')
+				refundPolicyPercentageCheck = true;
+			} else {
+                console.log('refundPolicyPercentage 유효성 검사 완료')
+				refundPolicyPercentageCheck = false;
+			}
+ 		});
+ 		
+ 		//refundPolicyType 입력 유효성 검사
+ 		$('#refundPolicyType').blur(function() {
+			if($('#refundPolicyType').val() == "") {
+				console.log('refundPolicyType 공백입력')
+				refundPolicyTypeCheck = true;
+			} else {
+                console.log('refundPolicyType 유효성 검사 완료')
+				refundPolicyTypeCheck = false;
+			}
+ 		});
+ 		
  		//btnAdd 클릭 이벤트 처리
 		$('#btnAdd').on('click',function() {
 			if(refundPolicyNameCheck) {
 				$('h4').addClass('red');
-				$('h4').text('연회비 환불정책 명이 공백 상태 입니다.');
+				$('h4').text('강의 환불정책 명이 공백 상태 입니다.');
 			} else if(refundPolicyDescriptionCheck) {
 				$('h4').addClass('red');
-				$('h4').text('연회비 환불정책 상세내용이 공백 상태 입니다.');
+				$('h4').text('강의 환불정책 상세내용이 공백 상태 입니다.');
+			} else if(refundPolicyPercentageCheck) {
+				$('h4').addClass('red');
+				$('h4').text('강의 환불률이  공백 상태 입니다.');
+			} else if(refundPolicyTypeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('강의 환불 종류를 선택하세요.');
 			} else {
-				$('#addPolicy').submit
+				$('#addPolicy').submit()
 			}
 		});
 	});
@@ -58,15 +88,29 @@
 	<h3>강의 환불정책 추가</h3>
 	<form id="addPolicy" action="/addRefundPolicy" method="post">
 		<div class="form-group">
-			<label>연회비 환불정책 명:</label>
+			<label>강의 환불정책 명 :</label>
 			<input type="text" class="form-control" id="refundPolicyName" name="refundPolicyName">
 		</div>
 		<div class="form-group">
-			<label>연회비 환불정책 상세내용:</label>
+			<label>강의 환불정책 상세내용 :</label>
 			<input type="text" class="form-control" id="refundPolicyDescription" name="refundPolicyDescription">
 		</div>
-		<input type="hidden" id="refundPolicyPercentage" name="refundPolicyPercentage" value="0">
-		<input type="hidden" id="refundPolicyType" name="refundPolicyType" value="연회비 환불">
+		<div class="form-group">
+			<label>강의 환불률 :</label>
+			<input type="text" class="form-control" id="refundPolicyPercentage" name="refundPolicyPercentage">
+		</div>
+		<div class="form-group">
+			<label>강의 환불 종류 :</label>
+			<select class="form-control" id="refundPolicyType" name="refundPolicyType">
+				<option>종류 선택</option>
+				<option value="강의환불 수업전">강의환불 수업전</option>
+				<option value="강의환불 1/3전">강의환불 1/3전</option>
+				<option value="강의환불 1/2전">강의환불 1/2전</option>
+				<option value="강의환불 1/2후">강의환불 1/2후</option>
+				<option value="강의환불 1개월 초과 교습전">강의환불 1개월 초과 교습전</option>
+				<option value="강의환불 1개월 초과 교습후">강의환불 1개월 초과 교습후</option>
+			</select>
+		</div>		
 		<button type="button" id="btnAdd" class="btn btn-primary">연회비 환불정책 추가</button>
 		<h4></h4>
 	</form>
