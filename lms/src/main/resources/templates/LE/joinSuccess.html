@@ -3,12 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/LELayout">
 <meta charset="utf-8">
-<title>로그인</title>
+<title>회원가입 성공</title>
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
 	<style>
 		div {
 		    text-align: center;
+		    fieldset-align: center;
 		}
 	</style>
 </th:block>
@@ -20,14 +21,16 @@
 <div layout:fragment="content">
 	<div>
 		<p style="height: 50px"></p>
+		<h4>회원이 되신걸 환영합니다.</h4>
+		<p style="height: 50px"></p>
 		<form action="/LELogin" method="post">
 			<fieldset>
 				<div class="form-group">
-    				<legend>수강생 로그인</legend>
+    				<legend>로그인</legend>
     			</div>
 				<div class="form-group row">
     	  			<div class="col-sm-4"></div>
-					<label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
+					<label class="col-sm-2 col-form-label">ID</label>
       				<div class="col-sm-2">
         				<input type="text" class="form-control" name="memberOnlineId" value="id011">
         			</div>
@@ -35,7 +38,7 @@
 	      		</div>
       			<div class="form-group row">
       				<div class="col-sm-4"></div>
-					<label for="staticEmail" class="col-sm-2 col-form-label">Password</label>
+					<label class="col-sm-2 col-form-label">Password</label>
       				<div class="col-sm-2">
         				<input type="password" class="form-control" name="memberOnlinePw" value="pw011">
     	    		</div>

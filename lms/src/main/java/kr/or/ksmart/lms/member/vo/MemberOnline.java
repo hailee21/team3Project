@@ -7,8 +7,9 @@ public class MemberOnline {
 	private String memberOnlineId;
 	private String memberOnlinePw;
 	private String memberRank;
-	private String InstitutionCode;
-	private String InstitutionName;
+	private String institutionCode;
+	private String institutionName;
+	private String memberOnlineDate;
 	
 	public String getMemberOnlineCode() {
 		return memberOnlineCode;
@@ -47,24 +48,30 @@ public class MemberOnline {
 		this.memberRank = memberRank;
 	}
 	public String getInstitutionCode() {
-		return InstitutionCode;
+		return institutionCode;
 	}
 	public void setInstitutionCode(String institutionCode) {
-		InstitutionCode = institutionCode;
+		this.institutionCode = institutionCode;
 	}
 	public String getInstitutionName() {
-		return InstitutionName;
+		return institutionName;
 	}
 	public void setInstitutionName(String institutionName) {
-		InstitutionName = institutionName;
+		this.institutionName = institutionName;
+	}
+	public String getMemberOnlineDate() {
+		return memberOnlineDate;
+	}
+	public void setMemberOnlineDate(String memberOnlineDate) {
+		this.memberOnlineDate = memberOnlineDate;
 	}
 	
 	@Override
 	public String toString() {
 		return "MemberOnline [memberOnlineCode=" + memberOnlineCode + ", memberCode=" + memberCode + ", memberName="
 				+ memberName + ", memberOnlineId=" + memberOnlineId + ", memberOnlinePw=" + memberOnlinePw
-				+ ", memberRank=" + memberRank + ", InstitutionCode=" + InstitutionCode + ", InstitutionName="
-				+ InstitutionName + "]";
+				+ ", memberRank=" + memberRank + ", institutionCode=" + institutionCode + ", institutionName="
+				+ institutionName + ", memberOnlineDate=" + memberOnlineDate + "]";
 	}
-		
+	
 }

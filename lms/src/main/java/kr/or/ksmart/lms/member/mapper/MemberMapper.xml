@@ -6,10 +6,9 @@
 		<result column="institution_name" property="institutionName"/>
 	</resultMap>
 	<select id="selectInstitutionName"
-			parameterType="String"
-			resultMap="InstitutionMap">
+			resultType="String">
 		SELECT
-			institution_name
+			institution_name AS institutionCode
 		FROM institution
 		WHERE
 			institution_code = #{institutionCode}
@@ -63,10 +62,19 @@
 			, now()
 		)
 	</insert>
+	
+	<insert id="insertMemberOnlineId" parameterType="kr.or.ksmart.lms.member.vo.MemberOnline">
+		INSERT INTO
+			member_online_insertid (
+			member_online_id)
+		VALUES (
+			#{memberOnlineId})
+	</insert>
+	
 	<insert id="insertMemberOnline" parameterType="kr.or.ksmart.lms.member.vo.MemberOnline">
 	<!-- memberOnline 테이블에 insert -->
 		INSERT INTO
-			memberOnline (
+			member_online (
 			member_online_code
 			, member_code
 			, member_name
@@ -74,7 +82,8 @@
 			, member_online_pw
 			, member_rank
 			, institution_code
-			, institution_name)
+			, institution_name
+			, member_online_date)
 		VALUES (
 			#{memberOnlineCode}
 			, #{memberCode}
@@ -83,7 +92,8 @@
 			, #{memberOnlinePw}
 			, #{memberRank}
 			, #{institutionCode}
-			, #{institutionName})
+			, #{institutionName}
+			, now())
 	</insert>
 	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="IndexInstitutionMap">
 		<result column="institution_code" property="institutionCode"/>

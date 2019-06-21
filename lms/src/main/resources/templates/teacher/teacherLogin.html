@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/root">
 <meta charset="utf-8">
+<title>강사 로그인</title>
 <!-- html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
@@ -21,8 +22,28 @@
 		<p style="height: 100px"></p>
 		<h4>강사 로그인</h4>
 		<form action="/teacherLogin" method="post">
-			<pre>id	<input type="text" value="id010" name="memberOnlineId"><br>pw	<input type="password" value="pw010" name="memberOnlinePw"><br></pre>
-			<input type="submit" value="로그인">
+			<fieldset>
+				<div class="form-group">
+    				<legend>강사 로그인</legend>
+    			</div>
+				<div class="form-group row">
+    	  			<div class="col-sm-4"></div>
+					<label class="col-sm-2 col-form-label">ID</label>
+      				<div class="col-sm-2">
+        				<input type="text" class="form-control" name="memberOnlineId" value="id010">
+        			</div>
+    	    		<div class="col-sm-6"></div>
+	      		</div>
+      			<div class="form-group row">
+      				<div class="col-sm-4"></div>
+					<label class="col-sm-2 col-form-label">Password</label>
+      				<div class="col-sm-2">
+        				<input type="password" class="form-control" name="memberOnlinePw" value="pw010">
+    	    		</div>
+	        		<div class="col-sm-6"></div>
+      			</div>
+				<button type="submit" class="btn btn-info">로그인</button>
+			</fieldset>
 		</form>
 		<p style="height: 300px"></p>
 	</div>

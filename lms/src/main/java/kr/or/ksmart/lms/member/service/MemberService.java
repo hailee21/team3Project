@@ -17,6 +17,7 @@ public class MemberService {
 		return memberMapper.selectInstitution(institutionCode);
 	}
 	public void insertMember(Member member, MemberOnline memberOnline, String institutionCode) {
+		//	member 테이블에 insert
 		String memberCodePK=memberMapper.selectMemberCodePk(); //memberCode 조회
 		int memberCodeNo = Integer.parseInt(memberCodePK.substring(1));
 		memberCodeNo++;
@@ -25,6 +26,10 @@ public class MemberService {
 		
 		memberMapper.insertMember(member);	//	mapper 실행
 		
+		//	member_online_insertid 테이블에 member_online_id insert
+		memberMapper.insertMemberOnlineId(memberOnline);
+		
+		//	member_online 테이블에 insert
 		String memberOnlineCodePK=memberMapper.selectMemberOnlineCodePk();	//	memberOnlineCode 조회
 		int memberOnlineCodeNo = Integer.parseInt(memberOnlineCodePK.substring(2));
 		memberOnlineCodeNo++;
@@ -34,6 +39,7 @@ public class MemberService {
 		memberOnline.setMemberCode(memberCode);
 		String institutionName = memberMapper.selectInstitutionName(institutionCode);
 		memberOnline.setInstitutionName(institutionName);
+		
 		memberMapper.insertMemberOnline(memberOnline);	//mapper 실행		
 	}
 

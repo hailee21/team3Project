@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:replace="fragments/config :: configFragment"></head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<style>
-</style>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/LELayout">
+<meta charset="utf-8">
+<title>회원정보 수정</title>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
@@ -55,39 +60,35 @@
         }).open();
     }
 </script>
-<div class="row">
-    <div class="col-sm-2">
-    </div>
-    <div class="col-sm-8">
-	<header th:replace="fragments/header :: headerFragment"></header>
+</th:block>
+<div layout:fragment="content">
+
+<p style="height: 10px"></p>
 	
-	<div layout:fragment="content">
-	<p style="height: 10px"></p>
-	
-	<form action="/memberInsert" method="post">
+    			<!-- <h3 th:text="'안녕하세요 '+${institutionName}+' 입니다.'"></h3> -->
+	<form action="/memberModify" method="post">
 		<fieldset>
     		<div class="form-group">
-    			<legend>회원가입</legend>
+    			<legend>회원정보 수정</legend>
     		</div>
     		<div class="form-group">
-    			
     			<div class="col-sm-5">
 					<label for="InputId">아이디</label>
-					<input type="text" class="form-control" id="memberOnlineId" name="memberOnlineId" aria-describedby="" placeholder="ID" value="">
+					<input type="text" class="form-control plaintext" id="memberOnlineId" name="memberOnlineId" aria-describedby="" readonly="readonly" th:value="${memberOnlineId}">
     	  			<small class="form-text text-muted">영문/숫자 아이디 중복검사 확인 필수</small>
       			</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-5">
 					<label for="InputPw">비밀번호</label>
-					<input type="password" class="form-control" id="memberOnlinePw" name="memberOnlinePw" aria-describedby="" placeholder="PASSWORD" value="">
+					<input type="password" class="form-control" id="memberOnlinePw" name="memberOnlinePw" aria-describedby="" readonly="readonly" th:value="${memberOnlinePw}">
       				<small class="form-text text-muted">영문/숫자 조합으로 8-16자 </small>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-5">
 					<label for="InputName">이름</label>
-					<input type="text" class="form-control" id="memberName" name="memberName" aria-describedby="" placeholder="NAME" value="">
+					<input type="text" class="form-control plaintext" id="memberName" name="memberName" aria-describedby="" readonly="readonly" th:value="${memberName}">
 				</div>
 			</div>
 			<div class="form-group">
@@ -95,10 +96,10 @@
 					<label for="InputRegistrationNumber">주민번호</label>
 					<div class="row">
 						<div class="col-sm-6">
-							<input type="text" class="form-control" id="memberRegistrationNumberFront" name="memberRegistrationNumberFront" aria-describedby="" placeholder="RegistrationNumberFront" value="" size="4"> 
+							<input type="text" class="form-control plaintext" id="memberRegistrationNumberFront" name="memberRegistrationNumberFront" readonly="readonly" th:value="${memberRegistrationNumberFront}" size="4"> 
 						</div>
 						<div class="col-sm-6">
-							<input type="password" class="form-control" id="memberRegistrationNumberBack" name="memberRegistrationNumberBack" aria-describedby="" placeholder="RegistrationNumberBack" value="1001000" size="5">
+							<input type="password" class="form-control plaintext" id="memberRegistrationNumberBack" name="memberRegistrationNumberBack" readonly="readonly" th:value="${memberRegistrationNumberBack}" size="5">
 						</div>
 					</div>
 				</div>
@@ -106,7 +107,7 @@
 			<div class="form-group">
 				<div class="col-sm-5">
 					<label for="InputPhone">전화번호</label>
-					<input type="tel" class="form-control" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
+					<input type="tel" class="form-control" name="memberPhoneNumber" th:value="${memberPhoneNumber}">
 					<small class="form-text text-muted">ex) 010-0000-0000 </small>
 				</div>
 			</div>
@@ -115,16 +116,16 @@
 					<label for="InputAddress">주소</label>
 					<div class="row">
 						<div class="col-sm-4">
-							<input type="text" readonly="readonly" class="form-control" maxlength="14" id="memberPostcode" name="memberPostcode" size="4">
+							<input type="text" readonly="readonly" class="form-control" maxlength="14" id="memberPostcode" name="memberPostcode" th:value="${memberPostcode}" size="4">
 						</div>
 						<div class="col-sm-8">
 							<input type="button" class="btn btn-outline-info" onclick="sample6_execDaumPostcode()" value="우편번호찾기"><br>
 						</div>
 					</div>
-						<input id="memberAddress" name="memberAddress" class="form-control" placeholder="도로명주소" readonly="readonly" value="" type="text" size="30"/><br>
+						<input id="memberAddress" name="memberAddress" class="form-control" placeholder="도로명주소" readonly="readonly" th:value="${memberAddress}" type="text" size="30"/><br>
 					<div class="row">
 						<div class="col-sm-8">
-							<input id="memberAddressDesc" name="memberAddressDesc" class="form-control" value="2층 한국스마트정보교육원" placeholder="상세주소" type="text"/>
+							<input id="memberAddressDesc" name="memberAddressDesc" class="form-control" th:value="${memberAddressDesc}" placeholder="상세주소" type="text"/>
 						</div>
 						<div class="col-sm-4">
 							<input type="text" id="sample6_extraAddress" size="7" class="form-control" placeholder="참고항목">
@@ -150,15 +151,11 @@
 			</div>
 			<p style="height: 10px"></p>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary">회원등록</button> <button type="button" class="btn btn-secondary disabled" onclick="location.href='javascript:history.back()'">뒤로가기</button>
+				<button type="submit" class="btn btn-primary">회원수정</button> <button type="button" class="btn btn-secondary disabled" onclick="location.href='javascript:history.back()'">뒤로가기</button>
 			</div>
 		</fieldset>
 </form>
 	</div>
 	<p style="height: 200px"></p>
-	<footer th:replace="fragments/footer :: footerFragment"></footer>
-	</div>
-	<div class="col-sm-2">
-    </div>
-</div>
+
 </html>

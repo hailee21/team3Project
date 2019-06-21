@@ -17,14 +17,14 @@ import kr.or.ksmart.lms.login.vo.MemberOnline;
 @Controller
 public class LoginController {
 	@Autowired
-	LoginService longinService;
+	LoginService loginService;
 
 	@GetMapping("/login")
 	public ModelAndView LELoginForm(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
 		mav.setViewName("login");
 		System.out.println("[LoginController LELoginForm] institutionCode:"+institutionCode);
-		IndexInstitution institution = longinService.LEIndex(institutionCode);
+		IndexInstitution institution = loginService.LEIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
@@ -33,7 +33,7 @@ public class LoginController {
 	@PostMapping("/LELogin")
 	public String LEloginAction(HttpSession session, LoginRequest loginRequest) {
 		System.out.println(loginRequest);
-		MemberOnline loginMember = longinService.getMemberOnline(loginRequest);
+		MemberOnline loginMember = loginService.getMemberOnline(loginRequest);
 		if(loginMember == null) {
 			return "redirect:" + "/login";
 		} else {
@@ -51,7 +51,7 @@ public class LoginController {
 	@PostMapping("/associationLogin")
 	public String associationLoginAction(HttpSession session, LoginRequest loginRequest) {
 		System.out.println(loginRequest);
-		MemberOnline loginMember = longinService.getMemberOnline(loginRequest);
+		MemberOnline loginMember = loginService.getMemberOnline(loginRequest);
 		if(loginMember == null) {
 			return "redirect:" + "/associationLogin";
 		} else {
@@ -69,7 +69,7 @@ public class LoginController {
 	@PostMapping("/institutionLogin")
 	public String instituteLayoutLoginAction(HttpSession session, LoginRequest loginRequest) {
 		System.out.println(loginRequest);
-		MemberOnline loginMember = longinService.getMemberOnline(loginRequest);
+		MemberOnline loginMember = loginService.getMemberOnline(loginRequest);
 		if(loginMember == null) {
 			return "redirect:" + "/institutionLogin";
 		} else {
@@ -87,7 +87,7 @@ public class LoginController {
 	@PostMapping("/teacherLogin")
 	public String loginAction(HttpSession session, LoginRequest loginRequest) {
 		System.out.println(loginRequest);
-		MemberOnline loginMember = longinService.getMemberOnline(loginRequest);
+		MemberOnline loginMember = loginService.getMemberOnline(loginRequest);
 		if(loginMember == null) {
 			return "redirect:" + "/teacherLogin";
 		} else {
