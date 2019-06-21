@@ -13,8 +13,8 @@ public class InfoQualificationService {
 	@Autowired 
 	InfoQualificationMapper infoQualificationMapper;
 	//2.자격증을 추가 하기 위한 추상 메서드 선언 
-	public void insertInfoQualification() {
-		infoQualificationMapper.insertInfoQualification();
+	public void insertQualification(InfoQualification infoQualification) {
+		infoQualificationMapper.insertInfoQualification(infoQualification);
 	}
 	//1.자격 정보 개요 리스트를 보여주기 위한 메서드
 	public List<InfoQualification> getInfoQualification(){

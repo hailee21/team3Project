@@ -14,17 +14,18 @@
 		<result column="info_qualification_renewal_date" property="infoQualificationRenewalDate"/>
 		
 	</resultMap>
-	<insert id="insertInfoQualification">
-		INSERT
-		INTO
+	<insert id="insertInfoQualification"
+			parameterType="kr.or.ksmart.lms.license.vo.InfoQualification">
+		INSERT INTO
 			info_qualification
-		VALUE
-			info_qualification_code
-			, info_qualification_name
-			, info_qualification_required_code
-			, info_qualification_required_type
-			, info_qualification_description
-			, info_qualification_renewal_date
+		VALUE (
+			#{infoQualificationCode}
+			, #{infoQualificationName}
+			, #{infoQualificationRequiredCode}
+			, #{infoQualificationRequiredType}
+			, #{infoQualificationDescription}
+			, now()
+			)
 			
 	</insert>
 	
