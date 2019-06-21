@@ -11,53 +11,58 @@
 <th:block layout:fragment="script">
 <script>
 $(document).ready(function(){
-	$('#searchInstitution').click(function(){
-		location.href="/association/classroom/searchInstitution";
-		console.log("교육원찾기 버튼 클릭..");
-	});	
-	
-	// 수용인원 폼 유효성검사
+	$('#insert').click(function(){
+		console.log("강의실등록 버튼 클릭..");
+		// 수용인원 폼 유효성검사	
+		let numberCheck = /[0-9]/;
+		if(!numberCheck.test($('#classroomMaximumNumber').val())){
+			$('#helper').text('숫자만 입력가능합니다!');
+		}
+		// 빈칸 유효성 검사	
+		else if($('#classroomName').val() ==''){
+			$('#helper').text('강의실명을 지정해주세요!');
+		}else if($('#classroomUse').val() ==''){
+			$('#helper').text('강의용도를 지정해주세요!');
+		}	
+	});		
 });
 </script>
 </th:block>
 
 <div layout:fragment="content">
 <!-- 강의실 추가 폼 -->
-<form id="addClassroom" action="/association/classroom/addClassroom" method="post">
-	<table class="table table-hover">
-		<thead>
+	<h1>강의실 등록하기</h1>	
+	<form id="addClassroom" action="/association/classroom/addClassroom" method="post">
+		<table class="table table-hover">
 			<tr>
-				<td><button id="searchInstitution" type="button">교육원 조회</button></td>
-				<td></td>
+				<th>교육원명 :</th>
+			    <td th:text="${instName}" th:value="${instName}" id="institutionName" name="institutionName">
+			    <input type="hidden" th:value="${instCode}" name="institutionCode"></td>
 			</tr>
-		</thead>
-		<tbody>
-		<tr>
-			<th>교육원명 :</th>
-		    <td><input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="" name="institutionName"></td>
-		</tr>
-		<tr>
-		    <th>지역 : </th>
-		    <td><input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled=""  name="institutionLocation"></td>
-		</tr>
-		<tr>
-			<th>강의실명 : </th>
-		    <td>  <input type="text" class="form-control" placeholder="" id="inputDefault" name="classroomName"></td>
-		</tr>    
-		<tr>
-			<th>강의용도</th>
-			<td>
-			    <select id="classroomUse" class="custom-select">
-			    	<option value="">--선택--</option>
-			    </select>
-		    </td>
-		</tr>
-		<tr>
-		    <th>수용인원 : </th>
-		    <td>  <input type="text" class="form-control" placeholder="숫자만 입력가능합니다" id="inputDefault" name="classroomMaximumNumber"></td>
-		</tr>
-		</tbody>
-	</table>
-</form>
+			<tr>
+			    <th>지역 : </th>
+			    <td th:text="${instLocation}" th:value="${instLocation}" id="institutionLocation" name="classroomLocation"></td>
+			</tr>
+			<tr>
+				<th>강의실명 : </th>
+			    <td><input class="form-control" type="text" placeholder="강의실 명을 입력해주세요" id="classroomName" name="classroomName"></td>
+			</tr>    
+			<tr>
+				<th>강의용도</th>
+				<td>
+				    <select id="classroomUse" class="custom-select">
+				    	<option>--선택--</option>
+				    	<option th:each="list:${useList}" th:text="${list.classroomUse}" th:value="${list.classroomUse}">--선택--</option>
+				    </select>
+			    </td>
+			</tr>
+			<tr>
+			    <th>수용인원 : </th>
+			    <td><input class="form-control" type="text" placeholder="숫자만 입력가능합니다" id="classroomMaximumNumber" name="classroomMaximumNumber"></td>
+			</tr>
+		</table>
+		<span id="helper" style="color:red"></span><br>
+		<button id="insert" type="submit">강의실 등록하기</button>
+	</form>
 </div>
 </html>

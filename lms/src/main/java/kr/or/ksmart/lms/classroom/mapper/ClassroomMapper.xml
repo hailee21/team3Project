@@ -14,7 +14,50 @@
 		<result column="classroom_use" property="classroomUse"/>
 		<result column="classroom_maximum_number" property="classroomMaximumNumber"/>
 	</resultMap>
+	<!-- ClassroomMapper Institution resultMap  -->
+	<resultMap id="InstitutionResultMap"
+				type="kr.or.ksmart.lms.institution.vo.Institution">
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="institution_phone" property="InstitutionPhone"/>
+		<result column="institution_postcode" property="InstitutionPostcode"/>
+		<result column="institution_address" property="InstitutionAddress"/>
+		<result column="institution_address_desc" property="InstitutionAddressDesc"/>
+		<result column="institution_location" property="InstitutionLocation"/>
+		<result column="institution_registration_date" property="InstitutionRegistrationDate"/>
+	</resultMap>
 		
+	<!-- 강의용도 리스트 출력 -->
+	<select id="selectClassroomUse"
+				resultMap="ClassroomResultMap">
+		SELECT DISTINCT
+			classroom_use
+		FROM 
+			classroom	
+	</select>
+	<!-- 강의용도 리스트 출력 -->
+	<select id="selectClassroomPK"
+				resultType="String">
+		SELECT
+			classroom_code
+		FROM 
+			classroom	
+		ORDER BY
+			classroom_code DESC
+		LIMIT
+			0,1
+	</select>	
+	<select id="selectInstitutionInfo"
+			parameterType="String"
+			resultType="java.util.Map">
+		SELECT
+			institution_name, institution_location
+		FROM 
+			institution
+		WHERE 
+			institution_code=#{instCode}
+	</select>
+	
 	<!-- 강의실 등록 -->			
 	<insert id="insertClassroom"
 			parameterType="kr.or.ksmart.lms.classroom.vo.Classroom">
@@ -36,6 +79,18 @@
 			,#{classroomMaximumNumber}			
 		) 		
 	</insert>
+	<!-- 교육원 리스트 출력 -->
+	<select id="selectInstitutionByInstitutionCode"
+			parameterType="String"
+			resultMap="InstitutionResultMap">
+		SELECT 
+			institution_name
+			,institution_location
+		FROM 
+			institution		
+		WHERE 
+			institution_code = #{instCode}
+	</select>
 	
 
 
