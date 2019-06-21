@@ -22,10 +22,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>	
+            <tr th:each="available:${availableInstitution}">
+                <td th:text="${available.paymentAnnualFeeServiceStartDate}"></td>
+                <td th:text="${available.paymentAnnualFeeServiceEndDate}"></td>
+                <td th:text="${available.availableInstitutionRemainingDate}"></td>	
             </tr>
         </tbody>
     </table>
@@ -44,7 +44,7 @@
             </tr>
         </thead>
         <tbody>
-			<tr th:each="paymentList:${paymentAnnualFeeList}">
+			<tr th:each="paymentList:${paymentList}">
 				<td th:text="${paymentList.paymentAnnualFeePrice}"></td>
 				<td th:text="${paymentList.paymentAnnualFeeDate}"></td>
                 <td th:text="${paymentList.paymentAnnualFeeMethod}"></td>

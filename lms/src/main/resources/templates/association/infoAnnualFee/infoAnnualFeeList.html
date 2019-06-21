@@ -13,7 +13,7 @@
 
 <div layout:fragment="content">
 	<h3>연회비 리스트</h3>
-	<a type="button" href="/associationAddInfoAnnualFee" class="btn btn-primary">연회비 개요 추가</a>
+	<a type="button" href="/associationAddInfoAnnualFee" class="btn btn-secondary">연회비 개요 추가</a>
 	<table class="table">
 		<thead>
 			<tr>
@@ -23,18 +23,18 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="list:${infoAnnualFeelist}">
-				<td th:text="${list.infoAnnualFeeDescription}"></td>
-				<td th:text="${list.infoAnnualFeePrice}"></td>
-				<td th:text="${list.infoAnnualFeeEstablishmentDate}"></td>		
+			<tr th:each="annualFeeList:${infoAnnualFeelist}">
+				<td th:text="${annualFeeList.infoAnnualFeeDescription}"></td>
+				<td th:text="${annualFeeList.infoAnnualFeePrice}"></td>
+				<td th:text="${annualFeeList.infoAnnualFeeEstablishmentDate}"></td>		
 			</tr>
 		</tbody>
 	</table>
 	<br>
 	<br>
 	<h3>교육원 사용여부 확인</h3>
-	<a type="button" href="/associationAvailableInstitutionRefresh" class="btn btn-primary">사용여부 새로고침</a>
-	<a type="button" href="/associationAddInfoAnnualFeeRefund" class="btn btn-primary">연회비 환불하기</a>
+	<a type="button" href="/associationAvailableInstitutionRefresh" class="btn btn-secondary">사용여부 새로고침</a>
+	<a type="button" href="/associationRefundAnnualFeeList" class="btn btn-secondary">연회비 환불하기</a>
 	<table class="table">
 		<thead>
 			<tr>
@@ -45,11 +45,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>	
+			<tr th:each="availableList:${availableList}">
+				<td th:text="${availableList.institutionName}"></td>
+				<td th:text="${availableList.paymentAnnualFeeServiceStartDate}"></td>
+				<td th:text="${availableList.paymentAnnualFeeServiceEndDate}"></td>	
+				<td th:text="${availableList.availableInstitutionRemainingDate}"></td>
 			</tr>
 		</tbody>
 	</table>

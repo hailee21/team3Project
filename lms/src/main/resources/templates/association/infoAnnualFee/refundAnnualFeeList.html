@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h3>연회비 결제 리스트</h3>
+    <table class="table">
+        <thead>
+            <tr>
+				<th>교육원 이름</th>
+                <th>연회비 결제 금액</th>
+                <th>연회비 결제 일</th>
+                <th>연회비 결제 방법</th>
+                <th>서비스 시작일</th>			
+				<th>서비스 종료일</th>
+				<th></th>
+            </tr>
+        </thead>
+        <tbody>
+			<tr th:each="paymentList:${paymentList}">
+				<td th:text="${paymentList.institutionName}"></td>
+				<td th:text="${paymentList.paymentAnnualFeePrice}"></td>
+				<td th:text="${paymentList.paymentAnnualFeeDate}"></td>
+                <td th:text="${paymentList.paymentAnnualFeeMethod}"></td>
+                <td th:text="${paymentList.paymentAnnualFeeServiceStartDate}"></td>
+				<td th:text="${paymentList.paymentAnnualFeeServiceEndDate}"></td>
+				<td><a type="button" class="btn btn-secondary" th:href="@{'/LEIndex?institutionCode='+${institutionCode}}" th:text="환불하기"></a></td>		
+			</tr>
+        </tbody>
+    </table>
+</div>
+</html>
