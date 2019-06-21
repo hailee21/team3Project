@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ksmart.lms.license.mapper.LicenseTestLocationMapper">
+	
+	<resultMap type="kr.or.ksmart.lms.license.vo.LicenseTestLocation" id="LicenseTestLocationMap">
+
+		<result column="license_test_location_code" property="licenseTestLocationCode"/>
+		<result column="license_test_location_region" property="licenseTestLocationRegion"/>
+		<result column="license_test_location_address" property="licenseTestLocationAddress"/>
+		<result column="license_test_location_use" property="licenseTestLocationUse"/>
+		<result column="license_test_location_maximum_number" property="licenseTestLocationMaximumNumber"/>	
+	
+    </resultMap>
+<!--자격시험 장소 등록-->
+	<insert id="insertLicenseTestLocation"
+			parameterType="kr.or.ksmart.lms.license.vo.LicenseTestLocation">
+		INSERT INTO
+			license_test_location
+		VALUE (
+			#{licenseTestLocationCode}
+			, #{licenseTestLocationRegion}
+			, #{licenseTestLocationAddress}
+			, #{licenseTestLocationUse}
+			, #{licenseTestLocationMaximumNumber}
+			)
+            
+
+	</insert>
+</mapper>
