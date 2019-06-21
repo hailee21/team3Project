@@ -12,19 +12,32 @@
 		<result column="license_test_location_maximum_number" property="licenseTestLocationMaximumNumber"/>	
 	
     </resultMap>
+<!-- 자격시험 장소 PK --> 
+    <select id="selectLicenseTestLocationPk" 
+			resultType="String">
+		SELECT
+			license_test_location_code
+		FROM 
+			license_test_location
+		ORDER BY
+			license_test_location_date DESC
+		LIMIT
+			0,1
+	</select>
+    
 <!--자격시험 장소 등록-->
 	<insert id="insertLicenseTestLocation"
 			parameterType="kr.or.ksmart.lms.license.vo.LicenseTestLocation">
 		INSERT INTO
 			license_test_location
-		VALUE (
-			#{licenseTestLocationCode}
-			, #{licenseTestLocationRegion}
+			VALUES(
+			#{licenseTestLocationRegion}
 			, #{licenseTestLocationAddress}
 			, #{licenseTestLocationUse}
 			, #{licenseTestLocationMaximumNumber}
-			)
-            
+			, now()
+		);
+		            
 
 	</insert>
 </mapper>

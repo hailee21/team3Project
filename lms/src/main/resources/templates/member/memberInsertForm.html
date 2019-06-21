@@ -8,7 +8,7 @@
 		table-align: center;
 		}
 </style>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script><!-- daum post api -->
 <script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -64,10 +64,26 @@
 	<table>
 		<tr>
 			<td>
+				아이디
+			</td>
+			<td>
+				<input type="text" name="memberOnlineId" value="id014">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				비밀번호
+			</td>
+			<td>
+				<input type="password" name="memberOnlinePw" value="1234">
+			</td>
+		</tr>
+		<tr>
+			<td>
 				이름
 			</td>
 			<td>
-				<input type="text" name="memberName">
+				<input type="text" name="memberName" value="이누구">
 			</td>
 		</tr>
 		<tr>
@@ -75,7 +91,7 @@
 				주민번호
 			</td>
 			<td>
-				<input type="text" name="memberRegistrationNumberFront" size="6"> - <input type="password" name="memberRegistrationNumberBack" size="7">
+				<input type="text" name="memberRegistrationNumberFront" size="6"> - <input type="password" name="memberRegistrationNumberBack" value="1001000" size="7">
 			</td>
 		</tr>
 		<tr>
@@ -83,7 +99,7 @@
 				전화번호
 			</td>
 			<td>
-				<pre><input type="tel" name="memberPhoneNumber" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>	(010-0000-0000)</pre>
+				<pre><input type="tel" name="memberPhoneNumber" value="010-1234-1234" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>	(010-0000-0000)</pre>
 			</td>
 		</tr>
 		<tr>
@@ -94,20 +110,34 @@
 				<input type="text" readonly="readonly" maxlength="14" id="memberPostcode" name="memberPostcode" size="4">
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호찾기"><br>
 				<input id="memberAddress" name="memberAddress" class="inputTypeText" placeholder="도로명주소" readonly="readonly" value="" type="text" size="30"/><br>
-				<input id="memberAddressDesc" name="memberAddressDesc" class="inputTypeText" placeholder="상세주소" value="" type="text"/>
+				<input id="memberAddressDesc" name="memberAddressDesc" class="inputTypeText" value="2층 한국스마트정보교육원" placeholder="상세주소" type="text"/>
 				<input type="text" id="sample6_extraAddress" size="7" placeholder="참고항목">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				회원등급
-			</td>
-			<td>
-				<pre><input type="radio" name="memberRank" value="수강생"> 수강생	<input type="radio" name="memberRank" value="강사"> 강사	<input type="radio" name="memberRank" value="교육원직원"> 교육원직원	<input type="radio" name="memberRank" value="협회직원"> 협회직원</pre>
+				<!-- 회원등급 -->
+				<input type="hidden" name="memberRank" value="수강생">
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2"><button type="submit">회원등록</button> <button type="button" onclick="location.href='javascript:history.back()'">뒤로가기</button></td>
+			<td>
+				교육원
+			</td>
+			<td>
+				<select name="institutionCode">
+					<option value="">--교육원선택--</option>
+					<option value="I1" name="I1">전주평생교육원</option>
+					<option value="I2" name="I2">서울평생교육원</option>
+					<option value="I3" name="I3">성남평생교육원</option>
+					<option value="I4" name="I4">인천평생교육원</option>
+					<option value="I5" name="I5">광주평생교육원</option>
+					<option value="I6" name="I6">구미평생교육원</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><button type="submit" class="btn btn-primary">회원등록</button> <button type="button" onclick="location.href='javascript:history.back()'">뒤로가기</button></td>
 		</tr>
 	</table>
 </form>

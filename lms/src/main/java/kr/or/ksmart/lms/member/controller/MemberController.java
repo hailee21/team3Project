@@ -1,28 +1,33 @@
 package kr.or.ksmart.lms.member.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.or.ksmart.lms.institution.vo.Institution;
 import kr.or.ksmart.lms.member.service.MemberService;
 import kr.or.ksmart.lms.member.vo.Member;
+import kr.or.ksmart.lms.member.vo.MemberOnline;
 
 @Controller
 public class MemberController {
 	@Autowired MemberService memberService;
-	//	회원등록 공통 화면 join.html(교육원/협회직원)
-	@GetMapping("memberInsert")
+	
+	//	회원등록 join.html(회원)
+	@GetMapping("join")
 	public ModelAndView memberJoin(ModelAndView mav) {
-		mav.setViewName("member/memberInsertForm");
+		mav.setViewName("LE/Join");
 		return mav;
 	}
 	//	회원등록 처리
 	@PostMapping("memberInsert")
-	public ModelAndView memberInsert(Member member, ModelAndView mav) {
+	public ModelAndView memberInsert(Member member, MemberOnline memberOnline, String institutionCode, ModelAndView mav) {
 		System.out.println("[MemberController memberInsert] member:" + member);
-		memberService.insertMember(member);
+		memberService.insertMember(member, memberOnline, institutionCode);
 		mav.setViewName("redirect:/memberList");
 		return mav;
 	}

@@ -4,14 +4,22 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.or.ksmart.lms.association.vo.AvailableInstitution;
 import kr.or.ksmart.lms.association.vo.InfoAnnualFee;
+import kr.or.ksmart.lms.association.vo.PaymentAnnualFee;
 import kr.or.ksmart.lms.association.vo.RefundPolicy;
 
 @Mapper
 public interface AssociationMapper {
 	//associationLayout 연회비 개요 리스트 출력 mapper
 	public List<InfoAnnualFee> selectInfoAnnualFeeList();
+
+	//associationLayout 연회비 개요 PK 출력 mapper
+	public String selectInfoAnnualFeePk();
 	
+	//associationLayout 연회비 개요 추가 mapper
+	public void insertInfoAnnualFee(InfoAnnualFee infoAnnualFee);
+
 	//associationLayout 연회비 환불 정책 리스트 출력 mapper
 	public List<RefundPolicy> selectRefundPolicyAnnualFeeList();
 	
@@ -26,4 +34,13 @@ public interface AssociationMapper {
 	
 	//associationLayout 환불 정책 추가 mapper
 	public void insertRefundPolicy(RefundPolicy refundPolicy);
+
+	//associationLayout 교육원 사용 여부 출력 mapper
+	public List<AvailableInstitution> selectAvailableInstitutionList();
+
+	//associationLayout 교육원 사용 새로고침 mapper
+	public void updateAvailableInstitution(AvailableInstitution availableInstitution);
+
+	//institutionLayout 연회비 결제 내역 출력 mapper
+	public List<PaymentAnnualFee> selectPaymentAnnualFeeList();
 }

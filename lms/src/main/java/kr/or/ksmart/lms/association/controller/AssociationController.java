@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.association.service.AssociationService;
 import kr.or.ksmart.lms.association.vo.InfoAnnualFee;
+import kr.or.ksmart.lms.association.vo.PaymentAnnualFee;
 import kr.or.ksmart.lms.association.vo.RefundPolicy;
 
 @Controller
@@ -27,9 +28,9 @@ public class AssociationController {
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank.equals("협회직원")) {
 			mav.setViewName("association/infoAnnualFee/infoAnnualFeeList");
-			List<InfoAnnualFee> infoAnnualFeeList = associationService.getInfoAnnualFeeList();
-			mav.addObject("infoAnnualFeelist", infoAnnualFeeList);
-			System.out.println("[AssociationController getRefundPolicyList] "+infoAnnualFeeList);
+			Map<String, Object> map = associationService.getInfoAnnualFeeList();
+			mav.addObject("infoAnnualFeelist", map.get("infoAnnualFeeList"));
+			mav.addObject("availableList", map.get("availableList"));
 		} else {
 			System.out.println("[AssociationController getInfoAnnualFeeList] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
@@ -37,6 +38,51 @@ public class AssociationController {
 		return mav;
 	}
 	
+	//associationLayout 연회비 추가 폼 출력 controller
+	@GetMapping("/associationAddInfoAnnualFee")
+	public ModelAndView getInfoAnnualFeeAddForm(HttpSession session, ModelAndView mav) {
+		System.out.println("[AssociationController getInfoAnnualFeeAddForm] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank.equals("협회직원")) {
+			mav.setViewName("association/infoAnnualFee/addInfoAnnualFee");
+		} else {
+			System.out.println("[AssociationController getInfoAnnualFeeAddForm] 협회직원 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
+
+	//associationLayout 연회비 환불 폼 출력 controller
+	@GetMapping("/associationRefundAnnualFeeList")
+	public ModelAndView getAssociationRefundAnnualFeeList(HttpSession session, ModelAndView mav) {
+		System.out.println("[AssociationController getAssociationRefundAnnualFeeList] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank.equals("협회직원")) {
+			List<PaymentAnnualFee> paymentList = associationService.getAssociationRefundAnnualFeeList();
+			mav.setViewName("association/infoAnnualFee/refundAnnualFeeList");
+			mav.addObject("paymentList", paymentList);
+		} else {
+			System.out.println("[AssociationController getAssociationRefundAnnualFeeList] 협회직원 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
+
+	//associationLayout 연회비 추가 액션 controller
+	@PostMapping("/associationAddInfoAnnualFee")
+	public ModelAndView addInfoAnnualFee(HttpSession session, ModelAndView mav, InfoAnnualFee infoAnnualFee) {
+		System.out.println("[AssociationController addInfoAnnualFee] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank.equals("협회직원")) {
+			associationService.addInfoAnnualFee(infoAnnualFee);
+			mav.setViewName("redirect:/associationInfoAnnualFeeList");
+		} else {
+			System.out.println("[AssociationController addInfoAnnualFee] 협회직원 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
+
 	//associationLayout 환불정택 리스트 출력 controller
 	@GetMapping("/associationRefundPolicyList")
 	public ModelAndView getRefundPolicyList(HttpSession session, ModelAndView mav) {
@@ -113,15 +159,15 @@ public class AssociationController {
 	}
 	
 	//associationLayout 교육원 사용권한 새로고침 controller
-	@PostMapping("/associationAvailableInstitutionRefresh")
+	@GetMapping("/associationAvailableInstitutionRefresh")
 	public ModelAndView getAvailableInstitutionRefresh(HttpSession session, ModelAndView mav, RefundPolicy refundPolicy) {
 		System.out.println("[AssociationController getAvailableInstitutionRefresh] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank.equals("협회직원")) {
-
-			mav.setViewName("redirect:/associationRefundPolicyList");
+			associationService.getAvailableInstitutionRefresh();
+			mav.setViewName("redirect:/associationInfoAnnualFeeList");
 		} else {
-			System.out.println("[AssociationController addRefundPolicy] 협회직원 아님");
+			System.out.println("[AssociationController getAvailableInstitutionRefresh] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
 		}
 		return mav;

@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="kr.or.ksmart.lms.classroom.mapper.ClassroomMapper"> 
+	<!-- ClassroomMapper Classroom resultMap  -->
+	<resultMap id="ClassroomResultMap"
+				type="kr.or.ksmart.lms.classroom.vo.Classroom">
+		<result column="classroom_code" property="classroomCode"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="classroom_location" property="classroomLocation"/>
+		<result column="classroom_name" property="classroomName"/>
+		<result column="classroom_use" property="classroomUse"/>
+		<result column="classroom_maximum_number" property="classroomMaximumNumber"/>
+	</resultMap>
+		
+	<!-- 강의실 등록 -->			
+	<insert id="insertClassroom"
+			parameterType="kr.or.ksmart.lms.classroom.vo.Classroom">
+		INSERT INTO classroom (
+			classroom_code
+			,institution_code
+			,institution_name
+			,classroom_location
+			,classroom_name
+			,classroom_use
+			,classroom_maximum_number
+		)	VALUES (
+			#{classroomCode}
+			,#{institutionCode}
+			,#{institutionName}
+			,#{classroomLocation}
+			,#{classroomName}
+			,#{classroomUse}
+			,#{classroomMaximumNumber}			
+		) 		
+	</insert>
+	
+
+
+</mapper>

@@ -48,7 +48,13 @@ $(document).ready(function(){
 					,dataType:'json'
 					,success:function(result){
 						$('#subjectList').empty();
-						$('#subjectList').append('<thead><tr><th>과목명</th><th>난이도</th></tr></thead><tbody>');
+						$('#subjectList').append('<thead>');
+						$('#subjectList').append('<tr>');
+						$('#subjectList').append('<th>과목명</th>');
+						$('#subjectList').append('<th>난이도</th>');
+						$('#subjectList').append('</tr>');
+						$('#subjectList').append('</thead>');
+						$('#subjectList').append('<tbody>');
 						$(result).each(function(i, item){
 							$('#subjectList').append('<tr><td>'+item.infoSubjectName+'</td><td>'+item.infoSubjectDifficulty+'</td></tr>');
 						});
@@ -78,18 +84,6 @@ $(document).ready(function(){
 		
 		<!-- 과목리스트 출력을 위한 table 태그 -->
 		<table id="subjectList" class="table table-striped">
-			<thead>
-				<tr>
-					<th>과목명</th>
-					<th>난이도</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td></td>	
-					<td></td>
-				</tr>
-			</tbody>
 		</table>
 </div>
 </html>

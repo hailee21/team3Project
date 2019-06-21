@@ -10,7 +10,7 @@ public class RefundAnnualFee {
 	private int refundAnnualFeePrice;
 	private String paymentAnnualFeeServiceStartDate;
 	private String paymentAnnualFeeServiceEndDate;
-	private String infoInstitutionRemainingDate;
+	private int infoInstitutionRemainingDate;
 	private String paymentAnnualFeeDate;
 	private String refundAnnualFeeDate;
 	public String getRefundAnnualFeeCode() {
@@ -67,10 +67,10 @@ public class RefundAnnualFee {
 	public void setPaymentAnnualFeeServiceEndDate(String paymentAnnualFeeServiceEndDate) {
 		this.paymentAnnualFeeServiceEndDate = paymentAnnualFeeServiceEndDate;
 	}
-	public String getInfoInstitutionRemainingDate() {
+	public int getInfoInstitutionRemainingDate() {
 		return infoInstitutionRemainingDate;
 	}
-	public void setInfoInstitutionRemainingDate(String infoInstitutionRemainingDate) {
+	public void setInfoInstitutionRemainingDate(int infoInstitutionRemainingDate) {
 		this.infoInstitutionRemainingDate = infoInstitutionRemainingDate;
 	}
 	public String getPaymentAnnualFeeDate() {

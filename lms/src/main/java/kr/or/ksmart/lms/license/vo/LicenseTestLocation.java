@@ -6,8 +6,17 @@ public class LicenseTestLocation {
     private String licenseTestLocationAddress;
     private String licenseTestLocationUse;
     private int licenseTestLocationMaximumNumber;
+    private String licenseTestLocationDate;
 
-    public String getLicenseTestLocationCode() {
+	public String getLicenseTestLocationDate() {
+		return licenseTestLocationDate;
+	}
+
+	public void setLicenseTestLocationDate(String licenseTestLocationDate) {
+		this.licenseTestLocationDate = licenseTestLocationDate;
+	}
+
+	public String getLicenseTestLocationCode() {
         return licenseTestLocationCode;
     }
 
@@ -48,11 +57,12 @@ public class LicenseTestLocation {
     }
 
     @Override
-    public String toString() {
-        return "LicenseTestLocation [licenseTestLocationAddress=" + licenseTestLocationAddress
-                + ", licenseTestLocationCode=" + licenseTestLocationCode + ", licenseTestLocationMaximumNumber="
-                + licenseTestLocationMaximumNumber + ", licenseTestLocationRegion=" + licenseTestLocationRegion
-                + ", licenseTestLocationUse=" + licenseTestLocationUse + "]";
-    }
+ 	public String toString() {
+ 		return "LicenseTestLocation [licenseTestLocationCode=" + licenseTestLocationCode
+ 				+ ", licenseTestLocationRegion=" + licenseTestLocationRegion + ", licenseTestLocationAddress="
+ 				+ licenseTestLocationAddress + ", licenseTestLocationUse=" + licenseTestLocationUse
+ 				+ ", licenseTestLocationMaximumNumber=" + licenseTestLocationMaximumNumber
+ 				+ ", licenseTestLocationDate=" + licenseTestLocationDate + "]";
 
+    }
 }
