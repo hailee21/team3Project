@@ -14,7 +14,7 @@
 		<result column="classroom_use" property="classroomUse"/>
 		<result column="classroom_maximum_number" property="classroomMaximumNumber"/>
 	</resultMap>
-	
+		
 	<!-- 강의실 등록 -->			
 	<insert id="insertClassroom"
 			parameterType="kr.or.ksmart.lms.classroom.vo.Classroom">
@@ -36,6 +36,7 @@
 			,#{classroomMaximumNumber}			
 		) 		
 	</insert>
+	
 
 
 </mapper>

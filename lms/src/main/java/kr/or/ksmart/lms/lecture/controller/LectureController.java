@@ -12,15 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.index.mapper.IndexMapper;
 import kr.or.ksmart.lms.index.vo.IndexInstitution;
-import kr.or.ksmart.lms.lecture.service.InfoLectureService;
+import kr.or.ksmart.lms.lecture.service.LectureService;
 import kr.or.ksmart.lms.lecture.vo.InfoLecture;
 import kr.or.ksmart.lms.subject.mapper.SubjectMapper;
 import kr.or.ksmart.lms.subject.vo.InfoSubject;
 
 @Controller
-public class InfoLectureController {
+public class LectureController {
 
-	@Autowired InfoLectureService infoLectureService;
+	@Autowired LectureService lectureService;
 	@Autowired SubjectMapper subjectMapper;
 	@Autowired IndexMapper indexMapper;
 	// 협회
@@ -31,11 +31,11 @@ public class InfoLectureController {
 		if(memberRank.equals("협회직원")) {
 			System.out.println("협회직원");
 			
-			System.out.println("[InfoLectureController getSubjectListAssociation] 협회 강의,과목 조회시작");
+			System.out.println("[LectureController getSubjectListAssociation] 협회 강의,과목 조회시작");
 			mav.setViewName("/association/subject/subjectList");
 			
-			List<InfoLecture> sortList = infoLectureService.getInfoLectureSortList();
-			System.out.println("[InfoLectureController getSubjectListAssociation] sortList : "+ sortList);
+			List<InfoLecture> sortList = lectureService.getInfoLectureSortList();
+			System.out.println("[LectureController getSubjectListAssociation] sortList : "+ sortList);
 			
 			mav.addObject("sortList", sortList);			
 		}else {
@@ -56,11 +56,11 @@ public class InfoLectureController {
 		if(memberRank.equals("교육원직원")) {
 			System.out.println("교육원직원");
 			
-			System.out.println("[InfoLectureController getSubjectListInstitution] 교육원 강의,과목 조회시작");
+			System.out.println("[LectureController getSubjectListInstitution] 교육원 강의,과목 조회시작");
 			mav.setViewName("/institution/subject/subjectList");
 			
-			List<InfoLecture> sortList = infoLectureService.getInfoLectureSortList();
-			System.out.println("[InfoLectureController getSubjectListInstitution] sortList : "+ sortList);
+			List<InfoLecture> sortList = lectureService.getInfoLectureSortList();
+			System.out.println("[LectureController getSubjectListInstitution] sortList : "+ sortList);
 			
 			mav.addObject("sortList", sortList);
 		}else {
@@ -75,21 +75,21 @@ public class InfoLectureController {
 		@GetMapping("/LE/subject/subjectList")
 		public ModelAndView getSubjectList(ModelAndView mav, HttpSession session
 										, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-			System.out.println("[InfoLectureController getSubjectList] institutionCode:"+institutionCode);	
+			System.out.println("[LectureController getSubjectList] institutionCode:"+institutionCode);	
 			// 교육원코드를 mav에 담아 활용
 			mav.addObject("institutionCode", institutionCode);
 			// 교육원 코드를 활용해서 교육원명 mav에 담기
 			IndexInstitution institution = indexMapper.selectInstitution(institutionCode);
 			mav.addObject("institutionName", institution.getInstitutionName());
-			System.out.println("[InfoLectureController getSubjectList] institutionName:"+institution.getInstitutionName());
+			System.out.println("[LectureController getSubjectList] institutionName:"+institution.getInstitutionName());
 			
 			String memberRank = (String)session.getAttribute("memberRank");
 			
-				System.out.println("[InfoLectureController getSubjectList] 수강생 강의,과목 조회시작");
+				System.out.println("[LectureController getSubjectList] 수강생 강의,과목 조회시작");
 				mav.setViewName("/LE/subject/subjectList");
 				
-				List<InfoLecture> sortList = infoLectureService.getInfoLectureSortList();
-				System.out.println("[InfoLectureController getSubjectList] sortList : "+ sortList);
+				List<InfoLecture> sortList = lectureService.getInfoLectureSortList();
+				System.out.println("[LectureController getSubjectList] sortList : "+ sortList);
 				
 				mav.addObject("sortList", sortList);	
 			return mav;

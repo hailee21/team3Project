@@ -48,7 +48,23 @@ public class ClassroomController {
 		}
 		return mav;
 	}
-	
+	// 교육원 검색
+	@GetMapping("/association/classroom/searchInstitution")
+	public ModelAndView getInstitutionList(ModelAndView mav, HttpSession session) {
+		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank.equals("협회직원")) {
+			System.out.println("협회직원");
+			
+			System.out.println("[ClassroomController getInstitutionList 교육원 검색]");
+			mav.setViewName("/association/classroom/searchInstitution");
+		}else {
+			System.out.println("협회직원아님");
+			
+			mav.setViewName("/association/associationLogin");
+		}
+		return mav;
+	}
+				
 	// 강의실 리스트 조회
 	@GetMapping("/association/classroom/classroomList")
 	public ModelAndView getClassroomList(ModelAndView mav, HttpSession session) {
@@ -65,5 +81,9 @@ public class ClassroomController {
 		}
 		return mav;
 	}
+	
+	
 
+	 
+	
 }

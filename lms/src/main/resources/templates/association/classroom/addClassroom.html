@@ -11,10 +11,11 @@
 <th:block layout:fragment="script">
 <script>
 $(document).ready(function(){
-	// 교육원 조회
 	$('#searchInstitution').click(function(){
-		
-	});
+		location.href="/association/classroom/searchInstitution";
+		console.log("교육원찾기 버튼 클릭..");
+	});	
+	
 	// 수용인원 폼 유효성검사
 });
 </script>
