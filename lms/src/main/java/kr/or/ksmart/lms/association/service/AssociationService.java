@@ -109,8 +109,51 @@ public class AssociationService {
 		associationMapper.insertRefundPolicy(refundPolicy);
 	}
 
+	//associationLayout 연회비 환불 리스트 폼 출력 service
+	public Map<String, Object> getAssociationRefundAnnualFeeList(){
+		//리스트 mapper 호출
+		List<String> institutionCodeList = associationMapper.selectinstitutionCodeList();
+		List<PaymentAnnualFee> paymentListForRefund = associationMapper.selectPaymentAnnualFeeListForRefund(institutionCodeList);
+		List<PaymentAnnualFee> paymentList = associationMapper.selectPaymentAnnualFeeList();
+		System.out.println(institutionCodeList);
+		System.out.println(paymentListForRefund);
+		System.out.println(paymentList);
+		//컨트롤러로 리턴할 데이터 선언 및 설정
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("paymentList", paymentList);
+		returnMap.put("paymentListForRefund", paymentListForRefund);
+		return returnMap;
+	}
+	
 	//associationLayout 연회비 환불 폼 출력 service
-	public List<PaymentAnnualFee> getAssociationRefundAnnualFeeList(){
-		return associationMapper.selectPaymentAnnualFeeList();
+	public Map<String, Object> getRefundAnnualFeeForm(String paymentAnnualFeeCode){
+		//연회비 환불 정책 리스트 출력을 위한 select mapper 호출
+		List<RefundPolicy> refundPolicyAnnualFeeList = associationMapper.selectRefundPolicyAnnualFeeList();
+
+		//해당 결제 내역 출력을 위한 select mapper 호출
+		PaymentAnnualFee payment = associationMapper.selectAnnualFee(paymentAnnualFeeCode);
+		
+		//남은일 계산하기
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:SS"); //DB에 저장되는 형식과 동일한 형태
+		Date now = new Date(); 
+		Timestamp nowDate = Timestamp.valueOf(dateFormat.format(now));
+		long longNowtDate = nowDate.getTime();
+		Timestamp startDate = Timestamp.valueOf(payment.getPaymentAnnualFeeServiceStartDate());
+		long longStartDate = startDate.getTime();
+		Timestamp endDate = Timestamp.valueOf(payment.getPaymentAnnualFeeServiceEndDate());
+		long longEndDate = endDate.getTime();
+		long oneDay = (1000*60*60*24);
+		int remainingDate = (int)((longEndDate - longStartDate) / oneDay);//결제 내역의 서비스 종
+		if(longStartDate < longNowtDate) {
+			//결제 내역의 서비스 시작일보다 오늘이 더 늦으면 서비스 종료일 - 오늘을 한다.
+			remainingDate = (int)((longEndDate - longNowtDate) / oneDay);
+		}
+		
+		//컨트롤러로 리턴할 데이터 선언 및 설정
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("refundPolicyAnnualFeeList", refundPolicyAnnualFeeList);
+		returnMap.put("remainingDate",remainingDate);
+		returnMap.put("payment",payment);
+		return returnMap;
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.association.service.AssociationService;
@@ -52,15 +53,16 @@ public class AssociationController {
 		return mav;
 	}
 
-	//associationLayout 연회비 환불 폼 출력 controller
+	//associationLayout 연회비 환불 리스트 폼 출력 controller
 	@GetMapping("/associationRefundAnnualFeeList")
 	public ModelAndView getAssociationRefundAnnualFeeList(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationController getAssociationRefundAnnualFeeList] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank.equals("협회직원")) {
-			List<PaymentAnnualFee> paymentList = associationService.getAssociationRefundAnnualFeeList();
+			Map<String, Object> map = associationService.getAssociationRefundAnnualFeeList();
 			mav.setViewName("association/infoAnnualFee/refundAnnualFeeList");
-			mav.addObject("paymentList", paymentList);
+			mav.addObject("paymentList", map.get("paymentList"));
+			mav.addObject("paymentListForRefund", map.get("paymentListForRefund"));
 		} else {
 			System.out.println("[AssociationController getAssociationRefundAnnualFeeList] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
@@ -168,6 +170,25 @@ public class AssociationController {
 			mav.setViewName("redirect:/associationInfoAnnualFeeList");
 		} else {
 			System.out.println("[AssociationController getAvailableInstitutionRefresh] 협회직원 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
+
+	//associationLayout 연회비 환불 폼 controller
+	@GetMapping("/getrefundAnnualFeeForm")
+	public ModelAndView getRefundAnnualFeeForm(HttpSession session, ModelAndView mav
+			,@RequestParam(value="paymentAnnualFeeCode", required = true) String paymentAnnualFeeCode) {
+		System.out.println("[AssociationController getRefundAnnualFeeForm] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank.equals("협회직원")) {
+			Map<String, Object> map = associationService.getRefundAnnualFeeForm(paymentAnnualFeeCode);
+			mav.setViewName("association/infoAnnualFee/addAnnualFee");
+			mav.addObject("refundPolicyAnnualFeeList", map.get("refundPolicyAnnualFeeList"));
+			mav.addObject("remainingDate", map.get("remainingDate"));
+			mav.addObject("payment", map.get("payment"));
+		} else {
+			System.out.println("[AssociationController getRefundAnnualFeeForm] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
 		}
 		return mav;
