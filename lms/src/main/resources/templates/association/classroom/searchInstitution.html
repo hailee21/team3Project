@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	// 교육원 목록
+    $('#search').click(function(){
+        console.log('교육원 검색버튼 클릭...');
+        console.log('입력받은 교육원 위치 : '+$('#instName').val());
+        $.ajax({
+            url:'/getInstitutionList'
+            ,data:{instName:$('#instName').val()}
+            ,type:'POST'
+    		,dataType:'json'
+            ,success:function(result){ 
+                $('#institutionList').empty();
+				$('#institutionList').append('<thead>');
+				$('#institutionList').append('<tr>');
+				$('#institutionList').append('<th>check</th>');
+				$('#institutionList').append('<th>교육원명</th>');
+				$('#institutionList').append('<th>교육원위치</th>');
+				$('#institutionList').append('</tr>');
+				$('#institutionList').append('</thead>');
+				$('#institutionList').append('<tbody>');
+                $(result).each(function(i,item){	
+               	   $('#institutionList').append('<tr><td><input id="ck" type="checkbox" class="ck" value="'+item.institutionCode+'"></td><td id="'+item.institutionName+'" value="'+item.institutionName+'">'+item.institutionName+'</td><td id="'+item.institutionLocation+'" value="'+item.institutionLocation+'">'+item.institutionLocation+'</td></tr>');
+                });
+                $('#institutionList').append('</tbody>');
+                $('#result').attr('hidden',false)
+             }
+        });
+    });
+	
+	$('#result').click(function(){
+		// 체크된 값을 담을 배열 생성
+		let ck = new Array(); // let ck = [];
+        $('.ck:checked').each(function(i,item){ 
+            ck.push($(item).val());
+            console.log('체크된 교육원 : '+$('#ck').val());
+        });
+        // 강의실 추가 페이지로 이동
+		location.href="/association/classroom/addClassroom"+$("#institutionCode").val()+$('#institutionName').val();
+		console.log("교육원 선택 후 클릭..");
+	});	
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h2>교육원 찾기</h2>
+	<h5>강의실 등록을 위한 교육원을 선택하여 주십시오</h5>
+	<h5>위치로 검색하실 수 있습니다</h5>
+	<input id="instName" name="instName" type="text">
+	<button id="search" type="button">search</button>	
+	
+	<!-- 교육원리스트 출력을 위한 table 태그 -->
+	<table id="institutionList" class="table table-striped">
+	</table>
+	<button id="result" type="button" hidden="true">해당 교육원 선택</button>
+</div>
+</html>
