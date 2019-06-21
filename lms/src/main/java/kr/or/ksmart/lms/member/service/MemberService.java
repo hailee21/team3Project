@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.ksmart.lms.index.vo.IndexInstitution;
+import kr.or.ksmart.lms.institution.vo.Institution;
 import kr.or.ksmart.lms.member.mapper.MemberMapper;
 import kr.or.ksmart.lms.member.vo.Member;
 import kr.or.ksmart.lms.member.vo.MemberOnline;
@@ -31,24 +32,9 @@ public class MemberService {
 		System.out.println("[MemberService insertMemberOnline] memberOnlineCode : " + memberOnlineCode);
 		memberOnline.setMemberOnlineCode(memberOnlineCode);	//	memberOnline VO 내 memberOnlineCode set
 		memberOnline.setMemberCode(memberCode);
-		//memberMapper.selectInstitutionName(institutionCode);
+		String institutionName = memberMapper.selectInstitutionName(institutionCode);
+		memberOnline.setInstitutionName(institutionName);
 		memberMapper.insertMemberOnline(memberOnline);	//mapper 실행		
 	}
-	/*public void insertMemberOnline(MemberOnline memberOnline, Member member, String institutionCode) {
-		String memberCode = memberMapper.selectMemberCodePk();
-		System.out.println("MemberService insertMemberOnline] memberCode : " + memberCode);
-		String memberOnlineCodePK=memberMapper.selectMemberOnlineCodePk();
-		//System.out.println("[MemberService insertMemberOnline] memberOnlineCode : " + memberOnlineCodePK);
-		int memberOnlineCodeNo = Integer.parseInt(memberOnlineCodePK.substring(2));
-		memberOnlineCodeNo++;
-		String memberOnlineCode = "MO"+memberOnlineCodeNo;
-		//System.out.println("[MemberService insertMemberOnline] memberOnlineCode : " + memberOnlineCode);
-		memberOnline.setMemberOnlineCode(memberOnlineCode);
-		
-		//MemberOnline MO = new MemberOnline();
-		System.out.println("[MemberService insertMemberOnline] memberOnlineCode : " + memberOnline.getMemberOnlineCode());
-		
-		memberMapper.insertMemberOnline(memberOnline);
-	}*/
-	
+
 }

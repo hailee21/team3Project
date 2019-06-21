@@ -17,10 +17,10 @@ import kr.or.ksmart.lms.member.vo.MemberOnline;
 public class MemberController {
 	@Autowired MemberService memberService;
 	
-	//	회원등록 공통 화면 join.html(교육원/협회직원)
-	@GetMapping("memberInsert")
+	//	회원등록 join.html(회원)
+	@GetMapping("join")
 	public ModelAndView memberJoin(ModelAndView mav) {
-		mav.setViewName("member/memberInsertForm");
+		mav.setViewName("LE/Join");
 		return mav;
 	}
 	//	회원등록 처리

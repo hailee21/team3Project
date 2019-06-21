@@ -16,7 +16,7 @@ public interface MemberMapper {
 	//	신규회원등록(memberOnline)
 	public int insertMemberOnline(MemberOnline memberOnline);
 	//	교육원 코드로 교육원이름 조회
-	public Institution selectInstitutionName(String institutionCode);
+	public String selectInstitutionName(String institutionCode);
 	//	회원코드 PK 출력mapper
 	public String selectMemberCodePk();
 	//	회원온라인 코드 PK출력 mapper
