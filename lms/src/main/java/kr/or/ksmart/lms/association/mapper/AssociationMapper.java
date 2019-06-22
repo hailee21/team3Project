@@ -49,7 +49,7 @@ public interface AssociationMapper {
 
 	//associationLayout 교육원 코드 출력 mapper
 	public List<String> selectinstitutionCodeList();
-
-	//associationLayout 연회비 환불을 위한 리스트 출려 mapper
-	public List<PaymentAnnualFee> selectPaymentAnnualFeeListForRefund(List<String> institutionCodeList);
+	
+	//associationLayout 교육원 별 최근 결제 내역 출려 mapper
+	public PaymentAnnualFee selectPaymentAnnualFeeListForRefund(String institutionCode);
 }
