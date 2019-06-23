@@ -41,6 +41,15 @@ public interface AssociationMapper {
 	//associationLayout 교육원 사용 새로고침 mapper
 	public void updateAvailableInstitution(AvailableInstitution availableInstitution);
 
-	//institutionLayout 연회비 결제 내역 출력 mapper
+	//associationLayout 연회비 결제 내역 리스트 출력 mapper
 	public List<PaymentAnnualFee> selectPaymentAnnualFeeList();
+
+	//associationLayout 연회비 결제 내역 한개 출력 mapper
+	public PaymentAnnualFee selectAnnualFee(String paymentAnnualFeeCode);
+
+	//associationLayout 교육원 코드 출력 mapper
+	public List<String> selectinstitutionCodeList();
+	
+	//associationLayout 교육원 별 최근 결제 내역 출려 mapper
+	public PaymentAnnualFee selectPaymentAnnualFeeListForRefund(String institutionCode);
 }

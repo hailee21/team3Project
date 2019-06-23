@@ -220,10 +220,19 @@
 			institution_code = #{institutionCode}
 	</update>
 
-	<!-- 연회비 결제 내역 select  -->
+	<!-- 연회비 결제한 교육원 리스트 select  -->
+	<select id="selectinstitutionCodeList"
+			resultType="String">
+		SELECT DISTINCT
+			institution_code
+		FROM 
+			payment_annual_fee
+	</select>
+
+	<!-- 연회비 총 결제 내역 select  -->
 	<select id="selectPaymentAnnualFeeList"
 			resultMap="paymentAnnualFeeMap">
-		SELECT
+		SELECT 
 			payment_annual_fee_code
 			, institution_code
 			, institution_name
@@ -237,5 +246,49 @@
 			payment_annual_fee
 		ORDER BY
 			payment_annual_fee_date DESC
+	</select>
+
+	<!-- 연회비 결제 내역 select  -->
+	<select id="selectAnnualFee"
+			parameterType="String"
+			resultMap="paymentAnnualFeeMap">
+		SELECT
+			payment_annual_fee_code
+			, institution_code
+			, institution_name
+			, info_annual_fee_code
+			, payment_annual_fee_price
+			, payment_annual_fee_service_start_date
+			, payment_annual_fee_service_end_date
+			, payment_annual_fee_date
+			, payment_annual_fee_method
+		FROM 
+			payment_annual_fee
+		WHERE
+			payment_annual_fee_code = #{paymentAnnualFeeCode}
+	</select>
+	
+	<!-- 연회비 환불을 위한 결제 내역 select  -->
+	<select id="selectPaymentAnnualFeeListForRefund"
+			parameterType = "String"
+			resultMap="paymentAnnualFeeMap">
+       	SELECT DISTINCT
+			payment_annual_fee_code
+			, institution_code
+			, institution_name
+			, info_annual_fee_code
+			, payment_annual_fee_price
+			, payment_annual_fee_service_start_date
+			, payment_annual_fee_service_end_date
+			, payment_annual_fee_date
+			, payment_annual_fee_method
+		FROM 
+			payment_annual_fee
+		WHERE
+			institution_code = #{institutionCode}
+		ORDER BY
+			payment_annual_fee_date DESC
+		LIMIT
+			0, 1
 	</select>
 </mapper>
