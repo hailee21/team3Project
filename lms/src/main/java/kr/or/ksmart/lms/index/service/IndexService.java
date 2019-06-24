@@ -11,7 +11,7 @@ public class IndexService {
 	@Autowired
 	IndexMapper indexMapper;
 	
-	public IndexInstitution LEIndex(String institutionCode) {
+	public IndexInstitution PIIndex(String institutionCode) {
 		return indexMapper.selectInstitution(institutionCode);
 	}
 }

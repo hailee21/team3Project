@@ -23,11 +23,20 @@ public class IndexController {
 		return mav;
 	}
 
-	@GetMapping("/LEIndex")
-	public ModelAndView LEIndex(HttpSession session, ModelAndView mav,
+	@GetMapping("/PIIndex")
+	public ModelAndView PIIndex(HttpSession session, ModelAndView mav,
 			@RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LE/LEIndex");
-		IndexInstitution institution = indexService.LEIndex(institutionCode);
+		mav.setViewName("PI/PIIndex");
+		IndexInstitution institution = indexService.PIIndex(institutionCode);
+		mav.addObject("institutionCode", institution.getInstitutionCode());
+		mav.addObject("institutionName", institution.getInstitutionName());
+		return mav;
+	}
+	@GetMapping("/PAIndex")
+	public ModelAndView PAIndex(HttpSession session, ModelAndView mav,
+			@RequestParam(value="institutionCode", required = true) String institutionCode) {
+		mav.setViewName("PA/PAIndex");
+		IndexInstitution institution = indexService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
