@@ -2,7 +2,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationMapper"> 
+<mapper namespace="kr.or.ksmart.lms.association.mapper.InfoAnnualFeeMapper"> 
 	<!-- 연회비 개요 resultMap -->
 	<resultMap id="infoAnnualFeeMap"
 				type="kr.or.ksmart.lms.association.vo.InfoAnnualFee">
@@ -10,17 +10,6 @@
 		<result column="info_annual_fee_price" property="infoAnnualFeePrice"/>
 		<result column="info_annual_fee_description" property="infoAnnualFeeDescription"/>
 		<result column="info_annual_fee_establishment_date" property="infoAnnualFeeEstablishmentDate"/>
-	</resultMap>
-	
-	<!-- 환불 정책 resultMap -->
-	<resultMap id="refundPolicyMap"
-				type="kr.or.ksmart.lms.association.vo.RefundPolicy">
-		<result column="refund_policy_code" property="refundPolicyCode"/>
-		<result column="refund_policy_name" property="refundPolicyName"/>
-		<result column="refund_policy_description" property="refundPolicyDescription"/>
-		<result column="refund_policy_type" property="refundPolicyType"/>
-		<result column="refund_policy_percentage" property="refundPolicyPercentage"/>
-		<result column="refund_policy_legislation_date" property="refundPolicyLegislationDate"/>
 	</resultMap>
 
 	<!-- 교육원 사용권한 resultMap -->
@@ -47,6 +36,17 @@
 		<result column="payment_annual_fee_service_end_date" property="paymentAnnualFeeServiceEndDate"/>
 		<result column="payment_annual_fee_date" property="paymentAnnualFeeDate"/>
 		<result column="payment_annual_fee_method" property="paymentAnnualFeeMethod"/>
+	</resultMap>
+
+	<!-- 환불 정책 resultMap -->
+	<resultMap id="refundPolicyMap"
+				type="kr.or.ksmart.lms.association.vo.RefundPolicy">
+		<result column="refund_policy_code" property="refundPolicyCode"/>
+		<result column="refund_policy_name" property="refundPolicyName"/>
+		<result column="refund_policy_description" property="refundPolicyDescription"/>
+		<result column="refund_policy_type" property="refundPolicyType"/>
+		<result column="refund_policy_percentage" property="refundPolicyPercentage"/>
+		<result column="refund_policy_legislation_date" property="refundPolicyLegislationDate"/>
 	</resultMap>
 
 	<!-- 연회비 환불 리스트 resultMap -->
@@ -106,89 +106,7 @@
 			)
 	</insert>
 
-	<!-- 연회비 환불 정책  select  -->
-	<select id="selectRefundPolicyAnnualFeeList" 
-			resultMap="refundPolicyMap">
-		SELECT
-			refund_policy_code
-			, refund_policy_name
-			, refund_policy_description
-			, refund_policy_type
-			, refund_policy_percentage
-			, refund_policy_legislation_date
-		FROM 
-			refund_policy
-		WHERE
-			refund_policy_type = '연회비 환불'
-		ORDER BY
-			refund_policy_legislation_date DESC
-	</select>
-	
-	<!-- 강의 환불 정책  select  -->
-	<select id="selectRefundPolicyLectureList" 
-			resultMap="refundPolicyMap">
-		SELECT
-			refund_policy_code
-			, refund_policy_name
-			, refund_policy_description
-			, refund_policy_type
-			, refund_policy_percentage
-			, refund_policy_legislation_date
-		FROM 
-			refund_policy
-		WHERE
-			refund_policy_type = '자격시험 환불'
-		ORDER BY
-			refund_policy_legislation_date DESC
-	</select>
-	
-	<!-- 자격증 환불 정책 select  -->
-	<select id="selectRefundPolicyLicenseList" 
-			resultMap="refundPolicyMap">
-		SELECT
-			refund_policy_code
-			, refund_policy_name
-			, refund_policy_description
-			, refund_policy_type
-			, refund_policy_percentage
-			, refund_policy_legislation_date
-		FROM 
-			refund_policy
-		WHERE
-			refund_policy_type LIKE '강의환불%'
-		ORDER BY
-			refund_policy_legislation_date DESC
-	</select>
-	
-	<!-- 환불 정책 PK select  -->
-	<select id="selectRefundPolicyPk" 
-			resultType="String">
-		SELECT
-			refund_policy_code
-		FROM 
-			refund_policy
-		ORDER BY
-			refund_policy_legislation_date DESC
-		LIMIT
-			0,1
-	</select>
-	
-	<!-- 환불 정책 insert -->
-	<insert id="insertRefundPolicy"
-			parameterType="kr.or.ksmart.lms.association.vo.RefundPolicy">
-		INSERT INTO 
-			refund_policy
-		VALUES (
-			#{refundPolicyCode}
-			, #{refundPolicyName}
-			, #{refundPolicyDescription}
-			, #{refundPolicyType}
-			, #{refundPolicyPercentage}
-			, now()
-			)
-	</insert>
-
-	<!-- 교육원 사용권한  select  -->
+	<!-- 교육원 사용권한 리스트 select  -->
 	<select id="selectAvailableInstitutionList" 
 			resultMap="availableInstitutionMap">
 		SELECT
@@ -205,15 +123,31 @@
 			institution_code ASC
 	</select>
 
+	<!-- 교육원 사용 여부 한개 select  -->
+	<select id="selectAvailableInstitution"
+			parameterType="String"
+			resultMap="availableInstitutionMap">
+		SELECT
+			institution_code
+			, institution_name
+			, payment_annual_fee_code
+			, payment_annual_fee_service_start_date
+			, payment_annual_fee_service_end_date
+			, available_institution_remaining_date
+			, available_institution_availability
+		FROM 
+			available_institution
+		WHERE
+			institution_code = #{institutionCode}
+	</select>
+
 	<!-- 사용권한 update -->
 	<update id="updateAvailableInstitution"
 			parameterType="kr.or.ksmart.lms.association.vo.AvailableInstitution">
 		UPDATE 
 			available_institution
 		SET
-			payment_annual_fee_code = #{paymentAnnualFeeCode}
-			, payment_annual_fee_service_start_date = #{paymentAnnualFeeServiceStartDate}
-			, payment_annual_fee_service_end_date = #{paymentAnnualFeeServiceEndDate}
+			payment_annual_fee_service_end_date = #{paymentAnnualFeeServiceEndDate}
 			, available_institution_remaining_date = #{availableInstitutionRemainingDate}
 			, available_institution_availability = #{availableInstitutionAvailability}
 		WHERE 
@@ -290,5 +224,79 @@
 			payment_annual_fee_date DESC
 		LIMIT
 			0, 1
+	</select>
+
+	<!-- 연회비 환불 PK select  -->
+	<select id="selectRefundAnnualFeePK" 
+			resultType="String">
+		SELECT
+			refund_annual_fee_code
+		FROM 
+			refund_annual_fee
+		ORDER BY
+			refund_annual_fee_date DESC
+		LIMIT
+			0,1
+	</select>
+
+	<!-- 연회비 환불 정책 insert -->
+	<insert id="insertRefundAnnualFee"
+			parameterType="kr.or.ksmart.lms.association.vo.RefundAnnualFee">
+		INSERT INTO 
+			refund_annual_fee
+		VALUES (
+			#{refundAnnualFeeCode}
+			, #{paymentAnnualFeeCode}
+			, #{institutionCode}
+			, #{institutionName}
+			, #{refundPolicyCode}
+			, #{infoAnnualFeeCode}
+			, #{refundAnnualFeePrice}
+			, #{paymentAnnualFeeServiceStartDate}
+			, #{paymentAnnualFeeServiceEndDate}
+			, #{infoInstitutionRemainingDate}
+			, #{paymentAnnualFeeDate}
+			, now()
+			)
+	</insert>
+
+	<!-- 연회비 환불 리스트 select  -->
+	<select id="selectRefundAnnualFeeList"
+			resultMap="refundAnnualFeeMap">
+		SELECT 
+			refund_annual_fee_code
+			, payment_annual_fee_code
+			, institution_code
+			, institution_name
+			, refund_policy_code
+			, info_annual_fee_code
+			, refund_annual_fee_price
+			, payment_annual_fee_service_start_date
+			, payment_annual_fee_service_end_date
+			, info_institution_remaining_date
+			, payment_annual_fee_date
+			, refund_annual_fee_date
+		FROM 
+			refund_annual_fee
+		ORDER BY
+			refund_annual_fee_date DESC
+	</select>
+
+	<!-- 연회비 환불 정책  select  -->
+	<select id="selectRefundPolicyAnnualFeeList" 
+			resultMap="refundPolicyMap">
+		SELECT
+			refund_policy_code
+			, refund_policy_name
+			, refund_policy_description
+			, refund_policy_type
+			, refund_policy_percentage
+			, refund_policy_legislation_date
+		FROM 
+			refund_policy
+		WHERE
+			refund_policy_type = '연회비 환불'
+		ORDER BY
+			refund_policy_legislation_date DESC
 	</select>
 </mapper>

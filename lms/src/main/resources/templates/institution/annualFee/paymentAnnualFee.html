@@ -22,7 +22,7 @@
 
 <div layout:fragment="content">
     <h3 th:text="${session.institutionName}+' 연회비 결제'"></h3>
-	<form id="paymentAnnualFee" action="/paymentAnnualFee" method="post">
+	<form id="paymentAnnualFee" action="/institution/annualFee/paymentAnnualFee" method="post">
 		<div class="form-group">
 			<label>교육원 명 :</label>
 			<input type="text" class="form-control" id="institutionName" name="institutionName" th:value="${session.institutionName}" readonly="readonly">

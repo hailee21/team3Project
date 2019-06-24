@@ -12,37 +12,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.or.ksmart.lms.association.mapper.AssociationMapper;
+import kr.or.ksmart.lms.association.mapper.InfoAnnualFeeMapper;
 import kr.or.ksmart.lms.association.vo.AvailableInstitution;
 import kr.or.ksmart.lms.association.vo.InfoAnnualFee;
 import kr.or.ksmart.lms.association.vo.PaymentAnnualFee;
+import kr.or.ksmart.lms.association.vo.RefundAnnualFee;
 import kr.or.ksmart.lms.association.vo.RefundPolicy;
 
 @Service
 @Transactional
-public class AssociationService {
+public class InfoAnnualFeeService {
 	@Autowired
-	AssociationMapper associationMapper;
+	InfoAnnualFeeMapper infoAnnualFeeMapper;
 	
-	//associationLayout 연회비 개요 리스트 출력 service
+	//연회비 개요 리스트 출력 service
 	public Map<String, Object> getInfoAnnualFeeList(){
 		//연회비 개요 리스트 출력 select mapper 호출
-		List<InfoAnnualFee> infoAnnualFeeList = associationMapper.selectInfoAnnualFeeList();
+		List<InfoAnnualFee> infoAnnualFeeList = infoAnnualFeeMapper.selectInfoAnnualFeeList();
 
 		//교육원 사용권한 리스트 출력 select mapper 호출
-		List<AvailableInstitution> availableList = associationMapper.selectAvailableInstitutionList();
+		List<AvailableInstitution> availableList = infoAnnualFeeMapper.selectAvailableInstitutionList();
+
+		//연회비 환불 리스트 출력 select mapper 호출
+		List<RefundAnnualFee> refundAnnualList = infoAnnualFeeMapper.selectRefundAnnualFeeList();
 
 		//컨트롤러로 리턴할 데이터 선언 및 설정
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("infoAnnualFeeList", infoAnnualFeeList);
 		returnMap.put("availableList", availableList);
+		returnMap.put("refundAnnualList", refundAnnualList);
 		return returnMap;
 	}
 
-	//associationLayout 교육원 사용권한 새로고침 service
+	//교육원 사용권한 새로고침 service
 	public void getAvailableInstitutionRefresh(){
 		//교육원 사용권한 리스 출력 select mapper 호출
-		List<AvailableInstitution> availableList = associationMapper.selectAvailableInstitutionList();
+		List<AvailableInstitution> availableList = infoAnnualFeeMapper.selectAvailableInstitutionList();
 
 		//오늘 날짜 계산한다.
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:SS"); //DB에 저장되는 형식과 동일한 형태
@@ -64,56 +69,28 @@ public class AssociationService {
 			list.setAvailableInstitutionAvailability(availability);
 			list.setAvailableInstitutionRemainingDate(remainingDate);
 			//available_institution 테이블 update mapper 호출
-			associationMapper.updateAvailableInstitution(list);
+			infoAnnualFeeMapper.updateAvailableInstitution(list);
 		}
 		
 	}
 
-	//associationLayout 연회비 개요 추가 액션 service
+	//연회비 개요 추가 액션 service
 	public void addInfoAnnualFee(InfoAnnualFee infoAnnualFee) {
 		//info_annual_fee 테이블에 입력할 PK 변수 얻기
-		String infoAnnualFeePK = associationMapper.selectInfoAnnualFeePk(); //info_annual_fee 테이블에서 마지막으로 입력된 PK 갑을 가져온다.
+		String infoAnnualFeePK = infoAnnualFeeMapper.selectInfoAnnualFeePk(); //info_annual_fee 테이블에서 마지막으로 입력된 PK 갑을 가져온다.
 		int lastNo = Integer.parseInt(infoAnnualFeePK.substring(3)); //가져온 PK 값에서 문자를 제외한 숫자값을 얻는다.
 		lastNo++; //얻은 숫자값에 +1을 한다.
 		String infoAnnualFeeCode = "IAF"+lastNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
 		infoAnnualFee.setInfoAnnualFeeCode(infoAnnualFeeCode); //선언된 PK를 VO에 입력한다.
 
 		//info_annual_fee 테이블에 입력 mapper 호출
-		associationMapper.insertInfoAnnualFee(infoAnnualFee);
-	}
-	
-	//associationLayout 환불 정책 리스트 출력 service
-	public Map<String, Object> getRefundPolicyList(){
-		//환불 정책 리스트 출력을 위한 select mapper 호출
-		List<RefundPolicy> refundPolicyAnnualFeeList = associationMapper.selectRefundPolicyAnnualFeeList();//연회비
-		List<RefundPolicy> refundPolicyLectureList = associationMapper.selectRefundPolicyLectureList();//강의
-		List<RefundPolicy> refundPolicyLicenseList = associationMapper.selectRefundPolicyLicenseList();//자격시험
-		
-		//컨트롤러로 리턴할 데이터 선언 및 설정
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-		returnMap.put("refundPolicyAnnualFeeList", refundPolicyAnnualFeeList);
-		returnMap.put("refundPolicyLectureList", refundPolicyLectureList);
-		returnMap.put("refundPolicyLicenseList", refundPolicyLicenseList);
-		return returnMap;
-	}
-	
-	//associationLayout 환불 정책 추가 service
-	public void addRefundPolicy(RefundPolicy refundPolicy){
-		//refund_policy 테이블에 입력할 PK 변수 얻기
-		String refundPolicyPK = associationMapper.selectRefundPolicyPk(); //refund_policy 테이블에서 마지막으로 입력된 PK 갑을 가져온다.
-		int lastNo = Integer.parseInt(refundPolicyPK.substring(2)); //가져온 PK 값에서 문자를 제외한 숫자값을 얻는다.
-		lastNo++; //얻은 숫자값에 +1을 한다.
-		String refundPolicyCode = "RP"+lastNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
-		refundPolicy.setRefundPolicyCode(refundPolicyCode); //선언된 PK를 VO에 입력한다.
-
-		//refund_policy 테이블에 입력 mapper 호출
-		associationMapper.insertRefundPolicy(refundPolicy);
+		infoAnnualFeeMapper.insertInfoAnnualFee(infoAnnualFee);
 	}
 
-	//associationLayout 연회비 환불 리스트 폼 출력 service
+	//연회비 환불 리스트 폼 출력 service
 	public Map<String, Object> getAssociationRefundAnnualFeeList(){
 		//결재 내역이 있는 교육원 코드 리스트 mapper 호출
-		List<String> institutionCodeList = associationMapper.selectinstitutionCodeList();
+		List<String> institutionCodeList = infoAnnualFeeMapper.selectinstitutionCodeList();
 		
 		//오늘 날짜 계산
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:SS");
@@ -125,7 +102,7 @@ public class AssociationService {
 		List<PaymentAnnualFee> paymentListForRefund = new ArrayList<PaymentAnnualFee>();
 		for(String institutionCode: institutionCodeList) {
 			//교육원 코드 가장 최근에 결재한 목록 하나 출력 mapper 호출
-			PaymentAnnualFee paymentAnnualFee = associationMapper.selectPaymentAnnualFeeListForRefund(institutionCode);
+			PaymentAnnualFee paymentAnnualFee = infoAnnualFeeMapper.selectPaymentAnnualFeeListForRefund(institutionCode);
 			
 			//결제 내역의 서비스 종료일을 얻는다.
 			Timestamp endDate = Timestamp.valueOf(paymentAnnualFee.getPaymentAnnualFeeServiceEndDate());
@@ -138,7 +115,7 @@ public class AssociationService {
 		}
 		
 		//총 결제 내역 리스트 출력 mppaer 호출
-		List<PaymentAnnualFee> paymentList = associationMapper.selectPaymentAnnualFeeList();
+		List<PaymentAnnualFee> paymentList = infoAnnualFeeMapper.selectPaymentAnnualFeeList();
 
 		//컨트롤러로 리턴할 데이터 선언 및 설정
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -147,13 +124,13 @@ public class AssociationService {
 		return returnMap;
 	}
 	
-	//associationLayout 연회비 환불 폼 출력 service
+	//연회비 환불 폼 출력 service
 	public Map<String, Object> getRefundAnnualFeeForm(String paymentAnnualFeeCode){
 		//연회비 환불 정책 리스트 출력을 위한 select mapper 호출
-		List<RefundPolicy> refundPolicyAnnualFeeList = associationMapper.selectRefundPolicyAnnualFeeList();
+		List<RefundPolicy> refundPolicyAnnualFeeList = infoAnnualFeeMapper.selectRefundPolicyAnnualFeeList();
 
 		//해당 결제 내역 출력을 위한 select mapper 호출
-		PaymentAnnualFee payment = associationMapper.selectAnnualFee(paymentAnnualFeeCode);
+		PaymentAnnualFee payment = infoAnnualFeeMapper.selectAnnualFee(paymentAnnualFeeCode);
 		
 		//남은일 계산하기
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:SS"); //DB에 저장되는 형식과 동일한 형태
@@ -177,5 +154,37 @@ public class AssociationService {
 		returnMap.put("remainingDate",remainingDate);
 		returnMap.put("payment",payment);
 		return returnMap;
+	}
+
+	//연회비 환불 액션 출력 service
+	public void addRefundAnnualFee(RefundAnnualFee refundAnnualFee){
+		//refund_annual_fee 테이블에 입력할 PK 변수 얻기
+		String refundAnnualFeePK = infoAnnualFeeMapper.selectRefundAnnualFeePK(); //info_annual_fee 테이블에서 마지막으로 입력된 PK 갑을 가져온다.
+		System.out.println(refundAnnualFeePK);
+		int lastNo = 0;
+		if(refundAnnualFeePK == null){
+			//refund_annual_fee 테이블에 아무 데이터가 없으면 lastNo는 1이 된다.
+			lastNo = 1;	
+		} else {
+			System.out.println("null 아님");
+			lastNo = Integer.parseInt(refundAnnualFeePK.substring(3)); //가져온 PK 값에서 문자를 제외한 숫자값을 얻는다.
+		}
+		System.out.println(lastNo);
+		lastNo++; //얻은 숫자값에 +1을 한다.
+		String refundAnnualFeeCode = "RAF"+lastNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
+		refundAnnualFee.setRefundAnnualFeeCode(refundAnnualFeeCode);; //선언된 PK를 VO에 입력한다.
+		System.out.println(refundAnnualFeeCode);
+		
+		//연회비 환불 추가를 위한 insert mapper 호출
+		infoAnnualFeeMapper.insertRefundAnnualFee(refundAnnualFee);
+
+		//연회비 환불로 인한 사용권한 남은일 수정
+		AvailableInstitution availableInstitution = infoAnnualFeeMapper.selectAvailableInstitution(refundAnnualFee.getInstitutionCode());
+		availableInstitution.setPaymentAnnualFeeServiceEndDate(refundAnnualFee.getPaymentAnnualFeeServiceEndDate());
+		infoAnnualFeeMapper.updateAvailableInstitution(availableInstitution);
+		System.out.println(availableInstitution);
+
+		//사용권한 새로고침 매소드 호출
+		getAvailableInstitutionRefresh();
 	}
 }
