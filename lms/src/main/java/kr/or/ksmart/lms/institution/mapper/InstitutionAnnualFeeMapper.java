@@ -9,7 +9,7 @@ import kr.or.ksmart.lms.institution.vo.InfoAnnualFeeByPayment;
 import kr.or.ksmart.lms.institution.vo.PaymentAnnualFee;
 
 @Mapper
-public interface AnnualFeeMapper {
+public interface InstitutionAnnualFeeMapper {
     //institutionLayout 연회비 결제시 최근 연회비 개요 출력 mapper
     public InfoAnnualFeeByPayment selectInfoAnnualFee();
 

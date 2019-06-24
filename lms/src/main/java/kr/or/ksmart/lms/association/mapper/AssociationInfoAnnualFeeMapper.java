@@ -11,7 +11,7 @@ import kr.or.ksmart.lms.association.vo.RefundAnnualFee;
 import kr.or.ksmart.lms.association.vo.RefundPolicy;
 
 @Mapper
-public interface InfoAnnualFeeMapper {
+public interface AssociationInfoAnnualFeeMapper {
 	//associationLayout 연회비 개요 리스트 출력 mapper
 	public List<InfoAnnualFee> selectInfoAnnualFeeList();
 

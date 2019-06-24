@@ -48,24 +48,6 @@ public class LoginController {
 		}
 	}
 	
-	@PostMapping("/associationLogin")
-	public String associationLoginAction(HttpSession session, LoginRequest loginRequest) {
-		System.out.println(loginRequest);
-		MemberOnline loginMember = loginService.getMemberOnline(loginRequest);
-		if(loginMember == null) {
-			return "redirect:" + "/associationLogin";
-		} else {
-			System.out.println("로그인 성공");
-			session.setAttribute("memberName", loginMember.getMemberName());
-			session.setAttribute("memberCode", loginMember.getMemberCode());
-			session.setAttribute("memberOnlineId", loginMember.getMemberOnlineId());
-			session.setAttribute("memberRank", loginMember.getMemberRank());
-			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
-			session.setAttribute("institutionName", loginMember.getInstitutionName());
-			return "redirect:" + "/associationIndex";
-		}
-	}
-	
 	@PostMapping("/institutionLogin")
 	public String instituteLayoutLoginAction(HttpSession session, LoginRequest loginRequest) {
 		System.out.println(loginRequest);
@@ -84,23 +66,7 @@ public class LoginController {
 		}
 	}
 	
-	@PostMapping("/teacherLogin")
-	public String loginAction(HttpSession session, LoginRequest loginRequest) {
-		System.out.println(loginRequest);
-		MemberOnline loginMember = loginService.getMemberOnline(loginRequest);
-		if(loginMember == null) {
-			return "redirect:" + "/teacherLogin";
-		} else {
-			System.out.println("로그인 성공");
-			session.setAttribute("memberName", loginMember.getMemberName());
-			session.setAttribute("memberCode", loginMember.getMemberCode());
-			session.setAttribute("memberOnlineId", loginMember.getMemberOnlineId());
-			session.setAttribute("memberRank", loginMember.getMemberRank());
-			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
-			session.setAttribute("institutionName", loginMember.getInstitutionName());
-			return "redirect:" + "/teacherIndex";
-		}
-	}
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

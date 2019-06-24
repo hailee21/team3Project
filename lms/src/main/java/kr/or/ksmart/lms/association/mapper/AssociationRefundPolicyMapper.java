@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.or.ksmart.lms.association.vo.RefundPolicy;
 
 @Mapper
-public interface RefundPolicyMapper {
+public interface AssociationRefundPolicyMapper {
 	//associationLayout 연회비 환불 정책 리스트 출력 mapper
 	public List<RefundPolicy> selectRefundPolicyAnnualFeeList();
 	

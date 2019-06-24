@@ -42,18 +42,6 @@ public class IndexController {
 		return mav;
 	}
 	
-	@GetMapping("/teacherLogin")
-	public ModelAndView teacherLogin(HttpSession session, ModelAndView mav) {
-		mav.setViewName("teacher/teacherLogin");
-		return mav;
-	}
-	
-	@GetMapping("/teacherIndex")
-	public ModelAndView teacherIndex(HttpSession session, ModelAndView mav) {
-		mav.setViewName("teacher/teacherIndex");
-		return mav;
-	}
-	
 	@GetMapping("/institutionLogin")
 	public ModelAndView institutionLogin(HttpSession session, ModelAndView mav) {
 		mav.setViewName("institution/institutionLogin");
@@ -65,17 +53,6 @@ public class IndexController {
 		mav.setViewName("institution/institutionIndex");
 		return mav;
 	}
-	
-	@GetMapping("/associationLogin")
-	public ModelAndView associationLogin(HttpSession session, ModelAndView mav) {
-		mav.setViewName("association/associationLogin");
-		return mav;
-	}
-	
-	@GetMapping("/associationIndex")
-	public ModelAndView associationIndex(HttpSession session, ModelAndView mav) {
-		mav.setViewName("association/associationIndex");
-		return mav;
-	}
+
 	
 }
