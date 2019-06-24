@@ -1,4 +1,4 @@
-package kr.or.ksmart.lms.license.vo;
+package kr.or.ksmart.lms.association.vo;
 
 public class InfoQualification {
 	private String infoQualificationCode;
