@@ -49,9 +49,11 @@
 	</select>	
 	<select id="selectInstitutionInfo"
 			parameterType="String"
-			resultType="java.util.Map">
+			resultMap="InstitutionResultMap">
 		SELECT
-			institution_name, institution_location
+			institution_code
+			,institution_name
+			,institution_location
 		FROM 
 			institution
 		WHERE 
@@ -84,7 +86,8 @@
 			parameterType="String"
 			resultMap="InstitutionResultMap">
 		SELECT 
-			institution_name
+			institution_code
+			,institution_name
 			,institution_location
 		FROM 
 			institution		
