@@ -13,7 +13,7 @@ import kr.or.ksmart.lms.member.vo.MemberOnline;
 public class MemberService {
 	@Autowired
 	MemberMapper memberMapper;
-	public IndexInstitution LEIndex(String institutionCode) {
+	public IndexInstitution PIIndex(String institutionCode) {
 		return memberMapper.selectInstitution(institutionCode);
 	}
 	public void insertMember(Member member, MemberOnline memberOnline, String institutionCode) {

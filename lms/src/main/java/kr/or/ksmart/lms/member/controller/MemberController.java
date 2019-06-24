@@ -22,9 +22,9 @@ public class MemberController {
 	@GetMapping("/join")
 	public ModelAndView memberJoin(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LE/Join");
+		mav.setViewName("PI/Join");
 		System.out.println("[MemberController memberJoin] institutionCode" + institutionCode);
-		IndexInstitution institution = memberService.LEIndex(institutionCode);
+		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
@@ -43,9 +43,9 @@ public class MemberController {
 	@GetMapping("/joinSuccess")
 	public ModelAndView joinSuccess(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LE/joinSuccess");
+		mav.setViewName("PI/joinSuccess");
 		System.out.println("[MemberController memberJoin] institutionCode" + institutionCode);
-		IndexInstitution institution = memberService.LEIndex(institutionCode);
+		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
@@ -54,8 +54,8 @@ public class MemberController {
 	@GetMapping("/myInfo")
 	public ModelAndView myPage(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LE/myPage/myInfo");
-		IndexInstitution institution = memberService.LEIndex(institutionCode);
+		mav.setViewName("PI/myPage/myInfo");
+		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
@@ -64,8 +64,8 @@ public class MemberController {
 	@GetMapping("/memberModify")
 	public ModelAndView memberInfoModify(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LE/myPage/memberInfoModify");
-		IndexInstitution institution = memberService.LEIndex(institutionCode);
+		mav.setViewName("PI/myPage/memberInfoModify");
+		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
@@ -75,11 +75,23 @@ public class MemberController {
 			, @RequestParam(value="institutionCode", required = true) String institutionCode, ModelAndView mav) {
 		return mav;
 	}
-	//	회원리스트 조회 (미완성)
-	@GetMapping("memberList")
-	public ModelAndView memberList(ModelAndView mav) {
-		mav.setViewName("member/memberList");
+	//	회원리스트 조회(교육원)	->	세션에서 교육원 코드 확인해서 교육원 직원, 강사, 교육원내 수강생들을 조회할 수 있음.
+	@GetMapping("/institution/memberList")
+	public ModelAndView instMemberList(ModelAndView mav) {
+		mav.setViewName("institution/member/list");
+		
 		return mav;
 	}
-	
+	//	회원리스트 조회(협회)	->	전체회원조회, 협회직원 조회, 등급별 조회, 교육원별 직원 조회, 교육원별 강사, 교육원별 수강생 조회
+	@GetMapping("/association/memberList")
+	public ModelAndView memberList(ModelAndView mav) {
+		mav.setViewName("association/associationIndex");
+		return mav;
+	}
+	//	수강생 조회(강사)	->	현재 진행중인 내 강의를 수강중인 학생에 한해서 조회
+	@GetMapping("/teacher/memberList")
+	public ModelAndView lectureStudentList(ModelAndView mav) {
+		mav.setViewName("teacher/teacherIndex");
+		return mav;
+	}
 }
