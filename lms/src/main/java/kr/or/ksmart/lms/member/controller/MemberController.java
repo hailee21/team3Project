@@ -22,9 +22,9 @@ public class MemberController {
 	@GetMapping("/join")
 	public ModelAndView memberJoin(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LE/Join");
+		mav.setViewName("PI/Join");
 		System.out.println("[MemberController memberJoin] institutionCode" + institutionCode);
-		IndexInstitution institution = memberService.LEIndex(institutionCode);
+		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
@@ -43,9 +43,9 @@ public class MemberController {
 	@GetMapping("/joinSuccess")
 	public ModelAndView joinSuccess(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LE/joinSuccess");
+		mav.setViewName("PI/joinSuccess");
 		System.out.println("[MemberController memberJoin] institutionCode" + institutionCode);
-		IndexInstitution institution = memberService.LEIndex(institutionCode);
+		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
@@ -54,8 +54,8 @@ public class MemberController {
 	@GetMapping("/myInfo")
 	public ModelAndView myPage(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LE/myPage/myInfo");
-		IndexInstitution institution = memberService.LEIndex(institutionCode);
+		mav.setViewName("PI/myPage/myInfo");
+		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
@@ -64,8 +64,8 @@ public class MemberController {
 	@GetMapping("/memberModify")
 	public ModelAndView memberInfoModify(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("LE/myPage/memberInfoModify");
-		IndexInstitution institution = memberService.LEIndex(institutionCode);
+		mav.setViewName("PI/myPage/memberInfoModify");
+		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;

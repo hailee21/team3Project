@@ -16,7 +16,7 @@ public class LoginService {
 	public MemberOnline getMemberOnline(LoginRequest loginRequest) {
 		return loginMapper.selectMemberOnline(loginRequest);
 	}
-	public IndexInstitution LEIndex(String institutionCode) {
+	public IndexInstitution PIIndex(String institutionCode) {
 		return loginMapper.selectInstitution(institutionCode);
 	}
 }

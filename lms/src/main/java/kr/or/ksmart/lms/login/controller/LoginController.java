@@ -20,18 +20,18 @@ public class LoginController {
 	LoginService loginService;
 
 	@GetMapping("/login")
-	public ModelAndView LELoginForm(HttpSession session, ModelAndView mav
+	public ModelAndView PILoginForm(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
 		mav.setViewName("login");
-		System.out.println("[LoginController LELoginForm] institutionCode:"+institutionCode);
-		IndexInstitution institution = loginService.LEIndex(institutionCode);
+		System.out.println("[LoginController PILoginForm] institutionCode:"+institutionCode);
+		IndexInstitution institution = loginService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
 	}
 	
-	@PostMapping("/LELogin")
-	public String LEloginAction(HttpSession session, LoginRequest loginRequest) {
+	@PostMapping("/PILogin")
+	public String PIloginAction(HttpSession session, LoginRequest loginRequest) {
 		System.out.println(loginRequest);
 		MemberOnline loginMember = loginService.getMemberOnline(loginRequest);
 		if(loginMember == null) {
@@ -44,7 +44,7 @@ public class LoginController {
 			session.setAttribute("memberRank", loginMember.getMemberRank());
 			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
 			session.setAttribute("institutionName", loginMember.getInstitutionName());
-			return "redirect:" + "/LEIndex?institutionCode=" + loginMember.getInstitutionCode();
+			return "redirect:" + "/PIIndex?institutionCode=" + loginMember.getInstitutionCode();
 		}
 	}
 	
