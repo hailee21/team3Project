@@ -19,7 +19,7 @@ public interface ClassroomMapper {
 	// 강의실 테이블 pk가져오는 메서드
 	public String selectClassroomPK();
 	// 강의실 등록을 위해 교육원테이블에서 교육원명, 교육원위치를 가져오는 메서드
-	public Map<String, Object> selectInstitutionInfo(String instCode);
+	public Institution selectInstitutionInfo(String instCode);
 	// 강의실 등록 메서드
 	public int insertClassroom(Classroom classroom); 
 }

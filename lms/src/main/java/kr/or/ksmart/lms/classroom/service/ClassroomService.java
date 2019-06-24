@@ -33,30 +33,33 @@ public class ClassroomService {
 	}
 	
 	// 교육원명, 위치 select -> addClassroom.html에 입력 
-	public Map<String, Object> getInstitutionByInstCode(String instCode){
+	public Map<String, Object> getInstitutionByInstCode(String institutionCode){
 		System.out.println("[ClassroomService getInstitutionByInstCode]");
-		System.out.println("[ClassroomService getInstitutionByInstCode] instCode : "+instCode);
+		System.out.println("[ClassroomService getInstitutionByInstCode] institutionCode : "+institutionCode);
 		
 		// mapper에서 가져온 교육원명, 위치
 		Institution institution = new Institution();
-		institution = classroomMapper.selectInstitutionByInstitutionCode(instCode);
-		String instName = institution.getInstitutionName();
-		String instLocation = institution.getInstitutionLocation();
-		System.out.println("[ClassroomService getInstitutionByInstCode] instName : "+instName);
-		System.out.println("[ClassroomService getInstitutionByInstCode] instLocation : "+instLocation);
+		institution = classroomMapper.selectInstitutionByInstitutionCode(institutionCode);
+		String institutionCode2 = institution.getInstitutionCode();
+		String institutionName = institution.getInstitutionName();
+		String institutionLocation = institution.getInstitutionLocation();
+		System.out.println("[ClassroomService getInstitutionByInstCode] institutionCode2 : "+institutionCode2);
+		System.out.println("[ClassroomService getInstitutionByInstCode] instName : "+institutionName);
+		System.out.println("[ClassroomService getInstitutionByInstCode] instLocation : "+institutionLocation);
 		// mapper에서 가져온 강의실용도 리스트
 		List<Classroom> list = classroomMapper.selectClassroomUse();
 		System.out.println("[ClassroomService getInstitutionByInstCode] list : "+list);
 		
 		// mapper에서 가져온 값 map에 담아서 이동
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("instName", instName);
-		map.put("instLocation", instLocation);
+		map.put("institutionCode", institutionCode2);
+		map.put("institutionName", institutionName);
+		map.put("institutionLocation", institutionLocation);
 		map.put("useList", list);
 		return map;
 	}
 	// 강의실 추가 
-	public void addClassroom(Classroom classroom, String instCode) {
+	public void addClassroom(Classroom classroom) {
 		System.out.println("[ClassroomService addClassroom]");
 		// 1. 강의실 테이블에 추가할 PK 구하는 코드 
 		// 1-1. 가져온 pk를 string 데이터타입의 변수에 담는다
@@ -72,16 +75,7 @@ public class ClassroomService {
 		classroom.setClassroomCode(crPK);
 		System.out.println("[ClassroomService addClassroom] 최종 crPK: "+crPK);
 		
-		// 2. classroom 테이블에 강의실 등록하기
-		// 교육원검색화면에서 받아 등록화면에서 넘어온 institutionCode로 교육원명, 위치 정보 가져오고 이를 vo에 담아서 mapper호출하기
-		Map<String, Object> map = classroomMapper.selectInstitutionInfo(instCode);
-		String instName = (String)map.get("institutionName");
-		String instLocation = (String)map.get("institutionLocation");
-		System.out.println("[ClassroomService addClassroom] vo에 넣을 instName: "+instName);
-		System.out.println("[ClassroomService addClassroom] vo에 넣을 instLocation: "+instLocation);
-		classroom.setInstitutionName(instName);
-		classroom.setClassroomLocation(instLocation);
-		
+		// 2. classroom 테이블에 강의실 등록하기		
 		classroomMapper.insertClassroom(classroom);
 	}
 		

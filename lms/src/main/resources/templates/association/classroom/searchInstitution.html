@@ -30,7 +30,7 @@ $(document).ready(function(){
 				$('#institutionList').append('</thead>');
 				$('#institutionList').append('<tbody>');
                 $(result).each(function(i,item){	
-               	   $('#institutionList').append('<tr><td id="'+item.institutionCode+'" value="'+item.institutionCode+'"><a href="/association/classroom/addClassroom?instCode='+item.institutionCode+'">'+item.institutionName+'</a></td><td id="'+item.institutionLocation+'" value="'+item.institutionLocation+'">'+item.institutionLocation+'</td></tr>');
+               	   $('#institutionList').append('<tr><td id="'+item.institutionCode+'" value="'+item.institutionCode+'"><a href="/association/classroom/addClassroom?institutionCode='+item.institutionCode+'">'+item.institutionName+'</a></td><td id="'+item.institutionLocation+'" value="'+item.institutionLocation+'">'+item.institutionLocation+'</td></tr>');
                 });
                 $('#institutionList').append('</tbody>');
                 $('#result').attr('hidden',false)
