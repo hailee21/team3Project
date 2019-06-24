@@ -102,33 +102,28 @@
 <div layout:fragment="content">
 	<h3>자격증 추가</h3>
 	<form id="addQualification" action="/addinfoQualification" method="post">
-		<table>
 		<div class="form-group">
 			<label>자격종목코드 :</label>
-			<input text="text" id="infoQualificationCode" name="infoQualificationCode">
+			<input type="text" id="infoQualificationCode" name="infoQualificationCode">
 		</div>
 		<div class="form-group">
 			<label>자격종목명 :</label>
-			<input text="text" id="infoQualificationName" name="infoQualificationName">
+			<input type="text" id="infoQualificationName" name="infoQualificationName">
 		</div>
 		<div class="form-group">
 			<label>필요조건코드 :</label>
-			<input text="text" id="infoQualificationRequiredCode" name="infoQualificationRequiredCode">
+			<input type="text" id="infoQualificationRequiredCode" name="infoQualificationRequiredCode">
 		</div>
 		<div class="form-group">
 			<label>필요종류 :</label>
-			<input text="text" id="infoQualificationRequiredType" name="infoQualificationRequiredType">
+			<input type="text" id="infoQualificationRequiredType" name="infoQualificationRequiredType">
 		</div>
 		<div class="form-group">
 			<label>종목개요 :</label>
-			<input text="text" id="infoQualificationDescription" name="infoQualificationDescription">
+			<input type="text" id="infoQualificationDescription" name="infoQualificationDescription">
 		</div>
-
-		
-			<tr>
-		<td><button type="button" id="btnAdd" class="btn btn-primary">자격증 추가</button></td>
-			</tr>
-		</table>	
+		<button type="button" id="btnAdd" class="btn btn-primary">자격증 추가</button>		
 	</form>
-	</div>
+	<h4></h4>
+</div>
 </html>
