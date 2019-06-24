@@ -8,14 +8,6 @@ public class LicenseTestLocation {
     private int licenseTestLocationMaximumNumber;
     private String licenseTestLocationDate;
 
-	public String getLicenseTestLocationDate() {
-		return licenseTestLocationDate;
-	}
-
-	public void setLicenseTestLocationDate(String licenseTestLocationDate) {
-		this.licenseTestLocationDate = licenseTestLocationDate;
-	}
-
 	public String getLicenseTestLocationCode() {
         return licenseTestLocationCode;
     }
@@ -55,7 +47,14 @@ public class LicenseTestLocation {
     public void setLicenseTestLocationMaximumNumber(int licenseTestLocationMaximumNumber) {
         this.licenseTestLocationMaximumNumber = licenseTestLocationMaximumNumber;
     }
-
+    
+    public String getLicenseTestLocationDate() {
+		return licenseTestLocationDate;
+	}
+    public void setLicenseTestLocationDate(String licenseTestLocationDate) {
+		this.licenseTestLocationDate = licenseTestLocationDate;
+	}
+    
     @Override
  	public String toString() {
  		return "LicenseTestLocation [licenseTestLocationCode=" + licenseTestLocationCode

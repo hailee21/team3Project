@@ -47,9 +47,9 @@ public class InfoQualificationController {
 		return mav;
 	}
 		
-	@GetMapping("/infoQualification") // 1.자격 정보 개요 리스트를 보여주기 위한 메서드
+	@GetMapping("infoQualification") // 1.자격 정보 개요 리스트를 보여주기 위한 메서드
 	public ModelAndView infoQualification(HttpSession session, ModelAndView mav) {
-		mav.setViewName("infoQualification");
+		mav.setViewName("LE/infoQualificationList");
 		List<InfoQualification> list = infoQualificationService.getInfoQualification();
 		mav.addObject("list", list);
 		return mav;
