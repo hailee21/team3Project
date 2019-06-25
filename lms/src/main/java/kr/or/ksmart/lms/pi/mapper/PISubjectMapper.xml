@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ksmart.lms.pi.mapper.PISubjectMapper">
+	<resultMap type="kr.or.ksmart.lms.pi.vo.InfoSubject" id="InfoSubjectMap">
+		<result column="info_subject_code" property="infoSubjectCode"/>
+		<result column="info_lecture_code" property="infoLectureCode"/>
+		<result column="info_subject_name" property="infoSubjectName"/>
+		<result column="info_subject_difficulty" property="infoSubjectDifficulty"/>
+		<result column="info_subject_modification_history" property="infoSubjectModificationHistory"/>
+	</resultMap>
+	<select id="piSubjectList"
+			resultMap="InfoSubjectMap">
+		SELECT
+			info_subject_code
+			, info_lecture_code
+			, info_subject_name
+			, info_subject_difficulty
+			, info_subject_modification_history
+		FROM info_subject
+	</select>
+</mapper>
