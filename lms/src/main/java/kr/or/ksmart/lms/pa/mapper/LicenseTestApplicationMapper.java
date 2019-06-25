@@ -1,4 +1,4 @@
-package kr.or.ksmart.lms.license.mapper;
+package kr.or.ksmart.lms.pa.mapper;
 
 public interface LicenseTestApplicationMapper {
 
