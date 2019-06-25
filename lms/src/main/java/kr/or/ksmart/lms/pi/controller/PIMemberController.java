@@ -1,4 +1,5 @@
-package kr.or.ksmart.lms.member.controller;
+package kr.or.ksmart.lms.pi.controller;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -10,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.index.vo.IndexInstitution;
-import kr.or.ksmart.lms.member.service.MemberService;
-import kr.or.ksmart.lms.member.vo.Member;
-import kr.or.ksmart.lms.member.vo.MemberOnline;
+import kr.or.ksmart.lms.pi.service.PIMemberService;
+import kr.or.ksmart.lms.pi.vo.Member;
+import kr.or.ksmart.lms.pi.vo.MemberOnline;
 
 @Controller
-public class MemberController {
-	@Autowired MemberService memberService;
+public class PIMemberController {
+	@Autowired PIMemberService memberService;
 	
 	//	회원등록 join.html(회원)
 	@GetMapping("/join")
@@ -75,23 +76,5 @@ public class MemberController {
 			, @RequestParam(value="institutionCode", required = true) String institutionCode, ModelAndView mav) {
 		return mav;
 	}
-	//	회원리스트 조회(교육원)	->	세션에서 교육원 코드 확인해서 교육원 직원, 강사, 교육원내 수강생들을 조회할 수 있음.
-	@GetMapping("/institution/memberList")
-	public ModelAndView instMemberList(ModelAndView mav) {
-		mav.setViewName("institution/member/list");
-		
-		return mav;
-	}
-	//	회원리스트 조회(협회)	->	전체회원조회, 협회직원 조회, 등급별 조회, 교육원별 직원 조회, 교육원별 강사, 교육원별 수강생 조회
-	@GetMapping("/association/memberList")
-	public ModelAndView memberList(ModelAndView mav) {
-		mav.setViewName("association/associationIndex");
-		return mav;
-	}
-	//	수강생 조회(강사)	->	현재 진행중인 내 강의를 수강중인 학생에 한해서 조회
-	@GetMapping("/teacher/memberList")
-	public ModelAndView lectureStudentList(ModelAndView mav) {
-		mav.setViewName("teacher/teacherIndex");
-		return mav;
-	}
+	
 }
