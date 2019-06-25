@@ -23,6 +23,9 @@ public class AssociationRefundPolicyController {
 	public ModelAndView getRefundPolicyList(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationRefundPolicyController getRefundPolicyList] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			mav.setViewName("association/refundPolicy/refundPolicyList");
 			Map<String, Object> refundPolicyListMap = associationRefundPolicyService.getRefundPolicyList();
@@ -41,6 +44,9 @@ public class AssociationRefundPolicyController {
 	public ModelAndView addRefundPolicyAnnualFee(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationRefundPolicyController addRefundPolicyAnnualFee] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			mav.setViewName("association/refundPolicy/addRefundPolicyAnnualFee");
 		} else {
@@ -55,9 +61,12 @@ public class AssociationRefundPolicyController {
 	public ModelAndView addRefundPolicyLectureList(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationRefundPolicyController addRefundPolicyLectureList] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			mav.setViewName("association/refundPolicy/addRefundPolicyLectureList");
-	} else {
+		} else {
 			System.out.println("[AssociationRefundPolicyController getRefundPolicyList] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
 		}
@@ -69,6 +78,9 @@ public class AssociationRefundPolicyController {
 	public ModelAndView addRefundPolicyLicense(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationRefundPolicyController addRefundPolicyLicense] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			mav.setViewName("association/refundPolicy/addRefundPolicyLicense");
 		} else {
@@ -83,6 +95,9 @@ public class AssociationRefundPolicyController {
 	public ModelAndView addRefundPolicy(HttpSession session, ModelAndView mav, RefundPolicy refundPolicy) {
 		System.out.println("[AssociationRefundPolicyController addRefundPolicy] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			associationRefundPolicyService.addRefundPolicy(refundPolicy);
 			mav.setViewName("redirect:/association/refundPolicy/refundPolicyList");

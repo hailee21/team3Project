@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.or.ksmart.lms.association.service.AssociationLoginService;
-import kr.or.ksmart.lms.association.vo.MemberOnline;
-import kr.or.ksmart.lms.association.vo.LoginRequest;
+import kr.or.ksmart.lms.teacher.service.TeacherLoginService;
+import kr.or.ksmart.lms.teacher.vo.MemberOnline;
+import kr.or.ksmart.lms.teacher.vo.LoginRequest;
 
 @Controller
 public class TeacherLoginController {
 	@Autowired
-	AssociationLoginService associationLoginService;
+	TeacherLoginService teacherLoginService;
 	
 	//강사 로그인 폼 controller
 	@GetMapping("/teacherLogin")
@@ -28,7 +28,7 @@ public class TeacherLoginController {
 	@PostMapping("/teacherLogin")
 	public String loginAction(HttpSession session, LoginRequest loginRequest) {
 		System.out.println(loginRequest);
-		MemberOnline loginMember = associationLoginService.getMemberOnline(loginRequest);
+		MemberOnline loginMember = teacherLoginService.getMemberOnline(loginRequest);
 		if(loginMember == null) {
 			return "redirect:" + "/teacherLogin";
 		} else {

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<header th:fragment="headerFragment">
+	<nav class="navbar navbar-expand-sm bg-light navbar-light">
+	    <div class="container-fluid">
+	        <p></p>
+	        <ul th:if="${session.memberName == null}" class="nav navbar-nav navbar-right">
+	            <li class="nav-item">
+	                <a style="font-size: 14px"  class="nav-link" href="/PALogin">로그인</a>
+	            </li>
+	            <li class="nav-item">
+	                <a style="font-size: 14px"  class="nav-link" th:href="@{'/join?institutionCode='+${institutionCode}}">회원가입</a>
+	            </li>
+	        </ul>
+	        <ul th:if="${session.memberName != null}" class="nav navbar-nav navbar-right">
+	            <li class="nav-item">
+	                <p style="font-weight: bold; font-size: 8px"><a class="nav-link" th:text="${session.memberName}" style=strong>님 로그인중</a></p>
+	            </li>
+	            <li class="nav-item">
+	                <a style="font-size: 10px"  class="nav-link" href="/logout">로그아웃</a>
+	            </li>
+	            <li class="nav-item">
+	                <a style="font-size: 10px"  class="nav-link" th:href="@{'/myInfo?institutionCode='+${institutionCode}}">내정보</a>
+	            </li>
+	        </ul>
+	    </div>
+	</nav>
+	<div class="container-fluid container bg-info text-white" style="height: 250px">
+	    <p style="height: 100px"></p>
+	    <p><a style="font-size: 30px" class="text-white" th:href="@{'/LEIndex?institutionCode='+${institutionCode}}" th:text="${institutionName}"></a></p>
+	</div>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	    <div class="container-fluid">
+	        <p></p>
+	        <ul class="nav navbar-nav navbar-center">
+	            <li class="nav-item">
+	                <div class="dropdownatuo">
+	                    <button class="dropbtn">협회소개
+	                        <i class="fa fa-caret-down"></i>
+	                    </button>
+	                    <div class="dropdownatuo-content">
+	                        <a href="#">기관소개</a>
+	                        <a href="#">협회장소개</a>
+	                        <a href="#">임원진소개</a>
+	                        <a href="#">조직부서</a>
+	                        <a href="#">교육기관</a>
+	                    </div>
+	                </div>
+	            </li>
+	            <li class="nav-item">
+	                <div class="dropdownatuo">
+	                    <button class="dropbtn">교육원
+	                        <i class="fa fa-caret-down"></i>
+	                    </button>
+	                    <div class="dropdownatuo-content">
+	                        <a href="/PIIndex?institutionCode=I1">전주평생교육원</a>
+	                        <a href="/PIIndex?institutionCode=I2">서울평생교육원</a>
+	                        <a href="/PIIndex?institutionCode=I3">성남평생교육원</a>
+	                    </div>
+	                </div>
+	            </li>
+	            <li class="nav-item">
+	                <div class="dropdownatuo">
+	                    <button class="dropbtn">자격시험정보 
+	                        <i class="fa fa-caret-down"></i>
+	                    </button>
+	                    <div class="dropdownatuo-content">
+	                        <a href="#">원서접수</a>
+	                        <a href="#">힙격자/답안발표</a>
+	                        <a href="#">시험일정</a>
+							<a href="#">필기시험안내</a>
+	                    	<a href="#">실기시험안내</a>
+	                    	<a href="#">자격정보</a>	                    
+	                    </div>
+	                </div>
+	            </li>
+	             <li class="nav-item">
+	                <div class="dropdownatuo">
+	                    <button class="dropbtn">고객지원 
+	                        <i class="fa fa-caret-down"></i>
+	                    </button>
+	                    <div class="dropdownatuo-content">
+	                        <a href="#">공지사항</a>
+	                        <a href="#">이용안내</a>
+	                        <a href="#">환불안내</a>
+	                        <a href="#">시험계획공지</a>
+	                    </div>
+	                </div>
+	            </li>
+	             <li class="nav-item">
+	                <div class="dropdownatuo">
+	                    <button class="dropbtn">마이페이지 
+	                        <i class="fa fa-caret-down"></i>
+	                    </button>
+	                    <div class="dropdownatuo-content">
+	                        <a href="#">원서접수관리</a>
+	                        <a href="#">응시자격</a>
+	                        <a href="#">자격증취득조회</a>
+	                        <a href="#">발급조회현황</a>
+	                        
+	                    </div>
+	                </div>
+	            </li>
+	        </ul>
+	        <p></p>
+	    </div>
+	</nav>
+</header>
+</html>

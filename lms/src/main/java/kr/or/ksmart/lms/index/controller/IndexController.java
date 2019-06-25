@@ -32,27 +32,4 @@ public class IndexController {
 		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
 	}
-	@GetMapping("/PAIndex")
-	public ModelAndView PAIndex(HttpSession session, ModelAndView mav,
-			@RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("PA/PAIndex");
-		IndexInstitution institution = indexService.PIIndex(institutionCode);
-		mav.addObject("institutionCode", institution.getInstitutionCode());
-		mav.addObject("institutionName", institution.getInstitutionName());
-		return mav;
-	}
-	
-	@GetMapping("/institutionLogin")
-	public ModelAndView institutionLogin(HttpSession session, ModelAndView mav) {
-		mav.setViewName("institution/institutionLogin");
-		return mav;
-	}
-	
-	@GetMapping("/institutionIndex")
-	public ModelAndView institutionIndex(HttpSession session, ModelAndView mav) {
-		mav.setViewName("institution/institutionIndex");
-		return mav;
-	}
-
-	
 }

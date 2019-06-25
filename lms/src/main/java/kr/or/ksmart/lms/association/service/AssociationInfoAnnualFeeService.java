@@ -101,8 +101,21 @@ public class AssociationInfoAnnualFeeService {
 		//환불이 가능한 결재 내역 리스트 출력 mapper 호출
 		List<PaymentAnnualFee> paymentListForRefund = new ArrayList<PaymentAnnualFee>();
 		for(String institutionCode: institutionCodeList) {
+			//각 교육원 코드로 환불 내역 조회 리스트 mapper 호출
+			List<String> paymentAnnualFeeCodes = associationInfoAnnualFeeMapper.selectRefundAnnualFeePAFCK(institutionCode);
+
+			//이미 환불한 결재내역이 출력이 되지않도록 처리
+			boolean Check = false;
+			if(paymentAnnualFeeCodes.size() > 0){
+				Check = true;
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("paymentAnnualFeeCodes", paymentAnnualFeeCodes);
+			map.put("Check", Check);
+			map.put("institutionCode", institutionCode);
+
 			//교육원 코드 가장 최근에 결재한 목록 하나 출력 mapper 호출
-			PaymentAnnualFee paymentAnnualFee = associationInfoAnnualFeeMapper.selectPaymentAnnualFeeListForRefund(institutionCode);
+			PaymentAnnualFee paymentAnnualFee = associationInfoAnnualFeeMapper.selectPaymentAnnualFeeListForRefund(map);
 			
 			//결제 내역의 서비스 종료일을 얻는다.
 			Timestamp endDate = Timestamp.valueOf(paymentAnnualFee.getPaymentAnnualFeeServiceEndDate());

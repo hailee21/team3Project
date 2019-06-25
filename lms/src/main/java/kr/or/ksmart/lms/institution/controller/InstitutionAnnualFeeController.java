@@ -23,6 +23,9 @@ public class InstitutionAnnualFeeController {
 	public ModelAndView getAvailableInstitution(HttpSession session, ModelAndView mav) {
 		System.out.println("[InstitutionAnnualFeeController getAvailableInstitution] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("교육원직원")) {
 			mav.setViewName("institution/annualFee/annualFee");
 			String institutionCode = (String)session.getAttribute("institutionCode");
@@ -41,6 +44,9 @@ public class InstitutionAnnualFeeController {
 	public ModelAndView getPaymentAnnualFee(HttpSession session, ModelAndView mav) {
 		System.out.println("[InstitutionAnnualFeeController getPaymentAnnualFee] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("교육원직원")) {
 			mav.setViewName("institution/annualFee/paymentAnnualFee");
 			String institutionCode = (String)session.getAttribute("institutionCode");
@@ -60,6 +66,9 @@ public class InstitutionAnnualFeeController {
 	public ModelAndView addPaymentAnnualFee(HttpSession session, ModelAndView mav, PaymentAnnualFee paymentAnnualFee) {
 		System.out.println("[InstitutionAnnualFeeController addPaymentAnnualFee] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("교육원직원")) {
 			institutionAnnualFeeService.addPaymentAnnualFee(paymentAnnualFee);
 			mav.setViewName("redirect:/institution/annualFee/annualFee");

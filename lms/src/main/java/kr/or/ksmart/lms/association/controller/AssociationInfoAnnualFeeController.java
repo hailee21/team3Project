@@ -25,6 +25,9 @@ public class AssociationInfoAnnualFeeController {
 	public ModelAndView getInfoAnnualFeeList(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationInfoAnnualFeeController getInfoAnnualFeeList] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			mav.setViewName("association/infoAnnualFee/infoAnnualFeeList");
 			Map<String, Object> map = associationInfoAnnualFeeService.getInfoAnnualFeeList();
@@ -43,6 +46,9 @@ public class AssociationInfoAnnualFeeController {
 	public ModelAndView getInfoAnnualFeeAddForm(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationInfoAnnualFeeController getInfoAnnualFeeAddForm] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			mav.setViewName("association/infoAnnualFee/addInfoAnnualFee");
 		} else {
@@ -57,6 +63,9 @@ public class AssociationInfoAnnualFeeController {
 	public ModelAndView addInfoAnnualFee(HttpSession session, ModelAndView mav, InfoAnnualFee infoAnnualFee) {
 		System.out.println("[AssociationInfoAnnualFeeController addInfoAnnualFee] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			associationInfoAnnualFeeService.addInfoAnnualFee(infoAnnualFee);
 			mav.setViewName("redirect:/association/infoAnnualFee/infoAnnualFeeList");
@@ -72,6 +81,9 @@ public class AssociationInfoAnnualFeeController {
 	public ModelAndView getRefundAnnualFeeList(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationInfoAnnualFeeController getRefundAnnualFeeList] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			Map<String, Object> map = associationInfoAnnualFeeService.getAssociationRefundAnnualFeeList();
 			mav.setViewName("association/infoAnnualFee/refundAnnualFeeList");
@@ -89,6 +101,9 @@ public class AssociationInfoAnnualFeeController {
 	public ModelAndView getAvailableInstitutionRefresh(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationInfoAnnualFeeController getAvailableInstitutionRefresh] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			associationInfoAnnualFeeService.getAvailableInstitutionRefresh();
 			mav.setViewName("redirect:/association/infoAnnualFee/infoAnnualFeeList");
@@ -105,6 +120,9 @@ public class AssociationInfoAnnualFeeController {
 			,@RequestParam(value="paymentAnnualFeeCode", required = true) String paymentAnnualFeeCode) {
 		System.out.println("[AssociationInfoAnnualFeeController getRefundAnnualFeeForm] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			Map<String, Object> map = associationInfoAnnualFeeService.getRefundAnnualFeeForm(paymentAnnualFeeCode);
 			mav.setViewName("association/infoAnnualFee/addRefundAnnualFee");
@@ -123,6 +141,9 @@ public class AssociationInfoAnnualFeeController {
 	public ModelAndView addRefundAnnualFee(HttpSession session, ModelAndView mav, RefundAnnualFee refundAnnualFee) {
 		System.out.println("[AssociationInfoAnnualFeeController addRefundAnnualFee] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			System.out.println(refundAnnualFee);
 			associationInfoAnnualFeeService.addRefundAnnualFee(refundAnnualFee);

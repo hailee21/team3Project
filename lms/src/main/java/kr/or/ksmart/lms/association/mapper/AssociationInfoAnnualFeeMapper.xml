@@ -204,7 +204,7 @@
 	
 	<!-- 연회비 환불을 위한 결제 내역 select  -->
 	<select id="selectPaymentAnnualFeeListForRefund"
-			parameterType = "String"
+			parameterType = "java.util.Map"
 			resultMap="paymentAnnualFeeMap">
        	SELECT DISTINCT
 			payment_annual_fee_code
@@ -220,6 +220,13 @@
 			payment_annual_fee
 		WHERE
 			institution_code = #{institutionCode}
+			<if test="Check.equals(true)">
+				AND NOT payment_annual_fee_code IN (
+				    <foreach collection="paymentAnnualFeeCodes" item="item" separator=",">
+						#{item}
+					</foreach>
+				) 
+			</if>
 		ORDER BY
 			payment_annual_fee_date DESC
 		LIMIT
@@ -298,5 +305,17 @@
 			refund_policy_type = '연회비 환불'
 		ORDER BY
 			refund_policy_legislation_date DESC
+	</select>
+
+	<!-- 교육원 별 연회비 환불 리스트 select  -->
+	<select id="selectRefundAnnualFeePAFCK"
+			parameterType="String"
+			resultType="String">
+		SELECT 
+			payment_annual_fee_code
+		FROM 
+			refund_annual_fee
+		WHERE
+			institution_code = #{institutionCode}
 	</select>
 </mapper>
