@@ -15,6 +15,7 @@
 		let infoQualificationCodeCheck = true;
 		let infoQualificationNameCheck = true;
 		let infoQualificationRequiredCodeCheck = true;
+		let infoQualificationTestUseCheck = true;
 		let infoQualificationRequiredTypeCheck = true;
 		let infoQualificationDescriptionCheck = true;
 		
@@ -48,6 +49,17 @@
 			} else {
                 console.log('infoQualificationRequiredCode 유효성 검사 완료')
 				infoQualificationRequiredCodeCheck = false;
+			}
+		});
+		
+		//infoQualificationTestUse 입력 유효성 검사
+		$('#infoQualificationTestUse').blur(function() {
+			if($('#infoQualificationTestUse').val() == "") {
+				console.log('infoQualificationTestUse 공백입력')
+				infoQualificationTestUseCheck = true;
+			} else {
+                console.log('infoQualificationTestUse 유효성 검사 완료')
+				infoQualificationTestUseCheck = false;
 			}
 		});
 
@@ -84,6 +96,9 @@
 			} else if(infoQualificationRequiredCodeCheck) {
 				$('h4').addClass('red');
 				$('h4').text('필요조건코드가 공백 상태 입니다.');
+			} else if(infoQualificationTestUseCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험방법이 공백 상태 입니다.');
 			} else if(infoQualificationRequiredTypeCheck) {
 				$('h4').addClass('red');
 				$('h4').text('필요종류가 공백 상태 입니다.');
@@ -101,26 +116,30 @@
 
 <div layout:fragment="content">
 	<h3>자격증 추가</h3>
-	<form id="addQualification" action="/addinfoQualification" method="post">
+	<form id="addQualification" action="/association/license/addInfoQualification" Use="post">
 		<div class="form-group">
 			<label>자격종목코드 :</label>
-			<input type="text" id="infoQualificationCode" name="infoQualificationCode">
+			<input type="text" class="form-control" id="infoQualificationCode" name="infoQualificationCode">
 		</div>
 		<div class="form-group">
 			<label>자격종목명 :</label>
-			<input type="text" id="infoQualificationName" name="infoQualificationName">
+			<input type="text" class="form-control" id="infoQualificationName" name="infoQualificationName">
 		</div>
 		<div class="form-group">
 			<label>필요조건코드 :</label>
-			<input type="text" id="infoQualificationRequiredCode" name="infoQualificationRequiredCode">
+			<input type="text" class="form-control" id="infoQualificationRequiredCode" name="infoQualificationRequiredCode">
+		</div>
+		<div class="form-group">
+			<label>시험방법 :</label>
+			<input type="text" class="form-control" id="infoQualificationTestUse" name="infoQualificationTestUse">
 		</div>
 		<div class="form-group">
 			<label>필요종류 :</label>
-			<input type="text" id="infoQualificationRequiredType" name="infoQualificationRequiredType">
+			<input type="text" class="form-control" id="infoQualificationRequiredType" name="infoQualificationRequiredType">
 		</div>
 		<div class="form-group">
 			<label>종목개요 :</label>
-			<input type="text" id="infoQualificationDescription" name="infoQualificationDescription">
+			<input type="text" class="form-control" id="infoQualificationDescription" name="infoQualificationDescription">
 		</div>
 		<button type="button" id="btnAdd" class="btn btn-primary">자격증 추가</button>		
 	</form>

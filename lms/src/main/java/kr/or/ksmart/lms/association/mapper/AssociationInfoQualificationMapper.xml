@@ -8,6 +8,7 @@
 		<result column="info_qualification_code" property="infoQualificationCode"/>
 		<result column="info_qualification_name" property="infoQualificationName"/>
 		<result column="info_qualification_required_code" property="infoQualificationRequiredCode"/>
+		<result column="info_qualification_test_use" property="infoQualificationTestUse"/>
 		<result column="info_qualification_required_type" property="infoQualificationRequiredType"/>
 		<result column="info_qualification_description" property="infoQualificationDescription"/>
 		<result column="info_qualification_renewal_date" property="infoQualificationRenewalDate"/>
@@ -23,6 +24,7 @@
 			#{infoQualificationCode}
 			, #{infoQualificationName}
 			, #{infoQualificationRequiredCode}
+			, #{infoQualificationTestUse}
 			, #{infoQualificationRequiredType}
 			, #{infoQualificationDescription}
 			, now()
@@ -37,6 +39,7 @@
 			info_qualification_code
 			, info_qualification_name
 			, info_qualification_required_code
+			, info_qualification_test_use
 			, info_qualification_required_type
 			, info_qualification_description
 			, info_qualification_renewal_date

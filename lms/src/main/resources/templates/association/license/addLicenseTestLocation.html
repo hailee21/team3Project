@@ -90,12 +90,43 @@
 	<form id="addLicenseTestLocation" action="/addLicenseTestLocation" method="post">
 		<div class="form-group">
 			<label>지역 :</label>
-			<input type="text" class="form-control" id="licenseTestLocationRegion" name="licenseTestLocationRegion">
+				<select class="form-control" id="SelectArea" style="font-size: 9pt; font-family: 굴림체"> 
+               		<option  value="전체보기">전체보기</option> 
+                	<option  value="서울/경기">서울/경기</option> 
+                	<option  value="인천/부천">인천/부천</option> 
+                	<option  value="춘천/강원">춘천/강원</option> 
+                	<option  value="부산/울산/경남">부산/울산/경남</option> 
+                	<option  value="대구/경북">대구/경북</option> 
+                	<option  value="전주/전북">전주/전북</option> 
+                	<option  value="광주/전남">광주/전남</option> 
+                	<option  value="청주/충북">청주/충북</option> 
+                	<option  value="청주/충북">청주/충북</option> 
+                	<option  value="대전/충남">대전/충남</option> 
+                	<option  value="제주">제주</option> 
+           	 </select>
 		</div>
 		<div class="form-group">
-			<label>주소 :</label>
-			<input type="text" class="form-control" id="licenseTestLocationAddress" name="licenseTestLocationAddress">
-		</div>
+				<div class="col-sm-5">
+					<label for="InputAddress">주소</label>
+					<div class="row">
+						<div class="col-sm-4">
+							<input type="text" readonly="readonly" class="form-control" maxlength="14" id="memberPostcode" name="memberPostcode" size="4">
+						</div>
+						<div class="col-sm-8">
+							<input type="button" class="btn btn-outline-info" onclick="sample6_execDaumPostcode()" value="우편번호찾기"><br>
+						</div>
+					</div>
+						<input id="licenseTestLocationAddress" name="licenseTestLocationAddress" class="form-control" placeholder="도로명주소" readonly="readonly" value="" type="text" size="30"/><br>
+					<div class="row">
+						<div class="col-sm-8">
+							<input id="licenseTestLocationAddressDesc" name="licenseTestLocationAddressDesc" class="form-control" value="2층 한국스마트정보교육원" placeholder="상세주소" type="text"/>
+						</div>
+						<div class="col-sm-4">
+							<input type="text" id="sample6_extraAddress" size="7" class="form-control" placeholder="참고항목">
+						</div>
+					</div>
+				</div>
+			</div>
 		<div class="form-group">
 			<label>시험용도 :</label>
 			<input type="text" class="form-control" id="licenseTestLocationUse" name="licenseTestLocationUse">
