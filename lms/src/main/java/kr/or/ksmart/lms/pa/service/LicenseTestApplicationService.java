@@ -1,4 +1,4 @@
-package kr.or.ksmart.lms.license.service;
+package kr.or.ksmart.lms.pa.service;
 
 public class LicenseTestApplicationService {
 
