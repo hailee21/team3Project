@@ -14,8 +14,8 @@ import kr.or.ksmart.lms.institution.mapper.InstitutionLectureMapper;
 
 @Service
 public class InstitutionClassroomService {
-	@Autowired InstitutionClassroomMapper institutionClassroomMapper;
-	@Autowired InstitutionLectureMapper institutionLectureMapper;
+	@Autowired private InstitutionClassroomMapper institutionClassroomMapper;
+	@Autowired private InstitutionLectureMapper institutionLectureMapper;
 		
 	// 교육원 리스트 검색, 출력 
 	public List<Institution> institutionGetInstitutionList(String instName){

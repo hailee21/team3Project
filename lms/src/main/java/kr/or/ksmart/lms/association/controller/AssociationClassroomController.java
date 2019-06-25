@@ -18,17 +18,20 @@ import kr.or.ksmart.lms.association.vo.Classroom;
 @Controller
 
 public class AssociationClassroomController {
-	@Autowired AssociationClassroomService associationClassroomService;
+	@Autowired private AssociationClassroomService associationClassroomService;
 	
 	// 협회
 	// association layout 교육원 검색 controller 
 	@GetMapping("/association/classroom/searchInstitution")
 	public ModelAndView associationGetInstitutionList(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			System.out.println("협회직원");
 			
-			System.out.println("[ClassroomController getInstitutionList 교육원 검색]");
+			System.out.println("[ClassroomController associationGetInstitutionList 교육원 검색]");
 			mav.setViewName("association/classroom/searchInstitution");
 		}else {
 			System.out.println("협회직원아님");
@@ -43,11 +46,14 @@ public class AssociationClassroomController {
 	public ModelAndView associationAddClassroom(ModelAndView mav, HttpSession session
 									,@RequestParam String institutionCode) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			System.out.println("협회직원");
-			System.out.println("[ClassroomController GET addClassroom]institutionCode: "+institutionCode);
+			System.out.println("[ClassroomController GET associationAddClassroom]institutionCode: "+institutionCode);
 			
-			System.out.println("[ClassroomController addClassroom]");
+			System.out.println("[ClassroomController associationAddClassroom]");
 			mav.setViewName("association/classroom/addClassroom");
 			
 			// map에 담아서 가져온 값들을 model에 넣어 view에서 활용
@@ -69,9 +75,12 @@ public class AssociationClassroomController {
 	@PostMapping("/association/classroom/addClassroom")
 	public ModelAndView associationAddClassroom(ModelAndView mav, HttpSession session, Classroom classroom) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			System.out.println("협회직원");
-			System.out.println("[ClassroomController addClassroom]");			
+			System.out.println("[ClassroomController associationAddClassroom]");			
 			
 			// 강의실 추가 처리 후에 강의실조회페이지로 redirect
 			associationClassroomService.associationAddClassroom(classroom);
@@ -88,10 +97,13 @@ public class AssociationClassroomController {
 	@GetMapping("/association/classroom/classroomList")
 	public ModelAndView associationGetClassroomList(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			System.out.println("협회직원");
 			
-			System.out.println("[ClassroomController getClassroomList]");
+			System.out.println("[ClassroomController associationGetClassroomList]");
 			mav.setViewName("association/classroom/classroomList");
 			
 			// service에서 불러온 리스트를 classroomList 내부에 담고 mav에 담아서 뷰에서 사용하기
@@ -105,6 +117,32 @@ public class AssociationClassroomController {
 		return mav;
 	}
 	
+	// association layout 강의실 수정, 삭제 controller 
+	@GetMapping("/association/classroom/detailClassroom")
+	public ModelAndView associationModifyClassroom(ModelAndView mav, HttpSession session
+												, @RequestParam String classroomCode) {
+		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("협회직원")) {
+			System.out.println("협회직원");
+			
+			System.out.println("[ClassroomController associationModifyClassroom]");
+			mav.setViewName("association/classroom/detailClassroom");
+			System.out.println("[ClassroomController associationModifyClassroom] classroomCode :"+classroomCode);
+			// service에서 불러온 해당 classroom정보  mav에 담아서 뷰에서 사용하기
+			Classroom classroom = new Classroom();
+			classroom = associationClassroomService.associationGetClassroomByClassroomCode(classroomCode);
+			System.out.println("[ClassroomController associationModifyClassroom] classroom :"+classroom);
+			mav.addObject("classroom", classroom);
+		}else {
+			System.out.println("협회직원아님");
+			
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
 	
 	
 

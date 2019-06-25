@@ -11,7 +11,7 @@ import kr.or.ksmart.lms.institution.vo.InfoSubject;
 
 @Service
 public class InstitutionLectureService {
-	@Autowired InstitutionLectureMapper institutionLectureMapper;
+	@Autowired private InstitutionLectureMapper institutionLectureMapper;
 	
 	// infoLecture 리스트 출력
 	// 1. select sort 

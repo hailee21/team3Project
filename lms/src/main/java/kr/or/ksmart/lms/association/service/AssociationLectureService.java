@@ -11,7 +11,7 @@ import kr.or.ksmart.lms.association.vo.InfoSubject;
 
 @Service
 public class AssociationLectureService {
-	@Autowired AssociationLectureMapper associationLectureMapper;
+	@Autowired private AssociationLectureMapper associationLectureMapper;
 	
 	// infoLecture 리스트 출력
 	// 1. select sort 

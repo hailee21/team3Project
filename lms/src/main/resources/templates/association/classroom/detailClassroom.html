@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h2>강의실 상세정보 페이지</h2>
+	<form id="classroom">
+		<table id="classroom" class="table table-striped" th:each="info:${classroom}">
+			<tr>
+				<td>교육원명</td>
+				<td th:text="${info.institutionName}" th:value="${info.institutionName}"></td>
+			</tr>
+			<tr>
+				<td>강의실 위치</td>
+				<td th:text="${info.classroomLocation}" th:value="${info.classroomLocation}"></td>
+			</tr>
+			<tr>
+				<td>강의실명</td>
+				<td th:text="${info.classroomName}" th:value="${info.classroomName}"></td>
+			</tr>
+			<tr>
+				<td>용도</td>
+				<td th:text="${info.classroomUse}" th:value="${info.classroomUse}"></td>
+			</tr>
+			<tr>
+				<td>수용인원</td>
+				<td th:text="${info.classroomMaximumNumber}" th:value="${info.classroomMaximumNumber}"></td>
+			</tr>
+		</table>
+	</form>
+	<button id="modify" type="submit">수정</button>
+	<button id="delete" type="submit">삭제</button>
+</div>
+</html>

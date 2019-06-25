@@ -8,6 +8,6 @@ import kr.or.ksmart.lms.institution.service.InstitutionClassroomService;
 
 @RestController
 public class RestInstitutionClassroomController {
-	@Autowired InstitutionClassroomService institutionClassroomService;
+	@Autowired private InstitutionClassroomService institutionClassroomService;
 	
 }

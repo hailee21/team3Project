@@ -16,7 +16,7 @@ $(document).ready(function(){
         console.log('교육원 검색버튼 클릭...');
         console.log('입력받은 교육원 위치 : '+$('#instName').val());
         $.ajax({
-            url:'/getInstitutionList'
+            url:'/association/getInstitutionList'
             ,data:{instName:$('#instName').val()}
             ,type:'POST'
     		,dataType:'json'

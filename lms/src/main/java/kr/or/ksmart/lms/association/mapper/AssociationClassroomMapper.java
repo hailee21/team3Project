@@ -24,4 +24,10 @@ public interface AssociationClassroomMapper {
 	
 	// 강의실 목록 출력
 	public List<Classroom> associationSelectClassroomList();
+	// 교육원위치(키워드)로 강의실 조회 메서드
+	public List<Classroom> associationSelectClassroomListByKeyword(String classroomLocation);
+	
+	// 강의실 수정, 삭제
+	// 1. 강의실코드로 강의실 상세정보 불러오기
+	public Classroom selectClassroomByClassroomCode(String classroomCode);
 }
