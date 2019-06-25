@@ -27,6 +27,9 @@ public class AssociationLicenseTestLocationController {
     public ModelAndView selectLicenseTestLocation(HttpSession session, ModelAndView mav, LicenseTestLocation licenseTestLocation) {
 		System.out.println("[AssociationLicenseTestLocationController selectLicenseTestLocation]");
     	String memberRank = (String)session.getAttribute("memberRank");
+    	if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			List<LicenseTestLocation> list = licenseTestLocationService.selectTestLocation(licenseTestLocation);
 			mav.addObject("list", list);
@@ -45,6 +48,9 @@ public class AssociationLicenseTestLocationController {
 	public ModelAndView addLicenseTestLocation(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationLicenseTestLocationController addLicenseTestLocation] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			mav.setViewName("/association/license/addLicenseTestLocation");
 		} else {
@@ -59,6 +65,9 @@ public class AssociationLicenseTestLocationController {
 		public ModelAndView addinfoQualification(HttpSession session, ModelAndView mav, LicenseTestLocation licenseTestLocation) {
 			System.out.println("[LicenseTestLocationController addLicenseTestLocation] 호출");
 			String memberRank = (String)session.getAttribute("memberRank");
+			if(memberRank == null) {
+				memberRank = "로그인 실패";
+			}
 			if(memberRank.equals("협회직원")) {
 				licenseTestLocationService.addLicenseTestLocationPk(licenseTestLocation);
 				System.out.println("[AssociationLicenseTestLocationController addinfoQualification] 호출");

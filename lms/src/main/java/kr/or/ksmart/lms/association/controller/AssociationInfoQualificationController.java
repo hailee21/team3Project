@@ -21,6 +21,9 @@ public class AssociationInfoQualificationController {
 	public ModelAndView addinfoQualification(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationInfoQualificationController addinfoQualification] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
 		if(memberRank.equals("협회직원")) {
 			mav.setViewName("/association/license/addInfoQualification");
 		} else {
@@ -35,6 +38,9 @@ public class AssociationInfoQualificationController {
 		public ModelAndView addinfoQualification(HttpSession session, ModelAndView mav, InfoQualification infoQualification) {
 			System.out.println("[AssociationInfoQualificationController addinfoQualification] 호출");
 			String memberRank = (String)session.getAttribute("memberRank");
+			if(memberRank == null) {
+				memberRank = "로그인 실패";
+			}
 			if(memberRank.equals("협회직원")) {
 				associationinfoQualificationService.insertQualification(infoQualification);
 				System.out.println("[AssociationInfoQualificationController insertQualification] 호출");
