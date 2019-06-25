@@ -2,7 +2,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="kr.or.ksmart.lms.institution.mapper.AnnualFeeMapper"> 
+<mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionAnnualFeeMapper"> 
 	<!-- 최근 연회비 개요 resultMap -->
 	<resultMap id="infoAnnualFeeByPaymentMap"
 				type="kr.or.ksmart.lms.institution.vo.InfoAnnualFeeByPayment">

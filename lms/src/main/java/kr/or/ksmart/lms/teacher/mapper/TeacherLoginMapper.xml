@@ -1,0 +1,34 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="kr.or.ksmart.lms.teacher.mapper.TeacherLoginMapper">
+	<!-- 회원 온라인 resultMapp -->
+	<resultMap type="kr.or.ksmart.lms.teacher.vo.MemberOnline" id="MemberOnlineMap">
+		<result column="member_online_code" property="memberOnlineCode"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_online_id" property="memberOnlineId"/>
+		<result column="member_rank" property="memberRank"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+	</resultMap>
+
+	<!-- 회원 온라인 select -->
+	<select id="selectMemberOnline"
+			parameterType="kr.or.ksmart.lms.teacher.vo.LoginRequest"
+			resultMap="MemberOnlineMap">
+		SELECT
+			member_online_code
+			, member_code
+			, member_name
+			, member_online_id
+			, member_rank
+			, institution_code
+			, institution_name
+		FROM member_online
+		WHERE
+			member_online_id = #{memberOnlineId}
+			AND member_online_pw = #{memberOnlinePw}
+	</select>
+</mapper>

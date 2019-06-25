@@ -2,7 +2,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="kr.or.ksmart.lms.association.mapper.RefundPolicyMapper"> 
+<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationRefundPolicyMapper"> 
 	<!-- 환불 정책 resultMap -->
 	<resultMap id="refundPolicyMap"
 				type="kr.or.ksmart.lms.association.vo.RefundPolicy">
