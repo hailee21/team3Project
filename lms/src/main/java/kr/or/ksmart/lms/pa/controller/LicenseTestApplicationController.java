@@ -21,20 +21,20 @@ public class LicenseTestApplicationController {
 		System.out.println("[LicenseTestApplicationController insertLicenseTestApplication] 호출");
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		
-		/*if(memberRank==null) {
+		if(memberRank==null) {
 		System.out.println("로그인 안한 상태");
-		mav.setViewName("association/associationLogin");	
-		}*/
+		mav.setViewName("/login");	
+		}
 		
+		else {
 		List<InfoQualification> list = infoQualificationService.getInfoQualification(); //자격종목코드 선택
 		System.out.println("[LicenseTestApplicationController insertLicenseTestApplication]"+list.get(0).getInfoQualificationName());
 		System.out.println("[LicenseTestApplicationController insertLicenseTestApplication]"+list.get(0).getInfoQualificationCode());
 		
-		mav.addObject("list22", list);
-				
+		mav.addObject("list", list);
 		mav.setViewName("/PA/lincense/LicenseTestApplication");
-
-		//return "/PA/lincense/LicenseTestApplication";
+		}
+		
 		return mav;
 	}
 	

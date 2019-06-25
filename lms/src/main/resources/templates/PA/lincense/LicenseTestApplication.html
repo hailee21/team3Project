@@ -17,7 +17,7 @@
 	<!-- 자격 종목 코드명 -->
 	<select name="QualifiName">
 		<option value="">--자격종목이름  선택--</option>
-		<option th:each="InfoQualification:${list22}" th:text="${InfoQualification.infoQualificationName}" th:value="${InfoQualification.infoQualificationName}"></option>
+		<option th:each="InfoQualification:${list}" th:text="${InfoQualification.infoQualificationName}" th:value="${InfoQualification.infoQualificationName}"></option>
 		<!--자격종목이름 선택하면 service에서 가공해서 코드도 같이 집어넣기-->
 	</select>
 	<!-- 시험방법  -->
