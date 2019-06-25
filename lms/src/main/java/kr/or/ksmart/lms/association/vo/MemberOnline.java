@@ -1,4 +1,5 @@
-package kr.or.ksmart.lms.institution.vo;
+package kr.or.ksmart.lms.association.vo;
+
 public class MemberOnline {
 	private String memberOnlineCode;
 	private String memberCode;
