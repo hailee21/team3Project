@@ -14,10 +14,10 @@ import kr.or.ksmart.lms.association.mapper.AssociationLectureMapper;
 
 @Service
 public class AssociationClassroomService {
-	@Autowired AssociationClassroomMapper associationClassroomMapper;
-	@Autowired AssociationLectureMapper associationLectureMapper;
+	@Autowired private AssociationClassroomMapper associationClassroomMapper;
+	@Autowired private AssociationLectureMapper associationLectureMapper;
 		
-	// 교육원 리스트 검색, 출력 
+	// 비동기로 교육원 리스트 검색, 출력 
 	public List<Institution> associationGetInstitutionList(String instName){
 		System.out.println("[ClassroomService associationGetInstitutionList]");
 		System.out.println("[ClassroomService associationGetInstitutionList] instName :"+instName);
@@ -89,5 +89,28 @@ public class AssociationClassroomService {
 		List<Classroom> list = associationClassroomMapper.associationSelectClassroomList();
 		System.out.println("[ClassroomService associationGetInstitutionByInstCode] list : "+list);
 		return list;
+	}
+	
+	// 비동기로 classroomList.html에 강의실 리스트 검색, 출력(수정, 삭제)
+	public List<Classroom> associationGetClassroomListByInstName(String classroomLocation){
+		System.out.println("[ClassroomService associationgetClassroomListByInstName]");
+		System.out.println("[ClassroomService associationgetClassroomListByInstName] classroomLocation :"+classroomLocation);
+		
+		// select문을 위해 입력받은 instName값에 %를 붙여서 mapper의 메서드를 호출한다.
+		String CL = "%"+classroomLocation+"%";
+		System.out.println("[ClassroomService associationGetInstitutionList] % 조합한 CL :"+CL);
+		// 입력받은 교육원 키워드로 교육원 검색 
+		List<Classroom> CListByCL = associationClassroomMapper.associationSelectClassroomListByKeyword(CL);
+		System.out.println("[ClassroomService associationGetInstitutionList] CListByCL : "+CListByCL);
+		
+		return CListByCL;
+	}
+	// classroom 수정 
+	public Classroom associationGetClassroomByClassroomCode(String classroomCode) {
+		System.out.println("[ClassroomService associationGetClassroomByClassroomCode]");
+		System.out.println("[ClassroomService associationGetClassroomByClassroomCode] classroomCode :"+classroomCode);
+		
+		// select문을 위해 입력받은 classroomCode으로 mapper의 메서드를 호출한다.
+		return associationClassroomMapper.selectClassroomByClassroomCode(classroomCode);
 	}
 }

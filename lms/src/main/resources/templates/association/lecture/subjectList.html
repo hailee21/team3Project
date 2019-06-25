@@ -70,7 +70,7 @@ $(document).ready(function(){
 
 <div layout:fragment="content">
 	<!-- infoLecture 리스트 출력화면 -->
-	<h1>협회 : 과목 조회</h1>
+	<h1>협회 : 과목 목록</h1>
 		<select id="infoLectureSortList">
 			<option value="">--강의항목선택--</option>
 			<option th:each="lecSort:${sortList}" th:text="${lecSort.infoLectureSort}" th:value="${lecSort.infoLectureSort}"></option>

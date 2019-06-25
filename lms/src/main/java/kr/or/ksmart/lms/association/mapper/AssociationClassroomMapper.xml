@@ -107,5 +107,43 @@
 			,classroom_maximum_number
 		FROM classroom
 	</select>
-
+	
+	<!-- 강의실조회 교육원명으로 검색 -->
+	<select id="associationSelectClassroomListByKeyword"
+			parameterType="String"
+			resultMap="ClassroomResultMap">
+		SELECT 
+			classroom_code
+			,institution_code
+			,institution_name
+			,classroom_location
+			,classroom_name
+			,classroom_use
+			,classroom_maximum_number
+		FROM 
+			classroom
+		WHERE 
+			classroom_location 
+		LIKE 
+			#{classroomLocation}
+	</select>
+	
+	<!-- 강의실 수정처리 -->
+	<!-- 강의실코드로 강의실 상세정보 불러오기 -->
+	<select id="selectClassroomByClassroomCode"
+			parameterType="String"
+			resultMap="ClassroomResultMap">
+		SELECT 
+			classroom_code
+			,institution_code
+			,institution_name
+			,classroom_location
+			,classroom_name
+			,classroom_use
+			,classroom_maximum_number
+		FROM 
+			classroom
+		WHERE 
+			classroom_code = #{classroomCode}
+	</select>
 </mapper>

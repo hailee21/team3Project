@@ -11,7 +11,7 @@ import kr.or.ksmart.lms.pi.vo.InfoSubject;
 
 @Service
 public class PILectureService {
-	@Autowired PILectureMapper piLectureMapper;
+	@Autowired private PILectureMapper piLectureMapper;
 	
 	// infoLecture 리스트 출력
 	// 1. select sort 
