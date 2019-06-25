@@ -49,4 +49,12 @@ public class TeacherLoginController {
 		mav.setViewName("teacher/teacherIndex");
 		return mav;
 	}
+
+	//강사 로그아웃 controller
+	@GetMapping("/teacherLogout")
+	public ModelAndView PALogout(HttpSession session, ModelAndView mav) {
+		session.invalidate();
+		mav.setViewName("redirect:/teacherLogin");
+		return mav;
+	}
 }

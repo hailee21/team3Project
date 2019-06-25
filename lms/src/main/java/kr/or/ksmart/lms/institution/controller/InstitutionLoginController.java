@@ -28,14 +28,13 @@ public class InstitutionLoginController {
 
 	//교육원 로그인 액션 controller
 	@PostMapping("/institutionLogin")
-	public String instituteLayoutLoginAction(HttpSession session, LoginRequest loginRequest) {
-		System.out.println(loginRequest);
+	public ModelAndView instituteLayoutLoginAction(HttpSession session, ModelAndView mav, LoginRequest loginRequest) {
 		Map<String, Object> map = InstitutionLoginService.getMemberOnline(loginRequest);
 		MemberOnline loginMember = (MemberOnline)map.get("memberOnline");
 		boolean Check = (boolean)map.get("Check");
 		int remainingDate = (int)map.get("remainingDate");
 		if(loginMember == null) {
-			return "redirect:" + "/institutionLogin";
+			mav.setViewName("redirect:/institutionLogin");
 		} else {
 			System.out.println("로그인 성공");
 			if(Check) {
@@ -46,20 +45,29 @@ public class InstitutionLoginController {
 				session.setAttribute("institutionCode", loginMember.getInstitutionCode());
 				session.setAttribute("institutionName", loginMember.getInstitutionName());
 				session.setAttribute("remainingDate", remainingDate);
-				return "redirect:" + "/institutionIndex";
+				mav.setViewName("redirect:/institutionIndex");
 			} else {
 				System.out.println("남은일 0");
 				String availability = "사용권이 만료되었습니다.";
 				session.setAttribute("availability", availability);
-				return "redirect:" + "/institutionLogin";
+				mav.setViewName("redirect:/institutionLogin");
 			}
 		}
+		return mav;
 	}
 
 	//교육원 index 출력 controller
 	@GetMapping("/institutionIndex")
 	public ModelAndView institutionIndex(HttpSession session, ModelAndView mav) {
 		mav.setViewName("institution/institutionIndex");
+		return mav;
+	}
+
+	//협회 로그아웃 controller
+	@GetMapping("/institutionLogout")
+	public ModelAndView institutionLogout(HttpSession session, ModelAndView mav) {
+		session.invalidate();
+		mav.setViewName("redirect:/institutionLogin");
 		return mav;
 	}
 }
