@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.ksmart.lms.member.mapper.MemberMapper">
+<mapper namespace="kr.or.ksmart.lms.pi.mapper.PIMemberMapper">
+	
 	<resultMap type="kr.or.ksmart.lms.institution.vo.Institution" id="InstitutionMap">
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>
@@ -35,7 +36,7 @@
 		LIMIT
 			0,1
 	</select>
-	<insert id="insertMember" parameterType="kr.or.ksmart.lms.member.vo.Member">
+	<insert id="insertMember" parameterType="kr.or.ksmart.lms.association.vo.Member">
 	<!-- member 테이블에 insert -->
 		INSERT INTO
 			member (
@@ -63,7 +64,7 @@
 		)
 	</insert>
 	
-	<insert id="insertMemberOnlineId" parameterType="kr.or.ksmart.lms.member.vo.MemberOnline">
+	<insert id="insertMemberOnlineId" parameterType="kr.or.ksmart.lms.association.vo.MemberOnline">
 		INSERT INTO
 			member_online_insertid (
 			member_online_id)
@@ -71,7 +72,7 @@
 			#{memberOnlineId})
 	</insert>
 	
-	<insert id="insertMemberOnline" parameterType="kr.or.ksmart.lms.member.vo.MemberOnline">
+	<insert id="insertMemberOnline" parameterType="kr.or.ksmart.lms.association.vo.MemberOnline">
 	<!-- memberOnline 테이블에 insert -->
 		INSERT INTO
 			member_online (

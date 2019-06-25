@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionMemberMapper">
+	<resultMap type="kr.or.ksmart.lms.institution.vo.InstitutionMember" id="AssociationMemberOnlineMap">
+		<result column="member_code" property="memberCode"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_online_id" property="memberOnlineId"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="member_rank" property="memberRank"/>
+	</resultMap>
+	<select id="selectInstitutionMemberList" parameterType="String"
+			resultMap="AssociationMemberOnlineMap">
+		SELECT
+			m.member_code
+			, m.member_name
+			, member_online_id
+			, member_phone_number
+			, institution_code
+			, institution_name
+			, mo.member_rank
+		FROM member AS m
+		INNER JOIN member_online AS mo
+		ON m.member_code = mo.member_code
+	</select>
+</mapper>
