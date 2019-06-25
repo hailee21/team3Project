@@ -18,7 +18,7 @@ $(document).ready(function(){
 		
 		// 강의표준명 option(nameList) 출력을 위한 비동기방식 시작
 		$.ajax({
-			url:'/getInfoLectureNameList'
+			url:'/institution/getInfoLectureNameList'
 			,data:{lectureSort:$('#infoLectureSortList').val()}
 			,type:'Post'
 			,dataType:'json'
@@ -42,7 +42,7 @@ $(document).ready(function(){
 			} else{
 				// 강의표준명 option 선택 후 과목리스트 출력을 위한 비동기방식 시작
 				$.ajax({
-					url:'/getSubjectList'
+					url:'/institution/getSubjectList'
 					,data:{lectureCode:$('#infoLectureNameList').val()}
 					,type:'Post'
 					,dataType:'json'

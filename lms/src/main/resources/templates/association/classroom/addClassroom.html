@@ -36,21 +36,21 @@ $(document).ready(function(){
 	<form id="addClassroom" action="/association/classroom/addClassroom" method="post">
 			<div class="form-group">
 				<label>교육원명 :</label>
-			    <input type="text" class="form-control" readonly="readonly" th:text="${institutionName}" th:value="${institutionName}" id="institutionName" name="institutionName">
-			   <input type="hidden" th:text="${institutionCode}" th:value="${institutionCode}" id="institutionCode" name="institutionCode">
+			    <input type="text" class="form-control" readonly="readonly" th:value="${institutionName}" id="institutionName" name="institutionName">
+			   <input type="hidden" th:value="${institutionCode}" id="institutionCode" name="institutionCode">
 			</div>
 			<div class="form-group">
 			    <label>지역 : </label>
-			     <input type="text" class="form-control" th:text="${institutionLocation}" th:value="${institutionLocation}" id="institutionLocation" name="classroomLocation">
+			     <input type="text" class="form-control" th:value="${institutionLocation}" id="institutionLocation" name="classroomLocation">
 			     <span style="color:red">지역은 수정 가능합니다</span>
 			</div>
 			<div class="form-group">
 				<label>강의실명 : </label>
-			    <input type="text" class="form-control" type="text" placeholder="강의실 명을 입력해주세요" id="classroomName" name="classroomName">
+			    <input type="text" class="form-control" placeholder="강의실 명을 입력해주세요" id="classroomName" name="classroomName">
 			</div>    
 			<div class="form-group">
 				<label>강의용도</label>
-				    <select id="classroomUse" class="custom-select">
+				    <select class="custom-select" id="classroomUse" name="classroomUse">
 				    	<option value="">--선택--</option>
 				    	<option th:each="list:${useList}" th:text="${list.classroomUse}" th:value="${list.classroomUse}"></option>
 				    </select>
