@@ -19,19 +19,19 @@
 			<tr>
 				<th scope="col">이름</th>
 				<th scope="col">아이디</th>
-				<th scope="col">회원등급</th>
+				<th scope="col">전화번호</th>
 				<th scope="col">교육원</th>
-				<th scope="col">가입일</th>
+				<th scope="col">회원등급</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="member:${list}">
+			<tr th:each="member:${memberList}">
 				<!-- <input type="hidden" value="${member.memberCode}"> -->
 				<th scope="row" th:text="${member.memberName}"></th>
 				<td th:text="${member.memberOnlineId}"></td>
+				<td th:text="${member.memberPhoneNumber}"></td>
+				<td th:text="${member.institutionName}"></td>
 				<td th:text="${member.memberRank}"></td>
-				<td th:text="${member.memberInstitutionName}"></td>
-				<td th:text="${member.memberOnlineDate}"></td>
 		</tbody>
 	</table>
 </div>
