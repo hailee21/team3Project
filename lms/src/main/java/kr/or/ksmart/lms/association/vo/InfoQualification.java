@@ -1,9 +1,10 @@
-package kr.or.ksmart.lms.license.vo;
+package kr.or.ksmart.lms.association.vo;
 
 public class InfoQualification {
 	private String infoQualificationCode;
 	private String infoQualificationName;
 	private String infoQualificationRequiredCode;
+	private String infoQualificationTestUse;
 	private String infoQualificationRequiredType;
 	private String infoQualificationDescription;
 	private String infoQualificationRenewalDate;
@@ -24,6 +25,12 @@ public class InfoQualification {
 	}
 	public void setInfoQualificationRequiredCode(String infoQualificationRequiredCode) {
 		this.infoQualificationRequiredCode = infoQualificationRequiredCode;
+	}
+	public String getInfoQualificationTestUse() {
+		return infoQualificationTestUse;
+	}
+	public void setInfoQualificationTestUse(String infoQualificationTestUse) {
+		this.infoQualificationTestUse = infoQualificationTestUse;
 	}
 	public String getInfoQualificationRequiredType() {
 		return infoQualificationRequiredType;
@@ -47,8 +54,9 @@ public class InfoQualification {
 	public String toString() {
 		return "InfoQualification [infoQualificationCode=" + infoQualificationCode + ", infoQualificationName="
 				+ infoQualificationName + ", infoQualificationRequiredCode=" + infoQualificationRequiredCode
-				+ ", infoQualificationRequiredType=" + infoQualificationRequiredType + ", infoQualificationDescription="
-				+ infoQualificationDescription + ", infoQualificationRenewalDate=" + infoQualificationRenewalDate + "]";
+				+ ", infoQualificationTestUse=" + infoQualificationTestUse + ", infoQualificationRequiredType="
+				+ infoQualificationRequiredType + ", infoQualificationDescription=" + infoQualificationDescription
+				+ ", infoQualificationRenewalDate=" + infoQualificationRenewalDate + "]";
 	}
 	
 }
