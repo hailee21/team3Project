@@ -1,6 +1,7 @@
 package kr.or.ksmart.lms.institution.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,9 +19,21 @@ public class InstitutionMemberController {
 	
 	@GetMapping("/institution/memberList")
 	public ModelAndView instMemberList(ModelAndView mav, HttpSession session) {
+		System.out.println("[InstitutionMemberController instMemberList 호출]");
+		String memberRank = (String)session.getAttribute("memberRank");
 		String memberCode = (String)session.getAttribute("memberCode");
-		List<InstitutionMember> memberList = institutionMemberService.institutionMemberList(memberCode);
-		mav.setViewName("institution/member/list");
+		if (memberRank == null) {
+			System.out.println("[InstitutionMemberController instMemberList] 로그아웃상태");
+			mav.setViewName("institution/institutionLogin");
+		} else if (memberRank.equals("교육원직원")) {
+			mav.setViewName("institution/member/list");
+			List<InstitutionMember> memberList = institutionMemberService.institutionMemberList(memberCode);
+			mav.addObject("memberList", memberList);
+		} else {
+			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
+			mav.setViewName("institution/institutionLogin");
+		}
+		
 		return mav;
 	}
 }

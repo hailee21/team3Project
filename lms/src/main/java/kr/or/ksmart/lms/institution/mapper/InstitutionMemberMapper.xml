@@ -12,7 +12,7 @@
 	<select id="selectInstitutionMemberList" parameterType="String"
 			resultMap="AssociationMemberOnlineMap">
 		SELECT
-			m.member_code,
+			m.member_code
 			, m.member_name
 			, member_online_id
 			, member_phone_number
@@ -21,6 +21,6 @@
 			, mo.member_rank
 		FROM member AS m
 		INNER JOIN member_online AS mo
-		ON m.member_code = mo.member_code;
+		ON m.member_code = mo.member_code
 	</select>
 </mapper>
