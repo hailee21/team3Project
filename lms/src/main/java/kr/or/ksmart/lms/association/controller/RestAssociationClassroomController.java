@@ -19,7 +19,7 @@ public class RestAssociationClassroomController {
 	public List<Institution> associationGetInstitutionList(@RequestParam() String instName){
 		System.out.println("[RestClassroomController getInstitutionList] instName: "+ instName);
 		
-		return associationClassroomService.getInstitutionList(instName);
+		return associationClassroomService.associationGetInstitutionList(instName);
 	}
 
 	

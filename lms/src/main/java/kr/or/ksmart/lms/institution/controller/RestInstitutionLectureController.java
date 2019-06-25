@@ -16,7 +16,7 @@ public class RestInstitutionLectureController {
 	@Autowired private InstitutionLectureService institutionLectureService;
 	
 	// institution layout 강의표준명 리스트 출력 controller	
-	@PostMapping("institution/getInfoLectureNameList")
+	@PostMapping("/institution/getInfoLectureNameList")
 	public List<InfoLecture> institutionGetInfoLectureNameList(@RequestParam() String lectureSort){
 		System.out.println("[RestLectureController institutionGetInfoLectureNameList] lectureSort: "+ lectureSort);
 		return  institutionLectureService.institutionGetInfoLectureNameList(lectureSort);
@@ -24,7 +24,7 @@ public class RestInstitutionLectureController {
 	}
 	
 	// institution layout 과목리스트 출력 controller
-	@PostMapping("institution/getSubjectList")
+	@PostMapping("/institution/getSubjectList")
 	public List<InfoSubject> institutionGetSubjectListByLectureCode(@RequestParam() String lectureCode){
 		System.out.println("[RestLectureController institutionGetInfoLectureNameList] lectureCode: "+ lectureCode);
 		return  institutionLectureService.institutionGetSubjectListByLectureCode(lectureCode);

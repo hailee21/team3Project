@@ -16,7 +16,7 @@ public class RestPILectureController {
 	@Autowired private PILectureService piLectureService;
 	
 	// institution layout 강의표준명 리스트 출력 controller	
-	@PostMapping("pi/getInfoLectureNameList")
+	@PostMapping("/PI/getInfoLectureNameList")
 	public List<InfoLecture> piGetInfoLectureNameList(@RequestParam() String lectureSort){
 		System.out.println("[RestLectureController piGetInfoLectureNameList] lectureSort: "+ lectureSort);
 		return  piLectureService.piGetInfoLectureNameList(lectureSort);
@@ -24,7 +24,7 @@ public class RestPILectureController {
 	}
 	
 	// institution layout 과목리스트 출력 controller
-	@PostMapping("pi/getSubjectList")
+	@PostMapping("/PI/getSubjectList")
 	public List<InfoSubject> piGetSubjectListByLectureCode(@RequestParam() String lectureCode){
 		System.out.println("[RestLectureController piGetInfoLectureNameList] lectureCode: "+ lectureCode);
 		return  piLectureService.piGetSubjectListByLectureCode(lectureCode);

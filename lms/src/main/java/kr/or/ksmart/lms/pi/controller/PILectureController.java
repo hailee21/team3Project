@@ -23,7 +23,7 @@ public class PILectureController {
 	
 	// 수강생	
 	// LE layout 강의항목, 과목 리스트 출력 controller
-		@GetMapping("/LE/subject/subjectList")
+		@GetMapping("/PI/subject/subjectList")
 		public ModelAndView piGetSubjectList(ModelAndView mav, HttpSession session
 										, @RequestParam(value="institutionCode", required = true) String institutionCode) {
 			System.out.println("[LectureController piGetSubjectList] institutionCode:"+institutionCode);	
@@ -37,7 +37,7 @@ public class PILectureController {
 			String memberRank = (String)session.getAttribute("memberRank");
 			
 				System.out.println("[LectureController piSetSubjectList] 수강생 강의,과목 조회시작");
-				mav.setViewName("/LE/subject/subjectList");
+				mav.setViewName("/PI/subject/subjectList");
 				
 				List<InfoLecture> sortList = PlectureService.piGetInfoLectureSortList();
 				System.out.println("[LectureController piSetSubjectList] sortList : "+ sortList);

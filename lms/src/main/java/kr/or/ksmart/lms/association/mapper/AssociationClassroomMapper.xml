@@ -95,6 +95,17 @@
 			institution_code = #{instCode}
 	</select>
 	
-
+	<select id="associationSelectClassroomList"
+			resultMap="ClassroomResultMap">
+		SELECT 
+			classroom_code
+			,institution_code
+			,institution_name
+			,classroom_location
+			,classroom_name
+			,classroom_use
+			,classroom_maximum_number
+		FROM classroom
+	</select>
 
 </mapper>

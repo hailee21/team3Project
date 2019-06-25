@@ -9,29 +9,77 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	// 교육원 목록
+    $('#search').click(function(){
+        console.log('교육원 검색버튼 클릭...');
+        console.log('입력받은 교육원 위치 : '+$('#instName').val());
+        $.ajax({
+            url:'/getInstitutionList'
+            ,data:{instName:$('#instName').val()}
+            ,type:'POST'
+    		,dataType:'json'
+            ,success:function(result){ 
+                $('#classroomList').empty();
+				$('#classroomList').append('<thead>');
+				$('#classroomList').append('<tr>');
+				$('#classroomList').append('<th>교육원명</th>');
+				$('#classroomList').append('<th>교육원위치</th>');
+				$('#classroomList').append('</tr>');
+				$('#classroomList').append('</thead>');
+				$('#classroomList').append('<tbody>');
+                $(result).each(function(i,item){	
+               	   $('#classroomList').append('<tr><td id="'+item.institutionCode+'" value="'+item.institutionCode+'"><a href="/association/classroom/modifyClassroom?institutionCode='+item.institutionCode+'">'+item.institutionName+'</a></td><td id="'+item.institutionLocation+'" value="'+item.institutionLocation+'">'+item.institutionLocation+'</td></tr>');
+                });
+                $('#classroomList').append('</tbody>');
+             }
+        });
+    });	
+   $("#instName").keydown(function(key) {
+        //키의 코드가 13번일 경우 (13번은 엔터키)
+        if (key.keyCode == 13) {
+        	console.log('엔터키 입력..');
+            //검색버튼을 클릭한다한다.
+            $("#search").click();
+        }
+    });	
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
-	<h1>협회관리 : 강의실 목록</h1>
-	<table id="classroomList" class="table table-striped">
-		<thead>
-			<tr>
-				<th>교육원명</th>
-				<th>강의실위치</th>
-				<th>강의실명</th>
-				<th>용도</th>
-				<th>최대수용인원</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="form-group">
+		<h2>교육원 찾기</h2>	
+		<h4 style="color:red">도시명으로 검색하실 수 있습니다  </h4>
+		<h6> ex) 서울, 전주....</h6>
+		
+		<input id="instName" name="instName" type="text">
+		<button id="search" type="button">search</button>
+	</div>
+	
+	<div class="form-group">
+		<h1>협회관리 : 강의실 목록</h1>
+		<table id="classroomList" class="table table-striped">
+			<thead>
+				<tr>
+					<th>교육원명</th>
+					<th>강의실위치</th>
+					<th>강의실명</th>
+					<th>용도</th>
+					<th>최대수용인원</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="list:${classroomList}">
+					<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
+					<td th:text="${list.classroomLocation}" th:value="${list.classroomLocation}"></td>
+					<td th:text="${list.classroomName}" th:value="${list.classroomName}"></td>
+					<td th:text="${list.classroomUse}" th:value="${list.classroomUse}"></td>
+					<td th:text="${list.classroomMaximumNumber}" th:value="${list.classroomMaximumNumber}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 </html>

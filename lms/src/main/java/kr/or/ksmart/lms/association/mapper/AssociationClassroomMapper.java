@@ -21,4 +21,7 @@ public interface AssociationClassroomMapper {
 	public Institution associationSelectInstitutionInfo(String instCode);
 	// 강의실 등록 메서드
 	public int associationInsertClassroom(Classroom classroom); 
+	
+	// 강의실 목록 출력
+	public List<Classroom> associationSelectClassroomList();
 }

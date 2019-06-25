@@ -1,5 +1,6 @@
 package kr.or.ksmart.lms.association.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -50,7 +51,7 @@ public class AssociationClassroomController {
 			mav.setViewName("association/classroom/addClassroom");
 			
 			// map에 담아서 가져온 값들을 model에 넣어 view에서 활용
-			Map<String, Object> map = associationClassroomService.getInstitutionByInstCode(institutionCode);	
+			Map<String, Object> map = associationClassroomService.associationGetInstitutionByInstCode(institutionCode);	
 			mav.addObject("institutionCode", map.get("institutionCode"));
 			mav.addObject("institutionName", map.get("institutionName"));
 			mav.addObject("institutionLocation", map.get("institutionLocation"));
@@ -72,7 +73,8 @@ public class AssociationClassroomController {
 			System.out.println("협회직원");
 			System.out.println("[ClassroomController addClassroom]");			
 			
-			associationClassroomService.addClassroom(classroom);
+			// 강의실 추가 처리 후에 강의실조회페이지로 redirect
+			associationClassroomService.associationAddClassroom(classroom);
 			mav.setViewName("redirect:/association/classroom/classroomList");
 		}else {
 			System.out.println("협회직원아님");
@@ -82,7 +84,7 @@ public class AssociationClassroomController {
 		return mav;
 	}
 				
-	// 강의실 리스트 조회
+	// association layout 강의실 리스트 조회 controller 
 	@GetMapping("/association/classroom/classroomList")
 	public ModelAndView associationGetClassroomList(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
@@ -92,7 +94,9 @@ public class AssociationClassroomController {
 			System.out.println("[ClassroomController getClassroomList]");
 			mav.setViewName("association/classroom/classroomList");
 			
-			
+			// service에서 불러온 리스트를 classroomList 내부에 담고 mav에 담아서 뷰에서 사용하기
+			List<Classroom> classroomList = associationClassroomService.associationGetClassroomList();
+			mav.addObject("classroomList", classroomList);
 		}else {
 			System.out.println("협회직원아님");
 			
