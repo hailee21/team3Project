@@ -1,11 +1,11 @@
 package kr.or.ksmart.lms.institution.vo;
 
 public class InfoSubject {
-	String infoSubjectCode;
-	String infoLectureCode;
-	String infoSubjectName;
-	int infoSubjectDifficulty;
-	String infoSubjectModificationHistory;
+	private String infoSubjectCode;
+	private String infoLectureCode;
+	private String infoSubjectName;
+	private int infoSubjectDifficulty;
+	private String infoSubjectModificationHistory;
 	
 	public String getInfoSubjectCode() {
 		return infoSubjectCode;
@@ -46,3 +46,4 @@ public class InfoSubject {
 	}
 	
 }
+

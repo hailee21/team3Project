@@ -1,71 +1,87 @@
 package kr.or.ksmart.lms.association.vo;
 
 public class Institution {
-	String institutionCode;
-	String institutionName;
-	String InstitutionPhone;
-	String InstitutionPostcode;
-	String InstitutionAddress;
-	String InstitutionAddressDesc;
-	String InstitutionLocation;
-	String InstitutionRegistrationDate;
-	
+	private String institutionCode;
+	private String institutionName;
+	private String institutionPhone;
+	private String institutionPostcode;
+	private String institutionAddress;
+	private String institutionAddressDesc;
+	private String institutionLocation;
+	private String institutionRegistrationDate;
+
 	public String getInstitutionCode() {
 		return institutionCode;
 	}
+
 	public void setInstitutionCode(String institutionCode) {
 		this.institutionCode = institutionCode;
 	}
+
 	public String getInstitutionName() {
 		return institutionName;
 	}
+
 	public void setInstitutionName(String institutionName) {
 		this.institutionName = institutionName;
 	}
+
 	public String getInstitutionPhone() {
-		return InstitutionPhone;
+		return institutionPhone;
 	}
+
 	public void setInstitutionPhone(String institutionPhone) {
-		InstitutionPhone = institutionPhone;
+		this.institutionPhone = institutionPhone;
 	}
+
 	public String getInstitutionPostcode() {
-		return InstitutionPostcode;
+		return institutionPostcode;
 	}
+
 	public void setInstitutionPostcode(String institutionPostcode) {
-		InstitutionPostcode = institutionPostcode;
+		this.institutionPostcode = institutionPostcode;
 	}
+
 	public String getInstitutionAddress() {
-		return InstitutionAddress;
+		return institutionAddress;
 	}
+
 	public void setInstitutionAddress(String institutionAddress) {
-		InstitutionAddress = institutionAddress;
+		this.institutionAddress = institutionAddress;
 	}
+
 	public String getInstitutionAddressDesc() {
-		return InstitutionAddressDesc;
+		return institutionAddressDesc;
 	}
+
 	public void setInstitutionAddressDesc(String institutionAddressDesc) {
-		InstitutionAddressDesc = institutionAddressDesc;
+		this.institutionAddressDesc = institutionAddressDesc;
 	}
+
 	public String getInstitutionLocation() {
-		return InstitutionLocation;
+		return institutionLocation;
 	}
+
 	public void setInstitutionLocation(String institutionLocation) {
-		InstitutionLocation = institutionLocation;
+		this.institutionLocation = institutionLocation;
 	}
+
 	public String getInstitutionRegistrationDate() {
-		return InstitutionRegistrationDate;
+		return institutionRegistrationDate;
 	}
+
 	public void setInstitutionRegistrationDate(String institutionRegistrationDate) {
-		InstitutionRegistrationDate = institutionRegistrationDate;
+		this.institutionRegistrationDate = institutionRegistrationDate;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Institution [institutionCode=" + institutionCode + ", institutionName=" + institutionName
-				+ ", InstitutionPhone=" + InstitutionPhone + ", InstitutionPostcode=" + InstitutionPostcode
-				+ ", InstitutionAddress=" + InstitutionAddress + ", InstitutionAddressDesc=" + InstitutionAddressDesc
-				+ ", InstitutionLocation=" + InstitutionLocation + ", InstitutionRegistrationDate="
-				+ InstitutionRegistrationDate + "]";
+		return "Institution [institutionAddress=" + institutionAddress + ", institutionAddressDesc="
+				+ institutionAddressDesc + ", institutionCode=" + institutionCode + ", institutionLocation="
+				+ institutionLocation + ", institutionName=" + institutionName + ", institutionPhone="
+				+ institutionPhone + ", institutionPostcode=" + institutionPostcode + ", institutionRegistrationDate="
+				+ institutionRegistrationDate + "]";
 	}
+
 
 }
