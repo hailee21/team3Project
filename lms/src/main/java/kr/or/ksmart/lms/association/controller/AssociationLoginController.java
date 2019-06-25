@@ -49,4 +49,12 @@ public class AssociationLoginController {
 		mav.setViewName("association/associationIndex");
 		return mav;
 	}
+
+	//협회 로그아웃 controller
+	@GetMapping("/associationLogout")
+	public ModelAndView associationLogout(HttpSession session, ModelAndView mav) {
+		session.invalidate();
+		mav.setViewName("redirect:/associationLogin");
+		return mav;
+	}
 }

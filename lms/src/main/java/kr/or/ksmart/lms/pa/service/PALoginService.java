@@ -13,10 +13,12 @@ public class PALoginService {
 	@Autowired
 	PALoginMapper paLoginMapper;
 	
+	//회원 온라인 액션 service
 	public MemberOnline getMemberOnline(LoginRequest loginRequest) {
 		return paLoginMapper.selectMemberOnline(loginRequest);
 	}
 
+	//인덱스 교육원 출력 service
 	public IndexInstitution PIIndex() {
 		String institutionCode = "I0";
 		return paLoginMapper.selectInstitution(institutionCode);

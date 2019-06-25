@@ -61,4 +61,17 @@
 		WHERE
 			institution_code = #{institutionCode}
 	</select>
+
+	<!-- 사용권한 update -->
+	<update id="updateAvailableInstitution"
+			parameterType="kr.or.ksmart.lms.institution.vo.AvailableInstitution">
+		UPDATE 
+			available_institution
+		SET
+			payment_annual_fee_service_end_date = #{paymentAnnualFeeServiceEndDate}
+			, available_institution_remaining_date = #{availableInstitutionRemainingDate}
+			, available_institution_availability = #{availableInstitutionAvailability}
+		WHERE 
+			institution_code = #{institutionCode}
+	</update>
 </mapper>

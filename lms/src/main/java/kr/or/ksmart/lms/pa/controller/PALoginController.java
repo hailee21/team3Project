@@ -21,6 +21,9 @@ public class PALoginController {
 	//PA 로그인 폼 controller
 	@GetMapping("/PALogin")
 	public ModelAndView associationLogin(HttpSession session, ModelAndView mav) {
+		IndexInstitution institution = paLoginService.PIIndex();
+		mav.addObject("institutionCode", institution.getInstitutionCode());
+		mav.addObject("institutionName", institution.getInstitutionName());
 		mav.setViewName("PA/PALogin");
 		return mav;
 	}
@@ -51,6 +54,14 @@ public class PALoginController {
 		IndexInstitution institution = paLoginService.PIIndex();
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
+		return mav;
+	}
+
+	//PA 로그아웃 controller
+	@GetMapping("/PALogout")
+	public ModelAndView PALogout(HttpSession session, ModelAndView mav) {
+		session.invalidate();
+		mav.setViewName("redirect:/PALogin");
 		return mav;
 	}
 }

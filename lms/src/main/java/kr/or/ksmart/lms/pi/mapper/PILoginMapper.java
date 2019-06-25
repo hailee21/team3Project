@@ -1,13 +1,13 @@
-package kr.or.ksmart.lms.pa.mapper;
+package kr.or.ksmart.lms.pi.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.or.ksmart.lms.pa.vo.MemberOnline;
-import kr.or.ksmart.lms.pa.vo.IndexInstitution;
-import kr.or.ksmart.lms.pa.vo.LoginRequest;
+import kr.or.ksmart.lms.pi.vo.MemberOnline;
+import kr.or.ksmart.lms.pi.vo.IndexInstitution;
+import kr.or.ksmart.lms.pi.vo.LoginRequest;
 
 @Mapper
-public interface PALoginMapper {
+public interface PILoginMapper {
 	//회원 온라인 select mapper 
 	public MemberOnline selectMemberOnline(LoginRequest loginRequest);
 

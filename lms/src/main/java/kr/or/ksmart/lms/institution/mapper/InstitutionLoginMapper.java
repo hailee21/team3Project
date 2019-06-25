@@ -13,4 +13,7 @@ public interface InstitutionLoginMapper {
 
 	//교육원 사용권한 select mapper
 	public AvailableInstitution selectAvailableInstitution(String institutionCode);
+
+	//교육원 사용권한 update mapper
+	public void updateAvailableInstitution(AvailableInstitution availableInstitution);
 }
