@@ -17,18 +17,46 @@ import kr.or.ksmart.lms.institution.vo.InstitutionMember;
 public class InstitutionMemberController {
 	@Autowired InstitutionMemberService institutionMemberService;
 	
+	@GetMapping("/sendteacher")
+	public ModelAndView sendEmailToInstitution(ModelAndView mav, HttpSession session) {
+		System.out.println("[institutionMemberController sendEmailToInstitution] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		} if(memberRank.equals("교육원직원")) {
+			mav.setViewName("institution/member/sendEmailToTeacher");
+		} else {
+			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
+			mav.setViewName("institution/institutionLogin");
+		}
+		return mav;
+	}
+	@GetMapping("/instMyInfo")
+	public ModelAndView instMyPage(ModelAndView mav, HttpSession session) {
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		} if(memberRank.equals("교육원직원")) {
+			mav.setViewName("institution/myPage/mypage");
+		} else {
+			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
+			mav.setViewName("institution/institutionLogin");
+		}
+		return mav;
+	}
 	@GetMapping("/institution/memberList")
 	public ModelAndView instMemberList(ModelAndView mav, HttpSession session) {
 		System.out.println("[InstitutionMemberController instMemberList 호출]");
 		String memberRank = (String)session.getAttribute("memberRank");
-		String memberCode = (String)session.getAttribute("memberCode");
+		String institutionCode = (String)session.getAttribute("institutionCode");
 		if (memberRank == null) {
 			System.out.println("[InstitutionMemberController instMemberList] 로그아웃상태");
 			mav.setViewName("institution/institutionLogin");
 		} else if (memberRank.equals("교육원직원")) {
 			mav.setViewName("institution/member/list");
-			List<InstitutionMember> memberList = institutionMemberService.institutionMemberList(memberCode);
+			List<InstitutionMember> memberList = institutionMemberService.institutionMemberList(institutionCode);
 			mav.addObject("memberList", memberList);
+			
 		} else {
 			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
 			mav.setViewName("institution/institutionLogin");

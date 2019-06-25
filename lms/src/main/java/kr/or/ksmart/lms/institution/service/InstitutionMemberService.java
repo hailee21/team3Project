@@ -12,8 +12,8 @@ import kr.or.ksmart.lms.institution.vo.InstitutionMember;
 public class InstitutionMemberService {
 	@Autowired InstitutionMemberMapper institutionMemberMapper;
 	
-	public List<InstitutionMember> institutionMemberList (String memberCode) {
-		List<InstitutionMember> memberList = institutionMemberMapper.selectInstitutionMemberList(memberCode);
+	public List<InstitutionMember> institutionMemberList (String institutionCode) {
+		List<InstitutionMember> memberList = institutionMemberMapper.selectInstitutionMemberList(institutionCode);
 		return memberList;
 	}
 }

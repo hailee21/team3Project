@@ -8,6 +8,7 @@ public class InstitutionMember {
 	private String institutionCode;
 	private String institutionName;
 	private String memberRank;
+	private String memberDate;
 	
 	public String getMemberCode() {
 		return memberCode;
@@ -51,12 +52,19 @@ public class InstitutionMember {
 	public void setMemberRank(String memberRank) {
 		this.memberRank = memberRank;
 	}
+	public String getMemberDate() {
+		return memberDate;
+	}
+	public void setMemberDate(String memberDate) {
+		this.memberDate = memberDate;
+	}
 	
 	@Override
 	public String toString() {
 		return "InstitutionMember [memberCode=" + memberCode + ", memberName=" + memberName + ", memberOnlineId="
 				+ memberOnlineId + ", memberPhoneNumber=" + memberPhoneNumber + ", institutionCode=" + institutionCode
-				+ ", institutionName=" + institutionName + ", memberRank=" + memberRank + "]";
+				+ ", institutionName=" + institutionName + ", memberRank=" + memberRank + ", memberDate=" + memberDate
+				+ "]";
 	}
 	
 }
