@@ -1,18 +1,18 @@
-package kr.or.ksmart.lms.member.service;
+package kr.or.ksmart.lms.pi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.ksmart.lms.index.vo.IndexInstitution;
-import kr.or.ksmart.lms.institution.vo.Institution;
-import kr.or.ksmart.lms.member.mapper.MemberMapper;
-import kr.or.ksmart.lms.member.vo.Member;
-import kr.or.ksmart.lms.member.vo.MemberOnline;
+import kr.or.ksmart.lms.pi.mapper.PIMemberMapper;
+import kr.or.ksmart.lms.pi.vo.Member;
+import kr.or.ksmart.lms.pi.vo.MemberOnline;
+
 
 @Service
-public class MemberService {
+public class PIMemberService {
 	@Autowired
-	MemberMapper memberMapper;
+	PIMemberMapper memberMapper;
 	public IndexInstitution PIIndex(String institutionCode) {
 		return memberMapper.selectInstitution(institutionCode);
 	}

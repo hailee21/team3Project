@@ -1,12 +1,12 @@
-package kr.or.ksmart.lms.member.mapper;
+package kr.or.ksmart.lms.pi.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.lms.index.vo.IndexInstitution;
-import kr.or.ksmart.lms.member.vo.Member;
-import kr.or.ksmart.lms.member.vo.MemberOnline;
+import kr.or.ksmart.lms.pi.vo.Member;
+import kr.or.ksmart.lms.pi.vo.MemberOnline;
 @Mapper
-public interface MemberMapper {
+public interface PIMemberMapper {
 	//	협회/교육원코드
 	public IndexInstitution selectInstitution(String institutionCode);
 	
@@ -22,4 +22,5 @@ public interface MemberMapper {
 	public String selectMemberCodePk();
 	//	회원온라인 코드 PK출력 mapper
 	public String selectMemberOnlineCodePk();
+
 }

@@ -1,4 +1,4 @@
-package kr.or.ksmart.lms.member.vo;
+package kr.or.ksmart.lms.pi.vo;
 
 public class Member {
 	private String memberCode;
