@@ -1,0 +1,100 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationClassroomMapper"> 
+	<!-- ClassroomMapper Classroom resultMap  -->
+	<resultMap id="ClassroomResultMap"
+				type="kr.or.ksmart.lms.association.vo.Classroom">
+		<result column="classroom_code" property="classroomCode"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="classroom_location" property="classroomLocation"/>
+		<result column="classroom_name" property="classroomName"/>
+		<result column="classroom_use" property="classroomUse"/>
+		<result column="classroom_maximum_number" property="classroomMaximumNumber"/>
+	</resultMap>
+	<!-- ClassroomMapper Institution resultMap  -->
+	<resultMap id="InstitutionResultMap"
+				type="kr.or.ksmart.lms.association.vo.Institution">
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="institution_phone" property="InstitutionPhone"/>
+		<result column="institution_postcode" property="InstitutionPostcode"/>
+		<result column="institution_address" property="InstitutionAddress"/>
+		<result column="institution_address_desc" property="InstitutionAddressDesc"/>
+		<result column="institution_location" property="InstitutionLocation"/>
+		<result column="institution_registration_date" property="InstitutionRegistrationDate"/>
+	</resultMap>
+		
+	<!-- 강의용도 리스트 출력 -->
+	<select id="associationSelectClassroomUse"
+				resultMap="ClassroomResultMap">
+		SELECT DISTINCT
+			classroom_use
+		FROM 
+			classroom	
+	</select>
+	<!-- 강의용도 리스트 출력 -->
+	<select id="associationSelectClassroomPK"
+				resultType="String">
+		SELECT
+			classroom_code
+		FROM 
+			classroom	
+		ORDER BY
+			classroom_code DESC
+		LIMIT
+			0,1
+	</select>	
+	<select id="associationSelectInstitutionInfo"
+			parameterType="String"
+			resultMap="InstitutionResultMap">
+		SELECT
+			institution_code
+			,institution_name
+			,institution_location
+		FROM 
+			institution
+		WHERE 
+			institution_code=#{instCode}
+	</select>
+	
+	<!-- 강의실 등록 -->			
+	<insert id="associationInsertClassroom"
+			parameterType="kr.or.ksmart.lms.association.vo.Classroom">
+		INSERT INTO classroom (
+			classroom_code
+			,institution_code
+			,institution_name
+			,classroom_location
+			,classroom_name
+			,classroom_use
+			,classroom_maximum_number
+		)	VALUES (
+			#{classroomCode}
+			,#{institutionCode}
+			,#{institutionName}
+			,#{classroomLocation}
+			,#{classroomName}
+			,#{classroomUse}
+			,#{classroomMaximumNumber}			
+		) 		
+	</insert>
+	<!-- 교육원 리스트 출력 -->
+	<select id="associationSelectInstitutionByInstitutionCode"
+			parameterType="String"
+			resultMap="InstitutionResultMap">
+		SELECT 
+			institution_code
+			,institution_name
+			,institution_location
+		FROM 
+			institution		
+		WHERE 
+			institution_code = #{instCode}
+	</select>
+	
+
+
+</mapper>
