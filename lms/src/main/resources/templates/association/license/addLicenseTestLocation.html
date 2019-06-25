@@ -9,88 +9,138 @@
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=5f4555f6ada2f049265957fc6addcb2b&libraries=services"></script>
 <script>
-	$(document).ready(function() {
-		//유효성 검사를 위한 변수 선언
-		
-		let licenseTestLocationRegionCheck = true;
-		let licenseTestLocationAddressCheck = true;
-		let licenseTestLocationUseCheck = true;
-		let licenseTestLocationMaximumNumberCheck = true;
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(), // 지도의 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
 
-		//licenseTestLocationRegion 입력 유효성 검사
-		$('#licenseTestLocationRegion').blur(function() {
-			if($('#licenseTestLocationRegion').val() == "") {
-				console.log('licenseTestLocationRegion 공백입력')
-				licenseTestLocationRegionCheck = true;
-			} else {
-                console.log('licenseTestLocationRegion 유효성 검사 완료')
-				licenseTestLocationRegionCheck = false;
-			}
-		});
+    //지도를 미리 생성
+    var map = new daum.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    var marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(),
+        map: map
+    });
 
-		//licenseTestLocationAddress 입력 유효성 검사
-		$('#licenseTestLocationAddress').blur(function() {
-			if($('#licenseTestLocationAddress').val() == "") {
-				console.log('licenseTestLocationAddress 공백입력')
-				licenseTestLocationAddressCheck = true;
-			} else {
-                console.log('licenseTestLocationAddress 유효성 검사 완료')
-				licenseTestLocationAddressCheck = false;
-			}
-		});
 
-		//licenseTestLocationUse 입력 유효성 검사
-		$('#licenseTestLocationUse').blur(function() {
-			if($('#licenseTestLocationUse').val() == "") {
-				console.log('licenseTestLocationUse 공백입력')
-				licenseTestLocationUseCheck = true;
-			} else {
-                console.log('licenseTestLocationUse 유효성 검사 완료')
-				licenseTestLocationUseCheck = false;
-			}
-		});
+    function sample5_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.address; // 최종 주소 변수
 
-		//licenseTestLocationMaximumNumber 입력 유효성 검사
-		$('#licenseTestLocationMaximumNumber').blur(function() {
-			if($('#licenseTestLocationMaximumNumber').val() == "") {
-				console.log('licenseTestLocationMaximumNumber 공백입력')
-				licenseTestLocationMaximumNumberCheck = true;
-			} else {
-                console.log('infoQualificationDescription 유효성 검사 완료')
-				licenseTestLocationMaximumNumberCheck = false;
-			}	
-		});
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("licenseTestLocationAddress").value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
 
-		//btnAdd 클릭 이벤트 처리
-		$('#btnAdd').on('click',function() {
-			if(licenseTestLocationRegionCheck) {
-				$('h4').addClass('red');
-				$('h4').text('지역이 공백 상태 입니다.');
-			} else if(licenseTestLocationAddressCheck) {
-				$('h4').addClass('red');
-				$('h4').text('주소가 공백 상태 입니다.');
-			} else if(licenseTestLocationUseCheck) {
-				$('h4').addClass('red');
-				$('h4').text('시험용도가 공백 상태 입니다.');
-			} else if(licenseTestLocationMaximumNumberCheck) {
-				$('h4').addClass('red');
-				$('h4').text('최대수용인원이 공백 상태 입니다.');
-			} else {
-				$('#addLicenseTestLocation').submit()
-			}
-		});
+                        var result = results[0]; //첫번째 결과의 값을 활용
 
-	});
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            }
+        }).open();
+    }
 </script>
+	<script>	//유효성 검사
+		$(document).ready(function() {
+			//유효성 검사를 위한 변수 선언
+			
+			let licenseTestLocationRegionCheck = true;
+			let licenseTestLocationAddressCheck = true;
+			let licenseTestLocationUseCheck = true;
+			let licenseTestLocationMaximumNumberCheck = true;
+	
+			//licenseTestLocationRegion 입력 유효성 검사
+			$('#licenseTestLocationRegion').blur(function() {
+				if($('#licenseTestLocationRegion').val() == "") {
+					console.log('licenseTestLocationRegion 공백입력')
+					licenseTestLocationRegionCheck = true;
+				} else {
+	                console.log('licenseTestLocationRegion 유효성 검사 완료')
+					licenseTestLocationRegionCheck = false;
+				}
+			});
+	
+			//licenseTestLocationAddress 입력 유효성 검사
+			$('#licenseTestLocationAddress').blur(function() {
+				if($('#licenseTestLocationAddress').val() == "") {
+					console.log('licenseTestLocationAddress 공백입력')
+					licenseTestLocationAddressCheck = true;
+				} else {
+	                console.log('licenseTestLocationAddress 유효성 검사 완료')
+					licenseTestLocationAddressCheck = false;
+				}
+			});
+	
+			//licenseTestLocationUse 입력 유효성 검사
+			$('#licenseTestLocationUse').blur(function() {
+				if($('#licenseTestLocationUse').val() == "") {
+					console.log('licenseTestLocationUse 공백입력')
+					licenseTestLocationUseCheck = true;
+				} else {
+	                console.log('licenseTestLocationUse 유효성 검사 완료')
+					licenseTestLocationUseCheck = false;
+				}
+			});
+	
+			//licenseTestLocationMaximumNumber 입력 유효성 검사
+			$('#licenseTestLocationMaximumNumber').blur(function() {
+				if($('#licenseTestLocationMaximumNumber').val() == "") {
+					console.log('licenseTestLocationMaximumNumber 공백입력')
+					licenseTestLocationMaximumNumberCheck = true;
+				} else {
+	                console.log('infoQualificationDescription 유효성 검사 완료')
+					licenseTestLocationMaximumNumberCheck = false;
+				}	
+			});
+	
+			//btnAdd 클릭 이벤트 처리
+			$('#btnAdd').on('click',function() {
+				if(licenseTestLocationRegionCheck) {
+					$('h4').addClass('red');
+					$('h4').text('지역이 공백 상태 입니다.');
+				} else if(licenseTestLocationAddressCheck) {
+					$('h4').addClass('red');
+					$('h4').text('주소가 공백 상태 입니다.');
+				} else if(licenseTestLocationUseCheck) {
+					$('h4').addClass('red');
+					$('h4').text('시험용도가 공백 상태 입니다.');
+				} else if(licenseTestLocationMaximumNumberCheck) {
+					$('h4').addClass('red');
+					$('h4').text('최대수용인원이 공백 상태 입니다.');
+				} else {
+					$('#addLicenseTestLocation').submit()
+				}
+			});
+	
+		});
+	</script>
 </th:block>
 
 <div layout:fragment="content">
 	<h3>자격증시험장소 관리</h3>
 	<form id="addLicenseTestLocation" action="/addLicenseTestLocation" method="post">
+		
 		<div class="form-group">
 			<label>지역 :</label>
-				<select class="form-control" id="SelectArea" style="font-size: 9pt; font-family: 굴림체"> 
+				<select class="form-control" id="licenseTestLocationRegion" style="font-size: 9pt; font-family: 굴림체"> 
                		<option  value="전체보기">전체보기</option> 
                 	<option  value="서울/경기">서울/경기</option> 
                 	<option  value="인천/부천">인천/부천</option> 
@@ -105,28 +155,12 @@
                 	<option  value="제주">제주</option> 
            	 </select>
 		</div>
-		<div class="form-group">
-				<div class="col-sm-5">
-					<label for="InputAddress">주소</label>
-					<div class="row">
-						<div class="col-sm-4">
-							<input type="text" readonly="readonly" class="form-control" maxlength="14" id="memberPostcode" name="memberPostcode" size="4">
-						</div>
-						<div class="col-sm-8">
-							<input type="button" class="btn btn-outline-info" onclick="sample6_execDaumPostcode()" value="우편번호찾기"><br>
-						</div>
-					</div>
-						<input id="licenseTestLocationAddress" name="licenseTestLocationAddress" class="form-control" placeholder="도로명주소" readonly="readonly" value="" type="text" size="30"/><br>
-					<div class="row">
-						<div class="col-sm-8">
-							<input id="licenseTestLocationAddressDesc" name="licenseTestLocationAddressDesc" class="form-control" value="2층 한국스마트정보교육원" placeholder="상세주소" type="text"/>
-						</div>
-						<div class="col-sm-4">
-							<input type="text" id="sample6_extraAddress" size="7" class="form-control" placeholder="참고항목">
-						</div>
-					</div>
-				</div>
-			</div>
+		<div class="form-group"></div>
+			<label>주소 :</label>				
+			<input type="text" id="licenseTestLocationAddress" placeholder="주소">
+			<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+			<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+			
 		<div class="form-group">
 			<label>시험용도 :</label>
 			<input type="text" class="form-control" id="licenseTestLocationUse" name="licenseTestLocationUse">
