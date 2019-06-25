@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.or.ksmart.lms.pi.mapper.InfoEvalInstitutionByStudentMapper">
+	<resultMap type="kr.or.ksmart.lms.pi.vo.InfoEvalInstitutionByStudent" id="InfoEvalInstitutionByStudentMap">
+		<result column="info_eval_institution_by_student_code" property="infoEvalInstitutionByStudentCode"/>
+		<result column="info_eval_institution_by_student_sort" property="infoEvalInstitutionByStudentSort"/>
+		<result column="info_eval_institution_by_student_contents" property="infoEvalInstitutionByStudentContents"/>
+		<result column="info_eval_institution_by_student_year" property="infoEvalInstitutionByStudentYear"/>
+	</resultMap>
+	
+	<!--기준년도에의한 교육원 평가 문제항목 -->
+	<select id="selectInfoEvalInstitutionBystudent"
+			resultMap="InfoEvalInstitutionByStudentMap">
+		SELECT
+			info_eval_institution_by_student_code
+			, info_eval_institution_by_student_contents
+			, info_eval_institution_by_student_sort
+			, info_eval_institution_by_student_year
+		FROM info_eval_institution_by_student
+	</select>
+</mapper>

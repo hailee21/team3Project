@@ -2,36 +2,46 @@ package kr.or.ksmart.lms.pi.vo;
 
 public class InfoEvalInstitutionByStudent {
 
-	private String info_eval_institution_by_student_code;
-	private String info_eval_institution_by_student_contents;
-	private String info_eval_institution_by_student_year;
+	private String infoEvalInstitutionByStudentCode;
+	private String infoEvalInstitutionByStudentSort;	
+	private String infoEvalInstitutionByStudentContents;
+	private int infoEvalInstitutionByStudentYear;
 	
-	public String getInfo_eval_institution_by_student_code() {
-		return info_eval_institution_by_student_code;
+	public String getInfoEvalInstitutionByStudentSort() {
+		return infoEvalInstitutionByStudentSort;
 	}
-	public void setInfo_eval_institution_by_student_code(String info_eval_institution_by_student_code) {
-		this.info_eval_institution_by_student_code = info_eval_institution_by_student_code;
+	public void setInfoEvalInstitutionByStudentSort(String infoEvalInstitutionByStudentSort) {
+		this.infoEvalInstitutionByStudentSort = infoEvalInstitutionByStudentSort;
 	}
-	public String getInfo_eval_institution_by_student_contents() {
-		return info_eval_institution_by_student_contents;
+	public String getInfoEvalInstitutionByStudentCode() {
+		return infoEvalInstitutionByStudentCode;
 	}
-	public void setInfo_eval_institution_by_student_contents(String info_eval_institution_by_student_contents) {
-		this.info_eval_institution_by_student_contents = info_eval_institution_by_student_contents;
+	public void setInfoEvalInstitutionByStudentCode(String infoEvalInstitutionByStudentCode) {
+		this.infoEvalInstitutionByStudentCode = infoEvalInstitutionByStudentCode;
 	}
-	public String getInfo_eval_institution_by_student_year() {
-		return info_eval_institution_by_student_year;
+	public String getInfoEvalInstitutionByStudentContents() {
+		return infoEvalInstitutionByStudentContents;
 	}
-	public void setInfo_eval_institution_by_student_year(String info_eval_institution_by_student_year) {
-		this.info_eval_institution_by_student_year = info_eval_institution_by_student_year;
+	public void setInfoEvalInstitutionByStudentContents(String infoEvalInstitutionByStudentContents) {
+		this.infoEvalInstitutionByStudentContents = infoEvalInstitutionByStudentContents;
+	}
+	public int getInfoEvalInstitutionByStudentYear() {
+		return infoEvalInstitutionByStudentYear;
+	}
+	public void setInfoEvalInstitutionByStudentYear(int infoEvalInstitutionByStudentYear) {
+		this.infoEvalInstitutionByStudentYear = infoEvalInstitutionByStudentYear;
 	}
 	
 	@Override
 	public String toString() {
-		return "EvalInstitutionByStudent [info_eval_institution_by_student_code="
-				+ info_eval_institution_by_student_code + ", info_eval_institution_by_student_contents="
-				+ info_eval_institution_by_student_contents + ", info_eval_institution_by_student_year="
-				+ info_eval_institution_by_student_year + "]";
+		return "InfoEvalInstitutionByStudent [infoEvalInstitutionByStudentCode=" + infoEvalInstitutionByStudentCode
+				+ ", infoEvalInstitutionByStudentSort=" + infoEvalInstitutionByStudentSort
+				+ ", infoEvalInstitutionByStudentContents=" + infoEvalInstitutionByStudentContents
+				+ ", infoEvalInstitutionByStudentYear=" + infoEvalInstitutionByStudentYear + "]";
 	}
+	
+	
+	
 	
 	
 	

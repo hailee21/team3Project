@@ -1,5 +1,23 @@
 package kr.or.ksmart.lms.pi.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import kr.or.ksmart.lms.pi.mapper.InfoEvalInstitutionByStudentMapper;
+import kr.or.ksmart.lms.pi.vo.InfoEvalInstitutionByStudent;
+
+@Service
 public class EvalInstitutionByStudentService {
 
+	@Autowired
+	InfoEvalInstitutionByStudentMapper infoEvalInstitutionByStudentMapper;
+
+	//기준년도에의한 교육원 평가 문제항목 select mapper 호출
+	public List<InfoEvalInstitutionByStudent> getInfoEvalInstitutionBystudent(){
+		List<InfoEvalInstitutionByStudent> list = infoEvalInstitutionByStudentMapper.selectInfoEvalInstitutionBystudent();
+		System.out.println(list);
+		return list;
+	}
+	
 }
