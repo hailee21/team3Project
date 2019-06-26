@@ -45,7 +45,7 @@ public class SendEmailController {
 		sendEmailService.sendEmailToTeacherService(emailAddress);
 	}
 	
-	@PostMapping("/sendEmailToInstitution")
+	@PostMapping("/sendEmailToAdmin")
 	public void sendEmailToInstitutionController(String emailAddress) {
 		sendEmailService.sendEmailToInstitutionService(emailAddress);
 	}

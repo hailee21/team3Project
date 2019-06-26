@@ -17,14 +17,39 @@ import kr.or.ksmart.lms.institution.vo.InstitutionMember;
 public class InstitutionMemberController {
 	@Autowired InstitutionMemberService institutionMemberService;
 	
-	@GetMapping("/sendteacher")
-	public ModelAndView sendEmailToInstitution(ModelAndView mav, HttpSession session) {
+	//	교육원 직원 등록 화면
+	@GetMapping("/insertInstAdmin")
+	public ModelAndView insertInstAdmin (ModelAndView mav) {
+		mav.setViewName("institution/member/insertInstAdmin");
+		return mav;
+	}
+	//	강사 승인코드 발송 화면
+	@GetMapping("/sendTeacher")
+	public ModelAndView sendEmailToTeacher (ModelAndView mav, HttpSession session) {
 		System.out.println("[institutionMemberController sendEmailToInstitution] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
 			memberRank = "로그인 실패";
 		} if(memberRank.equals("교육원직원")) {
 			mav.setViewName("institution/member/sendEmailToTeacher");
+		} else if (memberRank.equals("협회직원")) {
+			mav.setViewName("association/member/sendEmailToTeacher");
+		} else {
+			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
+			mav.setViewName("institution/institutionLogin");
+		}
+		return mav;
+	}
+	@GetMapping("/sendAdmin")
+	public ModelAndView sendEmailToAdmin (ModelAndView mav, HttpSession session) {
+		System.out.println("[institutionMemberController sendEmailToInstitution] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		} if(memberRank.equals("교육원직원")) {
+			mav.setViewName("institution/member/sendEmailToAdmin");
+		} else if (memberRank.equals("협회직원")) {
+			mav.setViewName("association/member/sendEmailToAdmin");
 		} else {
 			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
 			mav.setViewName("institution/institutionLogin");

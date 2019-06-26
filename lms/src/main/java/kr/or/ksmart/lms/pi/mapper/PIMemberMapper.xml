@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.pi.mapper.PIMemberMapper">
-	
+	<!-- memberInsert 할 때 institutionName을 찾기 위한 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.institution.vo.Institution" id="InstitutionMap">
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>
 	</resultMap>
+	<!-- memberInsert 할때 institutionCode 받아와서 해당 교육원 이름을 찾는 select 쿼리 -->
 	<select id="selectInstitutionName"
 			resultType="String">
 		SELECT
@@ -96,10 +97,12 @@
 			, #{institutionName}
 			, now())
 	</insert>
+	<!-- institutionCode, name을 가지고 가기 위한 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="IndexInstitutionMap">
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>
 	</resultMap>
+	<!-- institutionCode, name을 가지고 가기 위한 select 쿼리 -->
 	<select id="selectInstitution"
 			parameterType="String"
 			resultMap="IndexInstitutionMap">

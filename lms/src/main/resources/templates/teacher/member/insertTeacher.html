@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>강사 등록</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/sandstone/bootstrap.min.css">
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('memberPostcode').value = data.zonecode;
+                document.getElementById("memberAddress").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("memberAddressDesc").focus();
+            }
+        }).open();
+    }
+</script>
+</head>
+<body>
+<!-- 간격조정 -->
+<div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+		<div class="jumbotron">
+			<h1 class="display-3">강사 등록</h1><!-- 	제목	 -->
+			<!-- <p class="lead">강사로 채용 확정되신 분들만 가입을 할 수 있습니다. </p> -->
+			<hr class="my-4">
+			<p>강사로 채용 확정되신 분들만 가입을 할 수 있습니다.</p>
+			<p class="lead">
+			<form action="/insertTeacher" method="post">
+				<fieldset>
+    				<div class="form-group">
+    				<legend>회원정보</legend>
+    				</div>
+    				<!-- 	아이디	 -->
+    				<div class="form-group">
+    					<div class="col-sm-5">
+							<label for="InputId">아이디</label>
+							<input type="text" class="form-control" id="memberOnlineId" name="memberOnlineId" aria-describedby="" placeholder="ID" value="">
+    		  				<small class="form-text text-muted">영문/숫자 아이디 중복검사 확인 필수</small>
+      					</div>
+					</div>
+					<!-- 	비밀번호	 -->
+					<div class="form-group">
+						<div class="col-sm-5">
+							<label for="InputPw">비밀번호</label>
+							<input type="password" class="form-control" id="memberOnlinePw" name="memberOnlinePw" aria-describedby="" placeholder="PASSWORD" value="">
+		      				<small class="form-text text-muted">영문/숫자 조합으로 8-16자 </small>
+						</div>
+					</div>
+					<!-- 	이름	 -->
+					<div class="form-group">
+						<div class="col-sm-5">
+							<label for="InputName">이름</label>
+							<input type="text" class="form-control" id="memberName" name="memberName" aria-describedby="" placeholder="NAME" value="">
+						</div>
+					</div>
+					<!-- 	주민번호	 -->
+					<div class="form-group">
+						<div class="col-sm-5">
+							<label for="InputRegistrationNumber">주민번호</label>
+							<div class="row">
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="memberRegistrationNumberFront" name="memberRegistrationNumberFront" aria-describedby="" placeholder="RegistrationNumberFront" value="" size="4"> 
+								</div>
+								<div class="col-sm-6">
+									<input type="password" class="form-control" id="memberRegistrationNumberBack" name="memberRegistrationNumberBack" aria-describedby="" placeholder="RegistrationNumberBack" value="1001000" size="5">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 	강사코드	 -->
+					<div class="form-group">
+						<div class="col-sm-5">
+							<label for="InputTeacherApproval">강사코드</label>
+							<input type="text" class="form-control" id="teacherApprovalCode" name="teacherApprovalCode" aria-describedby="" placeholder="TeacherApproval" value="">
+							<small class="form-text text-muted">발급받은 강사코드를 입력하세요</small>
+						</div>
+					</div>
+					<!-- 	경력사항	 -->
+					<div class="form-group">
+						<div class="col-sm-5">
+							<label for="exampleTextarea">경력사항</label>
+      						<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+      					</div>
+      				</div>
+					<!-- 	전화번호	 -->
+					<div class="form-group">
+						<div class="col-sm-5">
+							<label for="InputPhone">전화번호</label>
+							<input type="tel" class="form-control" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
+							<small class="form-text text-muted">ex) 010-0000-0000 </small>
+						</div>
+					</div>
+					<!-- 	주소	 -->
+					<div class="form-group">
+						<div class="col-sm-5">
+							<label for="InputAddress">주소</label>
+							<div class="row">
+								<div class="col-sm-4">
+									<input type="text" readonly="readonly" class="form-control" maxlength="14" id="memberPostcode" name="memberPostcode" size="4">
+								</div>
+								<div class="col-sm-8">
+									<input type="button" class="btn btn-outline-info" onclick="sample6_execDaumPostcode()" value="우편번호찾기"><br>
+								</div>
+							</div>
+								<input id="memberAddress" name="memberAddress" class="form-control" placeholder="도로명주소" readonly="readonly" value="" type="text" size="30"/><br>
+							<div class="row">
+								<div class="col-sm-8">
+									<input id="memberAddressDesc" name="memberAddressDesc" class="form-control" value="2층 한국스마트정보교육원" placeholder="상세주소" type="text"/>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" id="sample6_extraAddress" size="7" class="form-control" placeholder="참고항목">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--	 회원등급	 -->
+					<input type="hidden" name="memberRank" value="강사">
+					<div class="form-group">
+						<div class="col-sm-5">
+							<label for="InputInstitution">교육원</label>
+							<select class="form-control" name="institutionCode">
+								<option value="">--교육원선택--</option>
+								<option value="I1">전주평생교육원</option>
+								<option value="I2">서울평생교육원</option>
+								<option value="I3">성남평생교육원</option>
+								<option value="I4">인천평생교육원</option>
+								<option value="I5">광주평생교육원</option>
+								<option value="I6">구미평생교육원</option>
+							</select>
+						</div>
+					</div>
+					<p style="height: 10px"></p>
+					<div class="form-group">
+					<button type="button" class="btn btn-primary">#강사등록</button> <button type="button" class="btn btn-secondary disabled" onclick="location.href='javascript:history.back()'">뒤로가기</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<div class="col-sm-2"></div>
+</div>
+</body>
+</html>

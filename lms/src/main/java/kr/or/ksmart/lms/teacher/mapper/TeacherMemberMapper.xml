@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.lms.teacher.mapper.TeacherMemberMapper">
+	<insert id="insertMember" parameterType="kr.or.ksmart.lms.association.vo.Member">
+	<!-- member 테이블에 insert -->
+		INSERT INTO
+			member (
+			member_code
+			, member_name
+			, member_registration_number_front
+			, member_registration_number_back
+			, member_phone_number
+			, member_postcode
+			, member_address
+			, member_address_desc
+			, member_rank
+			, member_date)
+		VALUES (
+			#{memberCode}
+			, #{memberName}
+			, #{memberRegistrationNumberFront}
+			, #{memberRegistrationNumberBack}
+			, #{memberPhoneNumber}
+			, #{memberPostcode}
+			, #{memberAddress}
+			, #{memberAddressDesc}
+			, #{memberRank}
+			, now()
+		)
+	</insert>
+	
+	<insert id="insertMemberOnlineId" parameterType="kr.or.ksmart.lms.association.vo.MemberOnline">
+	<!--	아이디 중복검사를 위한 member_online_insertid에 online_id insert-->
+		INSERT INTO
+			member_online_insertid (
+			member_online_id)
+		VALUES (
+			#{memberOnlineId})
+	</insert>
+	
+	<insert id="memberTeacher" parameterType="kr.or.ksmart.lms.teacher.vo.TeacherMember">
+		INSERT INTO member_teacher (
+			member_teacher_code
+			, teacher_approval_code
+			, member_code
+			, member_teacher_name
+			, member_teacher_career
+			, member_teacher_service_check)
+		VALUES (
+			#{memberTeacherCode}
+			, #{teacherApprovalCode}
+			, #{memberCode}
+			, #{memberTeacherName}
+			, #{memberTeacherCareer}
+			, #{memberTeacherServiceCheck})
+	</insert>
+	
+	<insert id="insertMemberOnline" parameterType="kr.or.ksmart.lms.association.vo.MemberOnline">
+	<!-- memberOnline 테이블에 insert -->
+		INSERT INTO
+			member_online (
+			member_online_code
+			, member_code
+			, member_name
+			, member_online_id
+			, member_online_pw
+			, member_rank
+			, institution_code
+			, institution_name
+			, member_online_date)
+		VALUES (
+			#{memberOnlineCode}
+			, #{memberCode}
+			, #{memberName}
+			, #{memberOnlineId}
+			, #{memberOnlinePw}
+			, #{memberRank}
+			, #{institutionCode}
+			, #{institutionName}
+			, now())
+	</insert>
+</mapper>
