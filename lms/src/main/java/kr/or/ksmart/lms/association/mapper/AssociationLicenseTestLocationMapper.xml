@@ -8,10 +8,12 @@
 		<result column="license_test_location_code" property="licenseTestLocationCode"/>
 		<result column="license_test_location_region" property="licenseTestLocationRegion"/>
 		<result column="license_test_location_address" property="licenseTestLocationAddress"/>
+		<result column="license_test_location_address_detail" property="licenseTestLocationAddressDetail"/>
 		<result column="license_test_location_use" property="licenseTestLocationUse"/>
 		<result column="license_test_location_maximum_number" property="licenseTestLocationMaximumNumber"/>	
 		<result column="license_test_location_date" property="licenseTestLocationDate"/>
 	</resultMap>
+	
 	<!-- 자격시험 장소 조회 -->
 	<select id="selectLicenseTestLocation"
 			resultMap="LicenseTestLocationMap">
@@ -19,6 +21,7 @@
 			license_test_location_code
 			, license_test_location_region
 			, license_test_location_address
+			, license_test_location_address_detail
 			, license_test_location_use
 			, license_test_location_maximum_number
 			, license_test_location_date
@@ -46,6 +49,7 @@
 			#{licenseTestLocationCode}
 			, #{licenseTestLocationRegion}
 			, #{licenseTestLocationAddress}
+			, #{licenseTestLocationAddressDetail}
 			, #{licenseTestLocationUse}
 			, #{licenseTestLocationMaximumNumber}
 			, now()

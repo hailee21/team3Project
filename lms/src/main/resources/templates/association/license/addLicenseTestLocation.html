@@ -63,7 +63,7 @@
 			//유효성 검사를 위한 변수 선언
 			
 			let licenseTestLocationRegionCheck = true;
-			let licenseTestLocationAddressCheck = true;
+			let licenseTestLocationAddressDetailCheck = true;
 			let licenseTestLocationUseCheck = true;
 			let licenseTestLocationMaximumNumberCheck = true;
 	
@@ -78,14 +78,14 @@
 				}
 			});
 	
-			//licenseTestLocationAddress 입력 유효성 검사
-			$('#licenseTestLocationAddress').blur(function() {
-				if($('#licenseTestLocationAddress').val() == "") {
-					console.log('licenseTestLocationAddress 공백입력')
-					licenseTestLocationAddressCheck = true;
+			//licenseTestLocationAddressDetail 입력 유효성 검사
+			$('#licenseTestLocationAddressDetail').blur(function() {
+				if($('#licenseTestLocationAddressDetail').val() == "") {
+					console.log('licenseTestLocationAddressDetail 공백입력')
+					licenseTestLocationAddressDetailCheck = true;
 				} else {
-	                console.log('licenseTestLocationAddress 유효성 검사 완료')
-					licenseTestLocationAddressCheck = false;
+	                console.log('licenseTestLocationAddressDetail 유효성 검사 완료')
+					licenseTestLocationAddressDetailCheck = false;
 				}
 			});
 	
@@ -116,7 +116,7 @@
 				if(licenseTestLocationRegionCheck) {
 					$('h4').addClass('red');
 					$('h4').text('지역이 공백 상태 입니다.');
-				} else if(licenseTestLocationAddressCheck) {
+				} else if(licenseTestLocationAddressDetailCheck) {
 					$('h4').addClass('red');
 					$('h4').text('주소가 공백 상태 입니다.');
 				} else if(licenseTestLocationUseCheck) {
@@ -136,31 +136,36 @@
 
 <div layout:fragment="content">
 	<h3>자격증시험장소 관리</h3>
-	<form id="addLicenseTestLocation" action="/addLicenseTestLocation" method="post">
+	<form id="addLicenseTestLocation" action="/association/license/addLicenseTestLocation" method="post">
 		
 		<div class="form-group">
 			<label>지역 :</label>
-				<select class="form-control" id="licenseTestLocationRegion" style="font-size: 9pt; font-family: 굴림체"> 
+				<select class="form-control" id="licenseTestLocationRegion" name="licenseTestLocationRegion" style="font-size: 9pt; font-family: 굴림체"> 
                		<option  value="전체보기">전체보기</option> 
-                	<option  value="서울/경기">서울/경기</option> 
-                	<option  value="인천/부천">인천/부천</option> 
-                	<option  value="춘천/강원">춘천/강원</option> 
-                	<option  value="부산/울산/경남">부산/울산/경남</option> 
-                	<option  value="대구/경북">대구/경북</option> 
-                	<option  value="전주/전북">전주/전북</option> 
-                	<option  value="광주/전남">광주/전남</option> 
-                	<option  value="청주/충북">청주/충북</option> 
-                	<option  value="청주/충북">청주/충북</option> 
-                	<option  value="대전/충남">대전/충남</option> 
-                	<option  value="제주">제주</option> 
-           	 </select>
+                	<option  value="서울">서울특별시</option>
+                	<option  value="강원">강원도</option>
+                	<option  value="경기">경기도</option>
+                	<option  value="인천">인천광역시</option>  
+                	<option  value="경북">경상북도</option>
+                	<option  value="경남">경상남도</option>    
+                	<option  value="대구">대구광역시</option>
+                	<option  value="울산">울산광역시</option> 
+                	<option  value="부산">부산광역시</option> 
+                	<option  value="전북">전라북도</option> 
+                	<option  value="전남">전라남도</option>  
+                	<option  value="광주">광주광역시</option> 
+                	<option  value="충북">충청북도</option> 
+                	<option  value="충남">충청남도</option> 
+                	<option  value="대전">대전광역시</option> 
+                	<option  value="제주">제주도</option> 
+          	 	 </select>
 		</div>
 		<div class="form-group"></div>
 			<label>주소 :</label>				
-			<input type="text" id="licenseTestLocationAddress" placeholder="주소">
+			<input type="text" length=20 id="licenseTestLocationAddress" name="licenseTestLocationAddress" placeholder="주소">
 			<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+			<input type="text" id="licenseTestLocationAddressDetail" name="licenseTestLocationAddressDetail" placeholder="상세주소">
 			<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
-			
 		<div class="form-group">
 			<label>시험용도 :</label>
 			<input type="text" class="form-control" id="licenseTestLocationUse" name="licenseTestLocationUse">
