@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+    $(document).ready(function() {
+        //btnGet 클릭시 이벤트 처리
+        $('#btnGet').on('click',function() {
+            let evalTotalYear = $('#evalTotalYear').val();
+            $.ajax({
+                url:'/getEvalTotatListRest'
+                ,type:'get'
+                ,data:{'evalTotalYear':evalTotalYear}
+                ,success:function(data){
+                	let evalTotalList = data;
+                    console.log(evalTotalList);
+                    $('#list').empty();
+                    $('#list').append('<tr th:each="list:${evalTotalList}">'
+                        + ' <td th:text="${list.institutionName}"></td>'
+                        + ' <td th:text="${list.evalTotalType}"></td>'
+                        + ' <td th:text="${list.evalTotalYear}"></td>'
+                        + ' <td th:text="${list.evalTotalJan}"></td>'
+                        + ' <td th:text="${list.evalTotalFeb}"></td>'
+                        + ' <td th:text="${list.evalTotalMar}"></td>'
+                        + ' <td th:text="${list.evalTotalApr}"></td>'
+                        + ' <td th:text="${list.evalTotalMay}"></td>'
+                        + ' <td th:text="${list.evalTotalJun}"></td>'
+                        + ' <td th:text="${list.evalTotalJul}"></td>'
+                        + ' <td th:text="${list.evalTotalAug}"></td>'
+                        + ' <td th:text="${list.evalTotalSep}"></td>'
+                        + ' <td th:text="${list.evalTotalOct}"></td>'
+                        + ' <td th:text="${list.evalTotalNov}"></td>'
+                        + ' <td th:text="${list.evalTotalDec}"></td>'
+                        + ' <td th:text="${list.evalTotalSumScore}"></td></tr>');
+                    $(data.evalTotalList).each(function(index,item){
+                        console.log(item.evalTotalCode);
+                    })
+                }       
+            });
+        });
+    });
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h3>교육원 평가 관리</h3>
+    <a type="button" href="/association/evaluation/addEvaluationTotal" class="btn btn-secondary">교육원 평가항목 추가</a>
+	<form id="getEvalTotal" action="#" method="post">
+		<div class="form-group">
+			<label>평가 년도 :</label>
+			<input type="text" class="form-control" id="evalTotalYear" name="evalTotalYear">
+		</div>
+		<button type="button" id="btnGet" class="btn btn-secondary">검색</button>
+    </form>
+    <table class="table">
+		<thead>
+			<tr>
+				<th>교육원 명</th>
+				<th>평가 항목</th>			
+                <th>평가 년도</th>
+                <th>1월</th>
+				<th>2월</th>			
+                <th>3월</th>
+                <th>4월</th>
+				<th>5월</th>			
+                <th>6월</th>
+                <th>7월</th>
+				<th>8월</th>			
+                <th>9월</th>
+                <th>10월</th>
+				<th>11월</th>			
+                <th>12월</th>
+                <th>총합계</th>
+			</tr>
+		</thead>
+		<tbody id="list">
+		</tbody>
+	</table>
+</div>
+</html>

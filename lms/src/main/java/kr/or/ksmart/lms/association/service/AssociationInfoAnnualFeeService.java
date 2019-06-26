@@ -177,7 +177,7 @@ public class AssociationInfoAnnualFeeService {
 		int lastNo = 0;
 		if(refundAnnualFeePK == null){
 			//refund_annual_fee 테이블에 아무 데이터가 없으면 lastNo는 1이 된다.
-			lastNo = 1;	
+			lastNo = 0;	
 		} else {
 			System.out.println("null 아님");
 			lastNo = Integer.parseInt(refundAnnualFeePK.substring(3)); //가져온 PK 값에서 문자를 제외한 숫자값을 얻는다.

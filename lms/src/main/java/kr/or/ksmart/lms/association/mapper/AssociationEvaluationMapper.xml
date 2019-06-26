@@ -1,0 +1,114 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationEvaluationMapper"> 
+	<!-- 교육원 관리 합계 resultMap -->
+	<resultMap id="EvalTotalMap"
+				type="kr.or.ksmart.lms.association.vo.EvalTotal">
+		<result column="eval_total_code" property="evalTotalCode"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="eval_total_type" property="evalTotalType"/>
+		<result column="eval_total_year" property="evalTotalYear"/>
+		<result column="eval_total_jan" property="evalTotalJan"/>
+		<result column="eval_total_feb" property="evalTotalFeb"/>
+		<result column="eval_total_mar" property="evalTotalMar"/>
+		<result column="eval_total_apr" property="evalTotalApr"/>
+		<result column="eval_total_may" property="evalTotalMay"/>
+		<result column="eval_total_jun" property="evalTotalJun"/>
+		<result column="eval_total_jul" property="evalTotalJul"/>
+		<result column="eval_total_aug" property="evalTotalAug"/>
+		<result column="eval_total_sep" property="evalTotalSep"/>
+		<result column="eval_total_oct" property="evalTotalOct"/>
+		<result column="eval_total_nov" property="evalTotalNov"/>
+		<result column="eval_total_dec" property="evalTotalDec"/>
+		<result column="eval_total_sum_score" property="evalTotalSumScore"/>
+		<result column="eval_total_date" property="evalTotalDate"/>
+	</resultMap>
+
+	<!-- 평가를 해야하는 교육원 리스트 select  -->
+	<select id="selectInstitutionCodeList"
+			resultType="String">
+		SELECT DISTINCT
+			institution_code
+		FROM 
+			available_institution
+		WHERE
+			available_institution_remaining_date > 0
+	</select>
+
+	<!--교육원 평가 합계 PK 출력 select  -->
+	<select id="selectEvalTotalPK" 
+			resultType="String">
+		SELECT
+			eval_total_code
+		FROM 
+			eval_total
+		ORDER BY
+			eval_total_date DESC
+		LIMIT
+			0,1
+	</select>
+
+	<!-- 교육원 평가 합계 insert -->
+	<insert id="insertEvalTotal"
+			parameterType="kr.or.ksmart.lms.association.vo.InsertEvalTotal">
+		INSERT INTO 
+			eval_total (
+				eval_total_code
+				, institution_code
+				, institution_name
+				, eval_total_type
+				, eval_total_year
+				, eval_total_date
+			)
+		VALUES (
+			#{evalTotalCode}
+			, #{institutionCode}
+			, (
+			SELECT
+				institution_name
+			FROM
+				institution
+			WHERE
+				institution_code = #{institutionCode}
+			)
+			, #{evalTotalType}
+			, #{evalTotalYear}
+			, now()
+			)
+	</insert>
+	<!-- 
+    //교육원 평가 합계 수정 mapper
+    public void updateEvalTotal(EvalTotal evalTotal);
+	 -->
+	<!-- 연도 별 교육원 평가 합계 리스트 출력 select  -->
+	<select id="selectEvalTotalList"
+			resultMap="EvalTotalMap">
+		SELECT
+			eval_total_code
+			, institution_code
+			, institution_name
+			, eval_total_type
+			, eval_total_year
+			, eval_total_jan
+			, eval_total_feb
+			, eval_total_mar
+			, eval_total_apr
+			, eval_total_may
+			, eval_total_jun
+			, eval_total_jul
+			, eval_total_aug
+			, eval_total_sep
+			, eval_total_oct
+			, eval_total_nov
+			, eval_total_dec
+			, eval_total_sum_score
+			, eval_total_date
+		FROM 
+			eval_total
+		WHERE
+			eval_total_year = #{evalTotalYear}
+	</select>
+</mapper>

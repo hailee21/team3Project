@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+	$(document).ready(function() {
+		//유효성 검사을 위한 변수 선언
+		let evalTotalTypeCheck = true;
+		let evalTotalYearCheck = true;
+		
+		//infoAnnualFeePrice 입력 유효성 검사
+ 		$('#evalTotalType').blur(function() {
+			if($('#evalTotalType').val() == "") {
+				console.log('evalTotalType 공백입력')
+				evalTotalTypeCheck = true;
+			} else {
+                console.log('evalTotalType 유효성 검사 완료')
+				evalTotalTypeCheck = false;
+			}
+			
+ 		});
+		
+ 		//infoAnnualFeeDescription 입력 유효성 검사
+ 		$('#evalTotalYear').blur(function() {
+			if($('#evalTotalYear').val() == "") {
+				console.log('evalTotalYear 공백입력')
+				evalTotalYearCheck = true;
+			} else {
+                console.log('evalTotalYear 유효성 검사 완료')
+				evalTotalYearCheck = false;
+			}
+ 		});
+ 		
+ 		//btnAdd 클릭 이벤트 처리
+		$('#btnAdd').on('click',function() {
+			if(evalTotalTypeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('평가 항목이 공백 상테입니다.');
+			} else if(evalTotalYearCheck) {
+				$('h4').addClass('red');
+				$('h4').text('평가 년도가 공백 상테입니다.');
+			} else {
+				$('#addEvalTotal').submit()
+			}
+		});
+	});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+    <h3>교육원 평가 항목 추가</h3>
+    <h6>평가 항목과 평가 년도 입력시 현재 연회비를 납부한 교육원들에 대한 평가지가 작성됩니다.</h6>
+	<form id="addEvalTotal" action="/associationAddEvalTotal" method="post">
+		<div class="form-group">
+			<label>평가 항목 :</label>
+			<input type="text" class="form-control" id="evalTotalType" name="evalTotalType">
+		</div>
+		<div class="form-group">
+			<label>평가 년도 :</label>
+			<input type="text" class="form-control" id="evalTotalYear" name="evalTotalYear">
+		</div>
+		<button type="button" id="btnAdd" class="btn btn-secondary">평가 항목 추가</button>
+    </form>
+    <br>
+    <h4></h4>
+</div>
+</html>
