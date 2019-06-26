@@ -35,7 +35,7 @@
 		FROM 
 			classroom	
 	</select>
-	<!-- 강의용도 리스트 출력 -->
+	<!-- PK추출을 위한 메서드 -->
 	<select id="associationSelectClassroomPK"
 				resultType="String">
 		SELECT
@@ -47,6 +47,8 @@
 		LIMIT
 			0,1
 	</select>	
+	
+	<!-- 강의실 등록을 위해 교육원테이블에서 교육원명, 교육원위치를 가져오는 메서드 -->
 	<select id="associationSelectInstitutionInfo"
 			parameterType="String"
 			resultMap="InstitutionResultMap">
@@ -71,7 +73,7 @@
 			,classroom_name
 			,classroom_use
 			,classroom_maximum_number
-		)	VALUES (
+		) VALUES (
 			#{classroomCode}
 			,#{institutionCode}
 			,#{institutionName}
