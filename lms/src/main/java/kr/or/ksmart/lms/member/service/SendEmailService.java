@@ -36,6 +36,6 @@ public class SendEmailService {
 		emailContents.setToEmailAddress(emailAddress);
 		emailContents.setSubject("3팀 평생 교육원 협회 교육원 승인코드 입니다.");
 		emailContents.setText(institutionApproval);
-		emailComponent.teacherApprovalCode(emailContents);
+		emailComponent.institutionApprovalCode(emailContents);
 	}
 }
