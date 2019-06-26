@@ -9,9 +9,84 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+function DaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+        }
+    }).open();
+}    
+</script>
+<script>
+$(document).ready(function(){
+	$('#insert').click(function(){
+		console.log("교육원등록 버튼 클릭..");
+		
+		// 빈칸, 수용인원 폼 유효성검사	
+		let numberCheck = /[0-9]/;
+		let phoneCheck = /(\d{3}).*(\d{4}).*(\d{4})/;
+		if($('#institutionName').val() ==''){
+			$('#helper').text('교육원명을 지정해주세요!');
+		}else if(!phoneCheck.test($('#institutionPhone').val())){
+			$('#helper').text('전화번호를 다시 입력해주세요');
+		}else if(!numberCheck.test($('#institutionPostcode').val())){
+			$('#helper').text('우편번호는 숫자만 입력가능합니다!');
+		}else if($('#institutionAddress').val() ==''){
+			$('#helper').text('주소를 입력해주세요!');
+		}else if($('#institutionAddressDesc').val() ==''){
+			$('#helper').text('상세주소를 지정해주세요!');
+		}else if($('#institutionLocation').val() ==''){
+			$('#helper').text('교육원 위치를 지정해주세요!');
+		} else {
+			$('#addInstitution').submit();
+		}
+		
+	});		
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
-
+	<h2>교육원 등록</h2>
+	<form id="addInstitution" action="/association/institution/addInstitution" method="post">
+		<div class="form-group">
+			<label>교육원명 : </label>
+		    <input type="text" class="form-control" id="institutionName" name="institutionName">
+		</div>
+		<div class="form-group">
+		    <label>전화번호 : </label>
+		     <input type="text" class="form-control" placeholder="ex) 010-1234-1234..." id="institutionPhone" name="institutionPhone">
+		</div>   
+		<div class="form-group">
+			<div class="row">
+				<div class="col-sm-4">
+					<label>주소 : </label>
+				    <input type="text" class="form-control" placeholder="숫자만 입력 가능합니다.." readonly="" id="institutionPostcode" name="institutionPostcode">
+				</div> 
+				<div class="col-sm-8">
+					<label>주소 : </label>
+					<input type="button" class="btn btn-outline-info" onclick="DaumPostcode()" value="우편번호찾기"><br>
+				</div>
+				
+			</div>	
+			<div>	
+				<input type="text" class="form-control" placeholder="주소찾기 버튼을 클릭해주세요" id="institutionAddress" name="institutionAddress">
+			</div>
+			<div>
+				<label>상세주소 : </label>
+			    <input type="text" class="form-control" placeholder="상세주소를 입력해주세요" id="institutionAddressDesc" name="institutionAddressDesc">  
+		    </div>  
+		</div>
+		<div class="form-group">
+		    <label>교육원 위치 : </label>
+		    <input type="text" class="form-control" placeholder="ex) 전북 전주...." id="institutionLocation" name="institutionLocation">
+		</div>
+		
+		<span id="helper" style="color:red"></span><br>
+		<button id="insert" type="button">강의실 등록하기</button>	
+	</form>
 </div>
 </html>

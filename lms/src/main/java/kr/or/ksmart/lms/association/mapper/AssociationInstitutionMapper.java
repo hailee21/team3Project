@@ -12,4 +12,6 @@ public interface AssociationInstitutionMapper {
 	// 교욱원 목록 출력 메서드
 	public List<Institution> associationSelectInstitutionList();
 
+	// 교육원 상세정보 출력 메서드
+	public Institution associationSelectInstitutionByInstitutionCode(String institutionCode);
 }

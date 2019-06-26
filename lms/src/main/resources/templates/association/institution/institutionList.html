@@ -13,5 +13,21 @@
 
 <div layout:fragment="content">
 	<h1>교육원 목록</h1>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>교육원명</th>
+				<th>전화번호</th>
+				<th>지점 위치</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list:${list}">
+				<td><a th:href="@{'/association/institution/detailInstitution?institutionCode='+${list.institutionCode}}" th:text="${list.institutionName}" th:value="${list.institutionCode}"></a></td>
+				<td th:text="${list.institutionPhone}" th:value="${list.institutionPhone}"></td>
+				<td th:text="${list.institutionLocation}" th:value="${list.institutionLocation}"></td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 </html>

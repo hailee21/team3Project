@@ -29,4 +29,22 @@
 		FROM 
 			institution
 	</select>
+	
+	<!-- 교육원 상세정보 출력 -->
+	<select id="associationSelectInstitutionByInstitutionCode"
+			parameterType="String"
+			resultMap="InstitutionMap">
+		SELECT 
+			institution_code
+			,institution_name
+			,institution_phone
+			,institution_postcode
+			,institution_address
+			,institution_address_desc
+			,institution_location
+			,institution_registration_date
+		FROM 
+			institution
+		WHERE institution_code = #{institutionCode} 
+	</select>
 </mapper>

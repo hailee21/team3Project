@@ -34,31 +34,31 @@ $(document).ready(function(){
 <!-- 강의실 추가 폼 -->
 	<h1>강의실 등록하기</h1>	
 	<form id="addClassroom" action="/association/classroom/addClassroom" method="post">
-			<div class="form-group">
-				<label>교육원명 :</label>
-			    <input type="text" class="form-control" readonly="readonly" th:value="${institutionName}" id="institutionName" name="institutionName">
-			   <input type="hidden" th:value="${institutionCode}" id="institutionCode" name="institutionCode">
-			</div>
-			<div class="form-group">
-			    <label>지역 : </label>
-			     <input type="text" class="form-control" th:value="${institutionLocation}" id="institutionLocation" name="classroomLocation">
-			     <span style="color:red">지역은 수정 가능합니다</span>
-			</div>
-			<div class="form-group">
-				<label>강의실명 : </label>
-			    <input type="text" class="form-control" placeholder="강의실 명을 입력해주세요" id="classroomName" name="classroomName">
-			</div>    
-			<div class="form-group">
-				<label>강의용도</label>
-				    <select class="custom-select" id="classroomUse" name="classroomUse">
-				    	<option value="">--선택--</option>
-				    	<option th:each="list:${useList}" th:text="${list.classroomUse}" th:value="${list.classroomUse}"></option>
-				    </select>
-			</div>
-			<div class="form-group">
-			    <label>수용인원 : </label>
-			    <input type="text" class="form-control" placeholder="숫자만 입력가능합니다" id="classroomMaximumNumber" name="classroomMaximumNumber">
-			</div>
+		<div class="form-group">
+			<label>교육원명 :</label>
+		    <input type="text" class="form-control" readonly="readonly" th:value="${institutionName}" id="institutionName" name="institutionName">
+		   <input type="hidden" th:value="${institutionCode}" id="institutionCode" name="institutionCode">
+		</div>
+		<div class="form-group">
+		    <label>지역 : </label>
+		     <input type="text" class="form-control" th:value="${institutionLocation}" id="institutionLocation" name="classroomLocation">
+		     <span style="color:red">지역은 수정 가능합니다</span>
+		</div>
+		<div class="form-group">
+			<label>강의실명 : </label>
+		    <input type="text" class="form-control" placeholder="강의실 명을 입력해주세요" id="classroomName" name="classroomName">
+		</div>    
+		<div class="form-group">
+			<label>강의용도</label>
+			    <select class="custom-select" id="classroomUse" name="classroomUse">
+			    	<option value="">--선택--</option>
+			    	<option th:each="list:${useList}" th:text="${list.classroomUse}" th:value="${list.classroomUse}"></option>
+			    </select>
+		</div>
+		<div class="form-group">
+		    <label>수용인원 : </label>
+		    <input type="text" class="form-control" placeholder="숫자만 입력가능합니다" id="classroomMaximumNumber" name="classroomMaximumNumber">
+		</div>
 		<span id="helper" style="color:red"></span><br>
 		<button id="insert" type="button">강의실 등록하기</button>
 	</form>

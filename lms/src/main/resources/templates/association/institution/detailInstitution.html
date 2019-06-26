@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h2>교육원 상세정보 페이지</h2>
+	<form id="classroom">
+		<table id="classroom" class="table table-striped" th:each="info:${institution}">
+			<tr>
+				<td>교육원명</td>
+				<td th:text="${info.institutionName}" th:value="${info.institutionName}">
+				<input type="hidden" th:value="${info.institutionCode}" id="institutionCode" name="institutionCode"></td>
+			</tr>
+			<tr>
+				<td>교육원 전화번호</td>
+				<td th:text="${info.institutionPhone}" th:value="${info.institutionPhone}"></td>
+			</tr>
+			<tr>
+				<td>우편번호</td>
+				<td th:text="${info.institutionPostcode}" th:value="${info.institutionPostcode}"></td>
+			</tr>
+			<tr>
+				<td>주소</td>
+				<td th:text="${info.institutionAddress}" th:value="${info.institutionAddress}"></td>
+			</tr>
+			<tr>
+				<td>상세주소</td>
+				<td th:text="${info.institutionAddressDesc}" th:value="${info.institutionAddressDesc}"></td>
+			</tr>
+			<tr>
+				<td>지점 위치</td>
+				<td th:text="${info.institutionLocation}" th:value="${info.institutionLocation}"></td>
+			</tr>
+			<tr>
+				<td>등록 일자</td>
+				<td th:text="${info.institutionRegistrationDate}" th:value="${info.institutionRegistrationDate}"></td>
+			</tr>
+		</table>
+	</form>
+	<button id="modify" type="submit">수정</button>
+	<button id="delete" type="submit">삭제</button>
+</div>
+</html>

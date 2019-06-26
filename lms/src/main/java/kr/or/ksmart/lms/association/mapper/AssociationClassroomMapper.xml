@@ -19,12 +19,12 @@
 				type="kr.or.ksmart.lms.association.vo.Institution">
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>
-		<result column="institution_phone" property="InstitutionPhone"/>
-		<result column="institution_postcode" property="InstitutionPostcode"/>
-		<result column="institution_address" property="InstitutionAddress"/>
-		<result column="institution_address_desc" property="InstitutionAddressDesc"/>
-		<result column="institution_location" property="InstitutionLocation"/>
-		<result column="institution_registration_date" property="InstitutionRegistrationDate"/>
+		<result column="institution_phone" property="institutionPhone"/>
+		<result column="institution_postcode" property="institutionPostcode"/>
+		<result column="institution_address" property="institutionAddress"/>
+		<result column="institution_address_desc" property="institutionAddressDesc"/>
+		<result column="institution_location" property="institutionLocation"/>
+		<result column="institution_registration_date" property="institutionRegistrationDate"/>
 	</resultMap>
 		
 	<!-- 강의용도 리스트 출력 -->
