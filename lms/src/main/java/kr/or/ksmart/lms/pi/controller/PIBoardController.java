@@ -34,6 +34,16 @@ public class PIBoardController {
 		mav.setViewName("PI/Board/PIBoard");
 		return mav;
 	}
+	//	교육원홈페이지 커뮤니티 글쓰기 get요청
+	@GetMapping("/Boardwrite")
+	public ModelAndView writeBoard (HttpSession session, ModelAndView mav
+			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
+		IndexInstitution institution = piBoardService.PIIndex(institutionCode);
+		mav.addObject("institutionCode", institution.getInstitutionCode());
+		mav.addObject("institutionName", institution.getInstitutionName());
+		mav.setViewName("PI/Board/Boardwrite");
+		return mav;
+	}
 	//	교육원홈페이지 질의응답 view
 	@GetMapping("/PIQnA")
 	public ModelAndView getBoardByPIQnA (HttpSession session, ModelAndView mav
