@@ -1,6 +1,5 @@
 package kr.or.ksmart.lms.pi.controller;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,20 +54,33 @@ public class PIMemberController {
 	@GetMapping("/myInfo")
 	public ModelAndView myPage(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("PI/myPage/myInfo");
 		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
+		String memberName = (String)session.getAttribute("memberName");
+		if (memberName == null) {
+			System.out.println("[PIMemberController memberInfoModify] 로그아웃상태");
+			mav.setViewName("redirect:/PILogin?"+institutionCode);
+		} else if (memberName != null) {
+			mav.setViewName("PI/myPage/memberInfo");
+		}
 		return mav;
 	}
 	//	회원정보 수정
 	@GetMapping("/memberModify")
 	public ModelAndView memberInfoModify(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("PI/myPage/memberInfoModify");
+		
 		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
+		String memberName = (String)session.getAttribute("memberName");
+		if (memberName == null) {
+			System.out.println("[PIMemberController memberInfoModify] 로그아웃상태");
+			mav.setViewName("redirect:/PILogin?"+institutionCode);
+		} else if (memberName != null) {
+			mav.setViewName("PI/myPage/memberInfoModify");
+		}
 		return mav;
 	}
 	@PostMapping("/memberModify")

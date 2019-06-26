@@ -17,7 +17,7 @@ import kr.or.ksmart.lms.pi.vo.MemberOnline;
 @Controller
 public class PILoginController {
 	@Autowired
-	PILoginService piLoginService;
+	private PILoginService piLoginService;
 
 	//PI 로그인 폼 controller
 	@GetMapping("/PILogin")

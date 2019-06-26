@@ -1,7 +1,6 @@
 package kr.or.ksmart.lms.institution.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,15 +23,15 @@ public class InstitutionMemberController {
 		return mav;
 	}
 	//	강사 승인코드 발송 화면
-	@GetMapping("/sendTeacher")
+	@GetMapping("/sendTeacher")	//	sendTeacher get요청시
 	public ModelAndView sendEmailToTeacher (ModelAndView mav, HttpSession session) {
 		System.out.println("[institutionMemberController sendEmailToInstitution] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
-		if(memberRank == null) {
+		if(memberRank == null) {	//	memberRank 여부로 권한별 session 검사
 			memberRank = "로그인 실패";
-		} if(memberRank.equals("교육원직원")) {
+		} if(memberRank.equals("교육원직원")) {	//	요청한 회원등급이 교육원직원이면 institution내 sendEmailToTeacher.. 
 			mav.setViewName("institution/member/sendEmailToTeacher");
-		} else if (memberRank.equals("협회직원")) {
+		} else if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association 내 sendEmailToTeacher..
 			mav.setViewName("association/member/sendEmailToTeacher");
 		} else {
 			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
@@ -40,15 +39,16 @@ public class InstitutionMemberController {
 		}
 		return mav;
 	}
+	//	교육원 관리자 승인코드 발송
 	@GetMapping("/sendAdmin")
 	public ModelAndView sendEmailToAdmin (ModelAndView mav, HttpSession session) {
 		System.out.println("[institutionMemberController sendEmailToInstitution] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
 			memberRank = "로그인 실패";
-		} if(memberRank.equals("교육원직원")) {
+		} if(memberRank.equals("교육원직원")) {	//	요청한 회원등급이 교육원직원이면 institution내 sendEmailToAdmin..
 			mav.setViewName("institution/member/sendEmailToAdmin");
-		} else if (memberRank.equals("협회직원")) {
+		} else if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association내 sendEmailToAdmin
 			mav.setViewName("association/member/sendEmailToAdmin");
 		} else {
 			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
@@ -56,6 +56,7 @@ public class InstitutionMemberController {
 		}
 		return mav;
 	}
+	//	교육원 관리자 내정보 보기
 	@GetMapping("/instMyInfo")
 	public ModelAndView instMyPage(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute("memberRank");
@@ -69,6 +70,7 @@ public class InstitutionMemberController {
 		}
 		return mav;
 	}
+	//	교육원관리자 교육원 회원 리스트
 	@GetMapping("/institution/memberList")
 	public ModelAndView instMemberList(ModelAndView mav, HttpSession session) {
 		System.out.println("[InstitutionMemberController instMemberList 호출]");

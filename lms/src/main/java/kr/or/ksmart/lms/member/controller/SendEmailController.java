@@ -41,12 +41,16 @@ public class SendEmailController {
 	}
 	
 	@PostMapping("/sendEmailToTeacher")
-	public void sendEmailToTeacherController(String emailAddress) {
+	public ModelAndView sendEmailToTeacherController(ModelAndView mav, String emailAddress) {
 		sendEmailService.sendEmailToTeacherService(emailAddress);
+		mav.setViewName("redirect:/sendTeacher");
+		return mav;
 	}
 	
 	@PostMapping("/sendEmailToAdmin")
-	public void sendEmailToInstitutionController(String emailAddress) {
+	public ModelAndView sendEmailToInstitutionController(ModelAndView mav, String emailAddress) {
 		sendEmailService.sendEmailToInstitutionService(emailAddress);
+		mav.setViewName("redirect:/sendAdmin");
+		return mav;
 	}
 }
