@@ -16,6 +16,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>결제 코드</th>
                 <th>교육원 이름</th>
                 <th>연회비 결제 금액</th>
                 <th>연회비 결제 일</th>
@@ -27,6 +28,7 @@
         </thead>
         <tbody>
             <tr th:each="paymentListForRefund:${paymentListForRefund}">
+                <td th:text="${paymentListForRefund.paymentAnnualFeeCode}"></td>
                 <td th:text="${paymentListForRefund.institutionName}"></td>
                 <td th:text="${paymentListForRefund.paymentAnnualFeePrice}"></td>
                 <td th:text="${paymentListForRefund.paymentAnnualFeeDate}"></td>
@@ -43,6 +45,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>결제 코드</th>
 				<th>교육원 이름</th>
                 <th>연회비 결제 금액</th>
                 <th>연회비 결제 일</th>
@@ -53,6 +56,7 @@
         </thead>
         <tbody>
 			<tr th:each="paymentList:${paymentList}">
+                <td th:text="${paymentList.paymentAnnualFeeCode}"></td>
 				<td th:text="${paymentList.institutionName}"></td>
 				<td th:text="${paymentList.paymentAnnualFeePrice}"></td>
 				<td th:text="${paymentList.paymentAnnualFeeDate}"></td>

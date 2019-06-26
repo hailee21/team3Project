@@ -1,6 +1,7 @@
 package kr.or.ksmart.lms.association.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,6 +22,15 @@ public interface AssociationEvaluationMapper {
     //교육원 평가 합계 수정 mapper
     public void updateEvalTotal(EvalTotal evalTotal);
     */
-    //연도 별 교육원 평가 합계 리스트 출력 mapper
-    public List<EvalTotal> selectEvalTotalList(int evalTotalYear);
+    //교육원 평가 년도에 따른 입력 조건 출력 mapper
+    public List<Integer> selectEvalTotalYear();
+
+    //교육원 평가 항목에 따른 입력 조건 출력 mapper
+    public List<String> selectEvalTotalType();
+
+    //입력조건에 따른 교육원 평가 합계 리스트 출력 mapper
+    public List<EvalTotal> selectSerachEvalTotalList(Map<String, Object> map);
+    
+    //입력조건에 따른 교육원 평가 합계 리스트 출력 mapper
+    public List<EvalTotal> selectEvalTotalList();
 }
