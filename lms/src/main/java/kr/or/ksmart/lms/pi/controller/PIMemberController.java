@@ -31,7 +31,7 @@ public class PIMemberController {
 		return mav;
 	}
 	//	회원등록 처리
-	@PostMapping("memberInsert")
+	@PostMapping("/memberInsert")
 	public ModelAndView memberInsert(Member member, MemberOnline memberOnline
 			, @RequestParam(value="institutionCode", required = true) String institutionCode, ModelAndView mav) {
 		System.out.println("[MemberController memberInsert] member:" + member);
