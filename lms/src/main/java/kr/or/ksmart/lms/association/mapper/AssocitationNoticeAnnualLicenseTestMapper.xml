@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationNoticeAnnualLicenseMapper">
+  	<resultMap type="kr.or.ksmart.lms.association.mapper.AssociationNoticeAnnualLicenseMapper" id="NoticeAnnualLicenseMap">
+  		<result column="notice_annual_license_test_code" property="noticeAnnualLicenseTestCode"/>
+		<result column="notice_annual_license_test_name" property="noticeAnnualLicenseTestName"/>
+		<result column="notice_annual_license_test_apply_start_date" property="noticeAnnualLicenseTestApplyStartDate"/>
+		<result column="notice_annual_license_test_apply_end_date" property="noticeAnnualLicenseTestApplyEndDate"/>
+		<result column="notice_annual_license_test_start_date" property="noticeAnnualLicenseTestStartDate"/>
+		<result column="notice_annual_license_test_end_date" property="noticeAnnualLicenseTestEndDate"/>
+		<result column="notice_annual_license_test_result_date" property="noticeAnnualLicenseTestResultDate"/>
+  	</resultMap>
+  	<!-- 연간 자격 시험 List -->
+  	<select id="selectNoticeAnnualLicense"
+			resultMap="NoticeAnnualLicenseMap">
+		SELECT
+			notice_annual_license_test_code
+			, notice_annual_license_test_name
+			, notice_annual_license_test_apply_start_date
+			, notice_annual_license_test_apply_end_date
+			, notice_annual_license_test_start_date
+			, notice_annual_license_test_end_date
+			, notice_annual_license_test_result_date
+		FROM
+			notice_annual_license_test
+	</select>
+  </mapper>
