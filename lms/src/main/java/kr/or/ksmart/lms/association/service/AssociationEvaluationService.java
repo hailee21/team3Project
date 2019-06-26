@@ -18,6 +18,23 @@ public class AssociationEvaluationService {
     @Autowired
     AssociationEvaluationMapper associationEvaluationMapper;
 
+    //교육원 평가 합계 리스트 출력 service
+	public Map<String, Object> getEvaluationTotal() {
+        //검색 조건 항목 mapper 호출
+        List<String> evalTotalType = associationEvaluationMapper.selectEvalTotalType();
+        List<Integer> evalTotalYear = associationEvaluationMapper.selectEvalTotalYear();
+        
+        //전체 리스트 mapper 호출
+        List<EvalTotal> evalTotalList = associationEvaluationMapper.selectEvalTotalList();
+        
+        //컨트롤러로 리턴할 데이터 선언 및 설정
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        returnMap.put("evalTotalList", evalTotalList);
+        returnMap.put("evalTotalType", evalTotalType);
+        returnMap.put("evalTotalYear", evalTotalYear);
+		return returnMap;
+	}
+
     //교육원 평가 항목 추가 액션 service
     public void addEvaluationTotal(InsertEvalTotal insertEvalTotal) {
         //평가를 해야하는 교육원들의 교육원 코드 출력 mapper 호출
@@ -52,10 +69,19 @@ public class AssociationEvaluationService {
     }
 
     //교육원 평가 합계 비동기 출력 service
-    public Map<String, Object> getEvalTotatListRest(int evalTotalYear) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        List<EvalTotal> evalTotalList  = associationEvaluationMapper.selectEvalTotalList(evalTotalYear);
-        map.put("evalTotalList", evalTotalList);
-        return map;
+    public Map<String, Object> getEvalTotatList(Map<String, Object> map) {
+        System.out.println(map);
+    	//입력조건에 따른 교육원 평가 합계 리스트 출력 mapper 호출
+        List<EvalTotal> evalTotalList = associationEvaluationMapper.selectSerachEvalTotalList(map);
+        
+        //검색 조건 항목 service 호출
+        Map<String, Object> serachKey = getEvaluationTotal();
+
+        //컨트롤러로 리턴할 데이터 선언 및 설정
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        returnMap.put("evalTotalList", evalTotalList);
+        returnMap.put("evalTotalType", serachKey.get("evalTotalType"));
+        returnMap.put("evalTotalYear", serachKey.get("evalTotalYear"));
+        return returnMap;
     }
 }

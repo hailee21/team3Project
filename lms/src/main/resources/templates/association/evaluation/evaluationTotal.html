@@ -11,52 +11,30 @@
 <th:block layout:fragment="script">
 <script>
     $(document).ready(function() {
-        //btnGet 클릭시 이벤트 처리
         $('#btnGet').on('click',function() {
-            let evalTotalYear = $('#evalTotalYear').val();
-            $.ajax({
-                url:'/getEvalTotatListRest'
-                ,type:'get'
-                ,data:{'evalTotalYear':evalTotalYear}
-                ,success:function(data){
-                	let evalTotalList = data;
-                    console.log(evalTotalList);
-                    $('#list').empty();
-                    $('#list').append('<tr th:each="list:${evalTotalList}">'
-                        + ' <td th:text="${list.institutionName}"></td>'
-                        + ' <td th:text="${list.evalTotalType}"></td>'
-                        + ' <td th:text="${list.evalTotalYear}"></td>'
-                        + ' <td th:text="${list.evalTotalJan}"></td>'
-                        + ' <td th:text="${list.evalTotalFeb}"></td>'
-                        + ' <td th:text="${list.evalTotalMar}"></td>'
-                        + ' <td th:text="${list.evalTotalApr}"></td>'
-                        + ' <td th:text="${list.evalTotalMay}"></td>'
-                        + ' <td th:text="${list.evalTotalJun}"></td>'
-                        + ' <td th:text="${list.evalTotalJul}"></td>'
-                        + ' <td th:text="${list.evalTotalAug}"></td>'
-                        + ' <td th:text="${list.evalTotalSep}"></td>'
-                        + ' <td th:text="${list.evalTotalOct}"></td>'
-                        + ' <td th:text="${list.evalTotalNov}"></td>'
-                        + ' <td th:text="${list.evalTotalDec}"></td>'
-                        + ' <td th:text="${list.evalTotalSumScore}"></td></tr>');
-                    $(data.evalTotalList).each(function(index,item){
-                        console.log(item.evalTotalCode);
-                    })
-                }       
-            });
+            $('#getEvalTotal').submit()
         });
-    });
+    })
 </script>
 </th:block>
 
 <div layout:fragment="content">
-	<h3>교육원 평가 관리</h3>
+    <h3>교육원 평가 관리</h3>
+    <h6>평가 년도와 평가 항목을 선택하여 검색시 리스트가 출력</h6>
     <a type="button" href="/association/evaluation/addEvaluationTotal" class="btn btn-secondary">교육원 평가항목 추가</a>
-	<form id="getEvalTotal" action="#" method="post">
+	<form id="getEvalTotal" action="/association/evaluation/evaluationTotal" method="post">
 		<div class="form-group">
 			<label>평가 년도 :</label>
-			<input type="text" class="form-control" id="evalTotalYear" name="evalTotalYear">
-		</div>
+            <select class="form-control" id="evalTotalYear" name="evalTotalYear">
+                <option th:each="evalTotalYear:${evalTotalYear}" th:text="${evalTotalYear}" th:value="${evalTotalYear}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>평가 항목 :</label>
+            <select class="form-control" id="evalTotalType" name="evalTotalType">
+                <option th:each="evalTotalType:${evalTotalType}" th:text="${evalTotalType}" th:value="${evalTotalType}"></option>
+            </select>
+        </div>
 		<button type="button" id="btnGet" class="btn btn-secondary">검색</button>
     </form>
     <table class="table">
@@ -80,7 +58,25 @@
                 <th>총합계</th>
 			</tr>
 		</thead>
-		<tbody id="list">
+		<tbody>
+            <tr th:each="totalList:${evalTotalList}">
+                <td th:text="${totalList.institutionName}"></td>
+                <td th:text="${totalList.evalTotalType}"></td>
+                <td th:text="${totalList.evalTotalYear}"></td>
+                <td th:text="${totalList.evalTotalJan}"></td>
+                <td th:text="${totalList.evalTotalFeb}"></td>
+                <td th:text="${totalList.evalTotalMar}"></td>
+                <td th:text="${totalList.evalTotalApr}"></td>
+                <td th:text="${totalList.evalTotalMay}"></td>
+                <td th:text="${totalList.evalTotalJun}"></td>
+                <td th:text="${totalList.evalTotalJul}"></td>
+                <td th:text="${totalList.evalTotalAug}"></td>
+                <td th:text="${totalList.evalTotalSep}"></td>
+                <td th:text="${totalList.evalTotalOct}"></td>
+                <td th:text="${totalList.evalTotalNov}"></td>
+                <td th:text="${totalList.evalTotalDec}"></td>
+                <td th:text="${totalList.evalTotalSumScore}"></td>
+            </tr>
 		</tbody>
 	</table>
 </div>
