@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h3>연간 자격 시험 일정 리스트</h3>
+	<table border="1">
+		<tr>
+			<th>연간자격시험계획코드</th>
+			<th>자격시험명</th>
+			<th>접수시작일</th>
+			<th>접수마감일</th>
+			<th>시험시작일</th>
+			<th>시험종료일</th>
+			<th>결과발표일</th>
+			
+		</tr>
+		<tr th:each="subject:${list}">
+			<td th:text="${subject.noticeAnnualLicenseTestCode}"></td>
+			<td th:text="${subject.noticeAnnualLicenseTestName}"></td>
+			<td th:text="${subject.noticeAnnualLicenseTestApplyStartDate}"></td>
+			<td th:text="${subject.noticeAnnualLicenseTestApplyEndDate}"></td>
+			<td th:text="${subject.noticeAnnualLicenseTestStartDate}"></td>
+			<td th:text="${subject.noticeAnnualLicenseTestEndDate}"></td>
+			<td th:text="${subject.noticeAnnualLicenseTestResultDate}"></td>				
+		</tr>
+	</table>
+</div>
+</html>

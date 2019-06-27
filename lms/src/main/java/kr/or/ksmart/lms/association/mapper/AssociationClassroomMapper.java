@@ -20,7 +20,7 @@ public interface AssociationClassroomMapper {
 	// 강의실 등록을 위해 교육원테이블에서 교육원명, 교육원위치를 가져오는 메서드
 	public Institution associationSelectInstitutionInfo(String instCode);
 	// 강의실 등록 메서드
-	public int associationInsertClassroom(Classroom classroom); 
+	public void associationInsertClassroom(Classroom classroom); 
 	
 	// 강의실 목록 출력
 	public List<Classroom> associationSelectClassroomList();

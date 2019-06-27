@@ -2,8 +2,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationNoticeAnnualLicenseMapper">
-  	<resultMap type="kr.or.ksmart.lms.association.mapper.AssociationNoticeAnnualLicenseMapper" id="NoticeAnnualLicenseMap">
+  <mapper namespace="kr.or.ksmart.lms.association.mapper.AssocitationNoticeAnnualLicenseTestMapper">
+  	
+  	<resultMap type="kr.or.ksmart.lms.association.vo.NoticeAnnualLicenseTest" id="NoticeAnnualLicenseTestMap">
   		<result column="notice_annual_license_test_code" property="noticeAnnualLicenseTestCode"/>
 		<result column="notice_annual_license_test_name" property="noticeAnnualLicenseTestName"/>
 		<result column="notice_annual_license_test_apply_start_date" property="noticeAnnualLicenseTestApplyStartDate"/>
@@ -12,9 +13,24 @@
 		<result column="notice_annual_license_test_end_date" property="noticeAnnualLicenseTestEndDate"/>
 		<result column="notice_annual_license_test_result_date" property="noticeAnnualLicenseTestResultDate"/>
   	</resultMap>
-  	<!-- 연간 자격 시험 List -->
-  	<select id="selectNoticeAnnualLicense"
-			resultMap="NoticeAnnualLicenseMap">
+  	<!-- 연간 자격 시험 일정 등록 -->
+  		<insert id="insertNoticeAnnualLicenseTest"
+			parameterType="kr.or.ksmart.lms.association.vo.NoticeAnnualLicenseTest">
+		INSERT INTO
+			notice_annual_license_test
+			VALUES(
+			#{noticeAnnualLicenseTestCode}
+			, #{noticeAnnualLicenseTestName}
+			, #{noticeAnnualLicenseTestApplyStartDate}
+			, #{noticeAnnualLicenseTestApplyEndDate}
+			, #{noticeAnnualLicenseTestStartDate}
+			, #{noticeAnnualLicenseTestEndDate}
+			, #{noticeAnnualLicenseTestResultDate}
+		);
+		</insert>
+  	<!-- 연간 자격 시험 일정 List -->
+  	<select id="selectNoticeAnnualLicenseTest"
+			resultMap="NoticeAnnualLicenseTestMap">
 		SELECT
 			notice_annual_license_test_code
 			, notice_annual_license_test_name

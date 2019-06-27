@@ -83,8 +83,28 @@
     //교육원 평가 합계 수정 mapper
     public void updateEvalTotal(EvalTotal evalTotal);
 	 -->
-	<!-- 연도 별 교육원 평가 합계 리스트 출력 select  -->
-	<select id="selectEvalTotalList"
+
+	<!-- 교육원 평가 년도에 따른 입력 조건 출력 select  -->
+	<select id="selectEvalTotalYear"
+			resultType="Integer">
+       	SELECT DISTINCT
+			eval_total_year
+		FROM 
+			eval_total
+	</select>
+
+	<!-- 교육원 평가 항목에 따른 입력 조건 출력 select  -->
+	<select id="selectEvalTotalType"
+			resultType="String">
+       	SELECT DISTINCT
+			eval_total_type
+		FROM 
+			eval_total
+	</select>
+	
+	<!-- 검색 조견별 교육원 평가 합계 리스트 출력 select  -->
+	<select id="selectSerachEvalTotalList"
+			parameterType="java.util.Map"
 			resultMap="EvalTotalMap">
 		SELECT
 			eval_total_code
@@ -110,5 +130,34 @@
 			eval_total
 		WHERE
 			eval_total_year = #{evalTotalYear}
+			AND
+			eval_total_type = #{evalTotalType}
+	</select>
+	
+	<!-- 교육원 평가 합계 리스트 출력 select  -->
+	<select id="selectEvalTotalList"
+			resultMap="EvalTotalMap">
+		SELECT
+			eval_total_code
+			, institution_code
+			, institution_name
+			, eval_total_type
+			, eval_total_year
+			, eval_total_jan
+			, eval_total_feb
+			, eval_total_mar
+			, eval_total_apr
+			, eval_total_may
+			, eval_total_jun
+			, eval_total_jul
+			, eval_total_aug
+			, eval_total_sep
+			, eval_total_oct
+			, eval_total_nov
+			, eval_total_dec
+			, eval_total_sum_score
+			, eval_total_date
+		FROM 
+			eval_total
 	</select>
 </mapper>
