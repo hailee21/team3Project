@@ -62,7 +62,7 @@ public class PIMemberController {
 			System.out.println("[PIMemberController memberInfoModify] 로그아웃상태");
 			mav.setViewName("redirect:/PILogin?"+institutionCode);
 		} else if (memberName != null) {
-			mav.setViewName("PI/myPage/memberInfo");
+			mav.setViewName("PI/myPage/myInfo");
 		}
 		return mav;
 	}

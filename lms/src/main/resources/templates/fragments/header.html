@@ -7,7 +7,7 @@
 	        <p></p>
 	        <ul th:if="${session.memberName == null}" class="nav navbar-nav navbar-right">
 	            <li class="nav-item">
-	                <a style="font-size: 14px"  class="nav-link" th:href="@{'/PILogin?institutionCode='+${institutionCode}}">로그인</a>
+	                <a style="font-size: 14px" class="nav-link" th:href="@{'/PILogin?institutionCode='+${institutionCode}}">로그인</a>
 	            </li>
 	            <li class="nav-item">
 	                <a style="font-size: 14px"  class="nav-link" th:href="@{'/join?institutionCode='+${institutionCode}}">회원가입</a>
@@ -15,13 +15,16 @@
 	        </ul>
 	        <ul th:if="${session.memberName != null}" class="nav navbar-nav navbar-right">
 	            <li class="nav-item">
-	                <p style="font-weight: bold; font-size: 8px"><a class="nav-link" th:text="${session.memberName}">님 로그인중</a></p>
+	                <a style="font-size: 12px" class="nav-link" th:text="${session.memberRank}"></a>
 	            </li>
 	            <li class="nav-item">
-	                <a style="font-size: 10px"  class="nav-link" href="/PILogout">로그아웃</a>
+	                <a style="font-size: 12px" class="nav-link" th:text="${session.memberName}+'님'"></a>
 	            </li>
 	            <li class="nav-item">
-	                <a style="font-size: 10px"  class="nav-link" th:href="@{'/myInfo?institutionCode='+${institutionCode}}">내정보</a>
+	                <a style="font-size: 12px" class="nav-link" href="/PILogout">로그아웃</a>
+	            </li>
+	            <li class="nav-item">
+	                <a style="font-size: 12px" class="nav-link" th:href="@{'/myInfo?institutionCode='+${institutionCode}}">내정보</a>
 	            </li>
 	        </ul>
 	    </div>
