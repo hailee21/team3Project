@@ -9,8 +9,145 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	$('#infoLectureSort').change(function(){
+		console.log("강의개요항목 :"+$('#infoLectureSort').val());
+	});	
+	$('#memberTeacherCode').change(function(){
+		console.log("강의개요항목 :"+$('#memberTeacherCode').val());
+	});	
+	$('#institutionCode').change(function(){
+		console.log("강의개요항목 :"+$('#institutionCode').val());
+	});	
+	$('#infoLectureName').change(function(){
+		console.log("강의개요항목 :"+$('#infoLectureName').val());
+	});	
+	$('#classroomCode').change(function(){
+		console.log("강의개요항목 :"+$('#classroomCode').val());
+	});
+	// 강의표준명 option(nameList) 출력을 위한 비동기방식 시작
+	$.ajax({
+		url:'/getInfoLectureNameList'
+		,data:{infoLectureSort:$('#infoLectureSort').val()}
+		,type:'Post'
+		,dataType:'json'
+		,success:function(result){
+			$('#infoLectureName').empty();
+			$('#infoLectureName').append('<option value="">--- 선택 ---</option>');
+			$(result).each(function(i, item){
+				$('#infoLectureName').append('<option value="'+item.infoLectureCode+'">'+item.infoLectureName+'</option>');
+			});
+		}
+	});		
+	// 강의실 option(classroomList) 출력을 위한 비동기방식 시작
+	$.ajax({
+		url:'/getClassroomList'
+		,data:{institutionCode:$('#institutionCode').val()}
+		,type:'Post'
+		,dataType:'json'
+		,success:function(result){
+			$('#classroomCode').empty();
+			$('#classroomCode').append('<option value="">--- 선택 ---</option>');
+			$(result).each(function(i, item){
+				$('#classroomCode').append('<option value="'+item.classroomCode+'">'+item.classroomName+'</option>');
+			});
+		}
+	});		
+	$('#insert').click(function(){
+		console.log("강의실등록 버튼 클릭..");
+		// 빈칸, 수용인원 폼 유효성검사	
+		let numberCheck = /[0-9]/;
+		if($('#classroomName').val() ==''){
+			$('#helper').text('강의실명을 지정해주세요!');
+		}else if($('#classroomUse').val() ==''){
+			$('#helper').text('강의용도를 지정해주세요!');
+		}else if(!numberCheck.test($('#classroomMaximumNumber').val())){
+			$('#helper').text('숫자만 입력가능합니다!');
+		} else {
+			$('#addNoticeLecture').submit();
+		}		
+	});		
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
+	<h1>강의공고 등록하기</h1>
+	<form id="addNoticeLecture" action="/association/classroom/addClassroom" method="post">
+		<div class="form-group">
+			<label>강의공고명 :</label>
+		    <input type="text" class="form-control" id="noticeLectureTitle" name="noticeLectureTitle">
+		</div>
+		<div class="form-group">
+			<label>강의개요 :</label>
+		    <select id="infoLectureSort">
+		    	<option>--- 선택 ---</option>
+		    	<option th:each="infoLectureSort:${infoLectureSort}" th:text="${infoLectureSort.infoLectureSort}" th:value="${infoLectureSort.infoLectureSort}"></option>                                                                                                   
+		    </select>
+		    <select id="infoLectureName">
+		    	<option value="">--- 선택 ---</option>
+		    </select>
+		</div>
+		<div class="form-group">
+			<label>강사명 :</label>
+			<select id="memberTeacherCode">
+				<option>--- 선택 ---</option>
+				<option th:each="memberTeacher:${memberTeacher}" th:text="${memberTeacher.memberTeacherName}" th:value="${memberTeacher.memberTeacherCode}"></option> 
+			</select>
+		</div>
+		<div class="form-group">
+			<label>교육원명 :</label>
+			<select id="institutionCode">
+				<option>--- 선택 ---</option>
+				<option th:each="institution:${institution}" th:text="${institution.institutionName}" th:value="${institution.institutionCode}"></option> 
+			</select>
+		</div>
+		<div class="form-group">
+			<label>강의실 :</label>
+			<select id="classroomCode">
+				<option value="">--- 선택 ---</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label>수강최소인원 :</label>
+		    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureMinimumNo" name="noticeLectureMinimumNo">
+		</div>
+		<div class="form-group">
+			<label>지원자 수 :</label>
+		    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureCurrentApplicantNo" name="noticeLectureCurrentApplicantNo">
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label>모집시작일 :</label>
+			    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureRecruitmentStartDate" name="noticeLectureRecruitmentStartDate">
+			</div>
+			<div class="col-sm-6">
+				<label>모집마감일 :</label>
+			    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureRecruitmentEndDate" name="noticeLectureRecruitmentEndDate">
+			</div>
+		</div>		
+		<div class="form-group">
+			<label>결과발표일 :</label>
+		    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureResultDate" name="noticeLectureResultDate">
+		</div>
+		<div class="form-group">
+			<label>수강료 :</label>
+		    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureFee" name="noticeLectureFee">
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label>강의시작일 :</label>
+			    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureStartDate" name="noticeLectureStartDate">
+			</div>
+			<div class="col-sm-6">
+				<label>강의종료일 :</label>
+			    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureEndDate" name="noticeLectureEndDate">
+			</div>
+		</div>		
+		
+		<span id="helper"></span>
+		<button id="insert" type="submit"></button>
+	</form>
 </div>
 </html>

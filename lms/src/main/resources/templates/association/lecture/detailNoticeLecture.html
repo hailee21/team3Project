@@ -12,5 +12,50 @@
 </th:block>
 
 <div layout:fragment="content">
+	<h1>강의 공고</h1>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>강의공고명</th>
+				<th>강사명</th>
+				<th>교육원명</th>
+				<th>강의실 최대 수용 인원</th>
+				<th>수강 최소인원</th>
+				<th>지원자 수</th>
+				<th>강의료</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="info:${noticeLecture}">
+				<td th:text="${info.noticeLectureTitle}" th:value="${info.noticeLectureTitle}"></td>
+				<td th:text="${info.memberTeacherName}" th:value="${info.memberTeacherCode}"></td>
+				<td th:text="${info.institutionName}" th:value="${info.institutionCode}"></td>
+				<td th:text="${info.classroomMaximumNo}" th:value="${info.classroomCode}"></td>
+				<td th:text="${info.noticeLectureMinimumNo}" th:value="${info.noticeLectureMinimumNo}"></td>
+				<td th:text="${info.noticeLectureCurrentApplicantNo}" th:value="${info.noticeLectureCurrentApplicantNo}"></td>
+				<td th:text="${info.noticeLectureFee}" th:value="${info.noticeLectureFee}"></td>				
+			</tr>
+		</tbody>
+	</table>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>모집 시작일</th>
+				<th>모집마감일</th>
+				<th>결과발표일</th>
+				<th>강의 시작일</th>
+				<th>강의 마감일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="info:${noticeLecture}">
+				<td th:text="${info.noticeLectureRecruitmentStartDate}" th:value="${info.noticeLectureRecruitmentStartDate}"></td>
+				<td th:text="${info.noticeLectureRecruitmentEndDate}" th:value="${info.noticeLectureRecruitmentEndDate}"></td>
+				<td th:text="${info.noticeLectureResultDate}" th:value="${info.noticeLectureResultDate}"></td>
+				<td th:text="${info.noticeLectureStartDate}" th:value="${info.noticeLectureStartDate}"></td>
+				<td th:text="${info.noticeLectureEndDate}" th:value="${info.noticeLectureEndDate}"></td>				
+			</tr>
+		</tbody>
+	</table>
 </div>
 </html>

@@ -20,7 +20,7 @@
 		<result column="info_subject_difficulty" property="infoSubjectDifficulty"/>
 		<result column="info_subject_modification_history" property="infoSubjectModificationHistory"/>
 	</resultMap>
-	<!-- ClassroomMapper Institution resultMap  -->
+	<!-- LectureMapper Institution resultMap  -->
 	<resultMap id="InstitutionResultMap"
 				type="kr.or.ksmart.lms.association.vo.Institution">
 		<result column="institution_code" property="institutionCode"/>
@@ -64,7 +64,7 @@
 	<!-- Lecture 강의분류 리스트 출력 -->
 	<select id="associationSelectInfoLectureSortList" 
 			resultMap="infoLectureResultMap">
-		SELECT distinct
+		SELECT DISTINCT
 			info_lecture_sort
 		FROM 
 			info_lecture

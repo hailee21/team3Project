@@ -12,7 +12,7 @@
 		<result column="classroom_location" property="classroomLocation"/>
 		<result column="classroom_name" property="classroomName"/>
 		<result column="classroom_use" property="classroomUse"/>
-		<result column="classroom_maximum_number" property="classroomMaximumNumber"/>
+		<result column="classroom_maximum_no" property="classroomMaximumNo"/>
 	</resultMap>
 	<!-- ClassroomMapper Institution resultMap  -->
 	<resultMap id="InstitutionResultMap"
@@ -72,7 +72,7 @@
 			,classroom_location
 			,classroom_name
 			,classroom_use
-			,classroom_maximum_number
+			,classroom_maximum_no
 		) VALUES (
 			#{classroomCode}
 			,#{institutionCode}
@@ -80,7 +80,7 @@
 			,#{classroomLocation}
 			,#{classroomName}
 			,#{classroomUse}
-			,#{classroomMaximumNumber}			
+			,#{classroomMaximumNo}			
 		) 		
 	</insert>
 	<!-- 교육원 리스트 출력 -->
@@ -106,7 +106,7 @@
 			,classroom_location
 			,classroom_name
 			,classroom_use
-			,classroom_maximum_number
+			,classroom_maximum_no
 		FROM classroom
 	</select>
 	
@@ -121,7 +121,7 @@
 			,classroom_location
 			,classroom_name
 			,classroom_use
-			,classroom_maximum_number
+			,classroom_maximum_no
 		FROM 
 			classroom
 		WHERE 
@@ -142,7 +142,7 @@
 			,classroom_location
 			,classroom_name
 			,classroom_use
-			,classroom_maximum_number
+			,classroom_maximum_no
 		FROM 
 			classroom
 		WHERE 
