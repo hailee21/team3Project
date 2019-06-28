@@ -43,9 +43,6 @@ public class PIMemberController {
 	public ModelAndView memberInsert(Member member, MemberOnline memberOnline
 			, @RequestParam(value="institutionCode", required = true) String institutionCode, ModelAndView mav) {
 		System.out.println("[MemberController memberInsert] member:" + member);
-		IndexInstitution institution = memberService.PIIndex(institutionCode);
-		mav.addObject("institutionCode", institution.getInstitutionCode());
-		mav.addObject("institutionName", institution.getInstitutionName());
 		memberService.insertMember(member, memberOnline, institutionCode);
 		//mav.setViewName("redirect:/login?institutionCode=" + institutionCode);	로그인 바로가기
 		mav.setViewName("redirect:/joinSuccess?institutionCode=" + institutionCode);
