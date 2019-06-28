@@ -10,11 +10,11 @@
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=5f4555f6ada2f049265957fc6addcb2b&libraries=services"></script>
+<script src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3cf360ba559886010eddbd5839c50967&libraries=services,clusterer,drawing"></script>
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
-            center: new daum.maps.LatLng(), // 지도의 중심좌표
+    		center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
             level: 5 // 지도의 확대 레벨
         };
 
@@ -165,7 +165,7 @@
 			<input type="text" id="licenseTestLocationAddress" name="licenseTestLocationAddress" placeholder="주소">
 			<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 			<input type="text" id="licenseTestLocationAddressDetail" name="licenseTestLocationAddressDetail" placeholder="상세주소">
-			<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+			<div id="map" style="width:500px;height:400px;"></div>
 		<div class="form-group">
 			<label>시험용도 :</label>
 			<input type="text" class="form-control" id="licenseTestLocationUse" name="licenseTestLocationUse">
