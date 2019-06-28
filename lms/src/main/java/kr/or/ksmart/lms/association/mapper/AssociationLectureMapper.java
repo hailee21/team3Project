@@ -13,6 +13,9 @@ public interface AssociationLectureMapper {
 	// infoLecture 리스트 출력하는 메서드
 	public List<InfoLecture> associatonSelectInfoLectureList();
 	
+	// detailInfoLecture 조회 메서드
+	public InfoLecture associatonSelectDetailInfoLecture(String infoLectureCode);
+	
 	// infoLectureSort 리스트 출력하는 메서드
 	public List<InfoLecture> associationSelectInfoLectureSortList();
 	// infoLectureName 리스트 출력하는 메서드

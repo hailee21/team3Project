@@ -23,6 +23,16 @@ public class AssociationLectureService {
 		return infoLectureList;
 	}
 	
+	// detailInfoLecture 출력
+	public InfoLecture getDetailInfoLecture(String infoLectureCode) {
+		System.out.println("[AssociationLectureService getDetailInfoLecture]");
+		System.out.println("[AssociationLectureService getDetailInfoLecture] infoLectureCode :"+infoLectureCode);
+		
+		// 단위테스트 준비
+		InfoLecture infoLecture = associationLectureMapper.associatonSelectDetailInfoLecture(infoLectureCode);
+		return infoLecture;
+	}
+	
 	// subject조회를 위한 준비
 	// 1. select sort 
 	public List<InfoLecture> getInfoLectureSortList() {
