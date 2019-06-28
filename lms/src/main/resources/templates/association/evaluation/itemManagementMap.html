@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<title>평가항목관리</title>
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+<h2>평가항목관리</h2>
+	<p style="height: 30px"></p>
+	<div class="col-sm-2 list-group"></div>
+	<div class="col-sm-3 list-group">
+		<a href="#" class="list-group-item list-group-item-action">#교육원평가항목관리</a>
+		<a href="#" class="list-group-item list-group-item-action">#교육원-강사평가항목관리</a>
+		<a href="#" class="list-group-item list-group-item-action">#수강생-교육원평가항목관리</a>
+		<a href="#" class="list-group-item list-group-item-action">#수강생-강의평가항목관리</a>
+	</div>
+	<div class="col-sm-7 list-group"></div>
+	<p style="height: 30px"></p>
+</div>
+</html>

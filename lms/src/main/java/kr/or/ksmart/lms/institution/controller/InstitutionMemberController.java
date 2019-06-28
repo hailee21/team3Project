@@ -34,8 +34,8 @@ public class InstitutionMemberController {
 		} else if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association 내 sendEmailToTeacher..
 			mav.setViewName("association/member/sendEmailToTeacher");
 		} else {
-			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
-			mav.setViewName("institution/institutionLogin");
+			System.out.println("[InstitutionMemberController instMemberList] 협회/교육원 직원이 아님");
+			mav.setViewName("/");
 		}
 		return mav;
 	}
@@ -51,8 +51,8 @@ public class InstitutionMemberController {
 		} else if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association내 sendEmailToAdmin
 			mav.setViewName("association/member/sendEmailToAdmin");
 		} else {
-			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
-			mav.setViewName("institution/institutionLogin");
+			System.out.println("[InstitutionMemberController instMemberList] 협회/교육원 직원이 아님");
+			mav.setViewName("/");
 		}
 		return mav;
 	}

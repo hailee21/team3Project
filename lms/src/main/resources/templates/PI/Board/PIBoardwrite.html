@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/PILayout">
+<meta charset="utf-8">
+<title>커뮤니티 글쓰기</title>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+/* $(document).ready(function(){
+	$('#btn').on('click',function(){	//$('#btnRemove').click() 가능.
+		console.log('#btnRemove click');
+		
+    });
+} */
+</script>
+</th:block>
+<div layout:fragment="content">
+	<div class="jumbotron">
+    	<div class="row">
+    		<div class="col-md-1"></div>
+    		<div class="col-md-10">
+					<!-- <h1 class="display-3">커뮤니티</h1>	제목	
+					<p class="lead">타인을 비방, 비난하는 글은 경고 없이 삭제될 수 있으며, 이용이 제한 될 수 있습니다.</p>
+					<hr class="my-4">
+					<p>타인을 비방, 비난하는 글은 경고 없이 삭제될 수 있으며, 이용이 제한 될 수 있습니다.</p> -->
+				<p class="lead">
+				<form action="/insertTeacher" method="post">
+					<fieldset>
+		    			<div class="form-group">
+    						<legend>커뮤니티 글쓰기</legend>
+    					</div>
+    						<!-- 	글 제목	 -->
+    					<div class="form-group">
+							<label for="InputTitle">글제목</label>
+							<input type="text" class="form-control" id="boardTitle" name="boardTitle" aria-describedby="" placeholder="제목을 입력하세요" value="">
+		    				<small class="form-text text-muted"></small>
+						</div>
+							<!-- 	글종류	 -->
+						<input type="hidden" name="boardType" value="커뮤니티">
+							<!-- 	글내용	 -->
+						<div class="form-group">
+							<label for="InputContent">글내용</label>
+	    					<textarea class="form-control" id="exampleTextarea" rows="10"></textarea>
+		      				<small class="form-text text-muted"></small>
+						</div>
+							<p style="height: 10px"></p>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary">#등록</button> <button type="button" class="btn btn-secondary disabled" onclick="location.href='javascript:history.back()'">뒤로가기</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+    <div class="col-md-1"></div>
+</div>
+</html>
