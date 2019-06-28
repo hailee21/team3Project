@@ -119,7 +119,7 @@
 				$('h4').addClass('red');
 				$('h4').text('결과발표일이 공백 상태 입니다.');
 			} else {
-				$('#addQualification').submit()
+				$('#addnoticeAnnualLicenseTest').submit()
 			}
 		});
 
@@ -129,7 +129,7 @@
 
 <div layout:fragment="content">
 	<h3>연간자격시험 일정등록</h3>
-	<form id="addQualification" action="/association/license/addInfoQualification" method="post">
+	<form id="addnoticeAnnualLicenseTest" action="/association/notice/addnoticeAnnualLicenseTest" method="post">
 		<div class="form-group">
 			<label>연간자격시험계획코드 :</label>
 			<input type="text" class="form-control" id="noticeAnnualLicenseTestCode" name="noticeAnnualLicenseTestCode">
@@ -140,23 +140,23 @@
 		</div>
 		<div class="form-group">
 			<label>접수시작일 :</label>
-			<input type="text" class="form-control" id="noticeAnnualLicenseTestApplyStartDate" name="noticeAnnualLicenseTestApplyStartDate">
+			<input type="date" class="form-control" id="noticeAnnualLicenseTestApplyStartDate" name="noticeAnnualLicenseTestApplyStartDate">
 		</div>
 		<div class="form-group">
 			<label>접수마감일 :</label>
-			<input type="text" class="form-control" id="noticeAnnualLicenseTestApplyEndDate" name="noticeAnnualLicenseTestApplyEndDate">
+			<input type="date" class="form-control" id="noticeAnnualLicenseTestApplyEndDate" name="noticeAnnualLicenseTestApplyEndDate">
 		</div>
 		<div class="form-group">
 			<label>시험시작일 :</label>
-			<input type="text" class="form-control" id="noticeAnnualLicenseTestStartDate" name="noticeAnnualLicenseTestStartDate">
+			<input type="date" class="form-control" id="noticeAnnualLicenseTestStartDate" name="noticeAnnualLicenseTestStartDate">
 		</div>
 		<div class="form-group">
 			<label>시험종료일 :</label>
-			<input type="text" class="form-control" id="noticeAnnualLicenseTestEndDate" name="noticeAnnualLicenseTestEndDate">
+			<input type="date" class="form-control" id="noticeAnnualLicenseTestEndDate" name="noticeAnnualLicenseTestEndDate">
 		</div>
 		<div class="form-group">
 			<label>결과발표일 :</label>
-			<input type="text" class="form-control" id="noticeAnnualLicenseTestResultDate" name="noticeAnnualLicenseTestResultDate">
+			<input type="date" class="form-control" id="noticeAnnualLicenseTestResultDate" name="noticeAnnualLicenseTestResultDate">
 		</div>
 		<button type="button" id="btnAdd" class="btn btn-primary">등록</button>		
 	</form>

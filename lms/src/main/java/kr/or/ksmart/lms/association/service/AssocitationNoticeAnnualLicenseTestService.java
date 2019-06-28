@@ -16,7 +16,7 @@ public class AssocitationNoticeAnnualLicenseTestService {
 	AssocitationNoticeAnnualLicenseTestMapper associtationNoticeAnnualLicenseTestMapper;
 	//연간 자격 시험 일정 등록
 	public void insertNoticeAnnualLicenseTest(NoticeAnnualLicenseTest noticeAnnualLicenseTest) {
-		
+		associtationNoticeAnnualLicenseTestMapper.insertNoticeAnnualLicenseTest(noticeAnnualLicenseTest);
 	}
 	
 	//연간 자격 시험 일정 List

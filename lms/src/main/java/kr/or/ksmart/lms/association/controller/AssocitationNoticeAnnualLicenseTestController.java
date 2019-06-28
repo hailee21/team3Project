@@ -45,10 +45,9 @@ public class AssocitationNoticeAnnualLicenseTestController {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
-			List<NoticeAnnualLicenseTest> list = associtationNoticeAnnualLicenseTestService.selectNoticeAnnualLicenseTest();
-			System.out.println("[AssocitationNoticeAnnualLicenseTestController selectNoticeAnnualLicenseTestController]list" +list);
+			
 			associtationNoticeAnnualLicenseTestService.insertNoticeAnnualLicenseTest(noticeAnnualLicenseTest);
-			mav.addObject("list", list);
+			System.out.println("[AssocitationNoticeAnnualLicenseTestController selectNoticeAnnualLicenseTestController] 협회직원");
 			mav.setViewName("/association/notice/addnoticeAnnualLicenseTest");
 		} else {
 			System.out.println("[AssocitationNoticeAnnualLicenseTestController selectLicenseTestLocation] 협회직원 아님");
