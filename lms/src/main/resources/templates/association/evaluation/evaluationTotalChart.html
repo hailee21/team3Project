@@ -44,7 +44,7 @@
                         ];
                         let no1 = 3;
                         $(map.evalTotalList).each(function(index,item){
-                            chartData.addColumn('number', item.institutionName);
+                            chartData.addColumn('number', item.evalTotalYear+item.institutionName);
                             evalTotalData[0][no1] = item.evalTotalJan;
                             evalTotalData[1][no1] = item.evalTotalFeb;
                             evalTotalData[2][no1] = item.evalTotalMar;
@@ -94,21 +94,21 @@
     <h3>년도별 평가 차트</h3>
     <a type="button" href="/association/evaluation/addEvaluationTotal" class="btn btn-secondary">년도별 평가 합계 추가</a>
     <form id="getEvalTotal" action="/association/evaluation/evaluationTotal" method="post">
-		<div class="form-group">
-			<label>평가 년도 :</label>
+        <div class="form-group">
+            <label>평가 년도 :</label>
             <select class="form-control" id="evalTotalYear" name="evalTotalYear">
+                <option value="0">전체</option>
                 <option th:each="evalTotalYear:${evalTotalYear}" th:text="${evalTotalYear}" th:value="${evalTotalYear}"></option>
             </select>
         </div>
         <div class="form-group">
             <label>평가 항목 :</label>
             <select class="form-control" id="evalTotalType" name="evalTotalType">
+                <option value="%">전체</option>
                 <option th:each="evalTotalType:${evalTotalType}" th:text="${evalTotalType}" th:value="${evalTotalType}"></option>
             </select>
         </div>
-        <div class="btn-group btn-group-lg">
-			<button type="button" id="btnEvalTotalChart" class="btn btn-secondary">차트 출력</button>
-    	</div>
+        <button type="button" id="btnEvalTotalChart" class="btn btn-secondary">차트 출력</button>
     </form>
     <br>
     <div id="evalTotalChart"></div>

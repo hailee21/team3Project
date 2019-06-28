@@ -2,11 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <header th:fragment="siderFragment">
+<script>
+/*사이드 바 드랍다운 관련 자바 스크립트*/
+$(document).ready(function() {
+	let navdropdown = document.getElementsByClassName("navdropdown-btn");
+	let i;
+
+	for (i = 0; i < navdropdown.length; i++) {
+		navdropdown[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			let dropdownContent = this.nextElementSibling;
+			if (dropdownContent.style.display === "block") {
+				dropdownContent.style.display = "none";
+			} else {
+				dropdownContent.style.display = "block";
+			}
+		});
+	}
+})
+</script>
 <div class="sidenav bg-primary">
 	<a class="text-white" href="/associationIndex">협회</a>
-	<a class="text-white" href="/association/infoAnnualFee/infoAnnualFeeList">연회비 관리하기</a>
-	<a class="text-white" href="/association/refundPolicy/refundPolicyList">환불정책 관리하기</a>
-	<a class="text-white" href="#contact">Contact</a>
+	
+	<button class="navdropdown-btn"><span class="text-white">연회비</span>
+		<i style="color:white" class="fas fa-caret-down"></i>
+	</button>	
+	<div class="navdropdown-container">
+		<a class="text-white" href="/association/infoAnnualFee/infoAnnualFeeList">연회비 관리하기</a>
+		<a class="text-white" href="/association/infoAnnualFee/addInfoAnnualFee">연회비 개요 추가</a>
+		<a class="text-white" href="/association/infoAnnualFee/refundAnnualFeeList">연회비 환불하기</a>
+	</div>
+	<button class="navdropdown-btn"><span class="text-white">환불정책</span>
+		<i style="color:white" class="fas fa-caret-down"></i>
+	</button>
+	<div class="navdropdown-container">
+		<a class="text-white" href="/association/refundPolicy/refundPolicyList">환불정책 리스트</a>
+		<a class="text-white" href="/association/refundPolicy/addRefundPolicyAnnualFee">연회비 환불정책 추가</a>
+		<a class="text-white" href="/association/refundPolicy/addRefundPolicyLectureList">강의 환불정책 추가</a>
+		<a class="text-white" href="/association/refundPolicy/addRefundPolicyLicense">자격 환불정책 추가</a>
+	</div>
 </div>
 </header>
 </html>

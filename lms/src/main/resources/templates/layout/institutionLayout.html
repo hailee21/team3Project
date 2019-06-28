@@ -2,17 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head th:replace="fragments/config :: configFragment"></head>
-<div class="row">
-    <div class="col-sm-2">
-        <header th:replace="fragments/institutionSider :: siderFragment"></header>
+<header th:replace="fragments/institutionSider :: siderFragment"></header>
+<div class="main">
+    <header th:replace="fragments/institutionTop :: topFragment"></header>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <div layout:fragment="content"></div>
+        </div>
+        <div class="col-sm-1"></div>
     </div>
-    <div class="col-sm-8">
-		<header th:replace="fragments/institutionTop :: topFragment"></header>
-	<div layout:fragment="content"></div>
-	
-	<footer th:replace="fragments/footer :: footerFragment"></footer>
-	</div>
-	<div class="col-sm-2">
-    </div>
+    <footer th:replace="fragments/footer :: footerFragment"></footer>
 </div>
 </html>

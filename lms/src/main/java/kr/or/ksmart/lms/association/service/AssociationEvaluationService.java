@@ -54,7 +54,7 @@ public class AssociationEvaluationService {
 		int randomNo2 = (int)(Math.random()*1000);
 		int randomNo3 = (int)(Math.random()*100);
 		int randomNo = randomNo1 + randomNo2 + randomNo3;
-		if(randomNo > 10000) {
+		if(randomNo >= 10000) {
 			randomNo = randomNo/10;
 		}
 

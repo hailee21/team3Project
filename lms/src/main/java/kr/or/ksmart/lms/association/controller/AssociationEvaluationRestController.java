@@ -20,7 +20,7 @@ public class AssociationEvaluationRestController {
 	public Map<String, Object> getEvalTotatChart(
 			@RequestParam(value="evalTotalYear") int evalTotalYear
 			, @RequestParam(value="evalTotalType") String evalTotalType) {
-		System.out.println("[AssociationEvaluationController getEvalTotatList] 호출");
+		System.out.println("[AssociationEvaluationRestController getEvalTotatChart] 호출");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("evalTotalYear", evalTotalYear);
 		map.put("evalTotalType", evalTotalType);

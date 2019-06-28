@@ -48,7 +48,7 @@ public class AssociationRefundPolicyService {
 		int randomNo2 = (int)(Math.random()*1000);
 		int randomNo3 = (int)(Math.random()*100);
 		int randomNo = randomNo1 + randomNo2 + randomNo3;
-		if(randomNo > 10000) {
+		if(randomNo >= 10000) {
 			randomNo = randomNo/10;
 		}
 		String refundPolicyCode = "RP"+nowDate+randomNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
