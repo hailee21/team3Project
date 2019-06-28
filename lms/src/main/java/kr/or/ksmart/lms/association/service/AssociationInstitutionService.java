@@ -1,5 +1,7 @@
 package kr.or.ksmart.lms.association.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +20,28 @@ public class AssociationInstitutionService {
 		System.out.println("[AssociationInstitutionService associationaddInstitution]");
 		
 		// 1. 강의실 테이블에 추가할 PK 구하는 코드 
-		// 1-1. 가져온 pk를 string 데이터타입의 변수에 담는다
-		String insitutionPK = associationInstitutionMapper.associationSelectInstitutionPK();
-		System.out.println("[AssociationInstitutionService associationAddInstitution] 가져온 insitutionPK: "+insitutionPK);
-		// 1-2. 이를 substring을 사용해 문자열을 자르고 숫자만 추출한 뒤, integer를 사용하여 int로 바꾸고, 얻은 숫자값에 1을 더한다
-		int lastNo = Integer.parseInt(insitutionPK.substring(1));
-		System.out.println("[AssociationInstitutionService associationAddInstitution] 추출한 lastNo: "+lastNo);
-		lastNo++;
-		System.out.println("[AssociationInstitutionService associationAddInstitution] 1을더한 lastNo: "+lastNo);
-		// 1-3. 테이블 형식에 맞게 변수를 선언하고  이를 vo에 담는다. 
-		String IPK = "I"+lastNo;
+		// 1-1. 테이블의 PK를 위한 무작위 숫자 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+		String nowDate = dateFormat.format(now);
+		System.out.println("nowDate1: "+nowDate);
+		nowDate = nowDate.substring(0, 13);
+		nowDate = nowDate.toString().replace("-", "");
+		nowDate = nowDate.toString().replace(" ", "");
+		System.out.println("nowDate2: "+nowDate);
+		int randomNo1 = (int)(Math.random()*10000);
+		int randomNo2 = (int)(Math.random()*1000);
+		int randomNo3 = (int)(Math.random()*100);
+		int randomNo = randomNo1 + randomNo2 + randomNo3;
+		if(randomNo > 10000) {
+			randomNo = randomNo/10;
+		}
+		// 1-2. 테이블 형식에 맞게 변수를 선언하고  이를 vo에 담는다. 
+		String IPK = "I"+nowDate+randomNo;		
 		institution.setInstitutionCode(IPK);
 		System.out.println("[AssociationInstitutionService associationAddInstitution] 최종 IPK: "+IPK);
 		
-		// 2. classroom 테이블에 강의실 등록하기		
+		// 2. Institution 테이블에 강의실 등록하기		
 		associationInstitutionMapper.associationInsertInstitution(institution);
 	}
 	

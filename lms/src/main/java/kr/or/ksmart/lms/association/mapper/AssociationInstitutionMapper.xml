@@ -14,19 +14,6 @@
 		<result column="institution_registration_date" property="institutionRegistrationDate"/>
 	</resultMap>
 	
-	<!-- PK생성을 위한 메서드 -->
-	<select id="associationSelectInstitutionPK"
-				resultType="String">
-		SELECT
-			institution_code
-		FROM 
-			institution	
-		ORDER BY
-			institution_code DESC
-		LIMIT
-			0,1
-	</select>	
-	
 	<!-- 교육원 등록 -->
 	<select id="associationInsertInstitution"
 			parameterType="kr.or.ksmart.lms.association.vo.Institution">

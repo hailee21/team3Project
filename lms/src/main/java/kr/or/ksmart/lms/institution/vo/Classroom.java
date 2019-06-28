@@ -7,7 +7,7 @@ public class Classroom {
 	private String classroomLocation;
 	private String classroomName;
 	private String classroomUse;
-	private String classroomMaximumNumber;
+	private String classroomMaximumNo;
 	
 	public String getClassroomCode() {
 		return classroomCode;
@@ -45,18 +45,18 @@ public class Classroom {
 	public void setClassroomUse(String classroomUse) {
 		this.classroomUse = classroomUse;
 	}
-	public String getClassroomMaximumNumber() {
-		return classroomMaximumNumber;
+	public String getClassroomMaximumNo() {
+		return classroomMaximumNo;
 	}
-	public void setClassroomMaximumNumber(String classroomMaximumNumber) {
-		this.classroomMaximumNumber = classroomMaximumNumber;
+	public void setClassroomMaximumNo(String classroomMaximumNo) {
+		this.classroomMaximumNo = classroomMaximumNo;
 	}
 	
 	@Override
 	public String toString() {
 		return "Classroom [classroomCode=" + classroomCode + ", institutionCode=" + institutionCode
 				+ ", institutionName=" + institutionName + ", classroomLocation=" + classroomLocation
-				+ ", classroomName=" + classroomName + ", classroomUse=" + classroomUse + ", classroomMaximumNumber="
-				+ classroomMaximumNumber + "]";
+				+ ", classroomName=" + classroomName + ", classroomUse=" + classroomUse + ", classroomMaximumNo="
+				+ classroomMaximumNo + "]";
 	}	
 }

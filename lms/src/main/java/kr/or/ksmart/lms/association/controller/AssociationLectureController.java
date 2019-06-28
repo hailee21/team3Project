@@ -17,11 +17,32 @@ public class AssociationLectureController {
 
 	@Autowired private AssociationLectureService associationLectureService;
 	
-	// association layout 강의공고 리스트 출력 controller
-	
 	// association layout 강의표준 리스트 출력 controller
+	@GetMapping("/association/lecture/infoLectureList")
+	public ModelAndView associationGetInfoLectureList(ModelAndView mav, HttpSession session) {
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("협회직원")) {
+			System.out.println("협회직원");
+			
+			System.out.println("[LectureController associationGetInfoLectureList]");
+			mav.setViewName("/association/lecture/infoLectureList");
+			
+			// mav내부에 Service에서 호출하여 list 객체참조변수에 담은 값을 넣어서 뷰에서 활용하기
+			List<InfoLecture> infoLectureList = associationLectureService.getInfoLectureList();
+			System.out.println("[LectureController getSubjectListAssociation] infoLectureList : "+ infoLectureList);
+			mav.addObject("infoLectureList", infoLectureList);			
+		}else {
+			System.out.println("협회직원아님");
+			
+			mav.setViewName("/association/associationLogin");
+		}		
+		return mav;
+	}
 	
-		
+	
 	// association layout 강의항목, 과목 리스트 출력 controller
 	@GetMapping("/association/lecture/subjectList")
 	public ModelAndView associationGetSubjectList(ModelAndView mav, HttpSession session) {
@@ -32,12 +53,12 @@ public class AssociationLectureController {
 		if(memberRank.equals("협회직원")) {
 			System.out.println("협회직원");
 			
-			System.out.println("[LectureController getSubjectListAssociation] 협회 강의,과목 조회시작");
+			System.out.println("[AssociationLectureController associationGetSubjectList] 협회 강의,과목 조회시작");
 			mav.setViewName("/association/lecture/subjectList");
 			
+			// mav내부에 Service에서 호출하여 list 객체참조변수에 담은 값을 넣어서 뷰에서 활용하기
 			List<InfoLecture> sortList = associationLectureService.getInfoLectureSortList();
 			System.out.println("[LectureController getSubjectListAssociation] sortList : "+ sortList);
-			
 			mav.addObject("sortList", sortList);			
 		}else {
 			System.out.println("협회직원아님");

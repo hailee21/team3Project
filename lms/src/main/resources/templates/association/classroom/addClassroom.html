@@ -14,12 +14,12 @@ $(document).ready(function(){
 	$('#insert').click(function(){
 		console.log("강의실등록 버튼 클릭..");
 		// 빈칸, 수용인원 폼 유효성검사	
-		let numberCheck = /[0-9]/;
+		let numberCheck = /^[0-9]+$/;
 		if($('#classroomName').val() ==''){
 			$('#helper').text('강의실명을 지정해주세요!');
 		}else if($('#classroomUse').val() ==''){
 			$('#helper').text('강의용도를 지정해주세요!');
-		}else if(!numberCheck.test($('#classroomMaximumNumber').val())){
+		}else if(!numberCheck.test($('#classroomMaximumNo').val())){
 			$('#helper').text('숫자만 입력가능합니다!');
 		} else {
 			$('#addClassroom').submit();
@@ -57,7 +57,7 @@ $(document).ready(function(){
 		</div>
 		<div class="form-group">
 		    <label>수용인원 : </label>
-		    <input type="text" class="form-control" placeholder="숫자만 입력가능합니다" id="classroomMaximumNumber" name="classroomMaximumNumber">
+		    <input type="text" class="form-control" placeholder="숫자만 입력가능합니다" id="classroomMaximumNo" name="classroomMaximumNo">
 		</div>
 		<span id="helper" style="color:red"></span><br>
 		<button id="insert" type="button">강의실 등록하기</button>

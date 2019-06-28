@@ -14,6 +14,16 @@ public class AssociationLectureService {
 	@Autowired private AssociationLectureMapper associationLectureMapper;
 	
 	// infoLecture 리스트 출력
+	public List<InfoLecture> getInfoLectureList(){
+		System.out.println("[AssociationLectureService getInfoLectureList]");
+
+		// 단위테스트 준비
+		List<InfoLecture> infoLectureList = associationLectureMapper.associatonSelectInfoLectureList();
+		System.out.println("[AssociationLectureService getInfoLectureList] infoLectureList : "+infoLectureList);
+		return infoLectureList;
+	}
+	
+	// subject조회를 위한 준비
 	// 1. select sort 
 	public List<InfoLecture> getInfoLectureSortList() {
 		System.out.println("[LectureService getInfoLectureSortList]");

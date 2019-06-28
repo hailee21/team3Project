@@ -23,7 +23,8 @@
 		<result column="notice_lecture_result_date" property="noticeLectureResultDate"/>
 		<result column="notice_lecture_fee" property="noticeLectureFee"/>
 		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
-		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>		
+		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>	
+		<result column="notice_lecture_date" property="noticeLectureDate"/>		
 	</resultMap>
 	<!-- AssociationNoticeLectureMapper InfoLecture resultMap  -->
 	<resultMap id="InfoLectureResultMap"
@@ -65,6 +66,7 @@
 		<result column="classroom_name" property="classroomName"/>
 		<result column="classroom_use" property="classroomUse"/>
 		<result column="classroom_maximum_no" property="classroomMaximumNo"/>
+		<result column="classroom_date" property="classroomDate"/>
 	</resultMap>
 	
 	
@@ -120,19 +122,6 @@
 			WHERE
 				institution_code = #{institutionCode}
 		</select>
-				
-		<!-- 2. PK생성을 위한 메서드 -->
-		<select id="associationSelectNoticeLecturePK"
-				resultType="String">
-			SELECT
-				notice_lecture_code
-			FROM 
-				notice_lecture
-			ORDER BY
-				notice_lecture_code DESC
-			LIMIT
-				0,1
-		</select>
 		
 		<!-- 3. 강의공고 등록 -->
 		<insert id="associationInsertNoticeLecture"
@@ -155,6 +144,7 @@
 				,notice_lecture_fee
 				,notice_lecture_start_date
 				,notice_lecture_end_date
+				,notice_lecture_date
 			) VALUES (
 				#{noticeLectureCode}
 				,#{infoLectureCode}
@@ -190,7 +180,8 @@
 				,#{noticeLectureResultDate}
 				,#{noticeLectureFee}
 				,#{noticeLectureStartDate}
-				,#{noticeLectureEndDate}			
+				,#{noticeLectureEndDate}	
+				,now()		
 			)
 		</insert>
 		
