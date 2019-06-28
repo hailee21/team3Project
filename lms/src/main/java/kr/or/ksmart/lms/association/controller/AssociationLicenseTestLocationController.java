@@ -12,16 +12,33 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.association.service.AssociationLicenseTestLocationService;
 import kr.or.ksmart.lms.association.vo.LicenseTestLocation;
-
-
-
-
+import kr.or.ksmart.lms.association.vo.LicenseTestLocationDetail;
 
 @Controller
 public class AssociationLicenseTestLocationController {
 
     @Autowired
 	AssociationLicenseTestLocationService licenseTestLocationService;
+    
+    @GetMapping("/association/license/LicenseTestLocationDetail") // 자격시험 세부 조회 리스트
+    public ModelAndView selectLicenseTestLocationDetail(HttpSession session, ModelAndView mav, LicenseTestLocationDetail licenseTestLocationDetail) {
+		System.out.println("[AssociationLicenseTestLocationController selectLicenseTestLocationDetail]");
+    	String memberRank = (String)session.getAttribute("memberRank");
+    	if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
+		if(memberRank.equals("협회직원")) {
+			List<LicenseTestLocationDetail> list = licenseTestLocationService.selectTestLocationDetail(licenseTestLocationDetail);
+			mav.addObject("list", list);
+			mav.setViewName("/association/license/LicenseTestLocationDetail");
+		} else {
+			System.out.println("[AssociationLicenseTestLocationController selectLicenseTestLocation] 협회직원 아님");
+			
+			mav.setViewName("association/associationLogin");
+		}
+    	return mav;
+    	
+    }
     
     @GetMapping("/association/license/LicenseTestLocationList") // 자격시험 장소 조회
     public ModelAndView selectLicenseTestLocation(HttpSession session, ModelAndView mav, LicenseTestLocation licenseTestLocation) {

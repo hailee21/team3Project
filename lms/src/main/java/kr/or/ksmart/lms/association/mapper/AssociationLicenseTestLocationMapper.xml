@@ -13,7 +13,19 @@
 		<result column="license_test_location_maximum_number" property="licenseTestLocationMaximumNumber"/>	
 		<result column="license_test_location_date" property="licenseTestLocationDate"/>
 	</resultMap>
-	
+	<!-- 자격시험 장소 상세보기 -->
+	<select id="selectLicenseTestLocationDetail"
+			resultMap="LicenseTestLocationMap">
+		SELECT
+			license_test_location_detail_code
+			, license_test_location_code
+			, license_test_location_detail_classroom
+			, license_test_location_detail_use
+			, license_test_location_detail_maximum_number
+			, license_test_location_detail_use_insert_date
+		FROM license_test_location_detail
+		WHERE license_test_location_code
+	</select>
 	<!-- 자격시험 장소 조회 -->
 	<select id="selectLicenseTestLocation"
 			resultMap="LicenseTestLocationMap">

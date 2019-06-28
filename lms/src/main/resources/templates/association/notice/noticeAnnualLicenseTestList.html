@@ -22,6 +22,7 @@
 			<th>시험시작일</th>
 			<th>시험종료일</th>
 			<th>결과발표일</th>
+			<th>등록일자</th>
 			
 		</tr>
 		<tr th:each="subject:${list}">
@@ -31,7 +32,8 @@
 			<td th:text="${subject.noticeAnnualLicenseTestApplyEndDate}"></td>
 			<td th:text="${subject.noticeAnnualLicenseTestStartDate}"></td>
 			<td th:text="${subject.noticeAnnualLicenseTestEndDate}"></td>
-			<td th:text="${subject.noticeAnnualLicenseTestResultDate}"></td>				
+			<td th:text="${subject.noticeAnnualLicenseTestResultDate}"></td>
+			<td th:text="${subject.noticeAnnualLicenseTestInsertDate}"></td>				
 		</tr>
 	</table>
 </div>

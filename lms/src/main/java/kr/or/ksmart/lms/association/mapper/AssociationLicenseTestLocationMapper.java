@@ -5,9 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.lms.association.vo.LicenseTestLocation;
+import kr.or.ksmart.lms.association.vo.LicenseTestLocationDetail;
 
 @Mapper
 public interface AssociationLicenseTestLocationMapper {
+	//자격시험 장소 상세보기
+	public List<LicenseTestLocationDetail> selectLicenseTestLocationDetail(LicenseTestLocationDetail licenseTestLocationDetail);
 	
 	//자격시험 장소 조회 매퍼
 	public List<LicenseTestLocation> selectLicenseTestLocation(LicenseTestLocation licenseTestLocation);
