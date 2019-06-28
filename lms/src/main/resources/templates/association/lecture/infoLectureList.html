@@ -13,6 +13,19 @@
 
 <div layout:fragment="content">
 	<h1>강의표준 목록</h1>
-
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>강의개요항목</th>
+				<th>강의개요명</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list:${infoLectureList}">
+				<td><a th:href="@{'/association/lecture/detailInfoLecture?infoLectureCode='+${list.infoLectureCode}}" th:text="${list.infoLectureSort}" th:value="${list.infoLectureCode}"></a></td>
+				<td th:text="${list.infoLectureName}" th:value="${list.infoLectureName}"></td>								
+			</tr>
+		</tbody>
+	</table>
 </div>
 </html>

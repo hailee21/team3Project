@@ -4,7 +4,7 @@ public class InfoLecture {
 	private String infoLectureCode;
 	private String infoLectureSort;
 	private String infoLectureName;
-	private String infoLectureInsertDate;
+	private String infoLectureDate;
 	
 	public String getInfoLectureCode() {
 		return infoLectureCode;
@@ -24,16 +24,16 @@ public class InfoLecture {
 	public void setInfoLectureName(String infoLectureName) {
 		this.infoLectureName = infoLectureName;
 	}
-	public String getInfoLectureInsertDate() {
-		return infoLectureInsertDate;
+	public String getInfoLectureDate() {
+		return infoLectureDate;
 	}
-	public void setInfoLectureInsertDate(String infoLectureInsertDate) {
-		this.infoLectureInsertDate = infoLectureInsertDate;
+	public void setInfoLectureDate(String infoLectureDate) {
+		this.infoLectureDate = infoLectureDate;
 	}
 	
 	@Override
 	public String toString() {
 		return "InfoLecture [infoLectureCode=" + infoLectureCode + ", infoLectureSort=" + infoLectureSort
-				+ ", infoLectureName=" + infoLectureName + ", infoLectureInsertDate=" + infoLectureInsertDate + "]";
+				+ ", infoLectureName=" + infoLectureName + ", infoLectureDate=" + infoLectureDate + "]";
 	}
 }

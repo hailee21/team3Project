@@ -33,7 +33,7 @@ $(document).ready(function(){
 				$('#classroomList').append('</thead>');
 				$('#classroomList').append('<tbody>');
                 $(result).each(function(i,item){	
-               	   $('#classroomList').append('<tr><td>'+item.institutionName+'</td><td>'+item.classroomLocation+'</td><td><a href="/association/classroom/detailClassroom?classroomCode='+item.classroomCode+'">'+item.classroomName+'</a></td><td>'+item.classroomUse+'</td><td>'+item.classroomMaximumNumber+'</td></tr>');
+               	   $('#classroomList').append('<tr><td>'+item.institutionName+'</td><td>'+item.classroomLocation+'</td><td><a href="/association/classroom/detailClassroom?classroomCode='+item.classroomCode+'">'+item.classroomName+'</a></td><td>'+item.classroomUse+'</td><td>'+item.classroomMaximumNo+'</td></tr>');
                 });
                 $('#classroomList').append('</tbody>');
              }
@@ -79,7 +79,7 @@ $(document).ready(function(){
 					<td th:text="${list.classroomLocation}" th:value="${list.classroomLocation}"></td>
 					<td><a th:href="@{'/association/classroom/detailClassroom?classroomCode='+${list.classroomCode}}" th:text="${list.classroomName}" th:value="${list.classroomName}"></a></td>
 					<td th:text="${list.classroomUse}" th:value="${list.classroomUse}"></td>
-					<td th:text="${list.classroomMaximumNumber}" th:value="${list.classroomMaximumNumber}"></td>
+					<td th:text="${list.classroomMaximumNo}" th:value="${list.classroomMaximumNo}"></td>
 				</tr>
 			</tbody>
 		</table>

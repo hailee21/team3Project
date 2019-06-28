@@ -13,6 +13,7 @@
 		<result column="classroom_name" property="classroomName"/>
 		<result column="classroom_use" property="classroomUse"/>
 		<result column="classroom_maximum_no" property="classroomMaximumNo"/>
+		<result column="classroom_date" property="classroomDate"/>
 	</resultMap>
 	<!-- ClassroomMapper Institution resultMap  -->
 	<resultMap id="InstitutionResultMap"
@@ -35,18 +36,6 @@
 		FROM 
 			classroom	
 	</select>
-	<!-- PK추출을 위한 메서드 -->
-	<select id="associationSelectClassroomPK"
-				resultType="String">
-		SELECT
-			classroom_code
-		FROM 
-			classroom	
-		ORDER BY
-			classroom_code DESC
-		LIMIT
-			0,1
-	</select>	
 	
 	<!-- 강의실 등록을 위해 교육원테이블에서 교육원명, 교육원위치를 가져오는 메서드 -->
 	<select id="associationSelectInstitutionInfo"
@@ -73,6 +62,7 @@
 			,classroom_name
 			,classroom_use
 			,classroom_maximum_no
+			,classroom_date
 		) VALUES (
 			#{classroomCode}
 			,#{institutionCode}
@@ -80,7 +70,8 @@
 			,#{classroomLocation}
 			,#{classroomName}
 			,#{classroomUse}
-			,#{classroomMaximumNo}			
+			,#{classroomMaximumNo}	
+			,now()	
 		) 		
 	</insert>
 	<!-- 교육원 리스트 출력 -->

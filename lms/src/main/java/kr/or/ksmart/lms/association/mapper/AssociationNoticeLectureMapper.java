@@ -25,11 +25,9 @@ public interface AssociationNoticeLectureMapper {
 	public List<Institution> associationSelectInstitutionForNL();
 	// 1-5. classroom select리스트 출력(비동기 - institutionCode로)
 	public List<Classroom> associationSelectClassroomForNL(String institutionCode);
+
 	
-	// 2. PK생성을 위한 메서드
-	public String associationSelectNoticeLecturePK();
-	
-	// 3. 강의공고 등록 
+	// 2. 강의공고 등록 
 	public void associationInsertNoticeLecture(NoticeLecture noticeLecture);
 	
 	// 강의공고 목록 출력

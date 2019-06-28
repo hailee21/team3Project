@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +19,7 @@ import kr.or.ksmart.lms.association.vo.NoticeLecture;
 public class AssociationNoticeLectureController {
 	
 	@Autowired private AssociationNoticeLectureService associationNoticeLectureService;
+	
 	// association Layout 강의등록 출력 controller
 	@GetMapping("/association/lecture/addNoticeLecture")
 	public ModelAndView associationAddNoticeLecture(ModelAndView mav, HttpSession session) {
@@ -37,7 +39,7 @@ public class AssociationNoticeLectureController {
 			mav.addObject("memberTeacher", map.get("memberTeacher"));
 			mav.addObject("institution", map.get("institution"));
 
-			System.out.println(((List)map.get("infoLectureSort")).size());
+			System.out.println("[AssociationNoticeLectureController] infoLectureSort 사이즈: "+((List)map.get("infoLectureSort")).size());
 		}else {
 			System.out.println("협회직원아님");
 			
@@ -47,7 +49,27 @@ public class AssociationNoticeLectureController {
 	}
 	
 	// 강의등록 처리 
-	
+	@PostMapping("/association/lecture/addNoticeLecture")
+	public ModelAndView associationAddNoticeLecture(ModelAndView mav, HttpSession session, NoticeLecture noticeLecture) {
+		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("협회직원")) {
+			System.out.println("협회직원");
+			
+			System.out.println("[AssociationNoticeLectureController associationAddNoticeLecture]");
+			System.out.println("[AssociationNoticeLectureController associationAddNoticeLecture] noticeLecture: "+noticeLecture);
+			
+			associationNoticeLectureService.associationAddNoticeLecture(noticeLecture);
+			mav.setViewName("redirect:/association/lecture/noticeLectureList");
+		}else {
+			System.out.println("협회직원아님");
+			
+			mav.setViewName("association/associationLogin");
+		}		
+		return mav;
+	}
 	
 	// association Layout 강의공고 리스트 출력 controller
 	@GetMapping("/association/lecture/noticeLectureList")
