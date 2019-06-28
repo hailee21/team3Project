@@ -62,10 +62,10 @@ public class PILoginController {
 
 	//PI 로그아웃 controller
 	@GetMapping("/PILogout")
-	public ModelAndView PILogout(HttpSession session, ModelAndView mav) {
-		String institutionCode = (String)session.getAttribute("institutionCode");
+	public ModelAndView PILogout(HttpSession session, ModelAndView mav
+		, @RequestParam(value="institutionCode", required = true) String institutionCode) {
 		session.invalidate();
-		mav.setViewName("redirect:/PILogin?institutionCode="+institutionCode);
+		mav.setViewName("redirect:/PIIndex?institutionCode="+institutionCode);
 		return mav;
 	}
 }

@@ -18,10 +18,10 @@
 	                <a style="font-size: 12px" class="nav-link" th:text="${session.memberRank}"></a>
 	            </li>
 	            <li class="nav-item">
-	                <a style="font-size: 12px" class="nav-link" th:text="${session.memberName}+'님'"></a>
+	                <a style="font-size: 12px; font-weight: bold" class="nav-link" th:text="${session.memberName}+'님'"></a>
 	            </li>
 	            <li class="nav-item">
-	                <a style="font-size: 12px" class="nav-link" href="/PILogout">로그아웃</a>
+	                <a style="font-size: 12px" class="nav-link" th:href="@{'/PILogout?institutionCode='+${institutionCode}}">로그아웃</a>
 	            </li>
 	            <li class="nav-item">
 	                <a style="font-size: 12px" class="nav-link" th:href="@{'/myInfo?institutionCode='+${institutionCode}}">내정보</a>

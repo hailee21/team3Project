@@ -16,9 +16,6 @@ public interface InstitutionAnnualFeeMapper {
     //institutionLayout 연회비 결제 내역 출력 mapper
     public List<PaymentAnnualFee> selectPaymentAnnualFeeList(String institutionCode);
     
-    //institutionLayout 연회비 결제 PK 출력 mapper
-    public String selectPaymentAnnualFeePk();
-    
     //institutionLayout 연회비 결제 추가 mapper
     public void insertPaymentAnnualFeey(PaymentAnnualFee paymentAnnualFee);
 

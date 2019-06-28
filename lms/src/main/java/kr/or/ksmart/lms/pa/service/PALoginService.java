@@ -20,7 +20,7 @@ public class PALoginService {
 
 	//인덱스 교육원 출력 service
 	public IndexInstitution PIIndex() {
-		String institutionCode = "I0";
+		String institutionCode = "I20120101000000";
 		return paLoginMapper.selectInstitution(institutionCode);
 	}
 }
