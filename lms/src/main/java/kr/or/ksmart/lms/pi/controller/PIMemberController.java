@@ -1,5 +1,8 @@
 package kr.or.ksmart.lms.pi.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.index.vo.IndexInstitution;
+import kr.or.ksmart.lms.institution.vo.Institution;
 import kr.or.ksmart.lms.pi.service.PIMemberService;
 import kr.or.ksmart.lms.pi.vo.Member;
 import kr.or.ksmart.lms.pi.vo.MemberOnline;
@@ -22,11 +26,16 @@ public class PIMemberController {
 	@GetMapping("/join")
 	public ModelAndView memberJoin(HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		mav.setViewName("PI/Join");
-		System.out.println("[MemberController memberJoin] institutionCode" + institutionCode);
+		//	교육원 코드 받아오기
+		System.out.println("[MemberController memberJoin] institutionCode : " + institutionCode);
 		IndexInstitution institution = memberService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
+		//	교육원명 출력하기 위한 institutionList map
+		List<Institution> instList = memberService.memberJoin();
+		mav.addObject("instList", instList);
+		System.out.println("[PIMemberController memberJoin] map:" + instList);
+		mav.setViewName("PI/Join");
 		return mav;
 	}
 	//	회원등록 처리

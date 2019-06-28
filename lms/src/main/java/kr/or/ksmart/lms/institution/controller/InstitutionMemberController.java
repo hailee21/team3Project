@@ -35,7 +35,7 @@ public class InstitutionMemberController {
 			mav.setViewName("association/member/sendEmailToTeacher");
 		} else {
 			System.out.println("[InstitutionMemberController instMemberList] 협회/교육원 직원이 아님");
-			mav.setViewName("/");
+			mav.setViewName("institution/institutionLogin");
 		}
 		return mav;
 	}
@@ -52,7 +52,7 @@ public class InstitutionMemberController {
 			mav.setViewName("association/member/sendEmailToAdmin");
 		} else {
 			System.out.println("[InstitutionMemberController instMemberList] 협회/교육원 직원이 아님");
-			mav.setViewName("/");
+			mav.setViewName("institution/institutionLogin");
 		}
 		return mav;
 	}
