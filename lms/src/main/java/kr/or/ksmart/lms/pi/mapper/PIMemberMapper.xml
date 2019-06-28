@@ -2,10 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.pi.mapper.PIMemberMapper">
 	<!-- memberInsert 할 때 institutionName을 찾기 위한 resultMap -->
-	<resultMap type="kr.or.ksmart.lms.institution.vo.Institution" id="InstitutionMap">
+	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="InstitutionMap">
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>
 	</resultMap>
+	<select id="selectInstList" resultMap="InstitutionMap">
+		SELECT institution_code
+			, institution_name
+		FROM institution
+		LIMIT 1,100
+	</select>
 	<!-- memberInsert 할때 institutionCode 받아와서 해당 교육원 이름을 찾는 select 쿼리 -->
 	<select id="selectInstitutionName"
 			resultType="String">
@@ -14,28 +20,6 @@
 		FROM institution
 		WHERE
 			institution_code = #{institutionCode}
-	</select>
-	<select id="selectMemberCodePk" resultType="String">
-	<!-- MemberCode(Primary Key) 생성을 위한 마지막으로 생성된 코드를 조회 -->
-		SELECT
-			member_code
-		FROM
-			member
-		ORDER BY
-			member_date DESC
-		LIMIT
-			0,1
-	</select>
-	<select id="selectMemberOnlineCodePk" resultType="String">
-	<!-- MemberOnlineCode(Primary Key) 생성을 위한 마지막으로 생성된 코드를 조회 -->
-		SELECT
-			member_online_code
-		FROM
-			member_online
-		ORDER BY
-			member_online_date DESC
-		LIMIT
-			0,1
 	</select>
 	<insert id="insertMember" parameterType="kr.or.ksmart.lms.association.vo.Member">
 	<!-- member 테이블에 insert -->
@@ -65,12 +49,13 @@
 		)
 	</insert>
 	
-	<insert id="insertMemberOnlineId" parameterType="kr.or.ksmart.lms.association.vo.MemberOnline">
-		INSERT INTO
-			member_online_insertid (
-			member_online_id)
+	<insert id="insertMemberOnlineId" parameterType="kr.or.ksmart.lms.pi.vo.MemberOnlineInsertid">
+		INSERT INTO member_online_insertid (
+			member_online_id
+			, member_online_id_insert_date)
 		VALUES (
-			#{memberOnlineId})
+			#{memberOnlineId}
+			, now())
 	</insert>
 	
 	<insert id="insertMemberOnline" parameterType="kr.or.ksmart.lms.association.vo.MemberOnline">

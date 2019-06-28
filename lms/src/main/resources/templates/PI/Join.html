@@ -12,6 +12,11 @@
 <th:block layout:fragment="script">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
+$(document).ready(function(){
+	$('#institutionCode').change(function(){
+		console.log("교육원 코드 :"+$('#institutionCode').val());
+	});
+});
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -121,10 +126,10 @@
 							<input type="button" class="btn btn-outline-info" onclick="sample6_execDaumPostcode()" value="우편번호찾기"><br>
 						</div>
 					</div>
-						<input id="memberAddress" name="memberAddress" class="form-control" placeholder="도로명주소" readonly="readonly" value="" type="text" size="30"/><br>
+						<input type="text" id="memberAddress" name="memberAddress" class="form-control" placeholder="도로명주소" readonly="readonly" value="" size="30"/><br>
 					<div class="row">
 						<div class="col-sm-8">
-							<input id="memberAddressDesc" name="memberAddressDesc" class="form-control" value="2층 한국스마트정보교육원" placeholder="상세주소" type="text"/>
+							<input type="text" id="memberAddressDesc" name="memberAddressDesc" class="form-control" value="2층 한국스마트정보교육원" placeholder="상세주소"/>
 						</div>
 						<div class="col-sm-4">
 							<input type="text" id="sample6_extraAddress" size="7" class="form-control" placeholder="참고항목">
@@ -137,14 +142,16 @@
 			<div class="form-group">
 				<div class="col-sm-5">
 					<label for="InputInstitution">교육원</label>
-					<select class="form-control" name="institutionCode">
+					<!-- <select th:field="*{gender}"> -->
+					<select class="form-control" id="institutionCode" name="institutionCode">
 						<option value="">--교육원선택--</option>
-						<option value="I1">전주평생교육원</option>
-						<option value="I2">서울평생교육원</option>
-						<option value="I3">성남평생교육원</option>
-						<option value="I4">인천평생교육원</option>
-						<option value="I5">광주평생교육원</option>
-						<option value="I6">구미평생교육원</option>
+						<option th:each="institution:${instList}" th:value="${institution.institutionCode}" th:text="${institution.institutionName}"></option>
+						<!-- <option value="I20140101000000">전주평생교육원</option>
+						<option value="I20140102000000">서울평생교육원</option>
+						<option value="I20150103000000">성남평생교육원</option>
+						<option value="I20150203000000">인천평생교육원</option>
+						<option value="I20150204000000">광주평생교육원</option>
+						<option value="I20160203000000">구미평생교육원</option> -->
 					</select>
 				</div>
 			</div>
