@@ -71,19 +71,6 @@
 		ORDER BY
 			payment_annual_fee_date DESC
 	</select>
-	
-	<!-- 연회비 결제 PK select  -->
-	<select id="selectPaymentAnnualFeePk" 
-			resultType="String">
-		SELECT
-			payment_annual_fee_code
-		FROM 
-			payment_annual_fee
-		ORDER BY
-			payment_annual_fee_date DESC
-		LIMIT
-			0,1
-	</select>
 
 	<!--연회비 결재 insert -->
 	<insert id="insertPaymentAnnualFeey"
