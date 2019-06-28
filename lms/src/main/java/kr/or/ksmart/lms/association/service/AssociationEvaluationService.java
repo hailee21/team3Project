@@ -1,5 +1,7 @@
 package kr.or.ksmart.lms.association.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,21 +42,26 @@ public class AssociationEvaluationService {
         //평가를 해야하는 교육원들의 교육원 코드 출력 mapper 호출
         List<String> institutionCodeList = associationEvaluationMapper.selectInstitutionCodeList();
         
-        //교육원 평가 합계의 PK를 출력한다.
-        String evalTotalPK = associationEvaluationMapper.selectEvalTotalPK();
-        int lastNo = 0;
-		if(evalTotalPK == null){
-			//refund_annual_fee 테이블에 아무 데이터가 없으면 lastNo는 1이 된다.
-			lastNo = 0;	
-		} else {
-			lastNo = Integer.parseInt(evalTotalPK.substring(2)); //가져온 PK 값에서 문자를 제외한 숫자값을 얻는다.
+        //테이블의 PK를 위한 무작위 숫자 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+		String nowDate = dateFormat.format(now);
+		nowDate = nowDate.substring(0, 13);
+		nowDate = nowDate.toString().replace("-", "");
+		nowDate = nowDate.toString().replace(" ", "");
+		System.out.println(nowDate);
+		int randomNo1 = (int)(Math.random()*10000);
+		int randomNo2 = (int)(Math.random()*1000);
+		int randomNo3 = (int)(Math.random()*100);
+		int randomNo = randomNo1 + randomNo2 + randomNo3;
+		if(randomNo > 10000) {
+			randomNo = randomNo/10;
 		}
-        lastNo++;
 
         //평가 해야한 교육원들 수만큼 반복하여 교육원 평가 합계를 추가한다.
         for(String institutionCode: institutionCodeList) {
             InsertEvalTotal insert = new InsertEvalTotal();
-            String evalTotalCode = "ET" + lastNo;
+            String evalTotalCode = "ET" + nowDate + randomNo;
             insert.setEvalTotalCode(evalTotalCode);
             insert.setInstitutionCode(institutionCode);
             insert.setEvalTotalType(insertEvalTotal.getEvalTotalType());
@@ -64,13 +71,18 @@ public class AssociationEvaluationService {
             associationEvaluationMapper.insertEvalTotal(insert);
 
             //추가하면 lastNo에 1을더하여 PK가 중복되지 않도록 한다.
-            lastNo++;
+            randomNo++;
 		}
     }
 
-    //교육원 평가 합계 비동기 출력 service
+    //교육원 평가 합계 출력 service
     public Map<String, Object> getEvalTotatList(Map<String, Object> map) {
         System.out.println(map);
+        String evalTotalYear = ""+map.get("evalTotalYear");
+        if(evalTotalYear.equals("0")){
+            evalTotalYear = "%%";
+            map.put("evalTotalYear", evalTotalYear);
+        }
     	//입력조건에 따른 교육원 평가 합계 리스트 출력 mapper 호출
         List<EvalTotal> evalTotalList = associationEvaluationMapper.selectSerachEvalTotalList(map);
         

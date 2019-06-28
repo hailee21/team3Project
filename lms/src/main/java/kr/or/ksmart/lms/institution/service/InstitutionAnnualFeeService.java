@@ -76,11 +76,22 @@ public class InstitutionAnnualFeeService {
 	public void addPaymentAnnualFee(PaymentAnnualFee paymentAnnualFee) {
 		System.out.println("[InstitutionService addPaymentAnnualFee] 호출");
 
-		//payment_annual_fee 테이블에 입력할 PK 변수 얻기
-		String paymentAnnualFeePk = institutionAnnualFeeMapper.selectPaymentAnnualFeePk(); //payment_annual_fee 테이블에서 마지막으로 입력된 PK 갑을 가져온다.
-		int lastNo = Integer.parseInt(paymentAnnualFeePk.substring(3)); //가져온 PK 값에서 문자를 제외한 숫자값을 얻는다.
-		lastNo++; //얻은 숫자값에 +1을 한다.
-		String paymentAnnualFeeCode = "PAF" + lastNo; //payment_annual_fee 테이블의 PK 형식에 맞게 변수를 선언한다.
+		//테이블의 PK를 위한 무작위 숫자 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+		String nowDate = dateFormat.format(now);
+		nowDate = nowDate.substring(0, 13);
+		nowDate = nowDate.toString().replace("-", "");
+		nowDate = nowDate.toString().replace(" ", "");
+		System.out.println(nowDate);
+		int randomNo1 = (int)(Math.random()*10000);
+		int randomNo2 = (int)(Math.random()*1000);
+		int randomNo3 = (int)(Math.random()*100);
+		int randomNo = randomNo1 + randomNo2 + randomNo3;
+		if(randomNo > 10000) {
+			randomNo = randomNo/10;
+		}
+		String paymentAnnualFeeCode = "PAF" + nowDate + randomNo; //payment_annual_fee 테이블의 PK 형식에 맞게 변수를 선언한다.
 		paymentAnnualFee.setPaymentAnnualFeeCode(paymentAnnualFeeCode); //선언된 변수를 paymentAnnualFee VO에 입력한다.
 		
 		//payment_annual_fee 테이블에 입력한다.
@@ -88,8 +99,6 @@ public class InstitutionAnnualFeeService {
 		
 		//결제가 완료되면 사용여부 테이블을 업데이트 하기 위한 변수 선언
 		//결제시 입력된 데이터를 기준으로 남은일을 계산한다.
-		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:SS"); //DB에 저장되는 형식과 동일한 형태
-		Date now = new Date(); 
 		Timestamp startDate = Timestamp.valueOf(dateFormat.format(now));
 		Timestamp endDate = Timestamp.valueOf(paymentAnnualFee.getPaymentAnnualFeeServiceEndDate());
 		long longStartDate = startDate.getTime();

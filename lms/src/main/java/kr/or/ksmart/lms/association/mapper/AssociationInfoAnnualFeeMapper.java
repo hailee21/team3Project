@@ -15,9 +15,6 @@ import kr.or.ksmart.lms.association.vo.RefundPolicy;
 public interface AssociationInfoAnnualFeeMapper {
 	//연회비 개요 리스트 출력 mapper
 	public List<InfoAnnualFee> selectInfoAnnualFeeList();
-
-	//연회비 개요 PK 출력 mapper
-	public String selectInfoAnnualFeePk();
 	
 	//연회비 개요 추가 mapper
 	public void insertInfoAnnualFee(InfoAnnualFee infoAnnualFee);
@@ -45,9 +42,6 @@ public interface AssociationInfoAnnualFeeMapper {
 	
 	//교육원 별 최근 결제 내역 출력 mapper
 	public PaymentAnnualFee selectPaymentAnnualFeeListForRefund(Map<String, Object> map);
-
-	//연회비 환불 PK 출력 mapper
-	public String selectRefundAnnualFeePK();
 
 	//연회비 환불 추가 mapper
 	public void insertRefundAnnualFee(RefundAnnualFee refundAnnualFee);

@@ -9,9 +9,11 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-<script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
     $(document).ready(function() {
-        $('#btnGet').on('click',function() {
+        //년도별 평가 합계 검색 버튼 이벤트 처리
+        $('#btnGetEvalTotal').on('click',function() {
             $('#getEvalTotal').submit()
         });
     })
@@ -19,24 +21,30 @@
 </th:block>
 
 <div layout:fragment="content">
-    <h3>교육원 평가 관리</h3>
-    <h6>평가 년도와 평가 항목을 선택하여 검색시 리스트가 출력</h6>
-    <a type="button" href="/association/evaluation/addEvaluationTotal" class="btn btn-secondary">교육원 평가항목 추가</a>
-	<form id="getEvalTotal" action="/association/evaluation/evaluationTotal" method="post">
+    <h2>교육원 평가</h2>
+    <br>
+    <h3>년도별 평가 합계</h3>
+    <a type="button" href="/association/evaluation/evaluationTotalChart" class="btn btn-secondary">년도별 평가 그래프로 출력</a>
+    <form id="getEvalTotal" action="/association/evaluation/evaluationTotal" method="post">
 		<div class="form-group">
 			<label>평가 년도 :</label>
             <select class="form-control" id="evalTotalYear" name="evalTotalYear">
+                <option value="0">전체</option>
                 <option th:each="evalTotalYear:${evalTotalYear}" th:text="${evalTotalYear}" th:value="${evalTotalYear}"></option>
             </select>
         </div>
         <div class="form-group">
             <label>평가 항목 :</label>
             <select class="form-control" id="evalTotalType" name="evalTotalType">
+                <option value="%">전체</option>
                 <option th:each="evalTotalType:${evalTotalType}" th:text="${evalTotalType}" th:value="${evalTotalType}"></option>
             </select>
         </div>
-		<button type="button" id="btnGet" class="btn btn-secondary">검색</button>
+		<button type="button" id="btnGetEvalTotal" class="btn btn-secondary">년도별 평가 합계 검색</button>
+        <a type="button" href="/association/evaluation/addEvaluationTotal" class="btn btn-secondary">년도별 평가 합계 추가</a>
     </form>
+    <br>
+    <div id="evalTotalChart"></div>
     <table class="table">
 		<thead>
 			<tr>
@@ -56,6 +64,7 @@
 				<th>11월</th>			
                 <th>12월</th>
                 <th>총합계</th>
+                <th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -76,6 +85,52 @@
                 <td th:text="${totalList.evalTotalNov}"></td>
                 <td th:text="${totalList.evalTotalDec}"></td>
                 <td th:text="${totalList.evalTotalSumScore}"></td>
+                <td><a type="button" th:href="@{'/association/evaluation/modifyEvalTotal?evalTotalCode='+${totalList.evalTotalCode}}" class="btn btn-secondary">수정</a></td>
+            </tr>
+		</tbody>
+    </table>
+    <br>
+    <br>
+    <h3>평가 항목 상세 보기</h3>
+    <a type="button" href="/association/evaluation/addEvalByAssociation" class="btn btn-secondary">평가 항목 상세 추가</a>
+	<form id="getEvalByAssociation" action="#" method="post">
+		<div class="form-group">
+			<label>평가 년도 :</label>
+            <select class="form-control" name="evalTotalYear">
+                <option th:each="evalTotalYear:${evalTotalYear}" th:text="${evalTotalYear}" th:value="${evalTotalYear}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>평가 항목 :</label>
+            <select class="form-control" name="evalTotalType">
+                <option th:each="evalTotalType:${evalTotalType}" th:text="${evalTotalType}" th:value="${evalTotalType}"></option>
+            </select>
+        </div>
+		<button type="button" id="btnGet" class="btn btn-secondary">검색</button>
+    </form>
+    <table class="table">
+		<thead>
+			<tr>
+				<th>교육원 명</th>
+				<th>평가 년도</th>			
+                <th>평가 항목</th>
+                <th>평가 상세 항목</th>
+				<th>평가 점수</th>			
+                <th>평가 시작일</th>
+                <th>평가 종료일</th>
+				<th>평가 발표일</th>			
+			</tr>
+		</thead>
+		<tbody>
+            <tr th:each="evalList:${evalByAssociationList}">
+                <td th:text="${evalList.institutionName}"></td>
+                <td th:text="${evalList.evalTotalYear}"></td>
+                <td th:text="${evalList.infoEvalByAssociationType}"></td>
+                <td th:text="${evalList.infoEvalByAssociationSort}"></td>
+                <td th:text="${evalList.evalByAssociationScore}"></td>
+                <td th:text="${evalList.evalByAssociationStartDate}"></td>
+                <td th:text="${evalList.evalByAssociationEndDte}"></td>
+                <td th:text="${evalList.evalByAssociationResultDate}"></td>
             </tr>
 		</tbody>
 	</table>

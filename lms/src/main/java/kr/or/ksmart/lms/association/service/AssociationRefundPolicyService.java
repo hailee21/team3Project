@@ -1,5 +1,7 @@
 package kr.or.ksmart.lms.association.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,11 +36,22 @@ public class AssociationRefundPolicyService {
 	
 	//환불 정책 추가 액션 service
 	public void addRefundPolicy(RefundPolicy refundPolicy){
-		//refund_policy 테이블에 입력할 PK 변수 얻기
-		String refundPolicyPK = associationRefundPolicyMapper.selectRefundPolicyPk(); //refund_policy 테이블에서 마지막으로 입력된 PK 갑을 가져온다.
-		int lastNo = Integer.parseInt(refundPolicyPK.substring(2)); //가져온 PK 값에서 문자를 제외한 숫자값을 얻는다.
-		lastNo++; //얻은 숫자값에 +1을 한다.
-		String refundPolicyCode = "RP"+lastNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
+		//테이블의 PK를 위한 무작위 숫자 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+		String nowDate = dateFormat.format(now);
+		nowDate = nowDate.substring(0, 13);
+		nowDate = nowDate.toString().replace("-", "");
+		nowDate = nowDate.toString().replace(" ", "");
+		System.out.println(nowDate);
+		int randomNo1 = (int)(Math.random()*10000);
+		int randomNo2 = (int)(Math.random()*1000);
+		int randomNo3 = (int)(Math.random()*100);
+		int randomNo = randomNo1 + randomNo2 + randomNo3;
+		if(randomNo > 10000) {
+			randomNo = randomNo/10;
+		}
+		String refundPolicyCode = "RP"+nowDate+randomNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
 		refundPolicy.setRefundPolicyCode(refundPolicyCode); //선언된 PK를 VO에 입력한다.
 
 		//refund_policy 테이블에 입력 mapper 호출
