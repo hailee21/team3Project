@@ -13,9 +13,6 @@ public interface AssociationEvaluationMapper {
     //평가를 해야하는 교육원 리스트 mapper
     public List<String> selectInstitutionCodeList();
 
-    //교육원 평가 합계 PK 출력 mapper
-    public String selectEvalTotalPK();
-
     //교육원 평가 합계 추가 mapper
     public void insertEvalTotal(InsertEvalTotal insertEvalTotal);
     /*

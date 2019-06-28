@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        //차트 이벤트 처리
+        $('#btnEvalTotalChart').on('click',function() {
+            let evalTotalYear = $('#evalTotalYear').val();
+            let evalTotalType = $('#evalTotalType').val();
+            $.ajax({
+                url:'/restEvaluationTotalChart'
+                ,type:'post'
+                ,data:{'evalTotalYear':evalTotalYear,'evalTotalType':evalTotalType}
+                ,success:function(map){
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(function() {
+
+                        let chartData = new google.visualization.DataTable();
+                        chartData.addColumn('number', '월');
+                        chartData.addColumn('number', '');
+                        chartData.addColumn('number', '');
+                        let evalTotalData = [
+                            [1, 100, 0],
+                            [2, 100, 0],
+                            [3, 100, 0],
+                            [4, 100, 0],
+                            [5, 100, 0],
+                            [6, 100, 0],
+                            [7, 100, 0],
+                            [8, 100, 0],
+                            [9, 100, 0],
+                            [10, 100, 0],
+                            [11, 100, 0],
+                            [12, 100, 0]
+                        ];
+                        let no1 = 3;
+                        $(map.evalTotalList).each(function(index,item){
+                            chartData.addColumn('number', item.institutionName);
+                            evalTotalData[0][no1] = item.evalTotalJan;
+                            evalTotalData[1][no1] = item.evalTotalFeb;
+                            evalTotalData[2][no1] = item.evalTotalMar;
+                            evalTotalData[3][no1] = item.evalTotalApr;
+                            evalTotalData[4][no1] = item.evalTotalMay;
+                            evalTotalData[5][no1] = item.evalTotalJun;
+                            evalTotalData[6][no1] = item.evalTotalJul;
+                            evalTotalData[7][no1] = item.evalTotalAug;
+                            evalTotalData[8][no1] = item.evalTotalSep;
+                            evalTotalData[9][no1] = item.evalTotalOct;
+                            evalTotalData[10][no1] = item.evalTotalNov;
+                            evalTotalData[11][no1] = item.evalTotalDec;
+                            no1++;
+                        });
+                        console.log(evalTotalData)
+                        chartData.addRows(evalTotalData);
+
+
+                        let options = {
+                            chart: {
+                            title: '년도별 평가 합계 차트',
+                            subtitle: '100점 만점'
+                            },
+                            legend: 'none',
+                            series: {
+                            0: { color: '#ffffff' },
+                            1: { color: '#ffffff' }
+                            },
+                            width: 900,
+                            height: 500
+                        };
+
+                        let chart = new google.charts.Line(document.getElementById('evalTotalChart'));
+
+                        chart.draw(chartData, google.charts.Line.convertOptions(options));
+                    })
+                }
+            })
+        });
+    })
+</script>
+</th:block>
+
+<div layout:fragment="content">
+    <h2>교육원 평가</h2>
+    <br>
+    <h3>년도별 평가 차트</h3>
+    <a type="button" href="/association/evaluation/addEvaluationTotal" class="btn btn-secondary">년도별 평가 합계 추가</a>
+    <form id="getEvalTotal" action="/association/evaluation/evaluationTotal" method="post">
+		<div class="form-group">
+			<label>평가 년도 :</label>
+            <select class="form-control" id="evalTotalYear" name="evalTotalYear">
+                <option th:each="evalTotalYear:${evalTotalYear}" th:text="${evalTotalYear}" th:value="${evalTotalYear}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>평가 항목 :</label>
+            <select class="form-control" id="evalTotalType" name="evalTotalType">
+                <option th:each="evalTotalType:${evalTotalType}" th:text="${evalTotalType}" th:value="${evalTotalType}"></option>
+            </select>
+        </div>
+        <div class="btn-group btn-group-lg">
+			<button type="button" id="btnEvalTotalChart" class="btn btn-secondary">차트 출력</button>
+    	</div>
+    </form>
+    <br>
+    <div id="evalTotalChart"></div>
+    <table class="table">
+		<thead>
+			<tr>
+				<th>교육원 명</th>
+				<th>평가 항목</th>			
+                <th>평가 년도</th>
+                <th>1월</th>
+				<th>2월</th>			
+                <th>3월</th>
+                <th>4월</th>
+				<th>5월</th>			
+                <th>6월</th>
+                <th>7월</th>
+				<th>8월</th>			
+                <th>9월</th>
+                <th>10월</th>
+				<th>11월</th>			
+                <th>12월</th>
+                <th>총합계</th>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+		</tbody>
+    </table>
+</div>
+</html>

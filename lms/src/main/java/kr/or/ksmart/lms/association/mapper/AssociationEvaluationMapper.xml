@@ -38,19 +38,6 @@
 			available_institution_remaining_date > 0
 	</select>
 
-	<!--교육원 평가 합계 PK 출력 select  -->
-	<select id="selectEvalTotalPK" 
-			resultType="String">
-		SELECT
-			eval_total_code
-		FROM 
-			eval_total
-		ORDER BY
-			eval_total_date DESC
-		LIMIT
-			0,1
-	</select>
-
 	<!-- 교육원 평가 합계 insert -->
 	<insert id="insertEvalTotal"
 			parameterType="kr.or.ksmart.lms.association.vo.InsertEvalTotal">
@@ -129,9 +116,9 @@
 		FROM 
 			eval_total
 		WHERE
-			eval_total_year = #{evalTotalYear}
+			eval_total_year LIKE #{evalTotalYear}
 			AND
-			eval_total_type = #{evalTotalType}
+			eval_total_type LIKE #{evalTotalType}
 	</select>
 	
 	<!-- 교육원 평가 합계 리스트 출력 select  -->

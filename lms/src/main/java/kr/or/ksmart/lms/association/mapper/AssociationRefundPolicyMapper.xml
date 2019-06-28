@@ -27,7 +27,7 @@
 		FROM 
 			refund_policy
 		WHERE
-			refund_policy_type = '연회비 환불'
+			refund_policy_type LIKE '%연회비%'
 		ORDER BY
 			refund_policy_legislation_date DESC
 	</select>
@@ -45,7 +45,7 @@
 		FROM 
 			refund_policy
 		WHERE
-			refund_policy_type = '자격시험 환불'
+			refund_policy_type LIKE '%강의%'
 		ORDER BY
 			refund_policy_legislation_date DESC
 	</select>
@@ -63,22 +63,9 @@
 		FROM 
 			refund_policy
 		WHERE
-			refund_policy_type LIKE '강의환불%'
+			refund_policy_type LIKE '%자격시험%'
 		ORDER BY
 			refund_policy_legislation_date DESC
-	</select>
-	
-	<!-- 환불 정책 PK select  -->
-	<select id="selectRefundPolicyPk" 
-			resultType="String">
-		SELECT
-			refund_policy_code
-		FROM 
-			refund_policy
-		ORDER BY
-			refund_policy_legislation_date DESC
-		LIMIT
-			0,1
 	</select>
 	
 	<!-- 환불 정책 insert -->

@@ -76,11 +76,22 @@ public class AssociationInfoAnnualFeeService {
 
 	//연회비 개요 추가 액션 service
 	public void addInfoAnnualFee(InfoAnnualFee infoAnnualFee) {
-		//info_annual_fee 테이블에 입력할 PK 변수 얻기
-		String infoAnnualFeePK = associationInfoAnnualFeeMapper.selectInfoAnnualFeePk(); //info_annual_fee 테이블에서 마지막으로 입력된 PK 갑을 가져온다.
-		int lastNo = Integer.parseInt(infoAnnualFeePK.substring(3)); //가져온 PK 값에서 문자를 제외한 숫자값을 얻는다.
-		lastNo++; //얻은 숫자값에 +1을 한다.
-		String infoAnnualFeeCode = "IAF"+lastNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
+        //테이블의 PK를 위한 무작위 숫자 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+		String nowDate = dateFormat.format(now);
+		nowDate = nowDate.substring(0, 13);
+		nowDate = nowDate.toString().replace("-", "");
+		nowDate = nowDate.toString().replace(" ", "");
+		System.out.println(nowDate);
+		int randomNo1 = (int)(Math.random()*10000);
+		int randomNo2 = (int)(Math.random()*1000);
+		int randomNo3 = (int)(Math.random()*100);
+		int randomNo = randomNo1 + randomNo2 + randomNo3;
+		if(randomNo > 10000) {
+			randomNo = randomNo/10;
+		}
+		String infoAnnualFeeCode = "IAF"+nowDate+randomNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
 		infoAnnualFee.setInfoAnnualFeeCode(infoAnnualFeeCode); //선언된 PK를 VO에 입력한다.
 
 		//info_annual_fee 테이블에 입력 mapper 호출
@@ -171,20 +182,22 @@ public class AssociationInfoAnnualFeeService {
 
 	//연회비 환불 액션 출력 service
 	public void addRefundAnnualFee(RefundAnnualFee refundAnnualFee){
-		//refund_annual_fee 테이블에 입력할 PK 변수 얻기
-		String refundAnnualFeePK = associationInfoAnnualFeeMapper.selectRefundAnnualFeePK(); //info_annual_fee 테이블에서 마지막으로 입력된 PK 갑을 가져온다.
-		System.out.println(refundAnnualFeePK);
-		int lastNo = 0;
-		if(refundAnnualFeePK == null){
-			//refund_annual_fee 테이블에 아무 데이터가 없으면 lastNo는 1이 된다.
-			lastNo = 0;	
-		} else {
-			System.out.println("null 아님");
-			lastNo = Integer.parseInt(refundAnnualFeePK.substring(3)); //가져온 PK 값에서 문자를 제외한 숫자값을 얻는다.
+		//테이블의 PK를 위한 무작위 숫자 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+		String nowDate = dateFormat.format(now);
+		nowDate = nowDate.substring(0, 13);
+		nowDate = nowDate.toString().replace("-", "");
+		nowDate = nowDate.toString().replace(" ", "");
+		System.out.println(nowDate);
+		int randomNo1 = (int)(Math.random()*10000);
+		int randomNo2 = (int)(Math.random()*1000);
+		int randomNo3 = (int)(Math.random()*100);
+		int randomNo = randomNo1 + randomNo2 + randomNo3;
+		if(randomNo > 10000) {
+			randomNo = randomNo/10;
 		}
-		System.out.println(lastNo);
-		lastNo++; //얻은 숫자값에 +1을 한다.
-		String refundAnnualFeeCode = "RAF"+lastNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
+		String refundAnnualFeeCode = "RAF"+nowDate+randomNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
 		refundAnnualFee.setRefundAnnualFeeCode(refundAnnualFeeCode);; //선언된 PK를 VO에 입력한다.
 		System.out.println(refundAnnualFeeCode);
 		

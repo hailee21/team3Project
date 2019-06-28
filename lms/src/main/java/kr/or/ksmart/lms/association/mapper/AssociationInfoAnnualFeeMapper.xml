@@ -79,19 +79,6 @@
 		ORDER BY
 			info_annual_fee_establishment_date DESC
 	</select>
-
-	<!-- 연회비 개요 PK select  -->
-	<select id="selectInfoAnnualFeePk" 
-			resultType="String">
-		SELECT
-			info_annual_fee_code
-		FROM 
-			info_annual_fee
-		ORDER BY
-			info_annual_fee_establishment_date DESC
-		LIMIT
-			0,1
-	</select>
 	
 	<!-- 연회비 개요 insert -->
 	<insert id="insertInfoAnnualFee"
@@ -231,19 +218,6 @@
 			payment_annual_fee_date DESC
 		LIMIT
 			0, 1
-	</select>
-
-	<!-- 연회비 환불 PK select  -->
-	<select id="selectRefundAnnualFeePK" 
-			resultType="String">
-		SELECT
-			refund_annual_fee_code
-		FROM 
-			refund_annual_fee
-		ORDER BY
-			refund_annual_fee_date DESC
-		LIMIT
-			0,1
 	</select>
 
 	<!-- 연회비 환불 정책 insert -->
