@@ -30,7 +30,7 @@
 		</tr>
 		<tr th:each="subject:${list}">
 			<td th:text="${subject.licenseTestLocationCode}"></td>
-			<td th:text="${subject.licenseTestLocationRegion}"></td>
+			<td><a th:text="${subject.licenseTestLocationRegion}" th:href="@{'/association/license/licenseTestLocationDetail?licenseTestLocationRegion='+${subject.licenseTestLocationRegion}}"></a></td>
 			<td th:text="${subject.licenseTestLocationAddress}"></td>
 			<td th:text="${subject.licenseTestLocationUse}"></td>
 			<td th:text="${subject.licenseTestLocationMaximumNumber}"></td>

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.lms.association.mapper.AssociationLicenseTestLocationMapper;
 import kr.or.ksmart.lms.association.vo.LicenseTestLocation;
+import kr.or.ksmart.lms.association.vo.LicenseTestLocationDetail;
 
 @Service
 @Transactional
@@ -15,7 +16,12 @@ public class AssociationLicenseTestLocationService {
 
     @Autowired
     private AssociationLicenseTestLocationMapper licenseTestLocationMapper;
-    
+    //자격 시험 장소 상세보기 메서드
+    public List<LicenseTestLocationDetail> selectTestLocationDetail(LicenseTestLocationDetail licenseTestLocationDetail) {
+		List<LicenseTestLocationDetail> list = licenseTestLocationMapper.selectLicenseTestLocationDetail(licenseTestLocationDetail);
+    	return list;
+    	
+    }
     //자격 시험 장소 조회 메서드
     public List<LicenseTestLocation> selectTestLocation(LicenseTestLocation licenseTestLocation) {
 		List<LicenseTestLocation> list = licenseTestLocationMapper.selectLicenseTestLocation(licenseTestLocation);

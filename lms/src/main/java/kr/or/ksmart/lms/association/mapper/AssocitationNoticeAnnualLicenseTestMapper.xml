@@ -12,6 +12,7 @@
 		<result column="notice_annual_license_test_start_date" property="noticeAnnualLicenseTestStartDate"/>
 		<result column="notice_annual_license_test_end_date" property="noticeAnnualLicenseTestEndDate"/>
 		<result column="notice_annual_license_test_result_date" property="noticeAnnualLicenseTestResultDate"/>
+		<result column="notice_annual_license_test_insert_date" property="noticeAnnualLicenseTestInsertDate"/>
   	</resultMap>
   	<!-- 연간 자격 시험 일정 등록 -->
   		<insert id="insertNoticeAnnualLicenseTest"
@@ -26,6 +27,7 @@
 			, #{noticeAnnualLicenseTestStartDate}
 			, #{noticeAnnualLicenseTestEndDate}
 			, #{noticeAnnualLicenseTestResultDate}
+			, NOW()
 		);
 		</insert>
   	<!-- 연간 자격 시험 일정 List -->
@@ -39,6 +41,7 @@
 			, notice_annual_license_test_start_date
 			, notice_annual_license_test_end_date
 			, notice_annual_license_test_result_date
+			, notice_annual_license_test_insert_date
 		FROM
 			notice_annual_license_test
 	</select>

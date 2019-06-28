@@ -38,7 +38,7 @@
 		SELECT
 			info_qualification_code
 			, info_qualification_name
-			, info_qualification_required_code
+			, info_qualification_required_code 
 			, info_qualification_test_use
 			, info_qualification_required_type
 			, info_qualification_description

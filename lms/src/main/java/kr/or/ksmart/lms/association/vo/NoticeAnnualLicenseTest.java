@@ -9,7 +9,7 @@ public class NoticeAnnualLicenseTest {
 	private String noticeAnnualLicenseTestStartDate;
 	private String noticeAnnualLicenseTestEndDate;
 	private String noticeAnnualLicenseTestResultDate;
-	
+	private String noticeAnnualLicenseTestInsertDate;
 	public String getNoticeAnnualLicenseTestCode() {
 		return noticeAnnualLicenseTestCode;
 	}
@@ -52,6 +52,12 @@ public class NoticeAnnualLicenseTest {
 	public void setNoticeAnnualLicenseTestResultDate(String noticeAnnualLicenseTestResultDate) {
 		this.noticeAnnualLicenseTestResultDate = noticeAnnualLicenseTestResultDate;
 	}
+	public String getNoticeAnnualLicenseTestInsertDate() {
+		return noticeAnnualLicenseTestInsertDate;
+	}
+	public void setNoticeAnnualLicenseTestInsertDate(String noticeAnnualLicenseTestInsertDate) {
+		this.noticeAnnualLicenseTestInsertDate = noticeAnnualLicenseTestInsertDate;
+	}
 	@Override
 	public String toString() {
 		return "NoticeAnnualLicenseTest [noticeAnnualLicenseTestCode=" + noticeAnnualLicenseTestCode
@@ -60,7 +66,8 @@ public class NoticeAnnualLicenseTest {
 				+ ", noticeAnnualLicenseTestApplyEndDate=" + noticeAnnualLicenseTestApplyEndDate
 				+ ", noticeAnnualLicenseTestStartDate=" + noticeAnnualLicenseTestStartDate
 				+ ", noticeAnnualLicenseTestEndDate=" + noticeAnnualLicenseTestEndDate
-				+ ", noticeAnnualLicenseTestResultDate=" + noticeAnnualLicenseTestResultDate + "]";
+				+ ", noticeAnnualLicenseTestResultDate=" + noticeAnnualLicenseTestResultDate
+				+ ", noticeAnnualLicenseTestInsertDate=" + noticeAnnualLicenseTestInsertDate + "]";
 	}
 	
 }
