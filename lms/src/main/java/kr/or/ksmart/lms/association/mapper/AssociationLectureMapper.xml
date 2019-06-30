@@ -75,6 +75,20 @@
 			info_lecture_code = #{lectureCode}
 	</select>
 
+	<!-- detail Subject 출력 메서드 -->
+	<select id="associationSelectInfoSubjectBySubjectCode"
+			resultMap="InfoSubjectMap">
+		SELECT 
+			info_subject_code
+			,info_subject_name
+			,info_subject_difficulty
+			,info_subject_modification_history
+		FROM 
+			info_subject
+		WHERE 
+			info_subject_code = #{infoSubjectCode}
+	</select>
+
 	<!-- Lecture 강의표준명 리스트 출력 / 비동기방식 -->
 	<select id="associationSelectInfoLectureNameList" 
 			parameterType="String"

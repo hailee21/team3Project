@@ -10,6 +10,8 @@ import kr.or.ksmart.lms.association.vo.InfoSubject;
 
 @Mapper
 public interface AssociationLectureMapper {
+	public InfoSubject associationSelectInfoSubjectBySubjectCode(String infoSubjectCode);
+	
 	// infoLecture 리스트 출력하는 메서드
 	public List<InfoLecture> associatonSelectInfoLectureList();
 	

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.association.service.AssociationLectureService;
 import kr.or.ksmart.lms.association.vo.InfoLecture;
+import kr.or.ksmart.lms.association.vo.InfoSubject;
 
 @Controller
 public class AssociationLectureController {
@@ -28,12 +29,12 @@ public class AssociationLectureController {
 		if(memberRank.equals("협회직원")) {
 			System.out.println("협회직원");
 			
-			System.out.println("[LectureController associationGetInfoLectureList]");
+			System.out.println("[associationLectureController associationGetInfoLectureList]");
 			mav.setViewName("/association/lecture/infoLectureList");
 			
 			// mav내부에 Service에서 호출하여 list 객체참조변수에 담은 값을 넣어서 뷰에서 활용하기
-			List<InfoLecture> infoLectureList = associationLectureService.getInfoLectureList();
-			System.out.println("[LectureController getSubjectListAssociation] infoLectureList : "+ infoLectureList);
+			List<InfoLecture> infoLectureList = associationLectureService.associationGetInfoLectureList();
+			System.out.println("[associationLectureController associationGetInfoLectureList] infoLectureList : "+ infoLectureList);
 			mav.addObject("infoLectureList", infoLectureList);			
 		}else {
 			System.out.println("협회직원아님");
@@ -58,8 +59,8 @@ public class AssociationLectureController {
 			mav.setViewName("/association/lecture/subjectList");
 			
 			// mav내부에 Service에서 호출하여 infoLecture객체참조변수에 담은 값을 넣어서 뷰에서 활용하기
-			InfoLecture infoLecture = associationLectureService.getDetailInfoLecture(infoLectureCode);
-			System.out.println("[LectureController associationGetDetailInfoLecture] infoLecture : "+ infoLecture);
+			InfoLecture infoLecture = associationLectureService.associationGetDetailInfoLecture(infoLectureCode);
+			System.out.println("[associationLectureController associationGetDetailInfoLecture] infoLecture : "+ infoLecture);
 			mav.addObject("infoLecture", infoLecture);				
 		}else {
 			System.out.println("협회직원아님");
@@ -83,9 +84,35 @@ public class AssociationLectureController {
 			mav.setViewName("/association/lecture/subjectList");
 			
 			// mav내부에 Service에서 호출하여 list 객체참조변수에 담은 값을 넣어서 뷰에서 활용하기
-			List<InfoLecture> sortList = associationLectureService.getInfoLectureSortList();
-			System.out.println("[LectureController getSubjectListAssociation] sortList : "+ sortList);
+			List<InfoLecture> sortList = associationLectureService.associationGetInfoLectureSortList();
+			System.out.println("[associationLectureController associationGetSubjectList] sortList : "+ sortList);
 			mav.addObject("sortList", sortList);			
+		}else {
+			System.out.println("협회직원아님");
+			
+			mav.setViewName("/association/associationLogin");
+		}		
+		return mav;
+	}
+	
+	@GetMapping("/association/lecture/detailSubject")
+	public ModelAndView associationGetDetailSubjectBySubjectCode(ModelAndView mav, HttpSession session
+																, @RequestParam String infoSubjectCode) {
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("협회직원")) {
+			System.out.println("협회직원");
+			
+			System.out.println("[AssociationLectureController associationGetDetailSubjectBySubjectCode]");
+			System.out.println("[AssociationLectureController associationGetDetailSubjectBySubjectCode] infoSubjectCode :"+infoSubjectCode);
+			mav.setViewName("/association/lecture/detailSubject");
+			
+			// mav내부에 Service에서 호출하여 infoSubject 객체참조변수에 담은 값을 넣어서 뷰에서 활용하기
+			InfoSubject infoSubject = associationLectureService.associationGetDetailSubjectBySubjectCode(infoSubjectCode);
+			System.out.println("[associationLectureController associationGetDetailSubjectBySubjectCode] infoSubject : "+ infoSubject);
+			mav.addObject("infoSubject", infoSubject);				
 		}else {
 			System.out.println("협회직원아님");
 			

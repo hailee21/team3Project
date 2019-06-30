@@ -12,5 +12,24 @@
 </th:block>
 
 <div layout:fragment="content">
+	<h1>강의표준 목록</h1>
+	<form id="detailInfoSubject" >
+		<table class="table table-striped" th:each="info:${infoSubject}">
+			<tr>
+				<td>과목명</td>
+				<td th:text="${info.infoSubjectName}" th:value="${info.infoSubjectCode}"></td>
+			</tr>
+			<tr>
+				<td>난이도</td>
+				<td th:text="${info.infoSubjectDifficulty}" th:value="${info.infoSubjectDifficulty}"></td>							
+			</tr>
+			<tr>
+				<td>변경일자</td>
+				<td th:text="${info.infoSubjectModificationHistory}" th:value="${info.infoSubjectModificationHistory}"></td>	
+			</tr>
+		</table>
+		<button id="modify" type="button">수정</button>
+		<button id="delete" type="button">삭제</button>
+	</form>
 </div>
 </html>

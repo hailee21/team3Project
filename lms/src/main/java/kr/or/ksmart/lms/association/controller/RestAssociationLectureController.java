@@ -18,17 +18,20 @@ public class RestAssociationLectureController {
 	// institution layout 강의표준명 리스트 출력 controller	
 	@PostMapping("/association/getInfoLectureNameList")
 	public List<InfoLecture> associationGetInfoLectureNameList(@RequestParam() String lectureSort){
-		System.out.println("[RestLectureController getInfoLectureNameList] lectureSort: "+ lectureSort);
-		return  associationLectureService.getInfoLectureNameList(lectureSort);
+		System.out.println("[RestAssociationLectureController associationGetInfoLectureNameList] lectureSort: "+ lectureSort);
+		return  associationLectureService.associationGetInfoLectureNameList(lectureSort);
 		
 	}
 	
 	// institution layout 과목리스트 출력 controller
 	@PostMapping("/association/getSubjectList")
 	public List<InfoSubject> associationGetSubjectListByLectureCode(@RequestParam() String lectureCode){
-		System.out.println("[RestLectureController getInfoLectureNameList] lectureCode: "+ lectureCode);
-		return  associationLectureService.getSubjectListByLectureCode(lectureCode);
+		System.out.println("[RestAssociationLectureController associationGetSubjectListByLectureCode] lectureCode: "+ lectureCode);
 		
+		// 유효성검사를 위한 준비
+		List<InfoSubject> list = associationLectureService.associationGetSubjectListByLectureCode(lectureCode);
+		System.out.println("[RestAssociationLectureController associationGetSubjectListByLectureCode] subjectList: "+ list);
+		return list;
 	}
 
 }
