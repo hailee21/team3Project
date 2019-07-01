@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationInfoEvalMapper">
+	<insert id="insertInfoEvalByAssociation" parameterType="kr.or.ksmart.lms.association.vo.InfoEvalByAssociation">
+	<!-- member 테이블에 insert -->
+		INSERT INTO
+			info_eval_by_association (
+			info_eval_by_association_code
+			, info_eval_by_association_sort
+			, info_eval_by_association_type
+			, info_eval_by_association_contents
+			, info_eval_by_association_effective_date
+			, info_eval_by_association_insert_date)
+		VALUES (
+			#{infoEvalByAssociationCode}
+			, #{infoEvalByAssociationSort}
+			, #{infoEvalByAssociationType}
+			, #{infoEvalByAssociationContents}
+			, #{infoEvalByAssociationEffectiveDate}
+			, now()
+		)
+	</insert>
+	<resultMap type="kr.or.ksmart.lms.association.vo.InfoEvalByAssociation" id="InfoEvalByAssociationListMap">
+		<result column="info_eval_by_association_code" property="infoEvalByAssociationCode"/>
+		<result column="info_eval_by_association_sort" property="infoEvalByAssociationSort"/>
+		<result column="info_eval_by_association_type" property="infoEvalByAssociationType"/>
+		<result column="info_eval_by_association_contents" property="infoEvalByAssociationContents"/>
+		<result column="info_eval_by_association_effective_date" property="infoEvalByAssociationEffectiveDate"/>
+		<result column="info_eval_by_association_insert_date" property="infoEvalByAssociationInsertDate"/>
+	</resultMap>
+	<select id="selectInfoEvalByAssociationList" parameterType="String"
+			resultMap="InfoEvalByAssociationListMap">
+		SELECT
+			info_eval_by_association_code
+			, info_eval_by_association_sort
+			, info_eval_by_association_type
+			, info_eval_by_association_contents
+			, info_eval_by_association_effective_date
+			, info_eval_by_association_insert_date
+		FROM info_eval_by_association
+		ORDER BY info_eval_by_association_insert_date
+	</select>
+</mapper>

@@ -13,14 +13,16 @@
 </th:block>
 
 <div layout:fragment="content">
+<!-- <button type="button" id="btnBack" class="btn btn-secondary disabled">뒤로가기</button> -->
+<a href="javascript:history.back()">◁뒤로가기</a>
 <h2>평가항목관리</h2>
 	<p style="height: 30px"></p>
 	<div class="col-sm-2 list-group"></div>
 	<div class="col-sm-3 list-group">
-		<a href="#" class="list-group-item list-group-item-action">#교육원평가항목관리</a>
-		<a href="#" class="list-group-item list-group-item-action">#교육원-강사평가항목관리</a>
-		<a href="#" class="list-group-item list-group-item-action">#수강생-교육원평가항목관리</a>
-		<a href="#" class="list-group-item list-group-item-action">#수강생-강의평가항목관리</a>
+		<a href="/evalByAssociation" class="list-group-item list-group-item-action">교육원평가항목관리</a>
+		<a href="/evalByInstitution" class="list-group-item list-group-item-action">교육원-강사평가항목관리</a>
+		<a href="/institutionByStudent" class="list-group-item list-group-item-action">수강생-교육원평가항목관리</a>
+		<a href="/lectureByStudent" class="list-group-item list-group-item-action">수강생-강의평가항목관리</a>
 	</div>
 	<div class="col-sm-7 list-group"></div>
 	<p style="height: 30px"></p>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+<style>
+	table {
+		text-align: center;
+	}
+	.btn-lg {
+		font-size: 12px;
+		float: right;
+	}
+</style>
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	$('#btnAdd').on('click',function(){
+		console.log('#btnAdd click test');
+		location.href='/addInfoEvalInstitutionByStudent'
+	});
+	$('#btnBack').on('click',function(){
+		console.log('#btnBack click test');
+		location.href='javascript:history.back()';
+	});
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<a href="javascript:history.back()">◁뒤로가기</a>
+	<h2>수강생-교육원평가항목관리</h2>
+	<p style="height: 30px"></p>
+		<button type="button" id="btnAdd" class="btn btn-primary btn-lg">평가항목추가</button><br><br>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">교육원평가항목개요코드</th>
+					<th scope="col">평가종류</th>
+					<th scope="col">항목분류</th>
+					<th scope="col">평가내용</th>
+					<th scope="col">시행연월</th>
+					<th scope="col">등록일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="list:${evalInstitutionByStudent}">
+					<td th:text="${list.infoEvalInstitutionByStudentCode}"></td>
+					<td th:text="${list.infoEvalInstitutionByStudentSort}"></td>
+					<td th:text="${list.infoEvalInstitutionByStudentType}"></td>
+					<td th:text="${list.infoEvalInstitutionByStudentContents}"></td>
+					<td th:text="${list.infoEvalInstitutionByStudentEffectiveDate}"></td>
+					<td th:text="${list.infoEvalInstitutionByStudentInsertDate}"></td>
+				</tr>
+			</tbody>
+		</table>
+</div>
+</html>
