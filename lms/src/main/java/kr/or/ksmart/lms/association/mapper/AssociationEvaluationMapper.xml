@@ -66,10 +66,59 @@
 			, now()
 			)
 	</insert>
-	<!-- 
-    //교육원 평가 합계 수정 mapper
-    public void updateEvalTotal(EvalTotal evalTotal);
-	 -->
+
+	<!-- 교육원 평가 합계 한개 출력 select  -->
+	<select id="selectEvalTotal"
+			parameterType="String"
+			resultMap="EvalTotalMap">
+		SELECT
+			eval_total_code
+			, institution_code
+			, institution_name
+			, eval_total_type
+			, eval_total_year
+			, eval_total_jan
+			, eval_total_feb
+			, eval_total_mar
+			, eval_total_apr
+			, eval_total_may
+			, eval_total_jun
+			, eval_total_jul
+			, eval_total_aug
+			, eval_total_sep
+			, eval_total_oct
+			, eval_total_nov
+			, eval_total_dec
+			, eval_total_sum_score
+			, eval_total_date
+		FROM 
+			eval_total
+		WHERE
+			eval_total_code = #{evalTotalCode}
+	</select>
+
+	<!-- 교육원 평가 합계 수정 update  -->
+	<update id="updateEvalTotal"
+			parameterType="kr.or.ksmart.lms.association.vo.EvalTotal">
+		UPDATE 
+			eval_total
+		SET
+			eval_total_jan = #{evalTotalJan}
+			, eval_total_feb = #{evalTotalFeb}
+			, eval_total_mar = #{evalTotalMar}
+			, eval_total_apr = #{evalTotalApr}
+			, eval_total_may = #{evalTotalMay}
+			, eval_total_jun = #{evalTotalJun}
+			, eval_total_jul = #{evalTotalJul}
+			, eval_total_aug = #{evalTotalAug}
+			, eval_total_sep = #{evalTotalSep}
+			, eval_total_oct = #{evalTotalOct}
+			, eval_total_nov = #{evalTotalNov}
+			, eval_total_dec = #{evalTotalDec}
+			, eval_total_sum_score = #{evalTotalSumScore}
+		WHERE 
+			eval_total_code = #{evalTotalCode}
+	</update>
 
 	<!-- 교육원 평가 년도에 따른 입력 조건 출력 select  -->
 	<select id="selectEvalTotalYear"

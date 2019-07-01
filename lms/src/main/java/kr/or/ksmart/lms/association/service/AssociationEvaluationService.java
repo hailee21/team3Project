@@ -96,4 +96,32 @@ public class AssociationEvaluationService {
         returnMap.put("evalTotalYear", serachKey.get("evalTotalYear"));
         return returnMap;
     }
+
+    //교육원 평가 합계 한개 출력 service
+    public EvalTotal getEvalTotal(String evalTotalCode) {
+        return associationEvaluationMapper.selectEvalTotal(evalTotalCode);
+    }
+
+    //교육원 평가 합계 update service
+    public void modifyEvalTotal(EvalTotal evalTotal) {
+        //전체 점수 합 구하기
+        int evalTotalJan = evalTotal.getEvalTotalJan();
+        int evalTotalFed = evalTotal.getEvalTotalFeb();
+        int evalTotalMar = evalTotal.getEvalTotalMar();
+        int evalTotalApr = evalTotal.getEvalTotalApr();
+        int evalTotalMay = evalTotal.getEvalTotalMay();
+        int evalTotalJun = evalTotal.getEvalTotalJun();
+        int evalTotalJul = evalTotal.getEvalTotalJul();
+        int evalTotalAug = evalTotal.getEvalTotalAug();
+        int evalTotalSep = evalTotal.getEvalTotalSep();
+        int evalTotalOct = evalTotal.getEvalTotalOct();
+        int evalTotalNov = evalTotal.getEvalTotalNov();
+        int evalTotalDec = evalTotal.getEvalTotalDec();
+        int evalTotalSumScore = evalTotalJan + evalTotalFed + evalTotalMar + evalTotalApr + evalTotalMay + evalTotalJun + evalTotalJul + evalTotalAug + evalTotalSep + evalTotalOct + evalTotalNov + evalTotalDec;   
+        evalTotal.setEvalTotalSumScore(evalTotalSumScore);
+        System.out.println(evalTotalSumScore);
+        System.out.println(evalTotal);
+        //mapper 호출
+        associationEvaluationMapper.updateEvalTotal(evalTotal);
+    }
 }

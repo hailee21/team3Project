@@ -30,30 +30,24 @@ public class EvalInstitutionByStudentController {
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		
 		if(memberRank==null){
-		System.out.println("로그인 안한 상태");
-		mav.setViewName("/login");	
+			System.out.println("로그인 안한 상태");
+			mav.setViewName("/PILogin");	
 		}
 		
 		//기존 교육원 코드 , 이름 담기
 		else {
-		System.out.println("[EvalInstitutionByStudentController getEvalInstitutionByStudent 호출]");
-		IndexInstitution institution = memberService.PIIndex(institutionCode);
-		mav.addObject("institutionCode", institution.getInstitutionCode());
-		mav.addObject("institutionName", institution.getInstitutionName());
-		
-		//기준년도에의한 교육원 평가 문제항목 service에서 select메소드 호출
-		List<InfoEvalInstitutionByStudent> list = evalInstitutionByStudentService.getInfoEvalInstitutionBystudent();
-		System.out.println(list.get(0).getInfoEvalInstitutionByStudentContents());
-		System.out.println(list.get(0).getInfoEvalInstitutionByStudentSort());
-		mav.addObject("list", list);
-		mav.setViewName("/PI/myPage/evaluation");
+			System.out.println("[EvalInstitutionByStudentController getEvalInstitutionByStudent 호출]");
+			IndexInstitution institution = memberService.PIIndex(institutionCode);
+			mav.addObject("institutionCode", institution.getInstitutionCode());
+			mav.addObject("institutionName", institution.getInstitutionName());
+			
+			//기준년도에의한 교육원 평가 문제항목 service에서 select메소드 호출
+			List<InfoEvalInstitutionByStudent> list = evalInstitutionByStudentService.getInfoEvalInstitutionBystudent();
+			System.out.println(list.get(0).getInfoEvalInstitutionByStudentContents());
+			System.out.println(list.get(0).getInfoEvalInstitutionByStudentSort());
+			mav.addObject("list", list);
+			mav.setViewName("/PI/myPage/evaluation");
 		}
-		
-		
-		return mav;
-		
+		return mav;		
 	}
-
-	
-	
 }
