@@ -109,7 +109,7 @@ $(document).ready(function(){
 			$('#noticeLectureEndDate').focus();
 		}
 		else {
-			console.log('버튼클릭'+$('#noticeLectureMinimumNo').val());
+			console.log('등록버튼클릭..');
 			$('#addNoticeLecture').submit();
 		}		
 	});		
@@ -156,38 +156,38 @@ $(document).ready(function(){
 		</div>
 		<div class="form-group">
 			<label>수강최소인원 :</label>
-		    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureMinimumNo" name="noticeLectureMinimumNo">
+		    <input type="text" class="form-control" id="noticeLectureMinimumNo" name="noticeLectureMinimumNo">
 		</div>
 		<div class="form-group">
 			<label>지원자 수 :</label>
-		    <input type="text" class="form-control" th:value="${institutionName}" id="noticeLectureCurrentApplicantNo" name="noticeLectureCurrentApplicantNo">
+		    <input type="text" class="form-control" id="noticeLectureCurrentApplicantNo" name="noticeLectureCurrentApplicantNo">
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
 				<label>모집시작일 :</label>
-			    <input type="date" class="form-control" th:value="${institutionName}" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureRecruitmentStartDate" name="noticeLectureRecruitmentStartDate">
+			    <input type="date" class="form-control" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureRecruitmentStartDate" name="noticeLectureRecruitmentStartDate">
 			</div>
 			<div class="col-sm-6">
 				<label>모집마감일 :</label>
-			    <input type="date" class="form-control" th:value="${institutionName}" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureRecruitmentEndDate" name="noticeLectureRecruitmentEndDate">
+			    <input type="date" class="form-control" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureRecruitmentEndDate" name="noticeLectureRecruitmentEndDate">
 			</div>
 		</div>		
 		<div class="form-group">
 			<label>결과발표일 :</label>
-		    <input type="date" class="form-control" th:value="${institutionName}" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureResultDate" name="noticeLectureResultDate">
+		    <input type="date" class="form-control" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureResultDate" name="noticeLectureResultDate">
 		</div>
 		<div class="form-group">
 			<label>수강료 :</label>
-		    <input type="text" class="form-control" th:value="${institutionName}" placeholder="쉼표를 사용하실 수 없습니다.." id="noticeLectureFee" name="noticeLectureFee">
+		    <input type="text" class="form-control" placeholder="쉼표를 사용하실 수 없습니다.." id="noticeLectureFee" name="noticeLectureFee">
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
 				<label>강의시작일 :</label>
-			    <input type="date" class="form-control" th:value="${institutionName}" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureStartDate" name="noticeLectureStartDate">
+			    <input type="date" class="form-control" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureStartDate" name="noticeLectureStartDate">
 			</div>
 			<div class="col-sm-6">
 				<label>강의종료일 :</label>
-			    <input type="date" class="form-control" th:value="${institutionName}" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureEndDate" name="noticeLectureEndDate">
+			    <input type="date" class="form-control" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureEndDate" name="noticeLectureEndDate">
 			</div>
 		</div>
 				

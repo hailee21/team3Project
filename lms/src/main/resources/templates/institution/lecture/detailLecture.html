@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/institutionLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h2>강의목록 조회</h2>
+	<table class="table table-striped" th:each="lecture:${lecture}">
+		<tr>
+			<td>강의공고명</td>
+			<td th:text=${lecture.noticeLectureTitle} th:value="${lecture.lectureCode}"></td>
+		</tr>
+		<tr>
+			<td>교육원명</td>
+			<td th:text=${lecture.institutionName} th:value="${lecture.institutionCode}"></td>
+		</tr>
+		<tr>
+			<td>강사명</td>
+			<td th:text=${lecture.memberTeacherName} th:value="${lecture.memberTeacherCode}"></td>
+		</tr>
+		<tr>
+			<td>강의 시작일</td>
+			<td th:text=${lecture.lectureStartDate} th:value="${lecture.lectureStartDate}"></td>
+		</tr>
+		<tr>
+			<td>강의 종료일</td>
+			<td th:text=${lecture.lectureEndDate} th:value="${lecture.lectureEndDate}"></td>
+		</tr>
+		<tr>
+			<td>수업일수</td>
+			<td th:text=${lecture.lectureClassDays} th:value="${lecture.lectureClassDays}"></td>
+		</tr>
+	</table>
+</div>
+</html>

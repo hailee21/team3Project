@@ -56,7 +56,7 @@ $(document).ready(function(){
 						$('#subjectList').append('</thead>');
 						$('#subjectList').append('<tbody>');
 						$(result).each(function(i, item){
-							$('#subjectList').append('<tr><td>'+item.infoSubjectName+'</td><td>'+item.infoSubjectDifficulty+'</td></tr>');
+							$('#subjectList').append('<tr><td><a href="/association/lecture/detailSubject?infoSubjectCode='+item.infoSubjectCode+'">'+item.infoSubjectName+'</a></td><td>'+item.infoSubjectDifficulty+'</td></tr>');
 						});
 						$('#subjectList').append('</tbody>');
 					}

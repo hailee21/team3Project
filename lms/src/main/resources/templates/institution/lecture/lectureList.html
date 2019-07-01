@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/institutionLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h2>강의목록 조회</h2>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>강의공고명</th>
+				<th>교육원명</th>
+				<th>강사명</th>
+				<th>수업일수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list:${lectureList}">
+				<td><a th:href="@{'/institution/lecture/detailLecture?lectureCode='+${list.lectureCode}}" th:text=${list.noticeLectureTitle} th:value="${list.lectureCode}"></a></td>
+				<td th:text=${list.institutionName} th:value="${list.institutionCode}"></td>		
+				<td th:text=${list.memberTeacherName} th:value="${list.memberTeacherCode}"></td>
+				<td th:text=${list.lectureClassDays} th:value="${list.lectureClassDays}"></td>	
+			</tr>
+		</tbody>
+	</table>
+</div>
+</html>

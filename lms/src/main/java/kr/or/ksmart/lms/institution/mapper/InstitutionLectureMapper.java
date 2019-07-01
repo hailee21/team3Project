@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.or.ksmart.lms.institution.vo.Institution;
+import kr.or.ksmart.lms.institution.vo.Lecture;
 import kr.or.ksmart.lms.institution.vo.InfoLecture;
 import kr.or.ksmart.lms.institution.vo.InfoSubject;
 
@@ -18,8 +18,11 @@ public interface InstitutionLectureMapper {
 	// infoSubject 리스트 출력하는 메서드
 	public List<InfoSubject> institutionSelectSubjectListByLectureCode(String lectureCode);
 	
-	// institution 리스트 출력하는 메서드
-	public List<Institution> institutionSelectInstitutionList();
-	// institution 키워드로 검색하는 메서드
-	public List<Institution> institutionSelectInstitutionListByKeyword(String institutionName);
+	// detailSubject 조회 메서드
+	public InfoSubject institutionSelectDetailSubjectByInfoSubjectCode(String infoSubjectCode);
+	
+	// lecture 리스트 조회하는 메서드
+	public List<Lecture> institutionSelectLectureListByInstitutionCode(String institutionCode);
+	// detailLecture 조회하는 메서드
+	public Lecture institutionSelectDetailLectureByLectureCode(String lectureCode);
 }

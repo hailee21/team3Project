@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/institutionLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h2>강의 등록</h2>
+	<form id="addLecture" action="/institution/lecture/addLecture" method="post">
+		<div class="form-group">
+			<label>강의공고명 :</label>
+			<select id="memberTeacherCode" name="memberTeacherCode">
+				<option value="">--- 선택 ---</option>
+				<option th:each="memberTeacher:${memberTeacher}" th:text="${memberTeacher.memberTeacherName}" th:value="${memberTeacher.memberTeacherCode}"></option> 
+			</select>
+		</div>
+		
+		<div class="form-group">
+			<label>강의개요 :</label>
+		    <select id="infoLectureSort" name="infoLectureSort">
+		    	<option value="">--- 선택 ---</option>
+		    	<option th:each="infoLectureSort:${infoLectureSort}" th:text="${infoLectureSort.infoLectureSort}" th:value="${infoLectureSort.infoLectureSort}"></option>                                                                                                   
+		    </select>
+		    <select id="infoLectureName" name="infoLectureCode">
+		    	<option value="">--- 선택 ---</option>
+		    </select>
+		</div>
+		<div class="form-group">
+			<label>교육원명 :</label>
+			<select id="institutionCode" name="institutionCode">
+				<option>--- 선택 ---</option>
+				<option th:each="institution:${institution}" th:text="${institution.institutionName}" th:value="${institution.institutionCode}"></option> 
+			</select>
+		</div>
+		<div class="form-group">
+			<label>강사명 :</label>
+			<select id="classroomCode" name="classroomCode">
+				<option value="">--- 선택 ---</option>
+			</select>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label>강의시작일 :</label>
+			    <input type="date" class="form-control" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureRecruitmentStartDate" name="noticeLectureRecruitmentStartDate">
+			</div>
+			<div class="col-sm-6">
+				<label>강의종료일 :</label>
+			    <input type="date" class="form-control" placeholder="ex) 공백없이 다음과 같이 적어주세요.. 2019-01-01-09시" id="noticeLectureRecruitmentEndDate" name="noticeLectureRecruitmentEndDate">
+			</div>
+		</div>		
+		<div class="form-group">
+			<label>수강일수 :</label>
+		    <input type="text" class="form-control" placeholder="ex) 숫자로만 적어주세요" id="noticeLectureResultDate" name="noticeLectureResultDate">
+		</div>
+		
+		<span id="helper" style="color:red"></span>
+		<button id="insert" type="button">등록하기</button>	
+	</form>
+</div>
+</html>

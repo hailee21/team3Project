@@ -10,8 +10,14 @@ import kr.or.ksmart.lms.association.vo.InfoSubject;
 
 @Mapper
 public interface AssociationLectureMapper {
+	
+	// infoLecture 등록하는메서드
+	public void associationInsertInfoLecture(InfoLecture infoLecture);
+	
 	// infoLecture 리스트 출력하는 메서드
-	public List<InfoLecture> associatonSelectInfoLectureList();
+	public List<InfoLecture> associatonSelectInfoLectureList();	
+	// detailInfoLecture 조회 메서드
+	public InfoLecture associatonSelectDetailInfoLecture(String infoLectureCode);
 	
 	// infoLectureSort 리스트 출력하는 메서드
 	public List<InfoLecture> associationSelectInfoLectureSortList();
@@ -19,6 +25,11 @@ public interface AssociationLectureMapper {
 	public List<InfoLecture > associationSelectInfoLectureNameList(String lectureSort);
 	// infoSubject 리스트 출력하는 메서드
 	public List<InfoSubject> associationSelectSubjectListByLectureCode(String lectureCode);
+	
+	// infoSubject 등록을 위한 메서드
+	public void associationInsertInfoSubject(InfoSubject infoSubject);
+	// detailinfoSubject를 위한 메서드
+	public InfoSubject associationSelectInfoSubjectBySubjectCode(String infoSubjectCode);
 	
 	// institution 리스트 출력하는 메서드
 	public List<Institution> associationSelectInstitutionList();
