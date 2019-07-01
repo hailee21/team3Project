@@ -7,6 +7,7 @@ public class LicenseTestLocationDetail {
 	private String licenseTestLocationDetailUse;
 	private String licenseTestLocationDetailMaximumNumber;
 	private String licenseTestLocationDetailUseInsertDate;
+	
 	public String getLicenseTestLocationDetailCode() {
 		return licenseTestLocationDetailCode;
 	}

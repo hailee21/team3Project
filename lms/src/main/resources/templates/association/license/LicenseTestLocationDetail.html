@@ -18,6 +18,7 @@
 
 <div layout:fragment="content">
 	<h3>자격 시험 장소 상세리스트</h3>
+	<a type="button" class="btn btn-secondary" th:href="@{/association/license/addlicenseTestLocationDetail}" th:text="등록"></a>
 	<table border="1">
 		<tr>
 			<th>시험장소세부코드</th>
@@ -27,12 +28,13 @@
 			<th>등록일자</th>
 			
 		</tr>
+
 		<tr th:each="subject:${list}">
 			<td th:text="${subject.licenseTestLocationDetailCode}"></td>
 			<td th:text="${subject.licenseTestLocationDetailClassroom}"></td>
 			<td th:text="${subject.licenseTestLocationDetailUse}"></td>
 			<td th:text="${subject.licenseTestLocationDetailMaximumNumber}"></td>
-			<td th:text="${subject.licenseTestLocationDetailUseInsertDate}"></td>			
+			<td th:text="${subject.licenseTestLocationDetailUseInsertDate}"></td>
 		</tr>
 	</table>
 </div>

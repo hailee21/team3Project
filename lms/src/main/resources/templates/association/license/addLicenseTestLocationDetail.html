@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+	$(document).ready(function() {
+		//유효성 검사를 위한 변수 선언
+		let licenseTestLocationDetailCodeCheck = true;
+		let licenseTestLocationCodeCheck = true;
+		let licenseTestLocationDetailClassroomCheck = true;
+		let licenseTestLocationDetailUseCheck = true;
+		let licenseTestLocationDetailMaximumNumberCheck = true;
+		let licenseTestLocationDetailUseInsertDateCheck = true;
+		
+		//licenseTestLocationDetailCode 입력 유효성 검사
+		$('#licenseTestLocationDetailCode').blur(function() {
+			if($('#licenseTestLocationDetailCode').val() == "") {
+				console.log('licenseTestLocationDetailCode 공백입력')
+				licenseTestLocationDetailCodeCheck = true;
+			} else {
+                console.log('licenseTestLocationDetailCode 유효성 검사 완료')
+				licenseTestLocationDetailCodeCheck = false;
+			}
+		});
+
+		//licenseTestLocationCode 입력 유효성 검사
+		$('#licenseTestLocationCode').blur(function() {
+			if($('#licenseTestLocationCode').val() == "") {
+				console.log('licenseTestLocationCode 공백입력')
+				licenseTestLocationCodeCheck = true;
+			} else {
+                console.log('licenseTestLocationCode 유효성 검사 완료')
+				licenseTestLocationCodeCheck = false;
+			}
+		});
+
+		//licenseTestLocationDetailClassroom 입력 유효성 검사
+		$('#licenseTestLocationDetailClassroom').blur(function() {
+			if($('#licenseTestLocationDetailClassroom').val() == "") {
+				console.log('licenseTestLocationDetailClassroom 공백입력')
+				licenseTestLocationDetailClassroomCheck = true;
+			} else {
+                console.log('licenseTestLocationDetailClassroom 유효성 검사 완료')
+				licenseTestLocationDetailClassroomCheck = false;
+			}
+		});
+		
+		//licenseTestLocationDetailUse 입력 유효성 검사
+		$('#licenseTestLocationDetailUse').blur(function() {
+			if($('#licenseTestLocationDetailUse').val() == "") {
+				console.log('licenseTestLocationDetailUse 공백입력')
+				licenseTestLocationDetailUseCheck = true;
+			} else {
+                console.log('licenseTestLocationDetailUse 유효성 검사 완료')
+				licenseTestLocationDetailUseCheck = false;
+			}
+		});
+
+		//licenseTestLocationDetailMaximumNumber 입력 유효성 검사
+		$('#licenseTestLocationDetailMaximumNumber').blur(function() {
+			if($('#licenseTestLocationDetailMaximumNumber').val() == "") {
+				console.log('licenseTestLocationDetailMaximumNumber 공백입력')
+				licenseTestLocationDetailMaximumNumberCheck = true;
+			} else {
+                console.log('licenseTestLocationDetailMaximumNumber 유효성 검사 완료')
+				licenseTestLocationDetailMaximumNumberCheck = false;
+			}
+		});
+
+		//licenseTestLocationDetailUseInsertDate 입력 유효성 검사
+		$('#licenseTestLocationDetailUseInsertDate').blur(function() {
+			if($('#licenseTestLocationDetailUseInsertDate').val() == "") {
+				console.log('licenseTestLocationDetailUseInsertDate 공백입력')
+				licenseTestLocationDetailUseInsertDateCheck = true;
+			} else {
+                console.log('licenseTestLocationDetailUseInsertDate 유효성 검사 완료')
+				licenseTestLocationDetailUseInsertDateCheck = false;
+			}	
+		});
+
+		//btnAdd 클릭 이벤트 처리
+		$('#btnAdd').on('click',function() {
+			if(licenseTestLocationDetailCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험장소세부코드가 공백 상태 입니다.');
+			} else if(licenseTestLocationCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험장소코드가 공백 상태 입니다.');
+			} else if(licenseTestLocationDetailClassroomCheck) {
+				$('h4').addClass('red');
+				$('h4').text('강의실/교실이 공백 상태 입니다.');
+			} else if(licenseTestLocationDetailUseCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험용도가 공백 상태 입니다.');
+			} else if(licenseTestLocationDetailMaximumNumberCheck) {
+				$('h4').addClass('red');
+				$('h4').text('수용인원이 공백 상태 입니다.');
+			} else {
+				$('#addLicenseTestLocationDetail').submit()
+			}
+		});
+
+	});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h3>자격증 시험 장소  세부 추가</h3>
+	<form id="addLicenseTestLocationDetail" action="/association/license/addLicenseTestLocaitonDetail" method="post">
+		<div class="form-group">
+			<label>시험장소세부코드 :</label>
+			<input type="text" class="form-control" id="licenseTestLocationDetailCode" name="licenseTestLocationDetailCode">
+		</div>
+		<div class="form-group">
+			<label>시험장소코드 :</label>
+			<input type="text" class="form-control" id="licenseTestLocationCode" name="licenseTestLocationCode">
+		</div>
+		<div class="form-group">
+			<label>강의실/교실 :</label>
+			<input type="text" class="form-control" id="licenseTestLocationDetailClassroom" name="licenseTestLocationDetailClassroom">
+		</div>
+		<div class="form-group">
+			<label>시험용도 :</label>
+			<input type="text" class="form-control" id="licenseTestLocationDetailUse" name="licenseTestLocationDetailUse">
+		</div>
+		<div class="form-group">
+			<label>수용인원 :</label>
+			<input type="text" class="form-control" id="licenseTestLocationDetailMaximumNumber" name="licenseTestLocationDetailMaximumNumber">
+		</div>
+		<button type="button" id="btnAdd" class="btn btn-primary">장소 등록</button>		
+	</form>
+	<h4></h4>
+</div>
+</html>

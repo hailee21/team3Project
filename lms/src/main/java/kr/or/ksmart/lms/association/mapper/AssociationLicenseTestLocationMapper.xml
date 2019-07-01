@@ -3,6 +3,16 @@
 
 <mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationLicenseTestLocationMapper">
 	
+	<resultMap type="kr.or.ksmart.lms.association.vo.LicenseTestLocationDetail" id="LicenseTestLocationDetailMap">
+
+		<result column="license_test_location_detail_code" property="licenseTestLocationDetailCode"/>
+		<result column="license_test_location_code" property="licenseTestLocationCode"/>
+		<result column="license_test_location_detail_classroom" property="licenseTestLocationDetailClassroom"/>
+		<result column="license_test_location_detail_use" property="licenseTestLocationDetailUse"/>
+		<result column="license_test_location_detail_maximum_number" property="licenseTestLocationDetailMaximumNumber"/>
+		<result column="license_test_location_detail_use_insert_date" property="licenseTestLocationDetailUseInsertDate"/>	
+
+	</resultMap>
 	<resultMap type="kr.or.ksmart.lms.association.vo.LicenseTestLocation" id="LicenseTestLocationMap">
 
 		<result column="license_test_location_code" property="licenseTestLocationCode"/>
@@ -13,9 +23,24 @@
 		<result column="license_test_location_maximum_number" property="licenseTestLocationMaximumNumber"/>	
 		<result column="license_test_location_date" property="licenseTestLocationDate"/>
 	</resultMap>
+	<!-- 자격시험 장소 상세 등록 -->
+	<insert id="insertLicenseTestLocationDetail"
+			parameterType="kr.or.ksmart.lms.association.vo.LicenseTestLocationDetail">
+		INSERT INTO
+			license_test_location_detail_code
+			VALUES(
+			#{licenseTestLocationDetailCode}
+			, #{licenseTestLocationCode}
+			, #{licenseTestLocationDetailClassroom}
+			, #{licenseTestLocationDetailUse}
+			, #{licenseTestLocationDetailMaximumNumber}
+			, now()
+		);
+	</insert>
 	<!-- 자격시험 장소 상세보기 -->
 	<select id="selectLicenseTestLocationDetail"
-			resultMap="LicenseTestLocationMap">
+			parameterType="String"
+			resultMap="LicenseTestLocationDetailMap">
 		SELECT
 			license_test_location_detail_code
 			, license_test_location_code
@@ -24,7 +49,7 @@
 			, license_test_location_detail_maximum_number
 			, license_test_location_detail_use_insert_date
 		FROM license_test_location_detail
-		WHERE license_test_location_code
+		WHERE license_test_location_code = #{licenseTestLocationCode}
 	</select>
 	<!-- 자격시험 장소 조회 -->
 	<select id="selectLicenseTestLocation"
