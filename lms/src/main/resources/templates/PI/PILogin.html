@@ -18,33 +18,30 @@
 </th:block>
 
 <div layout:fragment="content">
-	<div>
-		<p style="height: 50px"></p>
-		<form action="/PILogin" method="post">
-			<fieldset>
-				<div class="form-group">
-    				<legend>수강생 로그인</legend>
-    			</div>
-				<div class="form-group row">
-    	  			<div class="col-sm-4"></div>
-					<label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
-      				<div class="col-sm-2">
-        				<input type="text" class="form-control" name="memberOnlineId" value="id011">
-        			</div>
-    	    		<div class="col-sm-6"></div>
-	      		</div>
-      			<div class="form-group row">
-      				<div class="col-sm-4"></div>
-					<label for="staticEmail" class="col-sm-2 col-form-label">Password</label>
-      				<div class="col-sm-2">
-        				<input type="password" class="form-control" name="memberOnlinePw" value="pw011">
-    	    		</div>
-	        		<div class="col-sm-6"></div>
-      			</div>
-				<button type="submit" class="btn btn-info">로그인</button>
-			</fieldset>
-		</form>
-		<p style="height: 300px"></p>
-	</div>
-</div>
+	<p style="height: 50px"></p>
+	<h3>로그인</h3>
+	<form action="/PALogin" method="post">
+		<div class="form-group row">
+			<div class="col-sm-4"></div>
+			<label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="memberOnlineId" value="id011">
+			</div>
+			<div class="col-sm-6"></div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-4"></div>
+			<label for="staticEmail" class="col-sm-2 col-form-label">Password</label>
+			<div class="col-sm-2">
+				<input type="password" class="form-control" name="memberOnlinePw" value="pw011">
+			</div>
+			<div class="col-sm-6"></div>
+		</div>
+		<button type="submit" class="btn btn-info">로그인</button>
+		<a th:href="@{'/join?institutionCode='+${institutionCode}}" class="btn btn-outline-info">회원가입</a>
+	</form>
+	<br>
+	<br>
+	<a href="/" class="btn btn-outline-primary">메인 페이지로</a>
+</div>>
 </html>

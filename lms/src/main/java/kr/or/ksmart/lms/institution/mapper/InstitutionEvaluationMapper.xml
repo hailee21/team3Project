@@ -1,0 +1,28 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionEvaluationMapper"> 
+	<!-- 강사 회원 resultMap -->
+	<resultMap id="MemberTeacherMap"
+				type="kr.or.ksmart.lms.institution.vo.MemberTeacher">
+		<result column="member_teacher_code" property="memberTeacherCode"/>
+		<result column="teacher_approval_code" property="teacherApprovalCode"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="member_teacher_name" property="memberTeacherName"/>
+		<result column="member_teacher_career" property="memberTeacherCareer"/>
+		<result column="member_teacher_service_check" property="memberTeacherServiceCheck"/>
+	</resultMap>
+
+	<!-- 강사 리스트 출력 select  -->
+	<select id="selectMemberTeacher"
+			resultMap="MemberTeacherMap">
+		SELECT
+			member_teacher_code
+			, teacher_approval_code
+			, member_code
+			, member_teacher_name
+			, member_teacher_career
+			, member_teacher_service_check
+		FROM 
+			member_teacher
+	</select>
+</mapper>

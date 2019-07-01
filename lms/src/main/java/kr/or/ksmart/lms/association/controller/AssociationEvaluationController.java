@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.association.service.AssociationEvaluationService;
+import kr.or.ksmart.lms.association.vo.EvalTotal;
 import kr.or.ksmart.lms.association.vo.InsertEvalTotal;
 
 @Controller
@@ -64,14 +65,36 @@ public class AssociationEvaluationController {
 
 	//교육원 평가 합계 수정 폼 출력 controller
 	@GetMapping("/association/evaluation/modifyEvalTotal")
-	public ModelAndView modifyEvalTotal(HttpSession session, ModelAndView mav) {
+	public ModelAndView modifyEvalTotal(HttpSession session, ModelAndView mav
+		, @RequestParam(value="evalTotalCode") String evalTotalCode) {
 		System.out.println("[AssociationEvaluationController modifyEvalTotal] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
+			EvalTotal evalTotal = associationEvaluationService.getEvalTotal(evalTotalCode);
+			mav.addObject("evalTotal", evalTotal);
+			System.out.println(evalTotal);
 			mav.setViewName("association/evaluation/modifyEvalTotal");
+		} else {
+			System.out.println("[AssociationEvaluationController modifyEvalTotal] 협회직원 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
+
+	//교육원 평가 합계 수정 액션 controller
+	@PostMapping("/associationModifyEvalTotal")
+	public ModelAndView modifyEvalTotal(HttpSession session, ModelAndView mav, EvalTotal evalTotal) {
+		System.out.println("[AssociationEvaluationController modifyEvalTotal] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
+		if(memberRank.equals("협회직원")) {
+			associationEvaluationService.modifyEvalTotal(evalTotal);
+			mav.setViewName("redirect:/association/evaluation/evaluationTotal");
 		} else {
 			System.out.println("[AssociationEvaluationController modifyEvalTotal] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
@@ -131,7 +154,7 @@ public class AssociationEvaluationController {
 		return mav;
 	}
 
-	//교육원 평가 합계 년도 입력시 출려 controller
+	//교육원 평가 합계리스트 출려 controller
 	@PostMapping("/association/evaluation/evaluationTotal")
 	public ModelAndView getEvalTotatList(HttpSession session, ModelAndView mav
 			, @RequestParam(value="evalTotalYear") int evalTotalYear

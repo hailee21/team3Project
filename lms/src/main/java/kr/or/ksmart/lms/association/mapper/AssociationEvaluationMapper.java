@@ -15,12 +15,15 @@ public interface AssociationEvaluationMapper {
 
     //교육원 평가 합계 추가 mapper
     public void insertEvalTotal(InsertEvalTotal insertEvalTotal);
-    /*
+
     //교육원 평가 합계 수정 mapper
     public void updateEvalTotal(EvalTotal evalTotal);
-    */
+
     //교육원 평가 년도에 따른 입력 조건 출력 mapper
     public List<Integer> selectEvalTotalYear();
+
+    //교육원 평가 합계 한개 출력 mapper
+    public EvalTotal selectEvalTotal(String evalTotalCode);
 
     //교육원 평가 항목에 따른 입력 조건 출력 mapper
     public List<String> selectEvalTotalType();

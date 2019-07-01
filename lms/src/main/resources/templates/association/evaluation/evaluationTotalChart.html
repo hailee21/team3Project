@@ -44,7 +44,7 @@
                         ];
                         let no1 = 3;
                         $(map.evalTotalList).each(function(index,item){
-                            chartData.addColumn('number', item.evalTotalYear+item.institutionName);
+                            chartData.addColumn('number', item.evalTotalYear+item.institutionName+item.evalTotalType);
                             evalTotalData[0][no1] = item.evalTotalJan;
                             evalTotalData[1][no1] = item.evalTotalFeb;
                             evalTotalData[2][no1] = item.evalTotalMar;
