@@ -26,7 +26,7 @@
 		<result column="info_eval_by_association_type" property="infoEvalByAssociationType"/>
 		<result column="info_eval_by_association_contents" property="infoEvalByAssociationContents"/>
 		<result column="info_eval_by_association_effective_date" property="infoEvalByAssociationEffectiveDate"/>
-		<result column="info_eval_by_association_insert_date" property="infoEvalByAssociationInsertDate"/>
+		<!-- <result column="info_eval_by_association_insert_date" property="infoEvalByAssociationInsertDate"/> -->
 	</resultMap>
 	<select id="selectInfoEvalByAssociationList" parameterType="String"
 			resultMap="InfoEvalByAssociationListMap">
@@ -36,8 +36,8 @@
 			, info_eval_by_association_type
 			, info_eval_by_association_contents
 			, info_eval_by_association_effective_date
-			, info_eval_by_association_insert_date
+			, left(info_eval_by_association_insert_date,10) AS infoEvalByAssociationInsertDate
 		FROM info_eval_by_association
-		ORDER BY info_eval_by_association_insert_date
+		ORDER BY infoEvalByAssociationInsertDate
 	</select>
 </mapper>
