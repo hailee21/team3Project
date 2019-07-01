@@ -17,7 +17,7 @@ import kr.or.ksmart.lms.pi.vo.MemberOnline;
 @Service
 public class PIMemberService {
 	@Autowired
-	PIMemberMapper memberMapper;
+	private PIMemberMapper memberMapper;
 	public IndexInstitution PIIndex(String institutionCode) {
 		return memberMapper.selectInstitution(institutionCode);
 	}

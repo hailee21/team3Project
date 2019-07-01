@@ -91,6 +91,7 @@ public class PIMemberController {
 		}
 		return mav;
 	}
+	//	회원 수정 처리
 	@PostMapping("/memberModify")
 	public ModelAndView memberModify(Member member, MemberOnline memberOnline
 			, @RequestParam(value="institutionCode", required = true) String institutionCode, ModelAndView mav) {
