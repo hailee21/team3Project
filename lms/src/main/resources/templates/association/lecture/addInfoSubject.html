@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	$('#infoLectureSort').change(function(){
+		console.log('강의개요항목: '+$('#infoLectureSort').val());
+		$.ajax({
+			url:'/association/getInfoLectureNameList'
+			,data:{lectureSort:$('#infoLectureSort').val()}
+			,type:'Post'
+			,dataType:'json'
+			,success:function(result){
+				$('#infoLectureName').empty();
+				$('#infoLectureName').append('<option value="">---강의개요명 --</option>');
+				$(result).each(function(i, item){
+					$('#infoLectureName').append('<option value="'+item.infoLectureCode+'">'+item.infoLectureName+'</option>');
+				});
+			}
+		});	
+		$('#infoLectureName').change(function(){
+			console.log('강의개요명(코드):'+$('#infoLectureName').val());
+		});
+	});
+	$('#insert').click(function(){
+		console.log("등록 버튼 클릭..");
+		// 빈칸, 난이도 폼 유효성검사	
+		let numberCheck = /^[0-9]+$/;
+		if($('#infoLectureSort').val() ==''){
+			$('#helper').text('강의코드(강의개요항목)를 지정해주세요!');
+			$('#infoLectureSort').focus();
+		}else if($('#infoLectureName').val() ==''){
+			$('#helper').text('강의코드(강의개요명)를 지정해주세요!');
+			$('#infoLectureName').focus();
+		}else if($('#infoSubjectName').val() ==''){
+			$('#helper').text('과목명을 지정해주세요!');
+			$('#infoSubjectName').focus();
+		}else if(!numberCheck.test($('#infoSubjectDifficulty').val())){
+			$('#helper').text('난이도를 지정해주세요! 숫자만 입력가능합니다!');
+			$('#infoSubjectDifficulty').focus();
+		}else {
+			console.log('등록버튼클릭..');
+			$('#addInfoSubject').submit();
+		}		
+	});
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h1>과목 등록</h1>
+	<form id="addInfoSubject" action="/association/lecture/addInfoSubject" method="post">
+		<div class="form-group">
+			<label>강의코드</label>
+			<div class="row">
+				<select id="infoLectureSort" name="infoLectureSort">
+					<option value="">--강의개요항목--</option>
+					<option th:each="infoLectureSort:${infoLectureSort}" th:text="${infoLectureSort.infoLectureSort}" th:value="${infoLectureSort.infoLectureSort} "></option>
+				</select>
+				<select id="infoLectureName" name="infoLectureCode">
+					<option value="">--강의개요명--</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>과목명</label>
+			<input type="text" class="form-control"  id="infoSubjectName" name="infoSubjectName" placeholder="강의코드에 해당하는 과목명을 입력하여 주십시오">
+		</div>
+		<div class="form-group">
+			<label>난이도</label>
+			<input type="text" class="form-control"  id="infoSubjectDifficulty" name="infoSubjectDifficulty" placeholder="숫자만 입력가능합니다">
+		</div>
+		
+		<span id="helper" style="color:red"></span>
+		<button id="insert" type="button">등록하기</button>	
+	</form>
+</div>
+</html>

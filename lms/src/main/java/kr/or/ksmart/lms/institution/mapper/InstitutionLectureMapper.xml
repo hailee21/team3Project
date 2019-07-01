@@ -3,15 +3,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionLectureMapper"> 
-	<!-- LectureMapper InfoLecture resultMap  -->
-	<resultMap id="infoLectureResultMap"
+	<!-- InstitutionLectureMapper InfoLecture resultMap  -->
+	<resultMap id="InfoLectureResultMap"
 				type="kr.or.ksmart.lms.institution.vo.InfoLecture">
 		<result column="info_lecture_code" property="infoLectureCode"/>
 		<result column="info_lecture_sort" property="infoLectureSort"/>
 		<result column="info_lecture_name" property="infoLectureName"/>
 		<result column="info_lecture_insert_date" property="infoLectureInsertDate"/>
 	</resultMap>
-	<!-- LectureMapper InfoSubject resultMap  -->
+	<!-- InstitutionLectureMapper InfoSubject resultMap  -->
 	<resultMap id="InfoSubjectMap"
 				type="kr.or.ksmart.lms.institution.vo.InfoSubject">
 		<result column="info_subject_code" property="infoSubjectCode"/>
@@ -20,19 +20,45 @@
 		<result column="info_subject_difficulty" property="infoSubjectDifficulty"/>
 		<result column="info_subject_modification_history" property="infoSubjectModificationHistory"/>
 	</resultMap>
-	<!-- ClassroomMapper Institution resultMap  -->
-	<resultMap id="InstitutionResultMap"
-				type="kr.or.ksmart.lms.institution.vo.Institution">
+	<!--  InstitutionLectureMapper Lecture resultMap -->
+	<resultMap id="LectureResultMap"
+				type="kr.or.ksmart.lms.institution.vo.Lecture">
+		<result column="lecture_code" property="lectureCode"/>
+		<result column="notice_lecture_code" property="noticeLectureCode"/>
+		<result column="notice_lecture_title" property="noticeLectureTitle"/>
+		<result column="info_lecture_code" property="infoLectureCode"/>
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>
-		<result column="institution_phone" property="InstitutionPhone"/>
-		<result column="institution_postcode" property="InstitutionPostcode"/>
-		<result column="institution_address" property="InstitutionAddress"/>
-		<result column="institution_address_desc" property="InstitutionAddressDesc"/>
-		<result column="institution_location" property="InstitutionLocation"/>
-		<result column="institution_registration_date" property="InstitutionRegistrationDate"/>
+		<result column="member_teacher_code" property="memberTeacherCode"/>
+		<result column="member_teacher_name" property="memberTeacherName"/>
+		<result column="lecture_start_date" property="lectureStartDate"/>
+		<result column="lecture_end_date" property="lectureEndDate"/>
+		<result column="lecture_class_days" property="lectureClassDays"/>
+		<result column="lecture_date" property="lectureDate"/>
 	</resultMap>
 	
+	<!-- Lecture 강의분류 리스트 출력 -->
+	<select id="institutionSelectInfoLectureSortList" 
+			resultMap="InfoLectureResultMap">
+		SELECT distinct
+			info_lecture_sort
+		FROM 
+			info_lecture
+	</select>	
+	
+	<!-- Lecture 강의표준명 리스트 출력 / 비동기방식 -->
+	<select id="institutionSelectInfoLectureNameList" 
+			parameterType="String"
+			resultMap="InfoLectureResultMap">
+		SELECT
+			info_lecture_code
+			,info_lecture_name
+		FROM 
+			info_lecture
+		WHERE 
+			info_lecture_sort = #{lectureSort}
+	</select>	 
+		
 	<!-- LectureCode을 입력받아 infoSubject 과목리스트 출력 / 비동기방식 -->
 	<select id="institutionSelectSubjectListByLectureCode"
 			parameterType="String"
@@ -47,57 +73,114 @@
 		WHERE 
 			info_lecture_code = #{lectureCode}
 	</select>
-
-	<!-- Lecture 강의표준명 리스트 출력 / 비동기방식 -->
-	<select id="institutionSelectInfoLectureNameList" 
+	
+	<!-- detailinfoSubject 출력 메서드 -->
+	<select id="institutionSelectDetailSubjectByInfoSubjectCode"
 			parameterType="String"
-			resultMap="infoLectureResultMap">
-		SELECT
-			info_lecture_code
-			,info_lecture_name
+			resultMap="InfoSubjectMap">
+		SELECT 
+			info_subject_code
+			,info_subject_name
+			,info_subject_difficulty
+			,info_subject_modification_history
 		FROM 
-			info_lecture
+			info_subject
 		WHERE 
-			info_lecture_sort = #{lectureSort}
-	</select>	 
-		
-	<!-- Lecture 강의분류 리스트 출력 -->
-	<select id="institutionSelectInfoLectureSortList" 
-			resultMap="infoLectureResultMap">
-		SELECT distinct
-			info_lecture_sort
-		FROM 
-			info_lecture
+			info_subject_code = #{infoSubjectCode}
 	</select>	
 	
-	<!-- 교육원 리스트 출력 -->
-	<select id="institutionSelectInstitutionList"
-			resultMap="InstitutionResultMap">
-		SELECT 
-			institution_code
+	<!-- institutionCode를 입력받아 해당 lecture테이블에 입력 -->
+	<insert id="institutionInsertLectureByInstitutionCode"
+			parameterType="kr.or.ksmart.lms.institution.vo.Lecture">
+		INSERT INTO lecture (
+			lecture_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,info_lecture_code
+			,institution_code
 			,institution_name
-			,institution_phone
-			,institution_postcode
-			,institution_address
-			,institution_address_desc
-			,institution_location
-			,institution_registration_date
-		FROM institution		
+			,member_teacher_code
+			,member_teacher_name
+			,lecture_start_date
+			,lecture_end_date
+			,lecture_class_days
+			,lecture_date
+		) VALUES (
+			#{lectureCode}
+			,#{noticeLectureCode}
+			,(SELECT
+					notice_lecture_title
+				FROM
+					notice_lecture
+				WHERE 
+					notice_lecture_code = #{noticeLectureCode}
+				)
+			,#{infoLectureCode}
+			,#{institutionCode}
+			,(SELECT
+					institution_name
+				FROM
+					institution
+				WHERE 
+					institution_code = #{institutionCode}
+				)
+			,#{memberTeacherCode}
+			,(SELECT
+					member_teacher_name
+				FROM 
+					member_teacher
+				WHERE 
+					member_teacher_code = #{memberTeacherCode}
+			,#{lectureStartDate}
+			,#{lectureEndDate}
+			,#{lectureClassDays}
+			,now()
+		)		
+	</insert>
+
+	<!-- institutionCode를 입력받아 해당 lecture리스트 출력 -->
+	<select id="institutionSelectLectureListByInstitutionCode"
+			parameterType="String"
+			resultMap="LectureResultMap">
+		SELECT 
+			lecture_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,info_lecture_code
+			,institution_code
+			,institution_name
+			,member_teacher_code
+			,member_teacher_name
+			,lecture_start_date
+			,lecture_end_date
+			,lecture_class_days
+			,lecture_date
+		FROM 
+			lecture
+		WHERE
+			institution_code = #{institutionCode}
 	</select>
 	
-	<!-- 교육원 검색 -->
-	<select id="institutionSelectInstitutionListByKeyword"
+	<!-- lectureCode 입력받아 detailLecture 조회하는 메서드 -->
+	<select id="institutionSelectDetailLectureByLectureCode"
 			parameterType="String"
-			resultMap="InstitutionResultMap">
+			resultMap="LectureResultMap">
 		SELECT 
-			institution_code
+			lecture_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,info_lecture_code
+			,institution_code
 			,institution_name
-			,institution_location
+			,member_teacher_code
+			,member_teacher_name
+			,lecture_start_date
+			,lecture_end_date
+			,lecture_class_days
+			,lecture_date
 		FROM 
-			institution 
-		WHERE 
-			institution_location 
-		LIKE 
-			#{institutionName}
+			lecture
+		WHERE
+			lecture_code = #{lectureCode}
 	</select>
 </mapper>

@@ -9,8 +9,40 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	$('#insert').click(function(){
+		console.log("등록 버튼 클릭..");
+		// 빈칸 유효성검사
+		if($('#infoLectureSort').val() ==''){
+			$('#helper').text('강의코드(강의개요항목)를 지정해주세요!');
+			$('#infoLectureSort').focus();
+		}else if($('#infoLectureName').val() ==''){
+			$('#helper').text('강의코드(강의개요명)를 지정해주세요!');
+			$('#infoLectureName').focus();
+		}else {
+			console.log('등록버튼클릭..');
+			$('#addInfoLecture').submit();
+		}		
+	});
+	
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
+	<h1>강의표준 등록</h1>
+	<form id="addInfoLecture" action="/association/lecture/addInfoLecture" method="post">
+		<div class="form-group">
+			<label>강의표준항목</label>
+			<input type="text" class="form-control"  id="infoLectureSort" name="infoLectureSort">
+		</div>
+		<div class="form-group">
+			<label>강의표준명</label>
+			<input type="text" class="form-control"  id="infoLectureName" name="infoLectureName">
+		</div>
+		<span id="helper" style="color:red"></span>
+		<button id="insert" type="button">등록하기</button>	
+	</form>
 </div>
 </html>

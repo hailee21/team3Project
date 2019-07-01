@@ -22,8 +22,8 @@
 		</thead>
 		<tbody>
 			<tr th:each="list:${infoLectureList}">
-				<td><a th:href="@{'/association/lecture/detailInfoLecture?infoLectureCode='+${list.infoLectureCode}}" th:text="${list.infoLectureSort}" th:value="${list.infoLectureCode}"></a></td>
-				<td th:text="${list.infoLectureName}" th:value="${list.infoLectureName}"></td>								
+				<td th:text="${list.infoLectureSort}" th:value="${list.infoLectureSort}"></td>
+				<td><a th:href="@{'/association/lecture/detailInfoLecture?infoLectureCode='+${list.infoLectureCode}}" th:text="${list.infoLectureName}" th:value="${list.infoLectureCode}"></a></td>								
 			</tr>
 		</tbody>
 	</table>

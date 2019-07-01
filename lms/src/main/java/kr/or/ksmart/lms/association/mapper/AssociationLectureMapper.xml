@@ -33,6 +33,20 @@
 		<result column="institution_registration_date" property="institutionRegistrationDate"/>
 	</resultMap>
 	
+	<insert id="associationInsertInfoLecture"
+			parameterType="kr.or.ksmart.lms.association.vo.InfoLecture">
+		INSERT INTO info_lecture (
+			info_lecture_code
+			,info_lecture_sort
+			,info_lecture_name
+			,info_lecture_date
+		) VALUES (
+			#{infoLectureCode}
+			,#{infoLectureSort}
+			,#{infoLectureName}
+			,now()
+		)		
+	</insert>
 	<!-- infoLecture 리스트 출력 메서드 -->
 	<select id="associatonSelectInfoLectureList"
 			resultMap="infoLectureResultMap">
@@ -74,9 +88,28 @@
 		WHERE 
 			info_lecture_code = #{lectureCode}
 	</select>
+	
+	<!-- infoSubject 등록을 위한 메서드 -->
+	<insert id="associationInsertInfoSubject"
+			parameterType="kr.or.ksmart.lms.association.vo.InfoSubject">
+		INSERT INTO info_subject (
+			info_subject_code
+			,info_lecture_code
+			,info_subject_name
+			,info_subject_difficulty
+			,info_subject_modification_history
+		) VALUES (
+			#{infoSubjectCode}
+			,#{infoLectureCode}
+			,#{infoSubjectName}
+			,#{infoSubjectDifficulty}
+			,now()
+		)
+	</insert>
 
 	<!-- detail Subject 출력 메서드 -->
 	<select id="associationSelectInfoSubjectBySubjectCode"
+			parameterType="String"
 			resultMap="InfoSubjectMap">
 		SELECT 
 			info_subject_code

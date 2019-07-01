@@ -50,7 +50,7 @@ $(document).ready(function(){
 						$('#subjectList').empty();
 						$('#subjectList').append('<thead><tr><th>과목명</th><th>난이도</th></tr></thead><tbody>');
 						$(result).each(function(i, item){
-							$('#subjectList').append('<tr><td>'+item.infoSubjectName+'</td><td>'+item.infoSubjectDifficulty+'</td></tr>');
+							$('#subjectList').append('<tr><td><a href="/institution/lecture/detailInfoSubject?infoSubjectCode='+item.infoSubjectCode+'">'+item.infoSubjectName+'</a></td><td>'+item.infoSubjectDifficulty+'</td></tr>');
 						});
 						$('#subjectList').append('</tbody>');
 					}
