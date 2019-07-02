@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationInfoEvalMapper">
+	<insert id="insertInfoEvalByInstitution" parameterType="kr.or.ksmart.lms.association.vo.InfoEvalByInstitution">
+	<!-- member 테이블에 insert -->
+		INSERT INTO
+			info_eval_by_institution (
+			info_eval_by_institution_code
+			, info_eval_by_institution_sort
+			, info_eval_by_institution_type
+			, info_eval_by_institution_contents
+			, info_eval_by_institution_effective_date
+			, info_eval_by_institution_insert_date)
+		VALUES (
+			#{infoEvalByInstitutionCode}
+			, #{infoEvalByInstitutionSort}
+			, #{infoEvalByInstitutionType}
+			, #{infoEvalByInstitutionContents}
+			, #{infoEvalByInstitutionEffectiveDate}
+			, now()
+		)
+	</insert>
+	<resultMap type="kr.or.ksmart.lms.association.vo.InfoEvalByInstitution" id="InfoEvalByInstitutionListMap">
+		<result column="info_eval_by_institution_code" property="infoEvalByInstitutionCode"/>
+		<result column="info_eval_by_institution_sort" property="infoEvalByInstitutionSort"/>
+		<result column="info_eval_by_institution_type" property="infoEvalByInstitutionType"/>
+		<result column="info_eval_by_institution_contents" property="infoEvalByInstitutionContents"/>
+		<result column="info_eval_by_institution_effective_date" property="infoEvalByInstitutionEffectiveDate"/>
+	</resultMap>
+	<select id="selectInfoEvalByInstitutionList" parameterType="String" resultMap="InfoEvalByInstitutionListMap">
+		SELECT
+			info_eval_by_institution_code
+			, info_eval_by_institution_sort
+			, info_eval_by_institution_type
+			, info_eval_by_institution_contents
+			, info_eval_by_institution_effective_date
+			, left(info_eval_by_institution_insert_date,10) AS infoEvalByInstitutionInsertDate
+		FROM info_eval_by_institution
+		ORDER BY infoEvalByInstitutionInsertDate
+	</select>
+	
 	<insert id="insertInfoEvalByAssociation" parameterType="kr.or.ksmart.lms.association.vo.InfoEvalByAssociation">
 	<!-- member 테이블에 insert -->
 		INSERT INTO
@@ -26,7 +64,7 @@
 		<result column="info_eval_by_association_type" property="infoEvalByAssociationType"/>
 		<result column="info_eval_by_association_contents" property="infoEvalByAssociationContents"/>
 		<result column="info_eval_by_association_effective_date" property="infoEvalByAssociationEffectiveDate"/>
-		<result column="info_eval_by_association_insert_date" property="infoEvalByAssociationInsertDate"/>
+		<!-- <result column="info_eval_by_association_insert_date" property="infoEvalByAssociationInsertDate"/> -->
 	</resultMap>
 	<select id="selectInfoEvalByAssociationList" parameterType="String"
 			resultMap="InfoEvalByAssociationListMap">
@@ -36,8 +74,8 @@
 			, info_eval_by_association_type
 			, info_eval_by_association_contents
 			, info_eval_by_association_effective_date
-			, info_eval_by_association_insert_date
+			, left(info_eval_by_association_insert_date,10) AS infoEvalByAssociationInsertDate
 		FROM info_eval_by_association
-		ORDER BY info_eval_by_association_insert_date
+		ORDER BY infoEvalByAssociationInsertDate
 	</select>
 </mapper>

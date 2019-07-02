@@ -13,6 +13,7 @@
 		<result column="classroom_name" property="classroomName"/>
 		<result column="classroom_use" property="classroomUse"/>
 		<result column="classroom_maximum_number" property="classroomMaximumNumber"/>
+		<result column="classroom_date" property="classroomDate"/>
 	</resultMap>
 	<!-- ClassroomMapper Institution resultMap  -->
 	<resultMap id="InstitutionResultMap"

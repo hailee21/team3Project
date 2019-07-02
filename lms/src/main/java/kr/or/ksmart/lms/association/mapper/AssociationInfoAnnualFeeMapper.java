@@ -19,6 +19,9 @@ public interface AssociationInfoAnnualFeeMapper {
 	//연회비 개요 추가 mapper
 	public void insertInfoAnnualFee(InfoAnnualFee infoAnnualFee);
 
+	//남은일을 업데이트 하기위한 교육원 사용권한 리스트 mapper
+	public List<AvailableInstitution> selectAvailableInstitutionListForRemainingDateUpdate();
+
 	//교육원 사용 여부 리스트 출력 mapper
 	public List<AvailableInstitution> selectAvailableInstitutionList();
 

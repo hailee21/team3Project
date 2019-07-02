@@ -9,11 +9,18 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ksmart.lms.association.mapper.AssociationInfoEvalMapper;
 import kr.or.ksmart.lms.association.vo.InfoEvalByAssociation;
+import kr.or.ksmart.lms.association.vo.InfoEvalByInstitution;
 
 @Service
 public class AssociationInfoEvalService {
 	@Autowired private AssociationInfoEvalMapper associationInfoEvalMapper;
 	
+	//	교육원평가 항목(문항)리스트 출력
+	public List<InfoEvalByAssociation> getInfoEvalByAssociationList() {
+		List<InfoEvalByAssociation> evalByAssociationSort = associationInfoEvalMapper.selectInfoEvalByAssociationList();
+		return evalByAssociationSort;
+	}
+	//	교육원 평가항목 추가
 	public void insertInfoEvalByAssociation(InfoEvalByAssociation eval) {
 		//	info_eval_by_association 테이블에 insert 준비-> code 생성
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
@@ -36,8 +43,32 @@ public class AssociationInfoEvalService {
 		associationInfoEvalMapper.insertInfoEvalByAssociation(eval);
 	}
 	
-	public List<InfoEvalByAssociation> getInfoEvalByAssociationList() {
-		List<InfoEvalByAssociation> evalByAssociationSort = associationInfoEvalMapper.selectInfoEvalByAssociationList();
-		return evalByAssociationSort;
+	//	교육원-강사 평가항목(문항)리스트 출력
+	public List<InfoEvalByInstitution> getInfoEvalByInstitutionList() {
+		List<InfoEvalByInstitution> evalByInstitutionSort = associationInfoEvalMapper.selectInfoEvalByInstitutionList();
+		return evalByInstitutionSort;
 	}
+	//	교육원-강사 평가항목 추가
+	public void insertInfoEvalByInstitution(InfoEvalByInstitution eval) {
+		//	info_eval_by_institution 테이블에 insert 준비-> code 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+		String nowDate = dateFormat.format(now);
+		nowDate = nowDate.substring(0, 11);
+		nowDate = nowDate.toString().replace("-", "");
+		nowDate = nowDate.toString().replace(" ", "");
+		System.out.println(nowDate);
+		int randomNo1 = (int)(Math.random()*10000);
+		int randomNo2 = (int)(Math.random()*1000);
+		int randomNo3 = (int)(Math.random()*100);
+		int randomNo = randomNo1 + randomNo2 + randomNo3;
+		if(randomNo > 10000) {
+			randomNo = randomNo/10;
+		}
+		String infoEvalByInstitutionCode="IEIS"+nowDate+randomNo;
+		eval.setInfoEvalByInstitutionCode(infoEvalByInstitutionCode);
+		//	info_eval_by_institution 테이블에 insert
+			associationInfoEvalMapper.insertInfoEvalByInstitution(eval);
+	}
+	
 }

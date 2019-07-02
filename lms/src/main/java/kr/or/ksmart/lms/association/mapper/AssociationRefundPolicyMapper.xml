@@ -23,7 +23,7 @@
 			, refund_policy_description
 			, refund_policy_type
 			, refund_policy_percentage
-			, refund_policy_legislation_date
+			, LEFT(refund_policy_legislation_date, 10) AS refund_policy_legislation_date
 		FROM 
 			refund_policy
 		WHERE
@@ -41,7 +41,7 @@
 			, refund_policy_description
 			, refund_policy_type
 			, refund_policy_percentage
-			, refund_policy_legislation_date
+			, LEFT(refund_policy_legislation_date, 10) AS refund_policy_legislation_date
 		FROM 
 			refund_policy
 		WHERE
@@ -59,7 +59,7 @@
 			, refund_policy_description
 			, refund_policy_type
 			, refund_policy_percentage
-			, refund_policy_legislation_date
+			, LEFT(refund_policy_legislation_date, 10) AS refund_policy_legislation_date
 		FROM 
 			refund_policy
 		WHERE

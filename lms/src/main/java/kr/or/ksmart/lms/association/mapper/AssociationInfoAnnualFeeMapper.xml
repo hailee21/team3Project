@@ -73,7 +73,7 @@
 			info_annual_fee_code
 			, info_annual_fee_price
 			, info_annual_fee_description
-			, info_annual_fee_establishment_date
+			, LEFT(info_annual_fee_establishment_date, 10) AS info_annual_fee_establishment_date
 		FROM 
 			info_annual_fee
 		ORDER BY
@@ -93,8 +93,8 @@
 			)
 	</insert>
 
-	<!-- 교육원 사용권한 리스트 select  -->
-	<select id="selectAvailableInstitutionList" 
+	<!--남은일을 업데이트 하기위한 교육원 사용권한 리스트 select  -->
+	<select id="selectAvailableInstitutionListForRemainingDateUpdate" 
 			resultMap="availableInstitutionMap">
 		SELECT
 			institution_code
@@ -102,6 +102,23 @@
 			, payment_annual_fee_code
 			, payment_annual_fee_service_start_date
 			, payment_annual_fee_service_end_date
+			, available_institution_remaining_date
+			, available_institution_availability
+		FROM 
+			available_institution
+		ORDER BY
+			institution_code ASC
+	</select>
+
+	<!-- 교육원 사용권한 리스트 select  -->
+	<select id="selectAvailableInstitutionList" 
+			resultMap="availableInstitutionMap">
+		SELECT
+			institution_code
+			, institution_name
+			, payment_annual_fee_code
+			, LEFT(payment_annual_fee_service_start_date, 10) AS payment_annual_fee_service_start_date
+			, LEFT(payment_annual_fee_service_end_date, 10) AS payment_annual_fee_service_end_date
 			, available_institution_remaining_date
 			, available_institution_availability
 		FROM 
@@ -159,9 +176,9 @@
 			, institution_name
 			, info_annual_fee_code
 			, payment_annual_fee_price
-			, payment_annual_fee_service_start_date
-			, payment_annual_fee_service_end_date
-			, payment_annual_fee_date
+			, LEFT(payment_annual_fee_service_start_date, 10) AS payment_annual_fee_service_start_date
+			, LEFT(payment_annual_fee_service_end_date, 10) AS payment_annual_fee_service_end_date
+			, LEFT(payment_annual_fee_date, 10) AS payment_annual_fee_date
 			, payment_annual_fee_method
 		FROM 
 			payment_annual_fee
@@ -252,11 +269,11 @@
 			, refund_policy_code
 			, info_annual_fee_code
 			, refund_annual_fee_price
-			, payment_annual_fee_service_start_date
-			, payment_annual_fee_service_end_date
+			, LEFT(payment_annual_fee_service_start_date, 10) AS payment_annual_fee_service_start_date
+			, LEFT(payment_annual_fee_service_end_date, 10) AS payment_annual_fee_service_end_date
 			, info_institution_remaining_date
-			, payment_annual_fee_date
-			, refund_annual_fee_date
+			, LEFT(payment_annual_fee_date, 10) AS payment_annual_fee_date
+			, LEFT(refund_annual_fee_date, 10) AS refund_annual_fee_date
 		FROM 
 			refund_annual_fee
 		ORDER BY

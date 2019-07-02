@@ -98,8 +98,8 @@
 			institution_code
 			, institution_name
 			, payment_annual_fee_code
-			, payment_annual_fee_service_start_date
-			, payment_annual_fee_service_end_date
+			, LEFT(payment_annual_fee_service_start_date, 10) AS payment_annual_fee_service_start_date
+			, LEFT(payment_annual_fee_service_end_date, 10) AS payment_annual_fee_service_end_date
 			, available_institution_remaining_date
 			, available_institution_availability
 		FROM 
