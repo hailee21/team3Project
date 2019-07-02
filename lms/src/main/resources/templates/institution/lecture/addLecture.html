@@ -21,7 +21,6 @@
 				<option th:each="memberTeacher:${memberTeacher}" th:text="${memberTeacher.memberTeacherName}" th:value="${memberTeacher.memberTeacherCode}"></option> 
 			</select>
 		</div>
-		
 		<div class="form-group">
 			<label>강의개요 :</label>
 		    <select id="infoLectureSort" name="infoLectureSort">
@@ -33,16 +32,10 @@
 		    </select>
 		</div>
 		<div class="form-group">
-			<label>교육원명 :</label>
-			<select id="institutionCode" name="institutionCode">
-				<option>--- 선택 ---</option>
-				<option th:each="institution:${institution}" th:text="${institution.institutionName}" th:value="${institution.institutionCode}"></option> 
-			</select>
-		</div>
-		<div class="form-group">
 			<label>강사명 :</label>
-			<select id="classroomCode" name="classroomCode">
+			<select id="memberTeacherCode" name="memberTeacherCode">
 				<option value="">--- 선택 ---</option>
+				<option th:each="memberTeacher:${memberTeacher}" th:text="${memberTeacher.memberTeacherName}" th:value="${memberTeacher.memberTeacherCode}"></option> 
 			</select>
 		</div>
 		<div class="row">

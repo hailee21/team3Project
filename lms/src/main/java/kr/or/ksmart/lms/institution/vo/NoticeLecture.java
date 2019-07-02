@@ -1,4 +1,4 @@
-package kr.or.ksmart.lms.association.vo;
+package kr.or.ksmart.lms.institution.vo;
 
 public class NoticeLecture {
 	private String noticeLectureCode;

@@ -20,7 +20,7 @@ public class AssociationLectureController {
 
 	@Autowired private AssociationLectureService associationLectureService;
 	
-	// association layout 강의표준 등록
+	// association layout 강의표준 등록 Controller
 	@GetMapping("/association/lecture/addInfoLecture")
 	public ModelAndView associationAddInfoLecture(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute("memberRank");

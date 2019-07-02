@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/institutionLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
 
-</body>
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>$(document).ready(function(){
+	// 강의등록하기 버튼 클릭시 이벤트 처리
+	$('#btnAdd').on('click',function(){
+		console.log('#btnAdd click test');
+		location.href='/institution/classroom/addClassroom'
+	});
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h2>강의실 조회</h2>
+	
+	<button type="button" id="btnAdd" class="btn btn-primary btn-rightLarge">강의실 등록하기</button><br><br>
+	
+	<table class="table table-striped">
+		<thead>
+			<tr>				
+				<th>강의실명</th>
+				<th>강의실위치</th>
+				<th>용도</th>
+				<th>최대수용인원</th>
+				<th>등록일자</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list:${classroom}">
+				<td><a th:href="@{'/institution/classroom/detailClassroom?classroomCode='+${list.classroomCode}}" th:text="${list.classroomName}" th:value="${list.classroomCode}"></a></td>
+				<td th:text="${list.classroomLocation}" th:value="${list.classroomLocation}"></td>		
+				<td th:text="${list.classroomUse}" th:value="${list.classroomUse}"></td>
+				<td th:text="${list.classroomMaximumNo}" th:value="${list.classroomMaximumNo}"></td>
+				<td th:text="${list.classroomDate}" th:value="${list.classroomDate}"></td>	
+			</tr>
+		</tbody>
+	</table>
+</div>
 </html>

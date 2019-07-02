@@ -9,10 +9,21 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>$(document).ready(function(){
+	// 강의등록하기 버튼 클릭시 이벤트 처리
+	$('#btnAdd').on('click',function(){
+		console.log('#btnAdd click test');
+		location.href='/institution/lecture/addLecture'
+	});
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
 	<h2>강의목록 조회</h2>
+	
+	<button type="button" id="btnAdd" class="btn btn-primary btn-rightLarge">강의개요 등록하기</button><br><br>
+	
 	<table class="table table-striped">
 		<thead>
 			<tr>
