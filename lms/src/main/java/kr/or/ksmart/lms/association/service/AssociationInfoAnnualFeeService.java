@@ -47,7 +47,7 @@ public class AssociationInfoAnnualFeeService {
 	//교육원 사용권한 새로고침 service
 	public void getAvailableInstitutionRefresh(){
 		//교육원 사용권한 리스 출력 select mapper 호출
-		List<AvailableInstitution> availableList = associationInfoAnnualFeeMapper.selectAvailableInstitutionList();
+		List<AvailableInstitution> availableList = associationInfoAnnualFeeMapper.selectAvailableInstitutionListForRemainingDateUpdate();
 
 		//오늘 날짜 계산한다.
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:SS"); //DB에 저장되는 형식과 동일한 형태
@@ -206,7 +206,7 @@ public class AssociationInfoAnnualFeeService {
 
 		//연회비 환불로 인한 사용권한 남은일 수정
 		AvailableInstitution availableInstitution = associationInfoAnnualFeeMapper.selectAvailableInstitution(refundAnnualFee.getInstitutionCode());
-		availableInstitution.setPaymentAnnualFeeServiceEndDate(refundAnnualFee.getPaymentAnnualFeeServiceEndDate());
+		availableInstitution.setPaymentAnnualFeeServiceEndDate(refundAnnualFee.getPaymentAnnualFeeServiceStartDate());
 		associationInfoAnnualFeeMapper.updateAvailableInstitution(availableInstitution);
 		System.out.println(availableInstitution);
 
