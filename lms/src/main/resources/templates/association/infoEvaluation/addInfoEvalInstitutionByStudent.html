@@ -13,6 +13,9 @@
 		font-size: 12px;
 		float: right;
 	}
+	span {
+		color: #B70000;
+	}
 </style>
 </th:block>
 
@@ -22,6 +25,21 @@
 $(document).ready(function(){
 	$('#btnAdd').on('click',function(){
 		console.log('#btnAdd click test');
+		if ($('#InfoEvalInstitutionByStudentType').val() == ''){
+			$('#helper').text('*평가항목분류를 입력하세요');
+	    	$('#InfoEvalInstitutionByStudentType').focus();
+    	return false;
+    	}
+		if ($('#InfoEvalInstitutionByStudentContents').val() == ''){
+			$('#helper').text('*평가내용을 입력하세요');
+	    	$('#InfoEvalInstitutionByStudentContents').focus();
+    	return false;
+    	}
+		if ($('#InfoEvalInstitutionByStudentEffectiveDate').val() == ''){
+			$('#helper').text('*시행연월을 입력하세요');
+	    	$('#InfoEvalInstitutionByStudentEffectiveDate').focus();
+    	return false;
+    	}
 		$('#infoEvalInstitutionByStudentInsert').submit();
 	});
 	$('#btnBack').on('click',function(){
@@ -43,7 +61,7 @@ $(document).ready(function(){
     			
     			<div class="col-sm-5">
 					<label for="InputInfoEvalInstitutionByStudentSort">평가종류</label>
-					<input type="text" class="form-control" id="InfoEvalInstitutionByStudentSort" name="InfoEvalInstitutionByStudentSort" aria-describedby="" readonly="readonly" value="교육원평가">
+					<input type="text" class="form-control" id="InfoEvalInstitutionByStudentSort" name="InfoEvalInstitutionByStudentSort" aria-describedby="" readonly="readonly" value="교육원평가(수강생)">
     	  			<small class="form-text text-muted"></small>
       			</div>
 			</div>
@@ -65,6 +83,11 @@ $(document).ready(function(){
 					<label for="InputInfoEvalInstitutionByStudentEffectiveDate">시행연월</label>
 					<input type="text" class="form-control" id="InfoEvalInstitutionByStudentEffectiveDate" name="InfoEvalInstitutionByStudentEffectiveDate" aria-describedby="" placeholder="" value="2019-07" size="5">
 					<small class="form-text text-muted">ex) 2018-01</small>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-5">
+					<span id="helper"></span>
 				</div>
 			</div>
 			<p style="height: 10px"></p>

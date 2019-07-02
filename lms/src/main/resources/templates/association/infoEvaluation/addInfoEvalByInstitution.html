@@ -13,6 +13,9 @@
 		font-size: 12px;
 		float: right;
 	}
+	span {
+		color: #B70000;
+	}
 </style>
 </th:block>
 
@@ -22,6 +25,21 @@
 $(document).ready(function(){
 	$('#btnAdd').on('click',function(){
 		console.log('#btnAdd click test');
+		if ($('#infoEvalByInstitutionType').val() == ''){
+			$('#helper').text('*평가항목종류를 입력하세요');
+	    	$('#infoEvalByInstitutionType').focus();
+    	return false;
+    	}
+		if ($('#infoEvalByInstitutionContents').val() == ''){
+			$('#helper').text('*평가문항을 입력하세요');
+	    	$('#infoEvalByInstitutionContents').focus();
+    	return false;
+    	}
+		if ($('#infoEvalByInstitutionEffectiveDate').val() == ''){
+			$('#helper').text('*시행연월을 입력하세요');
+	    	$('#infoEvalByInstitutionEffectiveDate').focus();
+    	return false;
+    	}
 		$('#infoEvalByInstitutionInsert').submit();
 	});
 	$('#btnBack').on('click',function(){
@@ -50,8 +68,8 @@ $(document).ready(function(){
 			<div class="form-group">
 				<div class="col-sm-5">
 					<label for="InputInfoEvalByInstitutionType">평가항목종류</label>
-					<input type="text" class="form-control" id="infoEvalByInstitutionType" name="infoEvalByInstitutionType" aria-describedby="" placeholder="ex)교육 프로그램" value="">
-      				<small class="form-text text-muted">ex)교육 프로그램/인적 구성/교육 여건</small>
+					<input type="text" class="form-control" id="infoEvalByInstitutionType" name="infoEvalByInstitutionType" aria-describedby="" placeholder="ex)능력사항" value="">
+      				<small class="form-text text-muted">ex)성실성/능력사항/체계성/적절성</small>
 				</div>
 			</div>
 			<div class="form-group">
@@ -65,6 +83,11 @@ $(document).ready(function(){
 					<label for="InputInfoEvalByInstitutionEffectiveDate">시행연월</label>
 					<input type="text" class="form-control" id="infoEvalByInstitutionEffectiveDate" name="infoEvalByInstitutionEffectiveDate" aria-describedby="" placeholder="" value="2019-07" size="5">
 					<small class="form-text text-muted">ex) 2018-01</small>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-5">
+					<span id="helper"></span>
 				</div>
 			</div>
 			<p style="height: 10px"></p>
