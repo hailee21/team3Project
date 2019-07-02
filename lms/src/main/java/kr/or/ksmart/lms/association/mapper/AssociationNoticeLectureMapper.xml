@@ -21,9 +21,9 @@
 		<result column="notice_lecture_recruitment_start_date" property="noticeLectureRecruitmentStartDate"/>
 		<result column="notice_lecture_recruitment_end_date" property="noticeLectureRecruitmentEndDate"/>
 		<result column="notice_lecture_result_date" property="noticeLectureResultDate"/>
-		<result column="notice_lecture_fee" property="noticeLectureFee"/>
+		<result column="notice_lecture_fee" property="noticeLectureFee"/>	
 		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
-		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>	
+		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
 		<result column="notice_lecture_date" property="noticeLectureDate"/>		
 	</resultMap>
 	<!-- AssociationNoticeLectureMapper InfoLecture resultMap  -->
@@ -32,7 +32,7 @@
 		<result column="info_lecture_code" property="infoLectureCode"/>
 		<result column="info_lecture_sort" property="infoLectureSort"/>
 		<result column="info_lecture_name" property="infoLectureName"/>
-		<result column="info_lecture_insert_date" property="infoLectureInsertDate"/>
+		<result column="info_lecture_date" property="infoLectureDate"/>
 	</resultMap>
 	<!-- AssociationNoticeLectureMapper MemberTeacher resultMap  -->
 	<resultMap id="MemberTeacherResultMap"
@@ -200,12 +200,12 @@
 			,classroom_maximum_no
 			,notice_lecture_minimum_no
 			,notice_lecture_current_applicant_no
-			,notice_lecture_recruitment_start_date
-			,notice_lecture_recruitment_end_date
-			,notice_lecture_result_date
+			,left(notice_lecture_recruitment_start_date, 10) AS notice_lecture_recruitment_start_date
+			,left(notice_lecture_recruitment_end_date, 10) AS notice_lecture_recruitment_end_date
+			,left(notice_lecture_result_date, 10) AS notice_lecture_result_date
 			,notice_lecture_fee
-			,notice_lecture_start_date
-			,notice_lecture_end_date
+			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
+			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
 		FROM 
 			notice_lecture
 	</select>
@@ -226,14 +226,15 @@
 			,classroom_maximum_no
 			,notice_lecture_minimum_no
 			,notice_lecture_current_applicant_no
-			,notice_lecture_recruitment_start_date
-			,notice_lecture_recruitment_end_date
-			,notice_lecture_result_date
+			,left(notice_lecture_recruitment_start_date, 10) AS notice_lecture_recruitment_start_date
+			,left(notice_lecture_recruitment_end_dat, 10)e AS notice_lecture_recruitment_end_date
+			,left(notice_lecture_result_date, 10) AS notice_lecture_result_date
 			,notice_lecture_fee
-			,notice_lecture_start_date
-			,notice_lecture_end_date
+			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
+			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
 		FROM 
 			notice_lecture
-		WHERE notice_lecture_code = #{noticeLectureCode}
+		WHERE 
+			notice_lecture_code = #{noticeLectureCode}
 	</select>
 </mapper>

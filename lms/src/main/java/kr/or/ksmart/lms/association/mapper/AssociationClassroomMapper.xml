@@ -98,7 +98,8 @@
 			,classroom_name
 			,classroom_use
 			,classroom_maximum_no
-		FROM classroom
+		FROM 
+			classroom
 	</select>
 	
 	<!-- 강의실조회 교육원명으로 검색 -->

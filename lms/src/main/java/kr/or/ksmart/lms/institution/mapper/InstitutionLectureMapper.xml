@@ -9,7 +9,7 @@
 		<result column="info_lecture_code" property="infoLectureCode"/>
 		<result column="info_lecture_sort" property="infoLectureSort"/>
 		<result column="info_lecture_name" property="infoLectureName"/>
-		<result column="info_lecture_insert_date" property="infoLectureInsertDate"/>
+		<result column="info_lecture_date" property="infoLectureDate"/>
 	</resultMap>
 	<!-- InstitutionLectureMapper InfoSubject resultMap  -->
 	<resultMap id="InfoSubjectMap"
@@ -154,7 +154,7 @@
 			,lecture_start_date
 			,lecture_end_date
 			,lecture_class_days
-			,lecture_date
+			,left(lecture_date, 10) AS lecture_date
 		FROM 
 			lecture
 		WHERE
@@ -177,7 +177,7 @@
 			,lecture_start_date
 			,lecture_end_date
 			,lecture_class_days
-			,lecture_date
+			,left(lecture_date, 10) AS lecture_date
 		FROM 
 			lecture
 		WHERE
