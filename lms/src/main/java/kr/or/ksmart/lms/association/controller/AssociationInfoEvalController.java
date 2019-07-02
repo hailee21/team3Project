@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.association.service.AssociationInfoEvalService;
 import kr.or.ksmart.lms.association.vo.InfoEvalByAssociation;
+import kr.or.ksmart.lms.association.vo.InfoEvalByInstitution;
 
 @Controller
 public class AssociationInfoEvalController {
@@ -106,6 +107,8 @@ public class AssociationInfoEvalController {
 			memberRank = "로그인 실패";
 		} if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association 내 sendEmailToTeacher..
 			mav.setViewName("association/infoEvaluation/evaluationByInstitution");
+			List<InfoEvalByInstitution> evalByInstitutionSort = associationInfoEvalService.getInfoEvalByInstitutionList();
+			mav.addObject("evalByInstitutionSort", evalByInstitutionSort);
 		} else {
 			System.out.println("[AssociationInfoEvalController getEvalbyInstitution] 협회 직원이 아님");
 			mav.setViewName("association/associationLogin");
@@ -127,7 +130,25 @@ public class AssociationInfoEvalController {
 		}
 		return mav;
 	}
-	
+	//	교육원-강사 평가항목 insert submit
+	@PostMapping("/infoEvalByInstitutionInsert")
+	public ModelAndView insertInfoEvalByInstitution (InfoEvalByInstitution eval
+			, ModelAndView mav, HttpSession session) {
+		System.out.println("[AssociationInfoEvalController insertInfoEvalByAssociation] 호출");
+		//	회원 등급 session 검사
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {	//	memberRank로 로그인 여부 확인
+			memberRank = "로그인 실패";
+		}
+		if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association 내 addInfoEvalByAssociation..
+			associationInfoEvalService.insertInfoEvalByInstitution(eval);
+			mav.setViewName("redirect:/evalByInstitution");
+		} else {
+			System.out.println("[AssociationInfoEvalController insertInfoEvalByAssociation] 협회 직원이 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
 	
 	//	평가항목관리 : 수강생-교육원 view
 	@GetMapping("/institutionByStudent")
