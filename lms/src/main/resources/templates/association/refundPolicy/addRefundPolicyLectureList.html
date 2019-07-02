@@ -87,30 +87,42 @@
 <div layout:fragment="content">
 	<h3>강의 환불정책 추가</h3>
 	<form id="addPolicy" action="/addRefundPolicy" method="post">
-		<div class="form-group">
-			<label>강의 환불정책 명 :</label>
-			<input type="text" class="form-control" id="refundPolicyName" name="refundPolicyName">
-		</div>
-		<div class="form-group">
-			<label>강의 환불정책 상세내용 :</label>
-			<input type="text" class="form-control" id="refundPolicyDescription" name="refundPolicyDescription">
-		</div>
-		<div class="form-group">
-			<label>강의 환불률 :</label>
-			<input type="text" class="form-control" id="refundPolicyPercentage" name="refundPolicyPercentage">
-		</div>
-		<div class="form-group">
-			<label>강의 환불 종류 :</label>
-			<select class="form-control" id="refundPolicyType" name="refundPolicyType">
-				<option>종류 선택</option>
-				<option value="강의환불 수업전">강의환불 수업전</option>
-				<option value="강의환불 1/3전">강의환불 1/3전</option>
-				<option value="강의환불 1/2전">강의환불 1/2전</option>
-				<option value="강의환불 1/2후">강의환불 1/2후</option>
-				<option value="강의환불 1개월 초과 교습전">강의환불 1개월 초과 교습전</option>
-				<option value="강의환불 1개월 초과 교습후">강의환불 1개월 초과 교습후</option>
-			</select>
-		</div>		
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>강의 환불정책 명</td>
+					<td>
+						<input type="text" class="form-control" id="refundPolicyName" name="refundPolicyName">
+					</td>
+				</tr>
+				<tr>
+					<td>강의 환불정책 상세내용</td>
+					<td>
+						<input type="text" class="form-control" id="refundPolicyDescription" name="refundPolicyDescription">
+					</td>
+				</tr>
+				<tr>
+					<td>강의 환불률</td>
+					<td>
+						<input type="text" class="form-control" id="refundPolicyPercentage" name="refundPolicyPercentage">
+					</td>
+				</tr>
+				<tr>
+					<td>강의 환불 종류</td>
+					<td>
+						<select class="form-control" id="refundPolicyType" name="refundPolicyType">
+							<option>종류 선택</option>
+							<option value="강의환불 수업전">강의환불 수업전</option>
+							<option value="강의환불 1/3전">강의환불 1/3전</option>
+							<option value="강의환불 1/2전">강의환불 1/2전</option>
+							<option value="강의환불 1/2후">강의환불 1/2후</option>
+							<option value="강의환불 1개월 초과 교습전">강의환불 1개월 초과 교습전</option>
+							<option value="강의환불 1개월 초과 교습후">강의환불 1개월 초과 교습후</option>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>	
 		<button type="button" id="btnAdd" class="btn btn-secondary btn-rightLarge">연회비 환불정책 추가</button>
 		<br>
 		<h4></h4>

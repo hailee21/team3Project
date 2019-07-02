@@ -1,6 +1,7 @@
 package kr.or.ksmart.lms.association.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -124,4 +125,30 @@ public class AssociationEvaluationService {
         //mapper 호출
         associationEvaluationMapper.updateEvalTotal(evalTotal);
     }
+
+    //교육원 평가 항목 추가 폼 service
+	public Map<String, Object> getEvaluationTotalAddForm() {
+        //교육원 평가 항목 리스트 mapper 호출
+        List<String> sortList = associationEvaluationMapper.selectInfoEvalByAssociationSortList();
+
+        //교육원 평가 년도 선택 리스트 생성
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+        String nowDate = dateFormat.format(now);
+        nowDate = nowDate.substring(0, 4);
+        int startYear = Integer.parseInt(nowDate);
+        startYear = startYear - 2;
+        List<Integer> yearList = new ArrayList<Integer>();
+        for(int i = 0; i<12; i++) {
+            int year = startYear + i;
+            yearList.add(year);
+            System.out.println(year);
+        }
+
+        //컨트롤러로 리턴할 데이터 선언 및 설정
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        returnMap.put("sortList", sortList);
+        returnMap.put("yearList", yearList);
+        return returnMap;
+	}
 }

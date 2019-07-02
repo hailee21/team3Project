@@ -35,7 +35,7 @@
                 <td th:text="${paymentListForRefund.paymentAnnualFeeMethod}"></td>
                 <td th:text="${paymentListForRefund.paymentAnnualFeeServiceStartDate}"></td>
                 <td th:text="${paymentListForRefund.paymentAnnualFeeServiceEndDate}"></td>
-                <td><a type="button" class="btn btn-secondary" th:href="@{'/association/infoAnnualFee/addRefundAnnualFee?paymentAnnualFeeCode='+${paymentListForRefund.paymentAnnualFeeCode}}" th:text="환불하기"></a></td>		
+                <td><a class="btn btn-secondary" th:href="@{'/association/infoAnnualFee/addRefundAnnualFee?paymentAnnualFeeCode='+${paymentListForRefund.paymentAnnualFeeCode}}" th:text="환불하기"></a></td>		
             </tr>
         </tbody>
     </table>

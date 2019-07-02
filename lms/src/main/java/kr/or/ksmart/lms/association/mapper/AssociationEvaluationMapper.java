@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.lms.association.vo.EvalTotal;
+import kr.or.ksmart.lms.association.vo.InfoEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.InsertEvalTotal;
 
 @Mapper
@@ -33,4 +34,10 @@ public interface AssociationEvaluationMapper {
     
     //입력조건에 따른 교육원 평가 합계 리스트 출력 mapper
     public List<EvalTotal> selectEvalTotalList();
+
+    //교육원 평가 항목 리스트 출력 mapper
+    public List<String> selectInfoEvalByAssociationSortList();
+
+    //교육원 평가 항목에 따른 리스트 출력 mapper
+    public List<InfoEvalByAssociation> selectInfoEvalByAssociationList(String infoEvalByAssociationSort);
 }

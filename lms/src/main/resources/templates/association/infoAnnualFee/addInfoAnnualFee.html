@@ -57,14 +57,22 @@
 <div layout:fragment="content">
 	<h3>연회비 개요 추가</h3>
 	<form id="addInfoAnnualFee" action="/associationAddInfoAnnualFee" method="post">
-		<div class="form-group">
-			<label>연회비 금액 :</label>
-			<input type="text" class="form-control" id="infoAnnualFeePrice" name="infoAnnualFeePrice">
-		</div>
-		<div class="form-group">
-			<label>연회비 상세내용 :</label>
-			<input type="text" class="form-control" id="infoAnnualFeeDescription" name="infoAnnualFeeDescription">
-		</div>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>연회비 금액</td>
+					<td>
+						<input type="text" class="form-control" id="infoAnnualFeePrice" name="infoAnnualFeePrice">
+					</td>
+				</tr>
+				<tr>
+					<td>연회비 상세내용</td>
+					<td>
+						<input type="text" class="form-control" id="infoAnnualFeeDescription" name="infoAnnualFeeDescription">
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<button type="button" id="btnAdd" class="btn btn-secondary btn-rightLarge">연회비 개요 추가</button>
 		<h4></h4>
 	</form>

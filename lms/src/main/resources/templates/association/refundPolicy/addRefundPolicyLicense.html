@@ -72,18 +72,28 @@
 <div layout:fragment="content">
 	<h3>자격시험 환불정책 추가</h3>
 	<form id="addPolicy" action="/addRefundPolicy" method="post">
-		<div class="form-group">
-			<label>자격시험 환불정책 명 :</label>
-			<input type="text" class="form-control" id="refundPolicyName" name="refundPolicyName">
-		</div>
-		<div class="form-group">
-			<label>자격시험 환불정책 상세내용 :</label>
-			<input type="text" class="form-control" id="refundPolicyDescription" name="refundPolicyDescription">
-		</div>
-		<div class="form-group">
-			<label>자격시험 환불률 :</label>
-			<input type="text" class="form-control" id="refundPolicyPercentage" name="refundPolicyPercentage">
-		</div>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>자격시험 환불정책 명</td>
+					<td>
+						<input type="text" class="form-control" id="refundPolicyName" name="refundPolicyName">
+					</td>
+				</tr>
+				<tr>
+					<td>자격시험 환불정책 상세내용</td>
+					<td>
+						<input type="text" class="form-control" id="refundPolicyDescription" name="refundPolicyDescription">
+					</td>
+				</tr>
+				<tr>
+					<td>자격시험 환불률</td>
+					<td>
+						<input type="text" class="form-control" id="refundPolicyPercentage" name="refundPolicyPercentage">
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<input type="hidden" id="refundPolicyType" name="refundPolicyType" value="자격시험 환불">
 		<button type="button" id="btnAdd" class="btn btn-secondary btn-rightLarge">연회비 환불정책 추가</button>
 		<br>

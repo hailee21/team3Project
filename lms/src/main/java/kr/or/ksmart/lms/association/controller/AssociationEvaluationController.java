@@ -128,6 +128,11 @@ public class AssociationEvaluationController {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
+			Map<String, Object> map = associationEvaluationService.getEvaluationTotalAddForm();
+			mav.addObject("sortList", map.get("sortList"));
+			mav.addObject("yearList", map.get("yearList"));
+			System.out.println(map.get("sortList"));
+			System.out.println(map.get("yearList"));
 			mav.setViewName("association/evaluation/addEvaluationTotal");
 		} else {
 			System.out.println("[AssociationEvaluationController getEvaluationTotalAddForm] 협회직원 아님");
@@ -154,7 +159,7 @@ public class AssociationEvaluationController {
 		return mav;
 	}
 
-	//교육원 평가 합계리스트 출려 controller
+	//교육원 평가 합계리스트 출력 controller
 	@PostMapping("/association/evaluation/evaluationTotal")
 	public ModelAndView getEvalTotatList(HttpSession session, ModelAndView mav
 			, @RequestParam(value="evalTotalYear") int evalTotalYear
@@ -172,6 +177,8 @@ public class AssociationEvaluationController {
 			mav.addObject("evalTotalList", returnMap.get("evalTotalList"));
 			mav.addObject("evalTotalType", returnMap.get("evalTotalType"));
 			mav.addObject("evalTotalYear", returnMap.get("evalTotalYear"));
+			mav.addObject("searchYear", evalTotalYear);
+			mav.addObject("searchSort", evalTotalType);
 			System.out.println(returnMap.get("evalTotalList"));
 			System.out.println(returnMap.get("evalTotalType"));
 			System.out.println(returnMap.get("evalTotalYear"));

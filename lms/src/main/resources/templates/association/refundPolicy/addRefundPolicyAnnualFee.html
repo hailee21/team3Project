@@ -57,14 +57,22 @@
 <div layout:fragment="content">
 	<h3>연회비 환불정책 추가</h3>
 	<form id="addPolicy" action="/addRefundPolicy" method="post">
-		<div class="form-group">
-			<label>연회비 환불정책 명 :</label>
-			<input type="text" class="form-control" id="refundPolicyName" name="refundPolicyName">
-		</div>
-		<div class="form-group">
-			<label>연회비 환불정책 상세내용 :</label>
-			<input type="text" class="form-control" id="refundPolicyDescription" name="refundPolicyDescription">
-		</div>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>연회비 환불정책 명</td>
+					<td>
+						<input type="text" class="form-control" id="refundPolicyName" name="refundPolicyName">
+					</td>
+				</tr>
+				<tr>
+					<td>연회비 환불정책 상세내용</td>
+					<td>
+						<input type="text" class="form-control" id="refundPolicyDescription" name="refundPolicyDescription">
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<input type="hidden" id="refundPolicyPercentage" name="refundPolicyPercentage" value="0">
 		<input type="hidden" id="refundPolicyType" name="refundPolicyType" value="연회비 환불">
 		<button type="button" id="btnAdd" class="btn btn-secondary btn-rightLarge">연회비 환불정책 추가</button>

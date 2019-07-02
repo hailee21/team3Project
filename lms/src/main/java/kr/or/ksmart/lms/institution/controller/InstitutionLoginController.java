@@ -31,8 +31,7 @@ public class InstitutionLoginController {
 	public ModelAndView instituteLayoutLoginAction(HttpSession session, ModelAndView mav, LoginRequest loginRequest) {
 		Map<String, Object> map = InstitutionLoginService.getMemberOnline(loginRequest);
 		MemberOnline loginMember = (MemberOnline)map.get("memberOnline");
-		//boolean Check = (boolean)map.get("Check");
-		boolean Check = true;
+		boolean Check = (boolean)map.get("Check");
 		int remainingDate = (int)map.get("remainingDate");
 		if(loginMember == null) {
 			mav.setViewName("redirect:/institutionLogin");

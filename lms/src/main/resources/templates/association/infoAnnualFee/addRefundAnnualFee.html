@@ -65,37 +65,54 @@
 	<form id="addRefundAnnualFee" action="/addRefundAnnualFee" method="post">
         <input type="hidden" id="paymentAnnualFeeCode" name="paymentAnnualFeeCode" th:value="${payment.paymentAnnualFeeCode}">
         <input type="hidden" id="institutionCode" name="institutionCode" th:value="${payment.institutionCode}">
-        <div class="form-group">
-            <label>교육원 명 :</label>
-            <input type="text" class="form-control" readonly="readonly" id="institution_name" name="institutionName" th:value="${payment.institutionName}">
-        </div>
-        <div class="form-group">
-            <label>환불 정책 :</label>
-            <select class="form-control" id="refundPolicyCode" name="refundPolicyCode">
-                <option th:each="annualFee:${refundPolicyAnnualFeeList}" th:text="${annualFee.refundPolicyDescription}" th:value="${annualFee.refundPolicyCode}"></option>
-            </select>
-        </div>
-        <input type="hidden" id="infoAnnualFeeCode" name="infoAnnualFeeCode" th:value="${payment.infoAnnualFeeCode}">
-        <div class="form-group">
-			<label>서비스 남은일 :</label>
-			<input type="text" class="form-control" readonly="readonly" id="infoInstitutionRemainingDate" name="infoInstitutionRemainingDate" th:value="${remainingDate}">
-		</div>
-        <div class="form-group">
-			<label>환불 금액 :</label>
-			<input type="text" class="form-control" id="refundAnnualFeePrice" name="refundAnnualFeePrice">
-        </div>
-        <div class="form-group">
-            <label>서비스 시작일 :</label>
-            <input type="text" class="form-control" readonly="readonly" id="paymentAnnualFeeServiceStartDate" name="paymentAnnualFeeServiceStartDate" th:value="${payment.paymentAnnualFeeServiceStartDate}">
-        </div>
-        <div class="form-group">
-            <label>서비스 종료일 :</label>
-            <input type="text" class="form-control" readonly="readonly" id="paymentAnnualFeeServiceEndDate" name="paymentAnnualFeeServiceEndDate" th:value="${payment.paymentAnnualFeeServiceEndDate}">
-        </div>
-        <div class="form-group">
-            <label>서비스 결제일 :</label>
-            <input type="text" class="form-control" readonly="readonly" id="paymentAnnualFeeDate" name="paymentAnnualFeeDate" th:value="${payment.paymentAnnualFeeDate}">
-        </div>            
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>교육원 명</td>
+                    <td>
+                        <input type="text" class="form-control" readonly="readonly" id="institution_name" name="institutionName" th:value="${payment.institutionName}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>환불 정책</td>
+                    <td>
+                        <select class="form-control" id="refundPolicyCode" name="refundPolicyCode">
+                            <option th:each="annualFee:${refundPolicyAnnualFeeList}" th:text="${annualFee.refundPolicyDescription}" th:value="${annualFee.refundPolicyCode}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>서비스 남은일</td>
+                    <td>
+                        <input type="text" class="form-control" readonly="readonly" id="infoInstitutionRemainingDate" name="infoInstitutionRemainingDate" th:value="${remainingDate}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>환불 금액</td>
+                    <td>
+                        <input type="text" class="form-control" id="refundAnnualFeePrice" name="refundAnnualFeePrice">
+                    </td>
+                </tr>
+                <tr>
+                    <td>서비스 시작일</td>
+                    <td>
+                        <input type="text" class="form-control" readonly="readonly" id="paymentAnnualFeeServiceStartDate" name="paymentAnnualFeeServiceStartDate" th:value="${payment.paymentAnnualFeeServiceStartDate}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>서비스 종료일</td>
+                    <td>
+                        <input type="text" class="form-control" readonly="readonly" id="paymentAnnualFeeServiceEndDate" name="paymentAnnualFeeServiceEndDate" th:value="${payment.paymentAnnualFeeServiceEndDate}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>서비스 결제일</td>
+                    <td>
+                        <input type="text" class="form-control" readonly="readonly" id="paymentAnnualFeeDate" name="paymentAnnualFeeDate" th:value="${payment.paymentAnnualFeeDate}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>        
 		<button type="button" id="btnAdd" class="btn btn-secondary btn-rightLarge">환불 요청</button>
 		<h4></h4>
 	</form>
