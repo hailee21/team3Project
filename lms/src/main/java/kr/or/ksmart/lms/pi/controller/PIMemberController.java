@@ -37,6 +37,18 @@ public class PIMemberController {
 		mav.setViewName("PI/Join");
 		return mav;
 	}
+	//	id중복검사
+	/*@GetMapping("/idCheck")
+	public boolean idCheck(@RequestParam(value="id", required=false) String id) {
+        System.out.println("/idCheck 요청");
+        String result = memberService.idCheck(id);
+        System.out.println("[PIMemberController idCheck]" + result);
+        if (result == null) {
+        	return false;
+        } else {
+        	return true;
+        }
+	}*/
 	//	회원등록 처리
 	@PostMapping("/memberInsert")
 	public ModelAndView memberInsert(Member member, MemberOnline memberOnline

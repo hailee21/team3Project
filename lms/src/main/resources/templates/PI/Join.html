@@ -6,6 +6,12 @@
 <title>회원가입</title>
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+<style>
+	span {
+		font-size: 12px;
+		color: #B70000;
+	}
+</style>
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
@@ -15,6 +21,59 @@
 $(document).ready(function(){
 	$('#institutionCode').change(function(){
 		console.log("교육원 코드 :"+$('#institutionCode').val());
+	});
+	$('#btnInsert').on('click',function(){
+		console.log('#btnInsert click test');
+		if ($('#memberOnlineId').val() == ''){
+			$('#helper').text('*아이디를 입력하세요');
+	    	$('#memberOnlineId').focus();
+    	return false;
+    	}
+		if ($('#memberOnlinePw').val() == ''){
+			$('#helper').text('*비밀번호를 입력하세요');
+	    	$('#memberOnlinePw').focus();
+    	return false;
+    	}
+		if ($('#memberName').val() == ''){
+			$('#helper').text('*이름을 입력하세요');
+	    	$('#memberName').focus();
+    	return false;
+    	}
+		if ($('#memberRegistrationNumberFront').val() == ''){
+			$('#helper').text('*주민번호를 입력하세요');
+	    	$('#memberRegistrationNumberFront').focus();
+    	return false;
+    	}
+		if ($('#memberRegistrationNumberBack').val() == ''){
+			$('#helper').text('*주민번호 뒷자리를 입력하세요');
+	    	$('#memberRegistrationNumberBack').focus();
+    	return false;
+    	}
+		if ($('#memberPhoneNumber').val() == ''){
+			$('#helper').text('*전화번호를 입력하세요');
+	    	$('#memberPhoneNumber').focus();
+    	return false;
+    	}
+		if ($('#memberAddress').val() == ''){
+			$('#helper').text('*주소를 입력하세요');
+	    	$('#memberAddress').focus();
+    	return false;
+    	}
+		if ($('#memberAddressDesc').val() == ''){
+			$('#helper').text('*상세주소를 입력하세요');
+	    	$('#memberAddressDesc').focus();
+    	return false;
+    	}
+		if ($('#institutionCode').val() == ''){
+			$('#instCode').text('*교육원을 선택하세요');
+	    	$('#institutionCode').focus();
+    	return false;
+    	}
+		$('#infoEvalByAssociationInsert').submit();
+	});
+	$('#btnBack').on('click',function(){
+		console.log('#btnBack click test');
+		location.href='javascript:history.back()';
 	});
 });
     function sample6_execDaumPostcode() {
@@ -75,28 +134,40 @@ $(document).ready(function(){
     			<legend>회원가입</legend>
     		</div>
     		<div class="form-group">
-    			
-    			<div class="col-sm-5">
-					<label for="InputId">아이디</label>
-					<input type="text" class="form-control" id="memberOnlineId" name="memberOnlineId" aria-describedby="" placeholder="ID" value="">
-    	  			<small class="form-text text-muted">영문/숫자 아이디 중복검사 확인 필수</small>
+				<div class="col-sm-6">
+					<span id="helper"></span>
+				</div>
+			</div>
+    		<div class="form-group">
+    			<div class="col-sm-6">
+					<div class="row">
+    					<div class="col-sm-6">
+							<label for="InputId">아이디</label>
+							<input type="text" class="form-control" id="memberOnlineId" name="memberOnlineId" aria-describedby="" placeholder="ID" value="">
+    	  					<small class="form-text text-muted">영문/숫자 아이디 중복검사 확인 필수</small>
+      					</div>
+      					<div class="col-sm-6">
+      						<label></label>
+      						<span id="idCheck"></span>
+      					</div>
+      				</div>
       			</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<label for="InputPw">비밀번호</label>
 					<input type="password" class="form-control" id="memberOnlinePw" name="memberOnlinePw" aria-describedby="" placeholder="PASSWORD" value="">
       				<small class="form-text text-muted">영문/숫자 조합으로 8-16자 </small>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<label for="InputName">이름</label>
 					<input type="text" class="form-control" id="memberName" name="memberName" aria-describedby="" placeholder="NAME" value="">
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<label for="InputRegistrationNumber">주민번호</label>
 					<div class="row">
 						<div class="col-sm-6">
@@ -109,14 +180,14 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<label for="InputPhone">전화번호</label>
-					<input type="tel" class="form-control" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
+					<input type="tel" class="form-control" id="memberPhoneNumber" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
 					<small class="form-text text-muted">ex) 010-0000-0000 </small>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<label for="InputAddress">주소</label>
 					<div class="row">
 						<div class="col-sm-4">
@@ -140,24 +211,33 @@ $(document).ready(function(){
 				<!-- 회원등급 -->
 				<input type="hidden" name="memberRank" value="수강생">
 			<div class="form-group">
-				<div class="col-sm-5">
-					<label for="InputInstitution">교육원</label>
-					<!-- <select th:field="*{gender}"> -->
-					<select class="form-control" id="institutionCode" name="institutionCode">
-						<option value="">--교육원선택--</option>
-						<option th:each="institution:${instList}" th:value="${institution.institutionCode}" th:text="${institution.institutionName}"></option>
-						<!-- <option value="I20140101000000">전주평생교육원</option>
-						<option value="I20140102000000">서울평생교육원</option>
-						<option value="I20150103000000">성남평생교육원</option>
-						<option value="I20150203000000">인천평생교육원</option>
-						<option value="I20150204000000">광주평생교육원</option>
-						<option value="I20160203000000">구미평생교육원</option> -->
-					</select>
+				<div class="col-sm-6">
+					<div class="row">
+						<div class="col-sm-6">
+							<label for="InputInstitution">교육원</label>
+							<!-- <select th:field="*{gender}"> -->
+							<select class="form-control" id="institutionCode" name="institutionCode">
+								<option value="">--교육원선택--</option>
+								<option th:each="institution:${instList}" th:value="${institution.institutionCode}" th:text="${institution.institutionName}"></option>
+									<!-- <option value="I20140101000000">전주평생교육원</option>
+									<option value="I20140102000000">서울평생교육원</option>
+									<option value="I20150103000000">성남평생교육원</option>
+									<option value="I20150203000000">인천평생교육원</option>
+									<option value="I20150204000000">광주평생교육원</option>
+									<option value="I20160203000000">구미평생교육원</option> -->
+							</select>
+						</div>
+						<div class="col-sm-6">
+							<br>
+							<span id="instCode"></span>
+						</div>
+					</div>
 				</div>
+				
 			</div>
 			<p style="height: 10px"></p>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary">회원등록</button> <button type="button" class="btn btn-secondary disabled" onclick="location.href='javascript:history.back()'">뒤로가기</button>
+				<button type="button" id="btnInsert" class="btn btn-primary">회원등록</button> <button type="button" id="btnBack" class="btn btn-secondary disabled">뒤로가기</button>
 			</div>
 		</fieldset>
 </form>

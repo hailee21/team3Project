@@ -14,6 +14,8 @@ public interface PIMemberMapper {
 	public IndexInstitution selectInstitution(String institutionCode);
 	//	회원가입폼에서 교육원 리스트 보여주기
 	public List<Institution> selectInstList();
+	//	회원가입폼에서 아이디 중복검사 하기
+	public String selectMemberOnlineId();
 	//	신규회원등록
 	public int insertMember(Member member);
 	//	회원 아이디 저장
