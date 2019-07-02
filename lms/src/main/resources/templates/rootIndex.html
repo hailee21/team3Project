@@ -9,6 +9,26 @@
 		div {
 		    text-align: center;
 		}
+		.rootTable {
+			width:100%;
+			margin-bottom:1rem;
+			color:#3E3F3A;
+			margin: auto;
+			text-align: center;
+		}
+		.rootTable th,.rootTable td {
+			padding:0.75rem;
+			border-top:1px solid #DFD7CA;
+			margin: auto;
+			text-align: center;
+		}
+		.rootTable thead th {
+			vertical-align:bottom;
+			border-bottom:2px solid #DFD7CA
+		}
+		.rootTable tbody+tbody {
+			border-top:2px solid #DFD7CA
+		}
 	</style>
 </th:block>
 
@@ -17,34 +37,73 @@
 </th:block>
 
 <div layout:fragment="content">
-	<div>
-		<p style="height: 100px"></p>
-		<h3>배포일 2019-07-02</h3>
-		<br>
-		<h4>협회 바로가기</h4>
-		<div class="btn-group btn-group-lg">
-			<a href="/PAIndex?institutionCode=I20120101000000" class="btn btn-outline-primary">평생교육지원협회</a>
-		</div>
-		<br>
-		<br>
-		<h4>교육원 바로가기</h4>
-		<p>수강생들이 사용하는 페이지</p>
-		<div class="btn-group btn-group-lg">
-			<a href="/PIIndex?institutionCode=I20140101000000" class="btn btn-outline-primary">전주평생교육원</a>
-			<a href="/PIIndex?institutionCode=I20140102000000" class="btn btn-outline-primary">서울평생교육원</a>
-			<a href="/PIIndex?institutionCode=I20150103000000" class="btn btn-outline-primary">성남평생교육원</a>
-		</div>
-		<br>
-		<br>
-		<br>
-		<h4>권한별 바로가기</h4>
-		<p>각 권한별로 사용하는 페이지</p>
-		<div class="btn-group btn-group-lg">
-			<a href="/teacherLogin" class="btn btn-outline-primary">강사</a>
-			<a href="/institutionLogin" class="btn btn-outline-primary">교육원직원</a>
-			<a href="/associationLogin" class="btn btn-outline-primary">협회직원</a>
-		</div>
-		<p style="height: 200px"></p>
-	</div>
+	
+	<p style="height: 100px"></p>
+	<h2>사단법인 평생교육원 협회 통합 관리 시스템</h2>
+	<p>한개의 협회가 여러개의 교육원 시설을 통합으로 관리하기 위한 시스템</p>
+	<br>
+	<h3>배포일 2019-07-02</h3>
+	<p style="height: 100px"></p>
+	<h4>권한별 역할</h4>
+	<table class="rootTable">
+		<thead>
+			<tr>
+				<th>페이지</th>
+				<th>사용자</th>
+				<th>역할</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><div class="btn-group btn-group-lg"><a href="/associationLogin" class="btn btn-outline-primary">협회 관리 페이지</a></div></td>
+				<td>협회</td>
+				<td>협회에 소속된 교육원 평가 및 자격증 시험 공고</td>	
+			</tr>
+			<tr>
+				<td><div class="btn-group btn-group-lg"><a href="/institutionLogin" class="btn btn-outline-primary">교육원 관리 페이지</a></div></td>
+				<td>교육원</td>
+				<td>각 교육원 관리 및 강사관리 수강 등록</td>	
+			</tr>
+			<tr>
+				<td><div class="btn-group btn-group-lg"><a href="/teacherLogin" class="btn btn-outline-primary">강의 관리 페이지</a></div></td>
+				<td>강사</td>
+				<td>본인이 강의하는 강의 관리 및 수강생들의 성적 관리</td>	
+			</tr>
+			<tr>
+				<td>
+					<div class="btn-group btn-group-lg">
+						<a href="/PIIndex?institutionCode=I20140101000000" class="btn btn-outline-primary">전주평생교육원</a>
+					</div>
+					<p style="height: 7px"></p>
+					<div class="btn-group btn-group-lg">
+						<a href="/PIIndex?institutionCode=I20140102000000" class="btn btn-outline-primary">서울평생교육원</a>
+					</div>
+					<p style="height: 7px"></p>
+					<div class="btn-group btn-group-lg">
+						<a href="/PIIndex?institutionCode=I20150103000000" class="btn btn-outline-primary">성남평생교육원</a>
+					</div>
+				</td>
+				<td>
+					수강생/교육원/강사/협회
+				</td>
+				<td>
+					본인이 원하는 교육원에서 수강신청 및 자격시험 신청<br>
+					각 교육원 게시판, 공지, QnA, 강의 공고 관리
+				</td>	
+			</tr>
+			<tr>
+				<td><div class="btn-group btn-group-lg"><a href="/PAIndex?institutionCode=I20120101000000" class="btn btn-outline-primary">평생교육지원협회</a></div></td>
+				<td>
+					수강생/교육원/강사/협회
+				</td>
+				<td>
+					수강생들이 자격시험 신청을 하기 위한 페이지<br>
+					협회 게시판, 공지, QnA, 자격시험 공고 관리
+				</td>	
+			</tr>
+		</tbody>
+	</table>
+	<p style="height: 100px"></p>
+
 </div>
 </html>
