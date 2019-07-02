@@ -49,7 +49,7 @@
 			,institution_address
 			,institution_address_desc
 			,institution_location
-			,institution_registration_date
+			,left(institution_registration_date, 10) AS institution_registration_date
 		FROM 
 			institution
 	</select>
@@ -66,9 +66,10 @@
 			,institution_address
 			,institution_address_desc
 			,institution_location
-			,institution_registration_date
+			,left(institution_registration_date, 10) AS institution_registration_date
 		FROM 
 			institution
-		WHERE institution_code = #{institutionCode} 
+		WHERE 
+			institution_code = #{institutionCode} 
 	</select>
 </mapper>
