@@ -29,7 +29,7 @@
 			parameterType="String">
 		INSERT INTO
 			license_test_location_detail
-			VALUES(
+		VALUES(
 			#{licenseTestLocationDetailCode}
 			, #{licenseTestLocationCode}
 			, #{licenseTestLocationDetailClassroom}
