@@ -38,6 +38,13 @@
 		<result column="info_eval_by_association_insert_date" property="infoEvalByAssociationInsertDate"/>
 	</resultMap>
 
+	<!-- 교육원 resultMap -->
+	<resultMap id="InstitutionMap"
+				type="kr.or.ksmart.lms.association.vo.Institution">
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+	</resultMap>
+
 	<!-- 평가를 해야하는 교육원 리스트 select  -->
 	<select id="selectInstitutionCodeList"
 			resultType="String">
@@ -47,6 +54,21 @@
 			available_institution
 		WHERE
 			available_institution_remaining_date > 0
+	</select>
+
+	<select id="selectInstitutionCodeAndName"
+			resultMap="InstitutionMap">
+		SELECT
+			ai.institution_code AS institution_code
+			, i.institution_name AS institution_name
+		FROM 
+			available_institution ai
+		INNER JOIN
+			institution i
+		ON
+			ai.institution_code = i.institution_code
+		WHERE
+			ai.available_institution_remaining_date > 0
 	</select>
 
 	<!-- 교육원 평가 합계 insert -->

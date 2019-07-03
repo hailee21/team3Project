@@ -9,9 +9,69 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>
+    $(document).ready(function() {
+        //항목 변경시 항목 내용 상세보기 이벤트 처리
+        $('#sort').change(function(){ 
+            let infoEvalByAssociationSort = $('#sort').val();
+            $.ajax({
+                url:'/getInfoEvalByAssociation'
+                ,type:'post'
+                ,data:{'infoEvalByAssociationSort':infoEvalByAssociationSort}
+                ,success:function(InfoEvalByAssociation) {
+                    $('#infoEvalByAssociationList').empty();
+                    $(InfoEvalByAssociation).each(function(index,list){
+						$('#infoEvalByAssociationList').append('<tr>');
+						$('#infoEvalByAssociationList').append('<td><input type="hidden" name="infoEvalByAssociationCode" value="'+list.infoEvalByAssociationCode+'"></td>');
+						$('#infoEvalByAssociationList').append('<td>'+list.infoEvalByAssociationType+'</td>');
+						$('#infoEvalByAssociationList').append('<td>'+list.infoEvalByAssociationContents+'</td>');
+						$('#infoEvalByAssociationList').append('<td>'+list.infoEvalByAssociationEffectiveDate+'</td>');
+						$('#infoEvalByAssociationList').append('</tr>');
+					});
+                }
+            })
+        })
+
+        //버튼 클릭시 이벤트 처리
+        $('#btnAdd').on('click',function() {
+            $('#addEval').submit()
+        })
+    });
+</script>
 </th:block>
 
 <div layout:fragment="content">
     <h3>평가 항목 상세 추가</h3>
+    <form id="addEval" action="/associationAddEval" method="post">
+        <h5>평가 대상 교육원</h5>
+        <div class="row">
+            <div class="col-sm-4">
+                <input type="text" class="form-control" readonly="readonly" th:each="institutionList:${institutionList}" th:value="${institutionList.institutionName}">
+                <input type="hidden" name="institutionCode" th:each="institutionList:${institutionList}" th:value="${institutionList.institutionCode}">
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
+        <br>
+        <h5>평가 항목 선택</h5>
+        <select class="form-control" id="sort" name="sort">
+            <option value="">평가 항목 선택</option>
+            <option th:each="sortList:${sortList}" th:text="${sortList}" th:value="${sortList}"></option>
+        </select>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>평가 항목 종류</th>
+                    <th>평가 항목 내용</th>
+                    <th>시행 년도</th>
+                </tr>
+            </thead>
+            <tbody id="infoEvalByAssociationList">
+            </tbody>
+        </table>
+		<button type="button" id="btnAdd" class="btn btn-secondary">평가 항목 추가</button>
+    </form>
+    <br>
+    <h4></h4>
 </div>
 </html>

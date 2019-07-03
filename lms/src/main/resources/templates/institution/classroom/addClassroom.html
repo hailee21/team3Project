@@ -9,9 +9,65 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	$('#insert').click(function(){
+		console.log("강의실등록 버튼 클릭..");
+		// 빈칸, 수용인원 폼 유효성검사	
+		let numberCheck = /^[0-9]+$/;
+		if($('#classroomLocation').val() ==''){
+			$('#helper').text('강의실 위치를 지정해주세요!');
+			$('#classroomLocation').focus();
+		}else if($('#classroomName').val() ==''){
+			$('#helper').text('강의실명을 지정해주세요!');
+			$('#classroomName').focus();
+		}else if($('#classroomUse').val() ==''){
+			$('#helper').text('강의용도를 지정해주세요!');
+			$('#classroomUse').focus();
+		}else if(!numberCheck.test($('#classroomMaximumNo').val())){
+			$('#helper').text('숫자만 입력가능합니다!');
+			$('#classroomMaximumNo').focus();
+		} else {
+			$('#addClassroom').submit();
+		}
+		
+	});		
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
-
+<!-- 강의실 추가 폼 -->
+	<h1>강의실 등록하기</h1>	
+	<form id="addClassroom" action="/institution/classroom/addClassroom" method="post">
+		<div class="form-group">
+			<label>교육원명 :</label>
+		    <input type="hidden" th:value="${institutionCode}" id="institutionCode" name="institutionCode">
+		    <input type="text" class="form-control" readonly="readonly" th:value="${institutionName}" id="institutionName" name="institutionName">
+		</div>
+		<div class="form-group">
+		    <label>강의실 위치 : </label>
+		     <input type="text" class="form-control" id="classroomLocation" name="classroomLocation">
+		     <span style="color:red">지역은 수정 가능합니다</span>
+		</div>
+		<div class="form-group">
+			<label>강의실명 : </label>
+		    <input type="text" class="form-control" placeholder="강의실 명을 입력해주세요" id="classroomName" name="classroomName">
+		</div>    
+		<div class="form-group">
+			<label>강의용도</label>
+			    <select class="custom-select" id="classroomUse" name="classroomUse">
+			    	<option value="">--선택--</option>
+			    	<option th:each="list:${useList}" th:text="${list.classroomUse}" th:value="${list.classroomUse}"></option>
+			    </select>
+		</div>
+		<div class="form-group">
+		    <label>수용인원 : </label>
+		    <input type="text" class="form-control" placeholder="숫자만 입력가능합니다" id="classroomMaximumNo" name="classroomMaximumNo">
+		</div>
+		
+		<span id="helper" style="color:red"></span><br>
+		<button id="insert" type="button" class="btn btn-primary btn-rightLarge">강의실 등록하기</button>
+	</form>
 </div>
 </html>

@@ -17,10 +17,13 @@ $(document).ready(function(){
 		let numberCheck = /^[0-9]+$/;
 		if($('#classroomName').val() ==''){
 			$('#helper').text('강의실명을 지정해주세요!');
+			$('#classroomName').focus();
 		}else if($('#classroomUse').val() ==''){
 			$('#helper').text('강의용도를 지정해주세요!');
+			$('#classroomUse').focus();
 		}else if(!numberCheck.test($('#classroomMaximumNo').val())){
 			$('#helper').text('숫자만 입력가능합니다!');
+			$('#classroomMaximumNo').focus();
 		} else {
 			$('#addClassroom').submit();
 		}

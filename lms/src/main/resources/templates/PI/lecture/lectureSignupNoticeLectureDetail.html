@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/PILayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>$(document).ready(function(){
+	// 강의공고 등록하기 버튼 클릭시 이벤트 처리
+	$('#btnAdd').on('click',function(){
+		console.log('#btnAdd click test');
+		location.href='/PI/lecture/lectureSignup'
+	});
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h1>강의 공고</h1>
+	
+	<button id="btnAdd" type="button" class="btn btn-primary btn-rightLarge">강의실 등록하기</button><br><br>
+	
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>강의공고명</th>
+					<th>강사명</th>
+					<th>교육원명</th>
+					<th>강의실 최대 수용 인원</th>
+					<th>수강 최소인원</th>
+					<th>지원자 수</th>
+					<th>강의료</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="info:${noticeLecture}">
+					<td th:text="${info.noticeLectureTitle}" th:value="${info.noticeLectureCode}">
+						<input hidden="hidden" th:value="${info.noticeLectureCode}" id="noticeLectureCode" name="noticeLectureCode"></td>
+					<td th:text="${info.memberTeacherName}" th:value="${info.memberTeacherCode}"></td>
+					<td th:text="${info.institutionName}" th:value="${info.institutionCode}"></td>
+					<td th:text="${info.classroomMaximumNo}" th:value="${info.classroomCode}"></td>
+					<td th:text="${info.noticeLectureMinimumNo}" th:value="${info.noticeLectureMinimumNo}"></td>
+					<td th:text="${info.noticeLectureCurrentApplicantNo}" th:value="${info.noticeLectureCurrentApplicantNo}"></td>
+					<td th:text="${info.noticeLectureFee}" th:value="${info.noticeLectureFee}"></td>				
+				</tr>
+			</tbody>
+		</table>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>모집 시작일</th>
+					<th>모집마감일</th>
+					<th>결과발표일</th>
+					<th>강의 시작일</th>
+					<th>강의 마감일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="info:${noticeLecture}">
+					<td th:text="${info.noticeLectureRecruitmentStartDate}" th:value="${info.noticeLectureRecruitmentStartDate}"></td>
+					<td th:text="${info.noticeLectureRecruitmentEndDate}" th:value="${info.noticeLectureRecruitmentEndDate}"></td>
+					<td th:text="${info.noticeLectureResultDate}" th:value="${info.noticeLectureResultDate}"></td>
+					<td th:text="${info.noticeLectureStartDate}" th:value="${info.noticeLectureStartDate}"></td>
+					<td th:text="${info.noticeLectureEndDate}" th:value="${info.noticeLectureEndDate}"></td>				
+				</tr>
+			</tbody>
+		</table>
+</div>
+</html>

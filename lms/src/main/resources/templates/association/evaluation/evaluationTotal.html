@@ -124,10 +124,10 @@
                 </tr>
             </tbody>
         </table>
-        <input type="text" class="searchYear" th:if="${searchYear != null}" th:value="${searchYear}">
-        <input type="text" class="searchYear" th:if="${searchYear == null}" value="0">
-        <input type="text" class="searchSort" th:if="${searchSort != null}" th:value="${searchSort}">
-        <input type="text" class="searchSort" th:if="${searchSort == null}" value="%">
+        <input type="hidden" class="searchYear" th:if="${searchYear != null}">
+        <input type="hidden" class="searchYear" th:if="${searchYear == null}" value="0">
+        <input type="hidden" class="searchSort" th:if="${searchSort != null}" th:value="${searchSort}">
+        <input type="hidden" class="searchSort" th:if="${searchSort == null}" value="%">
         <button type="button" id="btnGetEvalTotal" class="btn btn-rightLarge btn-secondary">년도별 평가 합계 검색</button>
     </form>
     <br>
@@ -179,5 +179,34 @@
     <br>
     </div>
     <div id="evalTotalChart"></div>
+    <br>
+    <h3>평가 항목 상세보기</h3>
+    <a href="/association/evaluation/addEvalByAssociation" class="btn btn-rightLarge btn-secondary">교육원별 평가 항목 추가 하기</a>
+    <table class="table">
+		<thead>
+			<tr>
+				<th>교육원 명</th>
+				<th>평가 항목</th>			
+                <th>평가 항목 상세</th>
+                <th>평가 내용</th>
+                <th>평가 점수</th>
+				<th>평가 시작일</th>			
+                <th>평가 종료일</th>
+                <th>평가 결과 발표일</th>
+			</tr>
+		</thead>
+		<tbody>
+            <tr th:each="evalList:${evalByAssociationList}">
+                <td th:text="${totalList.institutionName}"></td>
+                <td th:text="${totalList.infoEvalByAssociationSort}"></td>
+                <td th:text="${totalList.infoEvalByAssociationType}"></td>
+                <td th:text="${totalList.infoEvalByAssociationContents}"></td>
+                <td th:text="${totalList.evalByAssociationScore}"></td>
+                <td th:text="${totalList.evalByAssociationStartDate}"></td>
+                <td th:text="${totalList.evalByAssociationEndDate}"></td>
+                <td th:text="${totalList.evalByAssociationResultDate}"></td>
+            </tr>
+		</tbody>
+    </table>
 </div>
 </html>

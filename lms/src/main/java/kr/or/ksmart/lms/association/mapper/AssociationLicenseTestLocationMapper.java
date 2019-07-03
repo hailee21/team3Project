@@ -11,7 +11,7 @@ import kr.or.ksmart.lms.association.vo.LicenseTestLocationDetail;
 public interface AssociationLicenseTestLocationMapper {
 	
 	//자격시험 장소 상세 등록
-	public List<LicenseTestLocationDetail> insertLicenseTestLocationDetail(LicenseTestLocationDetail licenseTestLocationDetail);
+	public void insertLicenseTestLocationDetail(LicenseTestLocationDetail licenseTestLocationDetail);
 	//자격시험 장소 상세보기
 	public List<LicenseTestLocationDetail> selectLicenseTestLocationDetail(String licenseTestLocationCode);
 	//자격시험 장소 조회 매퍼
