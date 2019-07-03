@@ -39,8 +39,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="list:${noticeLectureList}">
-				<td><a th:href="@{'/PI/lecture/lectureSignupNoticeLectureDetail?noticeLectureCode='+${list.noticeLectureCode}+'&institutionCode='+${list.noticeLectureCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.noticeLectureTitle}"></a>
-					<input hidden="hidden" th:value="${list.noticeLectureCode}" id="noticeLectureCode" name="noticeLectureCode"></td>
+				<td><a th:href="@{'/PI/lecture/lectureSignupNoticeLectureDetail?noticeLectureCode='+${list.noticeLectureCode}+'&institutionCode='+${institutionCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.noticeLectureTitle}"></a></td>
 				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
 				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
 				<td th:text="${list.noticeLectureMinimumNo}" th:value="${list.noticeLectureMinimumNo}"></td>
@@ -49,7 +48,7 @@
 				<td th:text="${list.noticeLectureRecruitmentEndDate}" th:value="${list.noticeLectureRecruitmentEndDate}"></td>
 				<td th:text="${list.noticeLectureStartDate}" th:value="${list.noticeLectureStartDate}"></td>
 				<td th:text="${list.noticeLectureEndDate}" th:value="${list.noticeLectureEndDate}"></td>	
-				<td><button type="button" id="btnAdd" class="btn btn-primary" th:href="@{'/PI/lecture/lectureSignup?noticeLectureCode='+${list.noticeLectureCode}}" th:value="${list.noticeLectureCode}" name="noticeLectureCode">수강신청</button></td>			
+				<td><a type="button" id="btnAdd" class="btn btn-primary" th:href="@{'/PI/lecture/lectureSignup?noticeLectureCode='+${list.noticeLectureCode}+'&institutionCode='+${institutionCode}}">수강신청</a></td>			
 			</tr>
 		</tbody>
 	</table>

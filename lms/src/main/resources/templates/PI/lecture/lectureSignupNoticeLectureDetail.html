@@ -20,13 +20,11 @@
 </th:block>
 
 <div layout:fragment="content">
-	<h1>강의 공고</h1>
-	
-	<button id="btnAdd" type="button" class="btn btn-primary btn-rightLarge">강의실 등록하기</button><br><br>
-	
+	<h1>강의 공고</h1>	
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th>수강신청</th>
 					<th>강의공고명</th>
 					<th>강사명</th>
 					<th>교육원명</th>
@@ -38,14 +36,14 @@
 			</thead>
 			<tbody>
 				<tr th:each="info:${noticeLecture}">
-					<td th:text="${info.noticeLectureTitle}" th:value="${info.noticeLectureCode}">
-						<input hidden="hidden" th:value="${info.noticeLectureCode}" id="noticeLectureCode" name="noticeLectureCode"></td>
+					<td><a type="button" id="btnAdd" class="btn btn-primary" th:href="@{'/PI/lecture/lectureSignup?noticeLectureCode='+${info.noticeLectureCode}+'&institutionCode='+${institutionCode}}">수강신청</a></td>
+					<td th:text="${info.noticeLectureTitle}" th:value="${info.noticeLectureCode}"></td>
 					<td th:text="${info.memberTeacherName}" th:value="${info.memberTeacherCode}"></td>
 					<td th:text="${info.institutionName}" th:value="${info.institutionCode}"></td>
 					<td th:text="${info.classroomMaximumNo}" th:value="${info.classroomCode}"></td>
 					<td th:text="${info.noticeLectureMinimumNo}" th:value="${info.noticeLectureMinimumNo}"></td>
 					<td th:text="${info.noticeLectureCurrentApplicantNo}" th:value="${info.noticeLectureCurrentApplicantNo}"></td>
-					<td th:text="${info.noticeLectureFee}" th:value="${info.noticeLectureFee}"></td>				
+					<td th:text="${info.noticeLectureFee}" th:value="${info.noticeLectureFee}"></td>	
 				</tr>
 			</tbody>
 		</table>

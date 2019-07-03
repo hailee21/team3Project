@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.lms.pi.vo.Institution;
+import kr.or.ksmart.lms.pi.vo.LectureSignup;
 import kr.or.ksmart.lms.pi.vo.NoticeLecture;
 import kr.or.ksmart.lms.pi.vo.InfoLecture;
 import kr.or.ksmart.lms.pi.vo.InfoSubject;
@@ -23,7 +24,9 @@ public interface PILectureMapper {
 	public Institution piSelectInstitution(String institutionCode); 
 	
 	// 강의공고 목록 출력
-	public List<NoticeLecture> piSelectNoticeLectureList();
+	public List<NoticeLecture> piSelectNoticeLectureList(String institutionCode);
 	// 세부 강의공고 조회
 	public NoticeLecture piSelectNoticeLectureByNoticeLectureCode(String NoticeLectureCode);
+	// 수강신청 메서드
+	public void piInsertLectureSignup(LectureSignup lectureSignup);
 }

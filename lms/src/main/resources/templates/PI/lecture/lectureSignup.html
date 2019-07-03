@@ -1,10 +1,76 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/PILayout">
+<meta charset="utf-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
 
-</body>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>$(document).ready(function(){
+	// 강의공고 등록하기 버튼 클릭시 이벤트 처리
+	$('#insert').click(function(){
+		alert('수강신청이 완료되었습니다. 수강신청결과 확인 후 결제하여주십시오');
+		console.log('#btnAdd click test');
+		$('#addLectureSignup').submit();
+	});
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+<h1>수강신청 등록하기</h1>
+<h4>수강 정보가 다음과 일치하면 신청 버튼을 클릭하여 주십시오</h4>
+<form id="addLectureSignup" action="/PI/lecture/lectureSignup" method="post">
+	<div class="form-group">
+		<label>강의공고명</label>
+		<div class="row">
+			<div class="col-sm-6">
+				<input class="form-control" th:value="${noticeLectureTitle}" name="noticeLectureTitle">
+			</div>
+			<div class="col-sm-6">			
+				<input hidden="hidden" th:value="${noticeLectureCode}" name="noticeLectureCode">
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label>교육원명</label>	
+		<div class="row">
+			<div class="col-sm-6">
+				<input class="form-control" th:value="${institutionName}" name="institutionName">
+			</div>
+			<div class="col-sm-6">			
+				<input hidden="hidden" th:value="${institutionCode}" name="institutionCode">
+			</div>
+		</div>		
+	</div>
+	<div class="form-group">
+		<label>회원명</label>	
+		<div class="row">
+			<div class="col-sm-6">
+				<input class="form-control" th:value="${memberName}" name="memberName">
+			</div>
+			<div class="col-sm-6">			
+				<input hidden="hidden" th:value="${memberCode}" name="memberCode">
+			</div>
+		</div>		
+	</div>
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-6">
+				<label>강의시작일자</label>	
+				<input class="form-control" th:value="${noticeLectureStartDate}" name="noticeLectureStartDate">
+			</div>
+			<div class="col-sm-6">		
+				<label>강의종료일자</label>		
+				<input class="form-control" th:value="${noticeLectureEndDate}" name="noticeLectureEndDate">
+			</div>
+		</div>		
+	</div>
+	
+	<button id="insert" type="button">수강신청</button>	
+</form>
+</div>
 </html>
