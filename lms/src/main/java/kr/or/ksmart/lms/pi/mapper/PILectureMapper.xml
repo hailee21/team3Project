@@ -54,7 +54,20 @@
 		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
 		<result column="notice_lecture_date" property="noticeLectureDate"/>		
 	</resultMap>
-	
+	<!-- PILectureMapper LectureSignup resultMap  -->
+	<resultMap id="LectureSignupResultMap"
+				type="kr.or.ksmart.lms.pi.vo.LectureSignup">
+		<result column="lecture_signup_code" property="lectureSignupCode"/>
+		<result column="notice_lecture_code" property="noticeLectureCode"/>
+		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
+		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_registration_number_front" property="memberRegistrationNumberFront"/>
+		<result column="lecture_signup_date" property="lectureSignupDate"/>
+	</resultMap>
 	<!-- 교육원명 출력을 위한 메서드 -->
 	<select id="piSelectInstitution"
 			parameterType="String"
@@ -67,6 +80,7 @@
 		WHERE
 			institution_code = #{institutionCode}
 	</select>
+	
 	<!-- LectureCode을 입력받아 infoSubject 과목리스트 출력 / 비동기방식 -->
 	<select id="piSelectSubjectListByLectureCode"
 			parameterType="String"
@@ -106,6 +120,7 @@
 	
 	<!-- 강의공고 목록 출력 -->
 	<select id="piSelectNoticeLectureList"
+			parameterType="String"
 			resultMap="NoticeLectureResultMap">
 		SELECT 
 			notice_lecture_code
@@ -127,8 +142,9 @@
 			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
 		FROM 
 			notice_lecture
-	</select>
-	
+		WHERE 
+			institution_code = #{institutionCode}
+	</select>	
 	<!-- 세부 강의공고 조회 -->
 	<select id="piSelectNoticeLectureByNoticeLectureCode"
 			parameterType="String"
@@ -156,4 +172,38 @@
 		WHERE 
 			notice_lecture_code = #{noticeLectureCode}
 	</select>
+	
+	<!-- lectureSignup 등록 메서드 -->
+	<insert id="piInsertLectureSignup"
+			parameterType="kr.or.ksmart.lms.pi.vo.LectureSignup">
+		INSERT INTO lecture_signup (
+			lecture_signup_code
+			,notice_lecture_code
+			,notice_lecture_start_date
+			,notice_lecture_end_date
+			,institution_code
+			,institution_name
+			,member_code
+			,member_name
+			,member_registration_number_front
+			,lecture_signup_date
+		) VALUES (
+			#{lectureSignupCode}
+			,#{noticeLectureCode}
+			,#{noticeLectureStartDate}
+			,#{noticeLectureEndDate}
+			,#{institutionCode}
+			,#{institutionName}
+			,#{memberCode}
+			,#{memberName}
+			,(SELECT 
+					member_registration_number_front
+				FROM 
+					member
+				WHERE
+					member_code = #{memberCode}
+			)	
+			,now()
+		)
+	</insert>
 </mapper>
