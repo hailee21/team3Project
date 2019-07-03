@@ -19,16 +19,14 @@ public class RestInstitutionLectureController {
 	@PostMapping("/institution/getInfoLectureNameList")
 	public List<InfoLecture> institutionGetInfoLectureNameList(@RequestParam() String lectureSort){
 		System.out.println("[RestLectureController institutionGetInfoLectureNameList] lectureSort: "+ lectureSort);
-		return  institutionLectureService.institutionGetInfoLectureNameList(lectureSort);
-		
+		return  institutionLectureService.institutionGetInfoLectureNameList(lectureSort);		
 	}
 	
 	// institution layout 과목리스트 출력 controller
 	@PostMapping("/institution/getSubjectList")
 	public List<InfoSubject> institutionGetSubjectListByLectureCode(@RequestParam() String lectureCode){
 		System.out.println("[RestLectureController institutionGetInfoLectureNameList] lectureCode: "+ lectureCode);
-		return  institutionLectureService.institutionGetSubjectListByLectureCode(lectureCode);
-		
+		return  institutionLectureService.institutionGetSubjectListByLectureCode(lectureCode);		
 	}
 
 }

@@ -38,6 +38,20 @@
 	</select>
 
 	<!-- 강의실 등록 -->			
+	<!-- 1. 강의실 등록을 위한 교육원 조회 -->
+	<select id="institutionSelectInstitutionByInstitutionCode"
+			parameterType="String"
+			resultMap="InstitutionResultMap">
+		SELECT 
+			institution_code
+			, institution_name
+		FROM 
+			institution
+		WHERE 
+			institution_code = #{institutionCode}	
+	</select>
+	
+	<!-- 2. 강의실 등록 -->
 	<insert id="institutionInsertClassroom"
 			parameterType="kr.or.ksmart.lms.institution.vo.Classroom">
 		INSERT INTO classroom (
@@ -63,7 +77,7 @@
 			,#{classroomName}
 			,#{classroomUse}
 			,#{classroomMaximumNo}
-			,#{classroomDate}	
+			,now()
 		)
 	</insert>
 	
