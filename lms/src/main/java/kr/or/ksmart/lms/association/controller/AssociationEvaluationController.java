@@ -113,7 +113,7 @@ public class AssociationEvaluationController {
 		}
 		if(memberRank.equals("협회직원")) {
 			Map<String, Object> map = associationEvaluationService.addEvalByAssociationForm();
-			mav.addObject("institutionList", map.get("institutionList"));
+			mav.addObject("yearList", map.get("yearList"));
 			mav.addObject("sortList", map.get("sortList"));
 			mav.setViewName("association/evaluation/addEvalByAssociation");
 		} else {
@@ -132,9 +132,8 @@ public class AssociationEvaluationController {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
-			System.err.println(addEvalByAssociation.getInstitutionCode());
-			System.err.println(addEvalByAssociation.getInfoEvalByAssociationCode());
-			mav.setViewName("association/evaluation/addEvalByAssociation");
+			associationEvaluationService.addEvalByAssociation(addEvalByAssociation);
+			mav.setViewName("redirect:/association/evaluation/evaluationTotal");
 		} else {
 			System.out.println("[AssociationEvaluationController addEvalByAssociation] 협회직원 아님");
 			mav.setViewName("association/associationLogin");

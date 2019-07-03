@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.lms.association.mapper.AssociationEvaluationMapper;
+import kr.or.ksmart.lms.association.vo.AddEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.EvalTotal;
 import kr.or.ksmart.lms.association.vo.InfoEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.InsertEvalTotal;
-import kr.or.ksmart.lms.association.vo.Institution;
 
 @Service
 @Transactional
@@ -156,15 +156,15 @@ public class AssociationEvaluationService {
     
     //평가 항목 상세 추가 폼 출력 service
 	public Map<String, Object> addEvalByAssociationForm() {
-        //평가를 해야하는 교육원 코드와 이름 가져오기
-        List<Institution> institutionList = associationEvaluationMapper.selectInstitutionCodeAndName();
+        //평가 총합에서 년도 가져오기
+        List<Integer> yearList = associationEvaluationMapper.selectEvalTotalYear();
 
         //평가 항목 가져오기
         List<String> sortList = associationEvaluationMapper.selectInfoEvalByAssociationSortList();
 
         //컨트롤러로 리턴할 데이터 선언 및 설정
         Map<String, Object> returnMap = new HashMap<String, Object>();
-        returnMap.put("institutionList", institutionList);
+        returnMap.put("yearList", yearList);
         returnMap.put("sortList", sortList);
         return returnMap;
     }
@@ -173,4 +173,54 @@ public class AssociationEvaluationService {
     public List<InfoEvalByAssociation> getInfoEvalByAssociation(String infoEvalByAssociationSort) {
         return associationEvaluationMapper.selectInfoEvalByAssociationList(infoEvalByAssociationSort);
     }
+
+    //년도에 따른 평가 대상 교육원 코드와 이름 출력 service
+    public List<EvalTotal> getInstitutionNameInEvalTotal(int evalTotalYear) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("evalTotalYear", evalTotalYear);
+
+        return associationEvaluationMapper.selectEvalTotalByYear(map);
+    }
+
+    //평가 항목 상세 추가 액션 service
+	public void addEvalByAssociation(AddEvalByAssociation addEvalByAssociation) {
+        //AddEvalByAssociation에서 리스트 분리하기 
+        List<String> institutionCodeList = addEvalByAssociation.getInstitutionCode();
+        List<String> infoEvalByAssociationCodeList = addEvalByAssociation.getInfoEvalByAssociationCode();
+
+        //테이블의 PK를 위한 무작위 숫자 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+        String nowDate = dateFormat.format(now);
+		nowDate = nowDate.substring(0, 13);
+		nowDate = nowDate.toString().replace("-", "");
+        nowDate = nowDate.toString().replace(" ", "");
+        for(String institutionCode: institutionCodeList) {
+            for(String infoEvalByAssociationCode: infoEvalByAssociationCodeList) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                //테이블의 PK를 위한 무작위 숫자 생성
+                int randomNo1 = (int)(Math.random()*10000);
+                int randomNo2 = (int)(Math.random()*1000);
+                int randomNo3 = (int)(Math.random()*100);
+                int randomNo = randomNo1 + randomNo2 + randomNo3;
+                if(randomNo >= 10000) {
+                    randomNo = randomNo/10;
+                }
+                String evalByAssociationCode = "EA" + nowDate + randomNo;
+
+                //map에 담아서 교육원 평가 항목을 추가한다.
+                map.put("evalByAssociationCode", evalByAssociationCode);
+                map.put("institutionCode", institutionCode);
+                map.put("infoEvalByAssociationSort", addEvalByAssociation.getInfoEvalByAssociationSort());
+                map.put("evalTotalYear", addEvalByAssociation.getYear());
+                map.put("infoEvalByAssociationCode", infoEvalByAssociationCode);
+                map.put("evalByAssociationScore", addEvalByAssociation.getEvalByAssociationScore());
+                map.put("evalByAssociationStartDate", addEvalByAssociation.getEvalByAssociationStartDate());
+                map.put("evalByAssociationEndDate", addEvalByAssociation.getEvalByAssociationEndDate());
+                map.put("evalByAssociationResultDate", addEvalByAssociation.getEvalByAssociationResultDate());
+
+                associationEvaluationMapper.insertEvalByAssociation(map);
+            }
+        }
+	}
 }
