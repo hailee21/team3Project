@@ -73,7 +73,7 @@ public class PIMemberService {
 		String institutionName = memberMapper.selectInstitutionName(institutionCode);
 		memberOnline.setInstitutionName(institutionName);
 		
-		memberMapper.insertMemberOnline(memberOnline);	//mapper 실행		
+		memberMapper.insertMemberOnline(memberOnline);	//mapper 실행	
 	}
 
 }

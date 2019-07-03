@@ -6,17 +6,10 @@
 <title>회원가입</title>
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-<style>
-	span {
-		font-size: 12px;
-		color: #B70000;
-	}
-</style>
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 $(document).ready(function(){
@@ -24,9 +17,19 @@ $(document).ready(function(){
 		console.log("교육원 코드 :"+$('#institutionCode').val());
 	});
 	//	id중복체크
+	//	유효성 검사를 위한 정규식
+    	let idCheck = /[A-Za-z\d]{5,10}$/; //	최소5자, 최대 10자의 문자
+    	let pwCheck = /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/; //	최소 8 자, 최소 하나의 문자 및 하나의 숫자
+    	let numberCheck = /^[0-9]+$/;	//	숫자만 입력해야하는 경우
+    	let nameCheck = /[a-zA-Z가-힣]/; 	//	한글, 영어만
+
 	$("#memberOnlineId").blur(function() {	//id input창을 벗어났을때,아래 이벤트를 실행한다.
 //		중복체크 버튼이 있을때, 버튼을 클릭했을 때 -> .click(function()) 으로 쓸 수 있다.
-		let memberOnlineId =  $("#memberOnlineId").val(); //id 를 param.
+		let memberOnlineId = $("#memberOnlineId").val(); //id 를 param.
+		if(!idCheck.test($('#memberOnlineId').val())){
+			$('#idCk').attr('style','color:#B70000');
+			$('#idCk').text('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.');
+		} else {
 		$.ajax({
             type : 'POST'
             ,data : {'memberOnlineId':memberOnlineId}
@@ -34,59 +37,132 @@ $(document).ready(function(){
             ,success : function(data) {
             	console.log(data)
                 if (data) {
-                    $('#idCheck').text('사용 가능한 아이디입니다.');
+                	$('#idCk').attr('style','color:#2F9D27');
+                    $('#idCk').text('√ 멋진 아이디네요!');
                 } else {
-                	$('#idCheck').attr('style','color:#B70000')
-                	$('#idCheck').text('이미 사용중이거나 탈퇴한 아이디입니다');
-                	
+                	$('#idCk').attr('style','color:#B70000');
+                	$('#idCk').text('이미 사용중이거나 탈퇴한 아이디입니다');
+                	return false;
                 }
             },
         });
+		}
 	});
+	$("#memberOnlinePw").blur(function() {
+		if ($('#memberOnlinePw').val() != ''){
+			if(!pwCheck.test($('#memberOnlinePw').val())){
+				$('#pwCk').attr('style','color:#B70000');
+        		$('#pwCk').text('8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.');
+        		return false;
+			} else {
+				$('#pwCk').remove();
+			}
+		}
+	})
+	$("#memberName").blur(function() {
+		if ($('#memberName').val() != ''){
+			if(!nameCheck.test($('#memberName').val())){
+				$('#nameCk').attr('style','color:#B70000');
+        		$('#nameCk').text('한글, 영어만 입력 가능합니다.');
+        		return false;
+			} else {
+				$('#nameCk').remove();
+			}
+		}
+	})
+	$("#memberRegistrationNumberFront").blur(function() {
+		if ($('#memberRegistrationNumberFront').val() != ''){
+			if(!numberCheck.test($('#memberRegistrationNumberFront').val())){
+				$('#registNoFrontCheck').attr('style','color:#B70000');
+        		$('#registNoFrontCheck').text('숫자만 입력 가능합니다.');
+        		return false;
+			} else {
+				$('#registNoFrontCheck').remove();
+			}
+		}
+	})
+	$("#memberRegistrationNumberBack").blur(function() {
+		if ($('#memberRegistrationNumberBack').val() != ''){
+			if(!numberCheck.test($('#memberRegistrationNumberBack').val())){
+				$('#registNoBackCheck').attr('style','color:#B70000');
+        		$('#registNoBackCheck').text('숫자만 입력 가능합니다.');
+        		return false;
+			} else {
+				$('#registNoBackCheck').remove();
+			}
+		}
+	})
+	$("#memberPhoneNumber").blur(function() {
+		if ($('#memberPhoneNumber').val() != ''){
+			if(!numberCheck.test($('#memberPhoneNumber').val())){
+				$('#phoneCheck').attr('style','color:#B70000');
+        		$('#phoneCheck').text('숫자만 입력 가능합니다.');
+        		return false;
+			} else {
+				$('#phoneCheck').remove();
+			}
+		}
+	})
+	$("#memberAddress").blur(function() {
+		if ($('#memberAddress').val() != ''){
+			$('#addrCheck').remove();
+		}
+	})
+	$("#memberAddressDesc").blur(function() {
+		if ($('#memberAddressDesc').val() != ''){
+			$('#addrDescCheck').remove();
+		}
+	})
+	$("#institutionCode").blur(function() {
+		if ($('#institutionCode').val() != ''){
+			$('#instCode').remove();
+		}
+	})
 	//	폼유효성 검사
 	$('#btnInsert').on('click',function(){
 		console.log('#btnInsert click test');
 		if ($('#memberOnlineId').val() == ''){
+			$('#idCheck').attr('style','color:#B70000')
 			$('#idCheck').text('*아이디를 입력하세요');
 	    	$('#memberOnlineId').focus();
     	return false;
-    	}
-		if ($('#memberOnlinePw').val() == ''){
+    	} else if ($('#memberOnlinePw').val() == ''){
+			$('#pwCheck').attr('style','color:#B70000')
 			$('#pwCheck').text('*비밀번호를 입력하세요');
 	    	$('#memberOnlinePw').focus();
     	return false;
-    	}
-		if ($('#memberName').val() == ''){
+    	} else if ($('#memberName').val() == ''){
+			$('#nameCheck').attr('style','color:#B70000')
 			$('#nameCheck').text('*이름을 입력하세요');
 	    	$('#memberName').focus();
     	return false;
-    	}
-		if ($('#memberRegistrationNumberFront').val() == ''){
-			$('#helper').text('*주민번호를 입력하세요');
+    	} else if ($('#memberRegistrationNumberFront').val() == ''){
+			$('#registNoFrontCheck').attr('style','color:#B70000')
+			$('#registNoFrontCheck').text('*주민번호를 입력하세요');
 	    	$('#memberRegistrationNumberFront').focus();
     	return false;
-    	}
-		if ($('#memberRegistrationNumberBack').val() == ''){
-			$('#helper').text('*주민번호 뒷자리를 입력하세요');
+    	} else if ($('#memberRegistrationNumberBack').val() == ''){
+			$('#registNoBackCheck').attr('style','color:#B70000')
+			$('#registNoBackCheck').text('*주민번호를 입력하세요');
 	    	$('#memberRegistrationNumberBack').focus();
     	return false;
-    	}
-		if ($('#memberPhoneNumber').val() == ''){
-			$('#helper').text('*전화번호를 입력하세요');
+    	} else if ($('#memberPhoneNumber').val() == ''){
+			$('#phoneCheck').attr('style','color:#B70000')
+			$('#phoneCheck').text('*전화번호를 입력하세요');
 	    	$('#memberPhoneNumber').focus();
     	return false;
-    	}
-		if ($('#memberAddress').val() == ''){
-			$('#helper').text('*주소를 입력하세요');
+    	} else if ($('#memberAddress').val() == ''){
+			$('#addrCheck').attr('style','color:#B70000')
+			$('#addrCheck').text('*주소를 입력하세요');
 	    	$('#memberAddress').focus();
     	return false;
-    	}
-		if ($('#memberAddressDesc').val() == ''){
-			$('#helper').text('*상세주소를 입력하세요');
+    	} else if ($('#memberAddressDesc').val() == ''){
+			$('#addrDescCheck').attr('style','color:#B70000')
+			$('#addrDescCheck').text('*상세주소를 입력하세요');
 	    	$('#memberAddressDesc').focus();
     	return false;
-    	}
-		if ($('#institutionCode').val() == ''){
+    	} else if ($('#institutionCode').val() == ''){
+			$('#instCode').attr('style','color:#B70000')
 			$('#instCode').text('*교육원을 선택하세요');
 	    	$('#institutionCode').focus();
     	return false;
@@ -192,16 +268,17 @@ $(document).ready(function(){
     		<div class="form-group">
 				<label for="InputId">아이디</label>
 				<input type="text" class="form-control" id="memberOnlineId" name="memberOnlineId" aria-describedby="" placeholder="ID" value="">
-      			<small class="form-text text-muted" id="idCheck"></small>
+      			<small class="form-text" id="idCk"></small>
 			</div>
 			<div class="form-group">
 				<label for="InputPw">비밀번호</label>
 				<input type="password" class="form-control" id="memberOnlinePw" name="memberOnlinePw" aria-describedby="" placeholder="PASSWORD" value="">
-      			<small class="form-text text-muted">영문/숫자 조합으로 8-16자 </small>
+      			<small class="form-text" id="pwCk"></small>
 			</div>
 			<div class="form-group">
 				<label for="InputName">이름</label>
 				<input type="text" class="form-control" id="memberName" name="memberName" aria-describedby="" placeholder="NAME" value="">
+				<small class="form-text" id="nameCk"></small>
 			</div>
 			<div class="form-group">
 				<label for="InputRegistrationNumber">주민번호</label>
@@ -213,11 +290,12 @@ $(document).ready(function(){
 						<input type="password" class="form-control" id="memberRegistrationNumberBack" name="memberRegistrationNumberBack" aria-describedby="" placeholder="RegistrationNumberBack" value="1001000" size="5">
 					</div>
 				</div>
+				<small class="form-text" id="registNoFrontCheck"></small><small class="form-text" id="registNoBackCheck"></small>
 			</div>
 			<div class="form-group">
 				<label for="InputPhone">전화번호</label>
-				<input type="tel" class="form-control" id="memberPhoneNumber" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
-				<small class="form-text text-muted">ex) 010-0000-0000 </small>
+				<input type="text" class="form-control" id="memberPhoneNumber" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
+				<small class="form-text" id="phoneCheck"></small>
 			</div>
 			<div class="form-group">
 				<label for="InputAddress">주소</label>
@@ -238,6 +316,7 @@ $(document).ready(function(){
 						<input type="text" id="sample6_extraAddress" size="7" class="form-control" placeholder="참고항목">
 					</div>
 				</div>
+				<small class="form-text" id="addrCheck"></small><small class="form-text" id="addrDescCheck"></small>
 			</div>
 				<!--	회원등급	-->
 				<input type="hidden" id="memberRank" name="memberRank" value="수강생">
@@ -253,6 +332,7 @@ $(document).ready(function(){
 						<option value="I20150204000000">광주평생교육원</option>
 						<option value="I20160203000000">구미평생교육원</option> -->
 				</select>
+				<small class="form-text" id="instCode"></small>
 			</div>
 			<p style="height: 10px"></p>
 			<div class="form-group">
@@ -261,8 +341,8 @@ $(document).ready(function(){
 		</fieldset>
 	</form>
 		</div>
-		<div class="col-md-6">
-			<span id="helper"></span>
+		<div class="col-md-6"><span id="helper"></span>
+			
 		</div>
 	</div>
 
