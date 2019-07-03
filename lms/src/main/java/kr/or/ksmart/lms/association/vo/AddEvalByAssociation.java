@@ -4,7 +4,9 @@ import java.util.List;
 
 public class AddEvalByAssociation {
 	private List<String> institutionCode;
+	private String infoEvalByAssociationSort;
 	private List<String> infoEvalByAssociationCode;
+	private int year;
 	private int evalByAssociationScore;
 	private String evalByAssociationStartDate;
 	private String evalByAssociationEndDate;
@@ -24,6 +26,14 @@ public class AddEvalByAssociation {
 
 	public void setInfoEvalByAssociationCode(List<String> infoEvalByAssociationCode) {
 		this.infoEvalByAssociationCode = infoEvalByAssociationCode;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	public int getEvalByAssociationScore() {
@@ -58,15 +68,22 @@ public class AddEvalByAssociation {
 		this.evalByAssociationResultDate = evalByAssociationResultDate;
 	}
 
+	public String getInfoEvalByAssociationSort() {
+		return infoEvalByAssociationSort;
+	}
+
+	public void setInfoEvalByAssociationSort(String infoEvalByAssociationSort) {
+		this.infoEvalByAssociationSort = infoEvalByAssociationSort;
+	}
+
 	@Override
 	public String toString() {
 		return "AddEvalByAssociation [evalByAssociationEndDate=" + evalByAssociationEndDate
 				+ ", evalByAssociationResultDate=" + evalByAssociationResultDate + ", evalByAssociationScore="
 				+ evalByAssociationScore + ", evalByAssociationStartDate=" + evalByAssociationStartDate
-				+ ", infoEvalByAssociationCode=" + infoEvalByAssociationCode + ", institutionCode=" + institutionCode
-				+ "]";
+				+ ", infoEvalByAssociationCode=" + infoEvalByAssociationCode + ", infoEvalByAssociationSort="
+				+ infoEvalByAssociationSort + ", institutionCode=" + institutionCode + ", year=" + year + "]";
 	}
 
-	
 	
 }

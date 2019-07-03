@@ -56,6 +56,7 @@
 			available_institution_remaining_date > 0
 	</select>
 
+	<!-- 평가를 해야하는 교육원코드와 교육원 이름 리스트 select  -->
 	<select id="selectInstitutionCodeAndName"
 			resultMap="InstitutionMap">
 		SELECT
@@ -73,7 +74,7 @@
 
 	<!-- 교육원 평가 합계 insert -->
 	<insert id="insertEvalTotal"
-			parameterType="kr.or.ksmart.lms.association.vo.InsertEvalTotal">
+			parameterType="java.util.Map">
 		INSERT INTO 
 			eval_total (
 				eval_total_code
@@ -254,5 +255,80 @@
 			info_eval_by_association
 		WHERE
 			info_eval_by_association_sort LIKE #{infoEvalByAssociationSort}
+		ORDER BY
+			info_eval_by_association_insert_date DESC
+			, info_eval_by_association_sort ASC
+	</select>
+
+	<!-- 교육원 평가 항목 추가 insert -->
+	<insert id="insertEvalByAssociation"
+			parameterType="java.util.Map">
+		INSERT INTO eval_by_association 
+		VALUES (
+			#{evalByAssociationCode}
+			, (
+			SELECT
+				eval_total_code
+			FROM
+				eval_total
+			WHERE
+				institution_code = #{institutionCode}
+			AND
+				eval_total_type = #{infoEvalByAssociationSort}
+			AND 
+				eval_total_year = #{evalTotalYear}
+			)
+			, #{institutionCode}
+			, (
+			SELECT
+				institution_name
+			FROM
+				institution
+			WHERE
+				institution_code = #{institutionCode}
+			)
+			, #{infoEvalByAssociationCode}
+			, (
+			SELECT
+				info_eval_by_association_sort
+			FROM
+				info_eval_by_association
+			WHERE
+				info_eval_by_association_code = #{infoEvalByAssociationCode}
+			)
+			, (
+			SELECT
+				info_eval_by_association_type
+			FROM
+				info_eval_by_association
+			WHERE
+				info_eval_by_association_code = #{infoEvalByAssociationCode}
+			)
+			, (
+			SELECT
+				info_eval_by_association_contents
+			FROM
+				info_eval_by_association
+			WHERE
+				info_eval_by_association_code = #{infoEvalByAssociationCode}
+			)
+			, #{evalByAssociationScore}
+			, #{evalByAssociationStartDate}
+			, #{evalByAssociationEndDate}
+			, #{evalByAssociationResultDate}
+			)
+	</insert>
+
+	<!-- 교육원 합계 년도별 리스트 출력 select  -->
+	<select id="selectEvalTotalByYear"
+			parameterType="java.util.Map"
+			resultMap="EvalTotalMap">
+		SELECT
+			institution_code
+			, institution_name
+		FROM 
+			eval_total
+		WHERE
+			eval_total_year LIKE #{evalTotalYear}
 	</select>
 </mapper>

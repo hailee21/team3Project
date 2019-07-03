@@ -44,4 +44,10 @@ public interface AssociationEvaluationMapper {
 
     //교육원 평가 항목에 따른 리스트 출력 mapper
     public List<InfoEvalByAssociation> selectInfoEvalByAssociationList(String infoEvalByAssociationSort);
+
+    //교육원 평가 항목 추가 mapper
+    public void insertEvalByAssociation(Map<String, Object> map);
+
+    //교육원 합계 년도별 리스트 출력 mapper
+    public List<EvalTotal> selectEvalTotalByYear(Map<String, Object> map);
 }

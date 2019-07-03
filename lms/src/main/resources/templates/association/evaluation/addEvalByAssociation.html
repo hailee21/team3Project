@@ -11,7 +11,24 @@
 <th:block layout:fragment="script">
 <script>
     $(document).ready(function() {
-        //항목 변경시 항목 내용 상세보기 이벤트 처리
+        //년도 항목 변경시 항목 내용 상세보기 이벤트 처리
+        $('#year').change(function(){ 
+            let evalTotalYear = $('#year').val();
+            $.ajax({
+                url:'/getInstitutionNameInEvalTotal'
+                ,type:'post'
+                ,data:{'evalTotalYear':evalTotalYear}
+                ,success:function(EvalTotal) {
+                    $('#institutionName').empty();
+                    $(EvalTotal).each(function(index,list){
+                        $('#institutionName').append('<input type="text" class="form-control" readonly="readonly" value='+list.institutionName +'>');
+                        $('#institutionName').append('<input type="hidden" name="institutionCode" value='+list.institutionCode+'>');
+                    });
+                }
+            })
+        })
+
+        //대분류 항목 변경시 항목 내용 상세보기 이벤트 처리
         $('#sort').change(function(){ 
             let infoEvalByAssociationSort = $('#sort').val();
             $.ajax({
@@ -43,17 +60,19 @@
 <div layout:fragment="content">
     <h3>평가 항목 상세 추가</h3>
     <form id="addEval" action="/associationAddEval" method="post">
-        <h5>평가 대상 교육원</h5>
+        <h5>평가 년도 선택</h5>
+            <select class="form-control" id="year" name="year">
+                <option value="">평가 년도 선택</option>
+                <option th:each="yearList:${yearList}" th:text="${yearList}" th:value="${yearList}"></option>
+            </select>
+        <h5>평가 교육원 대상</h5>
         <div class="row">
-            <div class="col-sm-4">
-                <input type="text" class="form-control" readonly="readonly" th:each="institutionList:${institutionList}" th:value="${institutionList.institutionName}">
-                <input type="hidden" name="institutionCode" th:each="institutionList:${institutionList}" th:value="${institutionList.institutionCode}">
-            </div>
+            <div class="col-sm-4" id="institutionName"></div>
             <div class="col-sm-8"></div>
         </div>
         <br>
         <h5>평가 항목 선택</h5>
-        <select class="form-control" id="sort" name="sort">
+        <select class="form-control" id="sort" name="infoEvalByAssociationSort">
             <option value="">평가 항목 선택</option>
             <option th:each="sortList:${sortList}" th:text="${sortList}" th:value="${sortList}"></option>
         </select>
@@ -69,6 +88,30 @@
             <tbody id="infoEvalByAssociationList">
             </tbody>
         </table>
+        <br>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>평가 시작일</td>
+                    <td>
+                        <input type="date" class="form-control" id="evalByAssociationStartDate" name="evalByAssociationStartDate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>평가 종료일</td>
+                    <td>
+                        <input type="date" class="form-control" id="evalByAssociationEndDate" name="evalByAssociationEndDate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>평가 발표일</td>
+                    <td>
+                        <input type="date" class="form-control" id="evalByAssociationResultDate" name="evalByAssociationResultDate">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="evalByAssociationScore" value="0">
 		<button type="button" id="btnAdd" class="btn btn-secondary">평가 항목 추가</button>
     </form>
     <br>
