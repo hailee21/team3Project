@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.teacher.mapper.TeacherMemberMapper">
+	<!-- insertTeacher.html에서 아이디 중복검사하는 select 쿼리	-->
+	<select id="selectMemberOnlineId" parameterType="String" resultType="String">
+		SELECT member_online_id
+		FROM member_online_insertid
+		WHERE member_online_id = #{memberOnlineId}
+	</select>
+	
+	<!-- memberInsert 할 때 institutionName을 찾기 위한 resultMap -->
+	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="InstitutionMap">
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+	</resultMap>
+	<select id="selectInstList" resultMap="InstitutionMap">
+		SELECT institution_code
+			, institution_name
+		FROM institution
+		LIMIT 1,100
+	</select>
 	<insert id="insertMember" parameterType="kr.or.ksmart.lms.association.vo.Member">
 	<!-- member 테이블에 insert -->
 		INSERT INTO
