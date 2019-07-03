@@ -21,12 +21,17 @@ public class PIMemberService {
 	public IndexInstitution PIIndex(String institutionCode) {
 		return memberMapper.selectInstitution(institutionCode);
 	}
+	//	회원가입(join)화면에서 select 박스에 institutionList 출력
 	public List<Institution> memberJoin() {
 		System.out.println("[PIMemberService memberJoin]");
 		List<Institution> instList = memberMapper.selectInstList();
 		System.out.println("[PIMemberService memberJoin] Join : " + instList);
 		return instList;
 	}
+	/*public String idCheck(String id) {
+		return memberMapper.selectMemberOnlineId();
+	}*/
+	//	회원 insert처리
 	public void insertMember(Member member, MemberOnline memberOnline, String institutionCode) {
 		//	member 테이블에 insert 준비. membercode 생성
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜

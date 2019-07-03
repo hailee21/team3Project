@@ -13,6 +13,9 @@
 		font-size: 12px;
 		float: right;
 	}
+	span {
+		color: #B70000;
+	}
 </style>
 </th:block>
 
@@ -22,6 +25,21 @@
 $(document).ready(function(){
 	$('#btnAdd').on('click',function(){
 		console.log('#btnAdd click test');
+		if ($('#InfoEvalLectureByStudentType').val() == ''){
+			$('#helper').text('*평가항목분류를 입력하세요');
+	    	$('#InfoEvalLectureByStudentType').focus();
+    	return false;
+    	}
+		if ($('#InfoEvalLectureByStudentContents').val() == ''){
+			$('#helper').text('*평가내용을 입력하세요');
+	    	$('#InfoEvalLectureByStudentContents').focus();
+    	return false;
+    	}
+		if ($('#InfoEvalLectureByStudentEffectiveDate').val() == ''){
+			$('#helper').text('*시행연월을 입력하세요');
+	    	$('#InfoEvalLectureByStudentEffectiveDate').focus();
+    	return false;
+    	}
 		$('#infoEvalLectureByStudentInsert').submit();
 	});
 	$('#btnBack').on('click',function(){
@@ -43,7 +61,7 @@ $(document).ready(function(){
     			
     			<div class="col-sm-5">
 					<label for="InputInfoEvalLectureByStudentSort">평가종류</label>
-					<input type="text" class="form-control" id="InfoEvalLectureByStudentSort" name="InfoEvalLectureByStudentSort" aria-describedby="" readonly="readonly" value="교육원평가">
+					<input type="text" class="form-control" id="InfoEvalLectureByStudentSort" name="InfoEvalLectureByStudentSort" aria-describedby="" readonly="readonly" value="강의/강사평가(수강생)">
     	  			<small class="form-text text-muted"></small>
       			</div>
 			</div>
@@ -51,7 +69,7 @@ $(document).ready(function(){
 				<div class="col-sm-5">
 					<label for="InputInfoEvalLectureByStudentType">평가항목분류</label>
 					<input type="text" class="form-control" id="InfoEvalLectureByStudentType" name="InfoEvalLectureByStudentType" aria-describedby="" placeholder="" value="">
-      				<small class="form-text text-muted">ex)시설/친절도/</small>
+      				<small class="form-text text-muted">ex)성실성/친절성/역량</small>
 				</div>
 			</div>
 			<div class="form-group">
@@ -65,6 +83,11 @@ $(document).ready(function(){
 					<label for="InputInfoEvalLectureByStudentEffectiveDate">시행연월</label>
 					<input type="text" class="form-control" id="InfoEvalLectureByStudentEffectiveDate" name="InfoEvalLectureByStudentEffectiveDate" aria-describedby="" placeholder="" value="2019-07" size="5">
 					<small class="form-text text-muted">ex) 2018-01</small>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-5">
+					<span id="helper"></span>
 				</div>
 			</div>
 			<p style="height: 10px"></p>

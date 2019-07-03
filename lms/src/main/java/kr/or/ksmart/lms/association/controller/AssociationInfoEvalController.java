@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.or.ksmart.lms.association.service.AssociationInfoEvalService;
 import kr.or.ksmart.lms.association.vo.InfoEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.InfoEvalByInstitution;
+import kr.or.ksmart.lms.association.vo.InfoEvalInstitutionByStudent;
+import kr.or.ksmart.lms.association.vo.InfoEvalLectureByStudent;
 
 @Controller
 public class AssociationInfoEvalController {
@@ -134,7 +136,7 @@ public class AssociationInfoEvalController {
 	@PostMapping("/infoEvalByInstitutionInsert")
 	public ModelAndView insertInfoEvalByInstitution (InfoEvalByInstitution eval
 			, ModelAndView mav, HttpSession session) {
-		System.out.println("[AssociationInfoEvalController insertInfoEvalByAssociation] 호출");
+		System.out.println("[AssociationInfoEvalController insertInfoEvalByInstitution] 호출");
 		//	회원 등급 session 검사
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {	//	memberRank로 로그인 여부 확인
@@ -158,6 +160,8 @@ public class AssociationInfoEvalController {
 			memberRank = "로그인 실패";
 		} if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association 내 sendEmailToTeacher..
 			mav.setViewName("association/infoEvaluation/institutionByStudent");
+			List<InfoEvalInstitutionByStudent> evalInstitutionByStudent = associationInfoEvalService.getInfoEvalInstitutionByStudent();
+			mav.addObject("evalInstitutionByStudent", evalInstitutionByStudent);
 		} else {
 			System.out.println("[AssociationInfoEvalController getInstitutionbyStudent] 협회 직원이 아님");
 			mav.setViewName("association/associationLogin");
@@ -179,6 +183,27 @@ public class AssociationInfoEvalController {
 		}
 		return mav;
 	}
+	//	수강생-교육원 평가항목 insert submit
+	@PostMapping("/infoEvalInstitutionByStudentInsert")
+	public ModelAndView insertInfoEvalInstitutionByStudent (InfoEvalInstitutionByStudent eval
+			, ModelAndView mav, HttpSession session) {
+		System.out.println("[AssociationInfoEvalController insertInfoEvalInstitutionByStudent] 호출");
+		//	회원 등급 session 검사
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {	//	memberRank로 로그인 여부 확인
+			memberRank = "로그인 실패";
+		}
+		if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association 내 addInfoEvalByAssociation..
+			associationInfoEvalService.insertInfoEvalInstitutionByStudent(eval);
+			mav.setViewName("redirect:/institutionByStudent");
+		} else {
+			System.out.println("[AssociationInfoEvalController insertInfoEvalByAssociation] 협회 직원이 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
+	
+	
 	//	평가항목관리 : 수강생-강의/강사 view
 	@GetMapping("/lectureByStudent")
 	public ModelAndView getLecturebyStudent (ModelAndView mav, HttpSession session) {
@@ -187,6 +212,8 @@ public class AssociationInfoEvalController {
 			memberRank = "로그인 실패";
 		} if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association 내 sendEmailToTeacher..
 			mav.setViewName("association/infoEvaluation/lectureByStudent");
+			List<InfoEvalLectureByStudent> evalLectureByStudent = associationInfoEvalService.getInfoEvalLectureByStudent();
+			mav.addObject("evalLectureByStudent", evalLectureByStudent);
 		} else {
 			System.out.println("[AssociationInfoEvalController getLecturebyStudent] 협회 직원이 아님");
 			mav.setViewName("association/associationLogin");
@@ -208,5 +235,23 @@ public class AssociationInfoEvalController {
 		}
 		return mav;
 	}
-	
+	//	수강생-강의/강사 평가항목 insert submit
+	@PostMapping("/infoEvalLectureByStudentInsert")
+	public ModelAndView insertInfoEvalLectureByStudent (InfoEvalLectureByStudent eval
+			, ModelAndView mav, HttpSession session) {
+		System.out.println("[AssociationInfoEvalController insertInfoEvalLectureByStudent] 호출");
+		//	회원 등급 session 검사
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {	//	memberRank로 로그인 여부 확인
+			memberRank = "로그인 실패";
+		}
+		if (memberRank.equals("협회직원")) {	//	요청한 회원등급이 협회직원이면 association 내 addInfoEvalByAssociation..
+			associationInfoEvalService.insertInfoEvalLectureByStudent(eval);
+			mav.setViewName("redirect:/lectureByStudent");
+		} else {
+			System.out.println("[AssociationInfoEvalController insertInfoEvalByAssociation] 협회 직원이 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
 }

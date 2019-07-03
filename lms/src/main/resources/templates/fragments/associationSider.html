@@ -41,7 +41,7 @@ $(document).ready(function() {
 		<a class="text-white" href="/association/refundPolicy/addRefundPolicyLectureList">강의 환불정책 추가</a>
 		<a class="text-white" href="/association/refundPolicy/addRefundPolicyLicense">자격 환불정책 추가</a>
 	</div>
-	<button class="navdropdown-btn"><span class="text-white">교육원 평가</span>
+	<button class="navdropdown-btn"><span class="text-white">평가관리</span>
 		<i style="color:white" class="fas fa-caret-down"></i>
 	</button>	
 	<div class="navdropdown-container">
@@ -56,15 +56,22 @@ $(document).ready(function() {
 			<a class="text-white" href="#">#교육원평가-수강생</a>
 			<a class="text-white" href="#">#우수교육원관리</a>
 		</div>
-		<button class="navdropdown-btn"><span class="text-white">평가항목</span>
+		<button class="navdropdown-btn"><span class="text-white">평가항목관리</span>
 			<i style="color:white" class="fas fa-caret-down"></i>
 		</button>	
 		<div class="navdropdown-container">
-			<a class="text-white" href="#">#교육원평가항목관리</a>
-			<a class="text-white" href="#">#교육원-강사평가항목관리</a>
-			<a class="text-white" href="#">#수강생-교육원평가항목관리</a>
-			<a class="text-white" href="#">#수강생-강의평가항목관리</a>
+			<a class="text-white" href="/evalByAssociation">교육원평가항목관리</a>
+			<a class="text-white" href="/evalByInstitution">교육원-강사평가항목관리</a>
+			<a class="text-white" href="/institutionByStudent">수강생-교육원평가항목관리</a>
+			<a class="text-white" href="/lectureByStudent">수강생-강의/강사평가항목관리</a>
 		</div>
+	</div>
+	<button class="navdropdown-btn"><span class="text-white">회원관리</span>
+		<i style="color:white" class="fas fa-caret-down"></i>
+	</button>
+	<div class="navdropdown-container">
+		<a class="text-white" href="/">회원조회</a>
+		<a class="text-white" href="/sendApprovalCode">승인코드전송</a>
 	</div>
 </div>
 </header>

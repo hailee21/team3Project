@@ -1,8 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationInfoEvalMapper">
+	<insert id="insertInfoEvalLectureByStudent" parameterType="kr.or.ksmart.lms.association.vo.InfoEvalLectureByStudent">
+		<!-- 	info_eval_lecture_by_student 테이블에 insert -->
+		INSERT INTO
+			info_eval_lecture_by_student (
+			info_eval_lecture_by_student_code
+			, info_eval_lecture_by_student_sort
+			, info_eval_lecture_by_student_type
+			, info_eval_lecture_by_student_contents
+			, info_eval_lecture_by_student_effective_date
+			, info_eval_lecture_by_student_insert_date)
+		VALUES (
+			#{infoEvalLectureByStudentCode}
+			, #{infoEvalLectureByStudentSort}
+			, #{infoEvalLectureByStudentType}
+			, #{infoEvalLectureByStudentContents}
+			, #{infoEvalLectureByStudentEffectiveDate}
+			, now()
+		)
+	</insert>
+	<resultMap type="kr.or.ksmart.lms.association.vo.InfoEvalLectureByStudent" id="InfoEvalLectureByStudentListMap">
+		<result column="info_eval_lecture_by_student_code" property="infoEvalLectureByStudentCode"/>
+		<result column="info_eval_lecture_by_student_sort" property="infoEvalLectureByStudentSort"/>
+		<result column="info_eval_lecture_by_student_type" property="infoEvalLectureByStudentType"/>
+		<result column="info_eval_lecture_by_student_contents" property="infoEvalLectureByStudentContents"/>
+		<result column="info_eval_lecture_by_student_effective_date" property="infoEvalLectureByStudentEffectiveDate"/>
+	</resultMap>
+		<!--	학생이 강의/강사를 평가하는 평가문항 리스트 출력 쿼리문	-->
+	<select id="selectInfoEvalLectureByStudentList" parameterType="String" resultMap="InfoEvalLectureByStudentListMap">
+		SELECT
+			info_eval_lecture_by_student_code
+			, info_eval_lecture_by_student_sort
+			, info_eval_lecture_by_student_type
+			, info_eval_lecture_by_student_contents
+			, info_eval_lecture_by_student_effective_date
+			, left(info_eval_lecture_by_student_insert_date,10) AS infoEvalLectureByStudentInsertDate
+		FROM info_eval_lecture_by_student
+		ORDER BY info_eval_lecture_by_student_insert_date
+	</select>
+	
+	<insert id="insertInfoEvalInstitutionByStudent" parameterType="kr.or.ksmart.lms.association.vo.InfoEvalInstitutionByStudent">
+	<!-- 	info_eval_institution_by_student 테이블에 insert -->
+		INSERT INTO
+			info_eval_institution_by_student (
+			info_eval_institution_by_student_code
+			, info_eval_institution_by_student_sort
+			, info_eval_institution_by_student_type
+			, info_eval_institution_by_student_contents
+			, info_eval_institution_by_student_effective_date
+			, info_eval_institution_by_student_insert_date)
+		VALUES (
+			#{infoEvalInstitutionByStudentCode}
+			, #{infoEvalInstitutionByStudentSort}
+			, #{infoEvalInstitutionByStudentType}
+			, #{infoEvalInstitutionByStudentContents}
+			, #{infoEvalInstitutionByStudentEffectiveDate}
+			, now()
+		)
+	</insert>
+		<!--	학생이 교육원을 평가하는 평가문항 리스트 출력을 위한 resultMap		-->
+	<resultMap type="kr.or.ksmart.lms.association.vo.InfoEvalInstitutionByStudent" id="InfoEvalInstitutionByStudentListMap">
+		<result column="info_eval_institution_by_student_code" property="infoEvalInstitutionByStudentCode"/>
+		<result column="info_eval_institution_by_student_sort" property="infoEvalInstitutionByStudentSort"/>
+		<result column="info_eval_institution_by_student_type" property="infoEvalInstitutionByStudentType"/>
+		<result column="info_eval_institution_by_student_contents" property="infoEvalInstitutionByStudentContents"/>
+		<result column="info_eval_institution_by_student_effective_date" property="infoEvalInstitutionByStudentEffectiveDate"/>
+	</resultMap>
+		<!--	학생이 교육원을 평가하는 평가문항 리스트 출력 쿼리문	-->
+	<select id="selectInfoEvalInstitutionByStudentList" parameterType="String" resultMap="InfoEvalInstitutionByStudentListMap">
+		SELECT
+			info_eval_institution_by_student_code
+			, info_eval_institution_by_student_sort
+			, info_eval_institution_by_student_type
+			, info_eval_institution_by_student_contents
+			, info_eval_institution_by_student_effective_date
+			, left(info_eval_institution_by_student_insert_date,10) AS infoEvalInstitutionByStudentInsertDate
+		FROM info_eval_institution_by_student
+		ORDER BY info_eval_institution_by_student_insert_date
+	</select>
+	
 	<insert id="insertInfoEvalByInstitution" parameterType="kr.or.ksmart.lms.association.vo.InfoEvalByInstitution">
-	<!-- member 테이블에 insert -->
+	<!-- 	info_eval_by_institution 테이블에 insert -->
 		INSERT INTO
 			info_eval_by_institution (
 			info_eval_by_institution_code
@@ -20,6 +99,7 @@
 			, now()
 		)
 	</insert>
+		<!--	교육원이 강사를 평가하는 평가문항 리스트 출력을 위한 resultMap		-->
 	<resultMap type="kr.or.ksmart.lms.association.vo.InfoEvalByInstitution" id="InfoEvalByInstitutionListMap">
 		<result column="info_eval_by_institution_code" property="infoEvalByInstitutionCode"/>
 		<result column="info_eval_by_institution_sort" property="infoEvalByInstitutionSort"/>
@@ -27,6 +107,7 @@
 		<result column="info_eval_by_institution_contents" property="infoEvalByInstitutionContents"/>
 		<result column="info_eval_by_institution_effective_date" property="infoEvalByInstitutionEffectiveDate"/>
 	</resultMap>
+		<!--	교육원이 강사를 평가하는 평가문항 리스트 출력 쿼리문	-->
 	<select id="selectInfoEvalByInstitutionList" parameterType="String" resultMap="InfoEvalByInstitutionListMap">
 		SELECT
 			info_eval_by_institution_code
@@ -36,11 +117,11 @@
 			, info_eval_by_institution_effective_date
 			, left(info_eval_by_institution_insert_date,10) AS infoEvalByInstitutionInsertDate
 		FROM info_eval_by_institution
-		ORDER BY infoEvalByInstitutionInsertDate
+		ORDER BY info_eval_by_institution_insert_date
 	</select>
 	
 	<insert id="insertInfoEvalByAssociation" parameterType="kr.or.ksmart.lms.association.vo.InfoEvalByAssociation">
-	<!-- member 테이블에 insert -->
+	<!-- info_eval_by_association 테이블에 insert -->
 		INSERT INTO
 			info_eval_by_association (
 			info_eval_by_association_code
@@ -58,6 +139,7 @@
 			, now()
 		)
 	</insert>
+		<!--	협회가 교육원을 평가하는 평가문항 리스트 출력을 위한 resultMap		-->
 	<resultMap type="kr.or.ksmart.lms.association.vo.InfoEvalByAssociation" id="InfoEvalByAssociationListMap">
 		<result column="info_eval_by_association_code" property="infoEvalByAssociationCode"/>
 		<result column="info_eval_by_association_sort" property="infoEvalByAssociationSort"/>
@@ -66,6 +148,7 @@
 		<result column="info_eval_by_association_effective_date" property="infoEvalByAssociationEffectiveDate"/>
 		<!-- <result column="info_eval_by_association_insert_date" property="infoEvalByAssociationInsertDate"/> -->
 	</resultMap>
+		<!--	협회가 교육원을 평가하는 평가문항 리스트 출력 쿼리문	-->
 	<select id="selectInfoEvalByAssociationList" parameterType="String"
 			resultMap="InfoEvalByAssociationListMap">
 		SELECT
@@ -76,6 +159,6 @@
 			, info_eval_by_association_effective_date
 			, left(info_eval_by_association_insert_date,10) AS infoEvalByAssociationInsertDate
 		FROM info_eval_by_association
-		ORDER BY infoEvalByAssociationInsertDate
+		ORDER BY info_eval_by_association_insert_date
 	</select>
 </mapper>
