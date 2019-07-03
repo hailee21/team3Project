@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.lms.association.mapper.AssociationEvaluationMapper;
 import kr.or.ksmart.lms.association.vo.EvalTotal;
+import kr.or.ksmart.lms.association.vo.InfoEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.InsertEvalTotal;
+import kr.or.ksmart.lms.association.vo.Institution;
 
 @Service
 @Transactional
@@ -150,5 +152,25 @@ public class AssociationEvaluationService {
         returnMap.put("sortList", sortList);
         returnMap.put("yearList", yearList);
         return returnMap;
-	}
+    }
+    
+    //평가 항목 상세 추가 폼 출력 service
+	public Map<String, Object> addEvalByAssociationForm() {
+        //평가를 해야하는 교육원 코드와 이름 가져오기
+        List<Institution> institutionList = associationEvaluationMapper.selectInstitutionCodeAndName();
+
+        //평가 항목 가져오기
+        List<String> sortList = associationEvaluationMapper.selectInfoEvalByAssociationSortList();
+
+        //컨트롤러로 리턴할 데이터 선언 및 설정
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        returnMap.put("institutionList", institutionList);
+        returnMap.put("sortList", sortList);
+        return returnMap;
+    }
+    
+    //평가 항목 상세 분류에 따른 내용 출력 service
+    public List<InfoEvalByAssociation> getInfoEvalByAssociation(String infoEvalByAssociationSort) {
+        return associationEvaluationMapper.selectInfoEvalByAssociationList(infoEvalByAssociationSort);
+    }
 }

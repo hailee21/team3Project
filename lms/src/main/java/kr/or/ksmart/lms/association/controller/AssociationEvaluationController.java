@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.association.service.AssociationEvaluationService;
+import kr.or.ksmart.lms.association.vo.AddEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.EvalTotal;
 import kr.or.ksmart.lms.association.vo.InsertEvalTotal;
 
@@ -104,13 +105,35 @@ public class AssociationEvaluationController {
 
 	//평가 항목 상세 추가 폼 출력 controller
 	@GetMapping("/association/evaluation/addEvalByAssociation")
-	public ModelAndView addEvalByAssociation(HttpSession session, ModelAndView mav) {
+	public ModelAndView addEvalByAssociationForm(HttpSession session, ModelAndView mav) {
+		System.out.println("[AssociationEvaluationController addEvalByAssociationForm] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
+		if(memberRank.equals("협회직원")) {
+			Map<String, Object> map = associationEvaluationService.addEvalByAssociationForm();
+			mav.addObject("institutionList", map.get("institutionList"));
+			mav.addObject("sortList", map.get("sortList"));
+			mav.setViewName("association/evaluation/addEvalByAssociation");
+		} else {
+			System.out.println("[AssociationEvaluationController addEvalByAssociationForm] 협회직원 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
+
+	//평가 항목 상세 추가 액션 controller
+	@PostMapping("/associationAddEval")
+	public ModelAndView addEvalByAssociation(HttpSession session, ModelAndView mav, AddEvalByAssociation addEvalByAssociation) {
 		System.out.println("[AssociationEvaluationController addEvalByAssociation] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
+			System.err.println(addEvalByAssociation.getInstitutionCode());
+			System.err.println(addEvalByAssociation.getInfoEvalByAssociationCode());
 			mav.setViewName("association/evaluation/addEvalByAssociation");
 		} else {
 			System.out.println("[AssociationEvaluationController addEvalByAssociation] 협회직원 아님");
@@ -144,7 +167,7 @@ public class AssociationEvaluationController {
 	//교육원 평가 항목 추가 액션 controller
 	@PostMapping("/associationAddEvalTotal")
 	public ModelAndView addEvaluationTotal(HttpSession session, ModelAndView mav, InsertEvalTotal insertEvalTotal) {
-		System.out.println("[AssociationEvaluationController getEvaluationTotalAddForm] 호출");
+		System.out.println("[AssociationEvaluationController addEvaluationTotal] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
 			memberRank = "로그인 실패";
@@ -153,7 +176,7 @@ public class AssociationEvaluationController {
 			associationEvaluationService.addEvaluationTotal(insertEvalTotal);
 			mav.setViewName("redirect:/association/evaluation/evaluationTotal");
 		} else {
-			System.out.println("[AssociationEvaluationController getEvaluationTotalAddForm] 협회직원 아님");
+			System.out.println("[AssociationEvaluationController addEvaluationTotal] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
 		}
 		return mav;
