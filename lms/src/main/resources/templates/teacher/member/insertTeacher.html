@@ -56,7 +56,7 @@ $(document).ready(function(){
     				$('#pwCk').remove();
     			}
     		}
-    	})
+    	});
     	$("#memberName").blur(function() {
     		if ($('#memberName').val() != ''){
     			if(!nameCheck.test($('#memberName').val())){
@@ -67,7 +67,7 @@ $(document).ready(function(){
     				$('#nameCk').remove();
     			}
     		}
-    	})
+    	});
     	$("#memberRegistrationNumberFront").blur(function() {
     		if ($('#memberRegistrationNumberFront').val() != ''){
     			if(!numberCheck.test($('#memberRegistrationNumberFront').val())){
@@ -78,7 +78,7 @@ $(document).ready(function(){
     				$('#registNoFrontCheck').remove();
     			}
     		}
-    	})
+    	});
     	$("#memberRegistrationNumberBack").blur(function() {
     		if ($('#memberRegistrationNumberBack').val() != ''){
     			if(!numberCheck.test($('#memberRegistrationNumberBack').val())){
@@ -89,7 +89,18 @@ $(document).ready(function(){
     				$('#registNoBackCheck').remove();
     			}
     		}
-    	})
+    	});
+    	$("#teacherApprovalCode").blur(function() {
+    		if ($('#teacherApprovalCode').val() != ''){
+    			$('#approvalCheck').remove();
+    		}
+    	});
+    	//memberTeacherCareer
+    	$("#memberTeacherCareer").blur(function() {
+    		if ($('#memberTeacherCareer').val() != ''){
+    			$('#careerCheck').remove();
+    		}
+    	});
     	$("#memberPhoneNumber").blur(function() {
     		if ($('#memberPhoneNumber').val() != ''){
     			if(!numberCheck.test($('#memberPhoneNumber').val())){
@@ -100,38 +111,38 @@ $(document).ready(function(){
     				$('#phoneCheck').remove();
     			}
     		}
-    	})
+    	});
     	$("#memberAddress").blur(function() {
     		if ($('#memberAddress').val() != ''){
     			$('#addrCheck').remove();
     		}
-    	})
+    	});
     	$("#memberAddressDesc").blur(function() {
     		if ($('#memberAddressDesc').val() != ''){
     			$('#addrDescCheck').remove();
     		}
-    	})
+    	});
     	$("#institutionCode").blur(function() {
     		if ($('#institutionCode').val() != ''){
     			$('#instCode').remove();
     		}
-    	})
+    	});
     	//	폼유효성 검사
-    	$('#btnInsert').on('click',function(){
+    	$('#btnAdd').on('click',function(){
     		console.log('#btnInsert click test');
     		if ($('#memberOnlineId').val() == ''){
-    			$('#idCheck').attr('style','color:#B70000')
-    			$('#idCheck').text('*아이디를 입력하세요');
+    			$('#idCk').attr('style','color:#B70000')
+    			$('#idCk').text('*아이디를 입력하세요');
     	    	$('#memberOnlineId').focus();
         	return false;
         	} else if ($('#memberOnlinePw').val() == ''){
-    			$('#pwCheck').attr('style','color:#B70000')
-    			$('#pwCheck').text('*비밀번호를 입력하세요');
+    			$('#pwCk').attr('style','color:#B70000')
+    			$('#pwCk').text('*비밀번호를 입력하세요');
     	    	$('#memberOnlinePw').focus();
         	return false;
         	} else if ($('#memberName').val() == ''){
-    			$('#nameCheck').attr('style','color:#B70000')
-    			$('#nameCheck').text('*이름을 입력하세요');
+    			$('#nameCk').attr('style','color:#B70000')
+    			$('#nameCk').text('*이름을 입력하세요');
     	    	$('#memberName').focus();
         	return false;
         	} else if ($('#memberRegistrationNumberFront').val() == ''){
@@ -144,6 +155,16 @@ $(document).ready(function(){
     			$('#registNoBackCheck').text('*주민번호를 입력하세요');
     	    	$('#memberRegistrationNumberBack').focus();
         	return false;
+        	} else if ($('#teacherApprovalCode').val() == ''){
+        		$('#approvalCheck').attr('style','color:#B70000')
+    			$('#approvalCheck').text('*강사코드를 입력하세요');
+    	    	$('#teacherApprovalCode').focus();
+    	    return false;
+        	} else if ($('#memberTeacherCareer').val() == ''){
+        		$('#careerCheck').attr('style','color:#B70000')
+    			$('#careerCheck').text('*경력사항을 입력하세요');
+    	    	$('#memberTeacherCareer').focus();
+    	    return false;
         	} else if ($('#memberPhoneNumber').val() == ''){
     			$('#phoneCheck').attr('style','color:#B70000')
     			$('#phoneCheck').text('*전화번호를 입력하세요');
@@ -311,12 +332,13 @@ $(document).ready(function(){
 					<!-- 	경력사항	 -->
 							<div class="form-group">
 								<label for="exampleTextarea">경력사항</label>
-      							<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+      							<textarea class="form-control" name="memberTeacherCareer" id="memberTeacherCareer" rows="3"></textarea>
+      							<small class="form-text" id="careerCheck"></small>
 		      				</div>
 					<!-- 	전화번호	 -->
 							<div class="form-group">
 								<label for="InputPhone">전화번호</label>
-								<input type="tel" class="form-control" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
+								<input type="tel" class="form-control" id="memberPhoneNumber" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
 								<small class="form-text" id="phoneCheck"></small>
 							</div>
 					<!-- 	주소	 -->
@@ -353,7 +375,7 @@ $(document).ready(function(){
 							</div>
 							<p style="height: 10px"></p>
 							<div class="form-group">
-								<button type="button" class="btn btn-primary">#강사등록</button> <button type="button" class="btn btn-secondary disabled" onclick="location.href='javascript:history.back()'">뒤로가기</button>
+								<button type="button" id="btnAdd" class="btn btn-primary">강사등록</button> <button type="button" id="btnBack" class="btn btn-secondary disabled">뒤로가기</button>
 							</div>
 						</fieldset>
 					</form>
