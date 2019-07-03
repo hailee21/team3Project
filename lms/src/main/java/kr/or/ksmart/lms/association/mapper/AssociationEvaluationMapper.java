@@ -8,11 +8,15 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.or.ksmart.lms.association.vo.EvalTotal;
 import kr.or.ksmart.lms.association.vo.InfoEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.InsertEvalTotal;
+import kr.or.ksmart.lms.association.vo.Institution;
 
 @Mapper
 public interface AssociationEvaluationMapper {
-    //평가를 해야하는 교육원 리스트 mapper
+    //평가를 해야하는 교육원 코드 리스트 mapper
     public List<String> selectInstitutionCodeList();
+
+    //평가를 해야하는 교육원 코드와 교육원 명 리스트 mapper
+    public List<Institution> selectInstitutionCodeAndName();
 
     //교육원 평가 합계 추가 mapper
     public void insertEvalTotal(InsertEvalTotal insertEvalTotal);
