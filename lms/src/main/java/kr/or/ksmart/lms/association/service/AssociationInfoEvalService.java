@@ -28,7 +28,7 @@ public class AssociationInfoEvalService {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
 		Date now = new Date(); 
 		String nowDate = dateFormat.format(now);
-		nowDate = nowDate.substring(0, 11);
+		nowDate = nowDate.substring(0, 13);
 		nowDate = nowDate.toString().replace("-", "");
 		nowDate = nowDate.toString().replace(" ", "");
 		System.out.println(nowDate);
@@ -56,7 +56,7 @@ public class AssociationInfoEvalService {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
 		Date now = new Date(); 
 		String nowDate = dateFormat.format(now);
-		nowDate = nowDate.substring(0, 11);
+		nowDate = nowDate.substring(0, 13);
 		nowDate = nowDate.toString().replace("-", "");
 		nowDate = nowDate.toString().replace(" ", "");
 		System.out.println(nowDate);
@@ -84,7 +84,7 @@ public class AssociationInfoEvalService {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
 		Date now = new Date(); 
 		String nowDate = dateFormat.format(now);
-		nowDate = nowDate.substring(0, 11);
+		nowDate = nowDate.substring(0, 13);
 		nowDate = nowDate.toString().replace("-", "");
 		nowDate = nowDate.toString().replace(" ", "");
 		System.out.println(nowDate);
@@ -111,7 +111,7 @@ public class AssociationInfoEvalService {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
 		Date now = new Date(); 
 		String nowDate = dateFormat.format(now);
-		nowDate = nowDate.substring(0, 11);
+		nowDate = nowDate.substring(0, 13);
 		nowDate = nowDate.toString().replace("-", "");
 		nowDate = nowDate.toString().replace(" ", "");
 		System.out.println(nowDate);

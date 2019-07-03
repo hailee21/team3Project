@@ -37,20 +37,8 @@ public class PIMemberController {
 		mav.setViewName("PI/Join");
 		return mav;
 	}
-	//	id중복검사
-	/*@GetMapping("/idCheck")
-	public boolean idCheck(@RequestParam(value="id", required=false) String id) {
-        System.out.println("/idCheck 요청");
-        String result = memberService.idCheck(id);
-        System.out.println("[PIMemberController idCheck]" + result);
-        if (result == null) {
-        	return false;
-        } else {
-        	return true;
-        }
-	}*/
 	//	회원등록 처리
-	@PostMapping("/memberInsert")
+	/*@PostMapping("/memberInsert")
 	public ModelAndView memberInsert(Member member, MemberOnline memberOnline
 			, @RequestParam(value="institutionCode", required = true) String institutionCode, ModelAndView mav) {
 		System.out.println("[MemberController memberInsert] member:" + member);
@@ -58,7 +46,7 @@ public class PIMemberController {
 		//mav.setViewName("redirect:/login?institutionCode=" + institutionCode);	로그인 바로가기
 		mav.setViewName("redirect:/joinSuccess?institutionCode=" + institutionCode);
 		return mav;
-	}
+	}*/
 	//	회원등록 완료 후 로그인창
 	@GetMapping("/joinSuccess")
 	public ModelAndView joinSuccess(HttpSession session, ModelAndView mav
