@@ -18,7 +18,7 @@
 
 <div layout:fragment="content">
 	<h3>자격 시험 장소 리스트</h3>
-	<table border="1">
+	<table class="table table-striped">
 		<tr>
 			<th>시험장소코드</th>
 			<th>지역</th>
@@ -30,11 +30,11 @@
 		</tr>
 		<tr th:each="subject:${list}">
 			<td th:text="${subject.licenseTestLocationCode}"></td>
-			<td><a th:text="${subject.licenseTestLocationRegion}" th:href="@{'/association/license/licenseTestLocationDetail?licenseTestLocationCode='+${subject.licenseTestLocationCode}}" th:value="${subject.licenseTestLocationCode}"></a></td>
+			<td><a th:text="${subject.licenseTestLocationRegion}" th:href="@{'/association/license/licenseTestLocationDetailList?licenseTestLocationCode='+${subject.licenseTestLocationCode}}" th:value="${subject.licenseTestLocationCode}"></a></td>
 			<td th:text="${subject.licenseTestLocationAddress}"></td>
 			<td th:text="${subject.licenseTestLocationUse}"></td>
 			<td th:text="${subject.licenseTestLocationMaximumNumber}"></td>
-			<td th:text="${subject.licenseTestLocationDate}"></td>				
+			<td th:text="${subject.licenseTestLocationInsertDate}"></td>				
 		</tr>
 	</table>
 </div>

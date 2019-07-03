@@ -36,12 +36,12 @@
 		SELECT
 			notice_annual_license_test_code
 			, notice_annual_license_test_name
-			, notice_annual_license_test_apply_start_date
-			, notice_annual_license_test_apply_end_date
-			, notice_annual_license_test_start_date
-			, notice_annual_license_test_end_date
-			, notice_annual_license_test_result_date
-			, notice_annual_license_test_insert_date
+			, left(notice_annual_license_test_apply_start_date,10) AS notice_annual_license_test_apply_start_date
+			, left(notice_annual_license_test_apply_end_date,10) AS notice_annual_license_test_apply_end_date
+			, left(notice_annual_license_test_start_date,10) AS notice_annual_license_test_start_date
+			, left(notice_annual_license_test_end_date,10) AS notice_annual_license_test_end_date
+			, left(notice_annual_license_test_result_date,10) AS notice_annual_license_test_result_date
+			, left(notice_annual_license_test_insert_date,10) AS notice_annual_license_test_insert_date
 		FROM
 			notice_annual_license_test
 	</select>

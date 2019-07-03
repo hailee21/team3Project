@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationLicenseTestLocationMapper">
-	
+	<!-- 자격 시험 장소 상세 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.association.vo.LicenseTestLocationDetail" id="LicenseTestLocationDetailMap">
-
 		<result column="license_test_location_detail_code" property="licenseTestLocationDetailCode"/>
 		<result column="license_test_location_code" property="licenseTestLocationCode"/>
 		<result column="license_test_location_detail_classroom" property="licenseTestLocationDetailClassroom"/>
 		<result column="license_test_location_detail_use" property="licenseTestLocationDetailUse"/>
 		<result column="license_test_location_detail_maximum_number" property="licenseTestLocationDetailMaximumNumber"/>
 		<result column="license_test_location_detail_use_insert_date" property="licenseTestLocationDetailUseInsertDate"/>	
-
 	</resultMap>
+	
+	<!-- 자격 시험 장소 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.association.vo.LicenseTestLocation" id="LicenseTestLocationMap">
 
 		<result column="license_test_location_code" property="licenseTestLocationCode"/>
@@ -21,13 +21,14 @@
 		<result column="license_test_location_address_detail" property="licenseTestLocationAddressDetail"/>
 		<result column="license_test_location_use" property="licenseTestLocationUse"/>
 		<result column="license_test_location_maximum_number" property="licenseTestLocationMaximumNumber"/>	
-		<result column="license_test_location_date" property="licenseTestLocationDate"/>
+		<result column="license_test_location_insert_date" property="licenseTestLocationInsertDate"/>
 	</resultMap>
+	
 	<!-- 자격시험 장소 상세 등록 -->
 	<insert id="insertLicenseTestLocationDetail"
-			parameterType="kr.or.ksmart.lms.association.vo.LicenseTestLocationDetail">
+			parameterType="String">
 		INSERT INTO
-			license_test_location_detail_code
+			license_test_location_detail
 			VALUES(
 			#{licenseTestLocationDetailCode}
 			, #{licenseTestLocationCode}
@@ -47,7 +48,7 @@
 			, license_test_location_detail_classroom
 			, license_test_location_detail_use
 			, license_test_location_detail_maximum_number
-			, license_test_location_detail_use_insert_date
+			, left(license_test_location_detail_use_insert_date,10) AS license_test_location_detail_use_insert_date
 		FROM license_test_location_detail
 		WHERE license_test_location_code = #{licenseTestLocationCode}
 	</select>
@@ -61,7 +62,7 @@
 			, license_test_location_address_detail
 			, license_test_location_use
 			, license_test_location_maximum_number
-			, license_test_location_date
+			, left(license_test_location_insert_date,10) AS license_test_location_insert_date
 		FROM license_test_location
 	</select>
 	<!-- 자격시험 장소 PK --> 

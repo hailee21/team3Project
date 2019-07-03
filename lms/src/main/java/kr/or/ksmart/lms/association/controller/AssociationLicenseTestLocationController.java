@@ -21,15 +21,16 @@ public class AssociationLicenseTestLocationController {
     @Autowired
 	AssociationLicenseTestLocationService licenseTestLocationService;
 
-    @GetMapping("/association/license/addlicenseTestLocationDetail") //자격 시험 장소 세부 등록 폼 컨트롤러
-    public ModelAndView addLicenseTestLocationDetail(HttpSession session, ModelAndView mav) {
+    @GetMapping("/association/license/addLicenseTestLocationDetail") //자격 시험 장소 세부 등록 폼 컨트롤러
+    public ModelAndView addLicenseTestLocationDetail(HttpSession session, ModelAndView mav, @RequestParam String licenseTestLocationCode) {
 		System.out.println("[AssociationLicenseTestLocationController addLicenseTestLocationDetail]");
     	String memberRank = (String)session.getAttribute("memberRank");
     	if(memberRank == null) {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
-			mav.setViewName("/association/license/addlicenseTestLocationDetail");
+			mav.addObject("licenseTestLocationCode", licenseTestLocationCode);
+			mav.setViewName("/association/license/addLicenseTestLocationDetail");
 		} else {
 			System.out.println("[AssociationLicenseTestLocationController addLicenseTestLocationDetail] 협회직원 아님");
 			
@@ -39,7 +40,7 @@ public class AssociationLicenseTestLocationController {
     	
     }
     
-    @PostMapping("/association/license/addlicenseTestLocationDetail") //자격 시험 장소 세부 등록 액션 컨트롤러
+    @PostMapping("/association/license/addLicenseTestLocaitonDetail") //자격 시험 장소 세부 등록 액션 컨트롤러
     public ModelAndView addLicenseTestLocationDetail(HttpSession session, ModelAndView mav, LicenseTestLocationDetail licenseTestLocationDetail) {
 		System.out.println("[AssociationLicenseTestLocationController addLicenseTestLocationDetail]");
     	String memberRank = (String)session.getAttribute("memberRank");
@@ -47,8 +48,8 @@ public class AssociationLicenseTestLocationController {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
-			licenseTestLocationService.insertTestLocationDetail(licenseTestLocationDetail);
-			mav.setViewName("redirect:/association/license/licenseTestLocationDetail");
+			licenseTestLocationService.insertTestLocationDetail(licenseTestLocationDetail);	
+			mav.setViewName("redirect:/association/license/licenseTestLocationDetailList");
 		} else {
 			System.out.println("[AssociationLicenseTestLocationController addLicenseTestLocationDetail] 협회직원 아님");
 			
@@ -57,7 +58,7 @@ public class AssociationLicenseTestLocationController {
     	return mav;
     	
     }
-    @GetMapping("/association/license/licenseTestLocationDetail") // 자격시험 세부 조회 리스트
+    @GetMapping("/association/license/licenseTestLocationDetailList") // 자격시험 세부 조회 리스트
     public ModelAndView selectLicenseTestLocationDetail(HttpSession session, ModelAndView mav, @RequestParam String licenseTestLocationCode) {
 		System.out.println("[AssociationLicenseTestLocationController selectLicenseTestLocationDetail]");
 		System.out.println("[AssociationLicenseTestLocationController selectLicenseTestLocationDetail]licenseTestLocationCode"+licenseTestLocationCode);
@@ -69,7 +70,8 @@ public class AssociationLicenseTestLocationController {
 			List<LicenseTestLocationDetail> list = licenseTestLocationService.selectTestLocationDetail(licenseTestLocationCode);
 			System.out.println("[AssociationLicenseTestLocationController selectLicenseTestLocationDetail]list"+list);
 			mav.addObject("list", list);
-			mav.setViewName("/association/license/licenseTestLocationDetail");
+			mav.addObject("licenseTestLocationCode", licenseTestLocationCode);
+			mav.setViewName("/association/license/licenseTestLocationDetailList");
 		} else {
 			System.out.println("[AssociationLicenseTestLocationController selectLicenseTestLocationDetail] 협회직원 아님");
 			

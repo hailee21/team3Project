@@ -12,24 +12,13 @@
 <script>
 	$(document).ready(function() {
 		//유효성 검사를 위한 변수 선언
-		let noticeAnnualLicenseTestCodeCheck = true;
 		let noticeAnnualLicenseTestNameCheck = true;
 		let noticeAnnualLicenseTestApplyStartDateCheck = true;
 		let noticeAnnualLicenseTestApplyEndDateCheck = true;
 		let noticeAnnualLicenseTestStartDateCheck = true;
 		let noticeAnnualLicenseTestEndDateCheck = true;
 		let noticeAnnualLicenseTestResultDateCheck = true;
-		
-		//noticeAnnualLicenseTestCode 입력 유효성 검사
-		$('#noticeAnnualLicenseTestCode').blur(function() {
-			if($('#noticeAnnualLicenseTestCode').val() == "") {
-				console.log('noticeAnnualLicenseTestCode 공백입력')
-				noticeAnnualLicenseTestCodeCheck = true;
-			} else {
-                console.log('noticeAnnualLicenseTestCode 유효성 검사 완료')
-				noticeAnnualLicenseTestCodeCheck = false;
-			}
-		});
+		let noticeAnnualLicenseTestInsertDateCheck = true;
 
 		//noticeAnnualLicenseTestName 입력 유효성 검사
 		$('#noticeAnnualLicenseTestName').blur(function() {
@@ -94,13 +83,20 @@
 				noticeAnnualLicenseTestResultDateCheck = false;
 			}	
 		});
+		//noticeAnnualLicenseTestInsertDate 입력 유효성 검사
+		$('#noticeAnnualLicenseTestInsertDate').blur(function() {
+			if($('#noticeAnnualLicenseTestInsertDate').val() == "") {
+				console.log('noticeAnnualLicenseTestInsertDate 공백입력')
+				noticeAnnualLicenseTestInsertDateCheck = true;
+			} else {
+                console.log('noticeAnnualLicenseTestInsertDate 유효성 검사 완료')
+				noticeAnnualLicenseTestInsertDateCheck = false;
+			}	
+		});
 
 		//btnAdd 클릭 이벤트 처리
 		$('#btnAdd').on('click',function() {
-			if(noticeAnnualLicenseTestCodeCheck) {
-				$('h4').addClass('red');
-				$('h4').text('연간자격시험계획코드가 공백 상태 입니다.');
-			} else if(noticeAnnualLicenseTestNameCheck) {
+			if(noticeAnnualLicenseTestNameCheck) {
 				$('h4').addClass('red');
 				$('h4').text('자격시험명이 공백 상태 입니다.');
 			} else if(noticeAnnualLicenseTestApplyStartDateCheck) {
@@ -118,8 +114,11 @@
 			} else if(noticeAnnualLicenseTestResultDateCheck) {
 				$('h4').addClass('red');
 				$('h4').text('결과발표일이 공백 상태 입니다.');
+			} else if(noticeAnnualLicenseTestInsertDateCheck) {
+					$('h4').addClass('red');
+					$('h4').text('등록날짜가 공백 상태 입니다.');
 			} else {
-				$('#addnoticeAnnualLicenseTest').submit()
+				$('#addNoticeAnnualLicenseTest').submit()
 			}
 		});
 
@@ -129,11 +128,7 @@
 
 <div layout:fragment="content">
 	<h3>연간자격시험 일정등록</h3>
-	<form id="addnoticeAnnualLicenseTest" action="/association/notice/addnoticeAnnualLicenseTest" method="post">
-		<div class="form-group">
-			<label>연간자격시험계획코드 :</label>
-			<input type="text" class="form-control" id="noticeAnnualLicenseTestCode" name="noticeAnnualLicenseTestCode">
-		</div>
+	<form id="addNoticeAnnualLicenseTest" action="/association/notice/addNoticeAnnualLicenseTest" method="post">
 		<div class="form-group">
 			<label>자격시험명 :</label>
 			<input type="text" class="form-control" id="noticeAnnualLicenseTestName" name="noticeAnnualLicenseTestName">

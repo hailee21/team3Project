@@ -16,7 +16,7 @@ public class AssociationLicenseTestLocationService {
 
     @Autowired
     private AssociationLicenseTestLocationMapper AssociationlicenseTestLocationMapper;
-    //자격 시험 장소 상세 등록 폼
+    //자격 시험 장소 상세 등록 메서드
     public List<LicenseTestLocationDetail> insertTestLocationDetail(LicenseTestLocationDetail licenseTestLocationDetail) {
 		List<LicenseTestLocationDetail> list = AssociationlicenseTestLocationMapper.insertLicenseTestLocationDetail(licenseTestLocationDetail);
     	System.out.println("[AssociationLicenseTestLocationService insertTestLocationDetail]list"+list);
