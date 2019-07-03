@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="kr.or.ksmart.lms.pi.mapper.PILectureMapper"> 
-	<!-- LectureMapper InfoLecture resultMap  -->
+	<!-- PILectureMapper InfoLecture resultMap  -->
 	<resultMap id="infoLectureResultMap"
 				type="kr.or.ksmart.lms.pi.vo.InfoLecture">
 		<result column="info_lecture_code" property="infoLectureCode"/>
@@ -11,7 +11,7 @@
 		<result column="info_lecture_name" property="infoLectureName"/>
 		<result column="info_lecture_insert_date" property="infoLectureInsertDate"/>
 	</resultMap>
-	<!-- LectureMapper InfoSubject resultMap  -->
+	<!-- PILectureMapper InfoSubject resultMap  -->
 	<resultMap id="InfoSubjectMap"
 				type="kr.or.ksmart.lms.pi.vo.InfoSubject">
 		<result column="info_subject_code" property="infoSubjectCode"/>
@@ -20,7 +20,7 @@
 		<result column="info_subject_difficulty" property="infoSubjectDifficulty"/>
 		<result column="info_subject_modification_history" property="infoSubjectModificationHistory"/>
 	</resultMap>
-	<!-- ClassroomMapper Institution resultMap  -->
+	<!-- PILectureMapper Institution resultMap  -->
 	<resultMap id="InstitutionResultMap"
 				type="kr.or.ksmart.lms.pi.vo.Institution">
 		<result column="institution_code" property="institutionCode"/>
@@ -32,15 +32,38 @@
 		<result column="institution_location" property="InstitutionLocation"/>
 		<result column="institution_registration_date" property="InstitutionRegistrationDate"/>
 	</resultMap>
+	<!-- PILectureMapper NoticeLecture resultMap  -->
+	<resultMap id="NoticeLectureResultMap"
+				type="kr.or.ksmart.lms.pi.vo.NoticeLecture">
+		<result column="notice_lecture_code" property="noticeLectureCode"/>
+		<result column="info_lecture_code" property="infoLectureCode"/>
+		<result column="member_teacher_code" property="memberTeacherCode"/>
+		<result column="member_teacher_name" property="memberTeacherName"/>
+		<result column="classroom_code" property="classroomCode"/>
+		<result column="notice_lecture_title" property="noticeLectureTitle"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="classroom_maximum_no" property="classroomMaximumNo"/>
+		<result column="notice_lecture_minimum_no" property="noticeLectureMinimumNo"/>
+		<result column="notice_lecture_current_applicant_no" property="noticeLectureCurrentApplicantNo"/>
+		<result column="notice_lecture_recruitment_start_date" property="noticeLectureRecruitmentStartDate"/>
+		<result column="notice_lecture_recruitment_end_date" property="noticeLectureRecruitmentEndDate"/>
+		<result column="notice_lecture_result_date" property="noticeLectureResultDate"/>
+		<result column="notice_lecture_fee" property="noticeLectureFee"/>	
+		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
+		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
+		<result column="notice_lecture_date" property="noticeLectureDate"/>		
+	</resultMap>
 	
-	
+	<!-- 교육원명 출력을 위한 메서드 -->
 	<select id="piSelectInstitution"
 			parameterType="String"
 			resultMap="InstitutionResultMap">
 		SELECT
 			institution_code
 			, institution_name
-		FROM institution
+		FROM 
+			institution
 		WHERE
 			institution_code = #{institutionCode}
 	</select>
@@ -81,34 +104,56 @@
 			info_lecture
 	</select>	
 	
-	<!-- 교육원 리스트 출력 -->
-	<select id="piSelectInstitutionList"
-			resultMap="InstitutionResultMap">
+	<!-- 강의공고 목록 출력 -->
+	<select id="piSelectNoticeLectureList"
+			resultMap="NoticeLectureResultMap">
 		SELECT 
-			institution_code
+			notice_lecture_code
+			,info_lecture_code
+			,member_teacher_code
+			,member_teacher_name
+			,classroom_code
+			,notice_lecture_title
+			,institution_code
 			,institution_name
-			,institution_phone
-			,institution_postcode
-			,institution_address
-			,institution_address_desc
-			,institution_location
-			,institution_registration_date
-		FROM institution		
+			,classroom_maximum_no
+			,notice_lecture_minimum_no
+			,notice_lecture_current_applicant_no
+			,left(notice_lecture_recruitment_start_date, 10) AS notice_lecture_recruitment_start_date
+			,left(notice_lecture_recruitment_end_date, 10) AS notice_lecture_recruitment_end_date
+			,left(notice_lecture_result_date, 10) AS notice_lecture_result_date
+			,notice_lecture_fee
+			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
+			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
+		FROM 
+			notice_lecture
 	</select>
 	
-	<!-- 교육원 검색 -->
-	<select id="piSelectInstitutionListByKeyword"
+	<!-- 세부 강의공고 조회 -->
+	<select id="piSelectNoticeLectureByNoticeLectureCode"
 			parameterType="String"
-			resultMap="InstitutionResultMap">
+			resultMap="NoticeLectureResultMap">
 		SELECT 
-			institution_code
+			notice_lecture_code
+			,info_lecture_code
+			,member_teacher_code
+			,member_teacher_name
+			,classroom_code
+			,notice_lecture_title
+			,institution_code
 			,institution_name
-			,institution_location
+			,classroom_maximum_no
+			,notice_lecture_minimum_no
+			,notice_lecture_current_applicant_no
+			,left(notice_lecture_recruitment_start_date, 10) AS notice_lecture_recruitment_start_date
+			,left(notice_lecture_recruitment_end_date, 10) AS notice_lecture_recruitment_end_date
+			,left(notice_lecture_result_date, 10) AS notice_lecture_result_date
+			,notice_lecture_fee
+			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
+			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
 		FROM 
-			institution 
+			notice_lecture
 		WHERE 
-			institution_location 
-		LIKE 
-			#{institutionName}
+			notice_lecture_code = #{noticeLectureCode}
 	</select>
 </mapper>

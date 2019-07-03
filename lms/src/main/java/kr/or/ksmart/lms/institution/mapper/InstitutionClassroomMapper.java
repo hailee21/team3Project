@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.lms.institution.vo.Classroom;
+import kr.or.ksmart.lms.institution.vo.Institution;
 
 @Mapper
 public interface InstitutionClassroomMapper {
@@ -13,6 +14,9 @@ public interface InstitutionClassroomMapper {
 	public List<Classroom> institutionSelectClassroomUse();	
 	
 	// 강의실 등록 메서드
+	// 1. 교육원코드, 교육원명 조회 메서드
+	public Institution institutionSelectInstitutionByInstitutionCode(String institutionCode);
+	// 2. 강의실 등록 메서드	
 	public int institutionInsertClassroom(Classroom classroom); 
 	
 	// 강의실 리스트 조회 메서드

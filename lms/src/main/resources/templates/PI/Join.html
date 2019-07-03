@@ -16,26 +16,48 @@
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 $(document).ready(function(){
 	$('#institutionCode').change(function(){
 		console.log("교육원 코드 :"+$('#institutionCode').val());
 	});
+	//	id중복체크
+	$("#memberOnlineId").blur(function() {	//id input창을 벗어났을때,아래 이벤트를 실행한다.
+//		중복체크 버튼이 있을때, 버튼을 클릭했을 때 -> .click(function()) 으로 쓸 수 있다.
+		let memberOnlineId =  $("#memberOnlineId").val(); //id 를 param.
+		$.ajax({
+            type : 'POST'
+            ,data : {'memberOnlineId':memberOnlineId}
+            ,url : '/idCheck'
+            ,success : function(data) {
+            	console.log(data)
+                if (data) {
+                    $('#idCheck').text('사용 가능한 아이디입니다.');
+                } else {
+                	$('#idCheck').attr('style','color:#B70000')
+                	$('#idCheck').text('이미 사용중이거나 탈퇴한 아이디입니다');
+                	
+                }
+            },
+        });
+	});
+	//	폼유효성 검사
 	$('#btnInsert').on('click',function(){
 		console.log('#btnInsert click test');
 		if ($('#memberOnlineId').val() == ''){
-			$('#helper').text('*아이디를 입력하세요');
+			$('#idCheck').text('*아이디를 입력하세요');
 	    	$('#memberOnlineId').focus();
     	return false;
     	}
 		if ($('#memberOnlinePw').val() == ''){
-			$('#helper').text('*비밀번호를 입력하세요');
+			$('#pwCheck').text('*비밀번호를 입력하세요');
 	    	$('#memberOnlinePw').focus();
     	return false;
     	}
 		if ($('#memberName').val() == ''){
-			$('#helper').text('*이름을 입력하세요');
+			$('#nameCheck').text('*이름을 입력하세요');
 	    	$('#memberName').focus();
     	return false;
     	}
@@ -69,7 +91,37 @@ $(document).ready(function(){
 	    	$('#institutionCode').focus();
     	return false;
     	}
-		$('#infoEvalByAssociationInsert').submit();
+		let memberOnlineId = $('#memberOnlineId').val();
+    	let memberOnlinePw = $('#memberOnlinePw').val();
+    	let memberName = $('#memberName').val();
+    	let memberRegistrationNumberFront = $('#memberRegistrationNumberFront').val();
+    	let memberRegistrationNumberBack = $('#memberRegistrationNumberBack').val();
+    	let memberPhoneNumber = $('#memberPhoneNumber').val();
+    	let memberPostcode = $('#memberPostcode').val();
+    	let memberAddress = $('#memberAddress').val();
+    	let memberAddressDesc = $('#memberAddressDesc').val();
+    	let memberRank = $('#memberRank').val();
+    	let institutionCode = $('#institutionCode').val();
+    	$.ajax({
+			url:'/memberInsert'
+    		,type:'POST'
+    		,data:{'memberOnlineId':memberOnlineId
+    			,'memberOnlinePw':memberOnlinePw
+    			,'memberName':memberName
+    			,'memberRegistrationNumberFront':memberRegistrationNumberFront
+    			,'memberRegistrationNumberBack':memberRegistrationNumberBack
+    			,'memberPhoneNumber':memberPhoneNumber
+    			,'memberPostcode':memberPostcode
+    			,'memberAddress':memberAddress
+    			,'memberAddressDesc':memberAddressDesc
+    			,'memberRank':memberRank
+    			,'institutionCode':institutionCode}
+	    	,success:function(){
+//    	        $('#btnList').trigger('click');	//trigger 이벤트를 대신 해준다. trigger('load')하면 새로고침된다.
+    	        alert('정상적으로 입력되었습니다');
+    	        location.href='PILogin?institutionCode='+institutionCode;
+        	}
+    	});
 	});
 	$('#btnBack').on('click',function(){
 		console.log('#btnBack click test');
@@ -127,120 +179,93 @@ $(document).ready(function(){
 </th:block>
 <div layout:fragment="content">
 <p style="height: 10px"></p>
-	
-	<form action="/memberInsert" method="post">
+	<div class="row">
+		<div class="col-md-6">
+			<form action="/memberInsert" id="memberInsert" method="post">
 		<fieldset>
     		<div class="form-group">
     			<legend>회원가입</legend>
     		</div>
     		<div class="form-group">
-				<div class="col-sm-6">
-					<span id="helper"></span>
-				</div>
+				<span id="helper"></span>
 			</div>
     		<div class="form-group">
-    			<div class="col-sm-6">
-					<div class="row">
-    					<div class="col-sm-6">
-							<label for="InputId">아이디</label>
-							<input type="text" class="form-control" id="memberOnlineId" name="memberOnlineId" aria-describedby="" placeholder="ID" value="">
-    	  					<small class="form-text text-muted">영문/숫자 아이디 중복검사 확인 필수</small>
-      					</div>
-      					<div class="col-sm-6">
-      						<label></label>
-      						<span id="idCheck"></span>
-      					</div>
-      				</div>
-      			</div>
+				<label for="InputId">아이디</label>
+				<input type="text" class="form-control" id="memberOnlineId" name="memberOnlineId" aria-describedby="" placeholder="ID" value="">
+      			<small class="form-text text-muted" id="idCheck"></small>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-6">
-					<label for="InputPw">비밀번호</label>
-					<input type="password" class="form-control" id="memberOnlinePw" name="memberOnlinePw" aria-describedby="" placeholder="PASSWORD" value="">
-      				<small class="form-text text-muted">영문/숫자 조합으로 8-16자 </small>
-				</div>
+				<label for="InputPw">비밀번호</label>
+				<input type="password" class="form-control" id="memberOnlinePw" name="memberOnlinePw" aria-describedby="" placeholder="PASSWORD" value="">
+      			<small class="form-text text-muted">영문/숫자 조합으로 8-16자 </small>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-6">
-					<label for="InputName">이름</label>
-					<input type="text" class="form-control" id="memberName" name="memberName" aria-describedby="" placeholder="NAME" value="">
-				</div>
+				<label for="InputName">이름</label>
+				<input type="text" class="form-control" id="memberName" name="memberName" aria-describedby="" placeholder="NAME" value="">
 			</div>
 			<div class="form-group">
-				<div class="col-sm-6">
-					<label for="InputRegistrationNumber">주민번호</label>
-					<div class="row">
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="memberRegistrationNumberFront" name="memberRegistrationNumberFront" aria-describedby="" placeholder="RegistrationNumberFront" value="" size="4"> 
-						</div>
-						<div class="col-sm-6">
-							<input type="password" class="form-control" id="memberRegistrationNumberBack" name="memberRegistrationNumberBack" aria-describedby="" placeholder="RegistrationNumberBack" value="1001000" size="5">
-						</div>
+				<label for="InputRegistrationNumber">주민번호</label>
+				<div class="row">
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="memberRegistrationNumberFront" name="memberRegistrationNumberFront" aria-describedby="" placeholder="RegistrationNumberFront" value="" size="4"> 
+					</div>
+					<div class="col-sm-6">
+						<input type="password" class="form-control" id="memberRegistrationNumberBack" name="memberRegistrationNumberBack" aria-describedby="" placeholder="RegistrationNumberBack" value="1001000" size="5">
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-6">
-					<label for="InputPhone">전화번호</label>
-					<input type="tel" class="form-control" id="memberPhoneNumber" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
-					<small class="form-text text-muted">ex) 010-0000-0000 </small>
-				</div>
+				<label for="InputPhone">전화번호</label>
+				<input type="tel" class="form-control" id="memberPhoneNumber" name="memberPhoneNumber" aria-describedby="" value="010-1234-1234">
+				<small class="form-text text-muted">ex) 010-0000-0000 </small>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-6">
-					<label for="InputAddress">주소</label>
-					<div class="row">
-						<div class="col-sm-4">
-							<input type="text" readonly="readonly" class="form-control" maxlength="14" id="memberPostcode" name="memberPostcode" size="4">
-						</div>
-						<div class="col-sm-8">
-							<input type="button" class="btn btn-outline-info" onclick="sample6_execDaumPostcode()" value="우편번호찾기"><br>
-						</div>
+				<label for="InputAddress">주소</label>
+				<div class="row">
+					<div class="col-sm-4">
+						<input type="text" readonly="readonly" class="form-control" maxlength="14" id="memberPostcode" name="memberPostcode" size="4">
 					</div>
-						<input type="text" id="memberAddress" name="memberAddress" class="form-control" placeholder="도로명주소" readonly="readonly" value="" size="30"/><br>
-					<div class="row">
-						<div class="col-sm-8">
-							<input type="text" id="memberAddressDesc" name="memberAddressDesc" class="form-control" value="2층 한국스마트정보교육원" placeholder="상세주소"/>
-						</div>
-						<div class="col-sm-4">
-							<input type="text" id="sample6_extraAddress" size="7" class="form-control" placeholder="참고항목">
-						</div>
+					<div class="col-sm-8">
+						<input type="button" class="btn btn-outline-info" onclick="sample6_execDaumPostcode()" value="우편번호찾기"><br>
+					</div>
+				</div>
+					<input type="text" id="memberAddress" name="memberAddress" class="form-control" placeholder="도로명주소" readonly="readonly" value="" size="30"/><br>
+				<div class="row">
+					<div class="col-sm-8">
+						<input type="text" id="memberAddressDesc" name="memberAddressDesc" class="form-control" value="2층 한국스마트정보교육원" placeholder="상세주소"/>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" id="sample6_extraAddress" size="7" class="form-control" placeholder="참고항목">
 					</div>
 				</div>
 			</div>
-				<!-- 회원등급 -->
-				<input type="hidden" name="memberRank" value="수강생">
+				<!--	회원등급	-->
+				<input type="hidden" id="memberRank" name="memberRank" value="수강생">
 			<div class="form-group">
-				<div class="col-sm-6">
-					<div class="row">
-						<div class="col-sm-6">
-							<label for="InputInstitution">교육원</label>
-							<!-- <select th:field="*{gender}"> -->
-							<select class="form-control" id="institutionCode" name="institutionCode">
-								<option value="">--교육원선택--</option>
-								<option th:each="institution:${instList}" th:value="${institution.institutionCode}" th:text="${institution.institutionName}"></option>
-									<!-- <option value="I20140101000000">전주평생교육원</option>
-									<option value="I20140102000000">서울평생교육원</option>
-									<option value="I20150103000000">성남평생교육원</option>
-									<option value="I20150203000000">인천평생교육원</option>
-									<option value="I20150204000000">광주평생교육원</option>
-									<option value="I20160203000000">구미평생교육원</option> -->
-							</select>
-						</div>
-						<div class="col-sm-6">
-							<br>
-							<span id="instCode"></span>
-						</div>
-					</div>
-				</div>
-				
+				<label for="InputInstitution">교육원</label>
+				<select class="form-control" id="institutionCode" name="institutionCode">
+					<option value="">--교육원선택--</option>
+					<option th:each="institution:${instList}" th:value="${institution.institutionCode}" th:text="${institution.institutionName}"></option>
+						<!-- <option value="I20140101000000">전주평생교육원</option>
+						<option value="I20140102000000">서울평생교육원</option>
+						<option value="I20150103000000">성남평생교육원</option>
+						<option value="I20150203000000">인천평생교육원</option>
+						<option value="I20150204000000">광주평생교육원</option>
+						<option value="I20160203000000">구미평생교육원</option> -->
+				</select>
 			</div>
 			<p style="height: 10px"></p>
 			<div class="form-group">
 				<button type="button" id="btnInsert" class="btn btn-primary">회원등록</button> <button type="button" id="btnBack" class="btn btn-secondary disabled">뒤로가기</button>
 			</div>
 		</fieldset>
-</form>
+	</form>
+		</div>
+		<div class="col-md-6">
+			<span id="helper"></span>
+		</div>
 	</div>
+
+</div><!-- contents END -->
 	<p style="height: 200px"></p>
 </html>

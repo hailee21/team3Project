@@ -31,7 +31,7 @@ public interface InstitutionNoticeLectureMapper {
 	public void institutionInsertNoticeLecture(NoticeLecture noticeLecture);
 	
 	// 강의공고 목록 출력
-	public List<NoticeLecture>institutionSelectNoticeLectureList();
+	public List<NoticeLecture> institutionSelectNoticeLectureList();
 	// 세부 강의공고 조회
 	public NoticeLecture institutionSelectNoticeLectureByNoticeLectureCode(String NoticeLectureCode);
 }

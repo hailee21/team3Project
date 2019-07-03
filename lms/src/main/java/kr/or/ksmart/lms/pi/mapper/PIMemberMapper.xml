@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.pi.mapper.PIMemberMapper">
 	<!-- join.html에서 아이디 중복검사하는 select 쿼리	-->
-	<select id="selectMemberOnlineId" parameterType="String" resultType="kr.or.ksmart.lms.pi.vo.MemberOnlineInsertid">
-		SELECT member_online_id AS memberOnlineId
+	<select id="selectMemberOnlineId" parameterType="String" resultType="String">
+		SELECT member_online_id
 		FROM member_online_insertid
 		WHERE member_online_id = #{memberOnlineId}
 	</select>

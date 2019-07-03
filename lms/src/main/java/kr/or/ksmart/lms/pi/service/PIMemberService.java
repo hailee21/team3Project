@@ -28,16 +28,24 @@ public class PIMemberService {
 		System.out.println("[PIMemberService memberJoin] Join : " + instList);
 		return instList;
 	}
-	/*public String idCheck(String id) {
-		return memberMapper.selectMemberOnlineId();
-	}*/
+	public boolean idCheck(String memberOnlineId) {
+		String result = memberMapper.selectMemberOnlineId(memberOnlineId);
+		System.out.println(result);
+		boolean id = false;
+        if (result == null) {
+        	System.out.println("[PIMemberController idCheck]" + result);
+        	id = true;
+        }
+        return id;
+        
+	}
 	//	회원 insert처리
 	public void insertMember(Member member, MemberOnline memberOnline, String institutionCode) {
 		//	member 테이블에 insert 준비. membercode 생성
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
 		Date now = new Date(); 
 		String nowDate = dateFormat.format(now);
-		nowDate = nowDate.substring(0, 11);
+		nowDate = nowDate.substring(0, 13);
 		nowDate = nowDate.toString().replace("-", "");
 		nowDate = nowDate.toString().replace(" ", "");
 		System.out.println(nowDate);
