@@ -20,7 +20,7 @@ public class AssociationLicenseTestLocationService {
     private AssociationLicenseTestLocationMapper AssociationlicenseTestLocationMapper;
     //자격 시험 장소 상세 등록 메서드
     public void insertTestLocationDetail(LicenseTestLocationDetail licenseTestLocationDetail) {
-    	//테이블의 PK를 위한 무작위 숫자 생성
+    			//테이블의 PK를 위한 무작위 숫자 생성
     			SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
     			Date now = new Date(); 
     			String nowDate = dateFormat.format(now);

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+	$(document).ready(function() {
+		//유효성 검사를 위한 변수 선언
+		let noticeLicenseTestCodeCheck = true;
+		let infoQualificationCodeCheck = true;
+		let noticeLicenseTestNameCheck = true;
+		let noticeAnnualLicenseTestCodeCheck = true;
+		let licenseTestLocationCodeCheck = true;
+		let licenseTestLocationRegionCheck = true;
+		let licenseTestLocationAddressCheck = true;
+		let noticeAnnualLicenseTestApplyStartDateCheck = true;
+		let noticeAnnualLicenseTestApplyEndDateCheck = true;
+		let noticeLicenseTestDateCheck = true;
+		let noticeAnnualLicenseTestResultDateCheck = true;
+		
+
+		//noticeLicenseTestCode 입력 유효성 검사
+		$('#noticeLicenseTestCode').blur(function() {
+			if($('#noticeLicenseTestCode').val() == "") {
+				console.log('noticeLicenseTestCode 공백입력')
+				noticeLicenseTestCodeCheck = true;
+			} else {
+                console.log('noticeAnnualLicenseTestName 유효성 검사 완료')
+				noticeLicenseTestCodeCheck = false;
+			}
+		});
+
+		//infoQualificationCode 입력 유효성 검사
+		$('#infoQualificationCode').blur(function() {
+			if($('#infoQualificationCode').val() == "") {
+				console.log('infoQualificationCode 공백입력')
+				infoQualificationCodeCheck = true;
+			} else {
+                console.log('noticeAnnualLicenseTestApplyStartDate 유효성 검사 완료')
+				infoQualificationCodeCheck = false;
+			}
+		});
+		//noticeLicenseTestName 입력 유효성 검사
+		$('#noticeLicenseTestName').blur(function() {
+			if($('#noticeLicenseTestName').val() == "") {
+				console.log('noticeLicenseTestName 공백입력')
+				noticeLicenseTestNameCheck = true;
+			} else {
+                console.log('noticeLicenseTestName 유효성 검사 완료')
+				noticeLicenseTestNameCheck = false;
+			}
+		});
+		//noticeAnnualLicenseTestCode 입력 유효성 검사
+		$('#noticeAnnualLicenseTestCode').blur(function() {
+			if($('#noticeAnnualLicenseTestCode').val() == "") {
+				console.log('noticeAnnualLicenseTestCode 공백입력')
+				noticeAnnualLicenseTestCodeCheck = true;
+			} else {
+                console.log('noticeAnnualLicenseTestCode 유효성 검사 완료')
+				noticeAnnualLicenseTestCodeCheck = false;
+			}
+		});
+
+		//licenseTestLocationCode 입력 유효성 검사
+		$('#licenseTestLocationCode').blur(function() {
+			if($('#licenseTestLocationCode').val() == "") {
+				console.log('licenseTestLocationCode 공백입력')
+				licenseTestLocationCodeCheck = true;
+			} else {
+                console.log('licenseTestLocationCode 유효성 검사 완료')
+				licenseTestLocationCodeCheck = false;
+			}
+		});
+
+		//licenseTestLocationRegion 입력 유효성 검사
+		$('#licenseTestLocationRegion').blur(function() {
+			if($('#licenseTestLocationRegion').val() == "") {
+				console.log('licenseTestLocationRegion 공백입력')
+				licenseTestLocationRegionCheck = true;
+			} else {
+                console.log('licenseTestLocationRegion 유효성 검사 완료')
+				licenseTestLocationRegionCheck = false;
+			}	
+		});
+		//licenseTestLocationAddress 입력 유효성 검사
+		$('#licenseTestLocationAddress').blur(function() {
+			if($('#licenseTestLocationAddress').val() == "") {
+				console.log('licenseTestLocationAddress 공백입력')
+				licenseTestLocationAddressCheck = true;
+			} else {
+                console.log('licenseTestLocationAddress 유효성 검사 완료')
+				licenseTestLocationAddressCheck = false;
+			}	
+		});
+		//noticeAnnualLicenseTestApplyStartDate 입력 유효성 검사
+		$('#noticeAnnualLicenseTestApplyStartDate').blur(function() {
+			if($('#noticeAnnualLicenseTestApplyStartDate').val() == "") {
+				console.log('noticeAnnualLicenseTestApplyStartDate 공백입력')
+				noticeAnnualLicenseTestApplyStartDateCheck = true;
+			} else {
+                console.log('noticeAnnualLicenseTestApplyStartDate 유효성 검사 완료')
+				noticeAnnualLicenseTestApplyStartDateCheck = false;
+			}	
+		});
+		//noticeAnnualLicenseTestApplyEndDate 입력 유효성 검사
+		$('#noticeAnnualLicenseTestApplyEndDate').blur(function() {
+			if($('#noticeAnnualLicenseTestApplyEndDate').val() == "") {
+				console.log('noticeAnnualLicenseTestApplyEndDate 공백입력')
+				noticeAnnualLicenseTestApplyEndDateCheck = true;
+			} else {
+                console.log('noticeAnnualLicenseTestApplyEndDate 유효성 검사 완료')
+				noticeAnnualLicenseTestApplyEndDateCheck = false;
+			}	
+		});
+		//noticeLicenseTestDate 입력 유효성 검사
+		$('#noticeLicenseTestDate').blur(function() {
+			if($('#noticeLicenseTestDate').val() == "") {
+				console.log('noticeLicenseTestDate 공백입력')
+				noticeLicenseTestDateCheck = true;
+			} else {
+                console.log('noticeLicenseTestDate 유효성 검사 완료')
+				noticeLicenseTestDateCheck = false;
+			}	
+		});
+		//noticeAnnualLicenseTestResultDate 입력 유효성 검사
+		$('#noticeAnnualLicenseTestResultDate').blur(function() {
+			if($('#noticeAnnualLicenseTestResultDate').val() == "") {
+				console.log('noticeAnnualLicenseTestResultDate 공백입력')
+				noticeAnnualLicenseTestResultDateCheck = true;
+			} else {
+                console.log('noticeAnnualLicenseTestResultDate 유효성 검사 완료')
+				noticeAnnualLicenseTestResultDateCheck = false;
+			}	
+		});
+
+		//btnAdd 클릭 이벤트 처리
+		$('#btnAdd').on('click',function() {
+			if(noticeLicenseTestCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('자격시험공고코드가 공백 상태 입니다.');
+			} else if(infoQualificationCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('자격종목코드가 공백 상태 입니다.');
+			} else if(noticeLicenseTestNameCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험명이 공백 상태 입니다.');
+			} else if(noticeAnnualLicenseTestCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('연간자격시험계획코드가 공백 상태 입니다.');
+			} else if(licenseTestLocationCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험장소코드가 공백 상태 입니다.');
+			} else if(licenseTestLocationRegionCheck) {
+				$('h4').addClass('red');
+				$('h4').text('지역이 공백 상태 입니다.');
+			} else if(licenseTestLocationAddressCheck) {
+				$('h4').addClass('red');
+				$('h4').text('주소가 공백 상태 입니다.');
+			} else if(noticeAnnualLicenseTestApplyStartDateCheck) {
+				$('h4').addClass('red');
+				$('h4').text('접수시작일이 공백 상태 입니다.');
+			} else if(noticeAnnualLicenseTestApplyEndDateCheck) {
+				$('h4').addClass('red');
+				$('h4').text('접수마감일이 공백 상태 입니다.');
+			} else if(noticeLicenseTestDateCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험일자가 공백 상태 입니다.');
+			} else if(noticeAnnualLicenseTestResultDateCheck) {
+				$('h4').addClass('red');
+				$('h4').text('결과발표일이 공백 상태 입니다.');
+			} else {
+				$('#addNoticeAnnualLicenseTest').submit()
+			}
+		});
+
+	});
+
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h3>자격 시험 공고 등록</h3>
+	<form id="addNoticeLicenseTest" action="/association/notice/addNoticeLicenseTestLocation" method="post">
+		<div class="form-group">
+			<label>자격시험공고코드 :</label>
+			<input type="text" class="form-control" id="noticeLicenseTestCode" name="noticeLicenseTestCode">
+		</div>
+		<div class="form-group">
+			<label>자격종목코드 :</label>
+			<input type="text" class="form-control" id="infoQualificationCode" name="infoQualificationCode">
+		</div>
+		<div class="form-group">
+			<label>시험명 :</label>
+			<input type="text" class="form-control" id="noticeLicenseTestName" name="noticeLicenseTestName">
+		</div>
+		<div class="form-group">
+			<label>연간자격시험계획코드 :</label>
+			<input type="text" class="form-control" id="noticeAnnualLicenseTestCode" name="noticeAnnualLicenseTestCode">
+		</div>
+		<div class="form-group">
+			<label>시험장소코드 :</label>
+			<input type="text" class="form-control" id="licenseTestLocationCode" name="licenseTestLocationCode">
+		</div>
+		<div class="form-group">
+			<label>지역 :</label>
+			<input type="text" class="form-control" id="licenseTestLocationRegion" name="licenseTestLocationRegion">
+		</div>
+		<div class="form-group">
+			<label>주소 :</label>
+			<input type="text" class="form-control" id="licenseTestLocationAddress" name="licenseTestLocationAddress">
+		</div>
+		<div class="form-group">
+			<label>접수시작일 :</label>
+			<input type="date" class="form-control" id="noticeAnnualLicenseTestApplyStartDate" name="noticeAnnualLicenseTestApplyStartDate">
+		</div>
+		<div class="form-group">
+			<label>접수마감일 :</label>
+			<input type="date" class="form-control" id="noticeAnnualLicenseTestApplyEndDate" name="noticeAnnualLicenseTestApplyEndDate">
+		</div>
+		<div class="form-group">
+			<label>시험일자 :</label>
+			<input type="date" class="form-control" id="noticeLicenseTestDate" name="noticeLicenseTestDate">
+		</div>
+		<div class="form-group">
+			<label>결과발표일 :</label>
+			<input type="date" class="form-control" id="noticeAnnualLicenseTestResultDate" name="noticeAnnualLicenseTestResultDate">
+		</div>
+		<button type="button" id="btnAdd" class="btn btn-primary">등록</button>		
+	</form>
+	
+	<h4></h4>
+</div>
+</html>

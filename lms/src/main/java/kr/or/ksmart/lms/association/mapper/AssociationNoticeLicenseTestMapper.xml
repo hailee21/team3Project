@@ -2,7 +2,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationNoticeLicenseTest">
+<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationNoticeLicenseTestMapper">
 	<!-- 자격 시험 공고 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.association.vo.NoticeLicenseTest" id="NoticeLicenseTestMap">
 		<result column="notice_license_test_code" property="noticeLicenseTestCode"/>
@@ -18,6 +18,26 @@
 		<result column="notice_annual_license_test_result_date" property="noticeAnnualLicenseTestResultDate"/>
 	</resultMap>
 
+	<!-- 자격 시험 공고 등록 -->
+	<insert id="insertNoticeLicenseTest"
+			parameterType="kr.or.ksmart.lms.association.vo.NoticeLicenseTest">
+		INSERT INTO
+			notice_license_test	
+		VALUES(
+			#{noticeLicenseTestCode}
+			, #{infoQualificationCode}
+			, #{noticeLicenseTestName}
+			, #{noticeAnnualLicenseTestCode}
+			, #{licenseTestLocationCode}
+			, #{licenseTestLocationRegion}
+			, #{licenseTestLocationAddress}
+			, #{noticeAnnualLicenseTestApplyStartDate}
+			, #{noticeAnnualLicenseTestApplyEndDate}
+			, #{noticeLicenseTestDate}
+			, #{noticeAnnualLicenseTestResultDate}
+		SELECT	
+		 );
+	</insert>
 	<!-- 자격 시험 공고 리스트  -->
 	<select id="selectNoticeLicenseTest"
 			resultMap="NoticeLicenseTestMap">

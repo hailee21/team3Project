@@ -8,6 +8,8 @@ import kr.or.ksmart.lms.association.vo.NoticeLicenseTest;
 
 @Mapper
 public interface AssociationNoticeLicenseTestMapper {
+	//자격 시험 공고 등록
+	public void insertNoticeLicenseTest(NoticeLicenseTest noticeLicenseTest);
 	//자격 시험 공고 리스트
 	public List<NoticeLicenseTest> selectNoticeLicenseTest();
 	

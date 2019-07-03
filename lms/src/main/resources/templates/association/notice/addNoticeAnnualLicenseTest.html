@@ -83,16 +83,6 @@
 				noticeAnnualLicenseTestResultDateCheck = false;
 			}	
 		});
-		//noticeAnnualLicenseTestInsertDate 입력 유효성 검사
-		$('#noticeAnnualLicenseTestInsertDate').blur(function() {
-			if($('#noticeAnnualLicenseTestInsertDate').val() == "") {
-				console.log('noticeAnnualLicenseTestInsertDate 공백입력')
-				noticeAnnualLicenseTestInsertDateCheck = true;
-			} else {
-                console.log('noticeAnnualLicenseTestInsertDate 유효성 검사 완료')
-				noticeAnnualLicenseTestInsertDateCheck = false;
-			}	
-		});
 
 		//btnAdd 클릭 이벤트 처리
 		$('#btnAdd').on('click',function() {
@@ -114,9 +104,6 @@
 			} else if(noticeAnnualLicenseTestResultDateCheck) {
 				$('h4').addClass('red');
 				$('h4').text('결과발표일이 공백 상태 입니다.');
-			} else if(noticeAnnualLicenseTestInsertDateCheck) {
-					$('h4').addClass('red');
-					$('h4').text('등록날짜가 공백 상태 입니다.');
 			} else {
 				$('#addNoticeAnnualLicenseTest').submit()
 			}
