@@ -1,5 +1,7 @@
 package kr.or.ksmart.lms.association.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,26 @@ public class AssociationLicenseTestLocationService {
     @Autowired
     private AssociationLicenseTestLocationMapper AssociationlicenseTestLocationMapper;
     //자격 시험 장소 상세 등록 메서드
-    public List<LicenseTestLocationDetail> insertTestLocationDetail(LicenseTestLocationDetail licenseTestLocationDetail) {
-		List<LicenseTestLocationDetail> list = AssociationlicenseTestLocationMapper.insertLicenseTestLocationDetail(licenseTestLocationDetail);
-    	System.out.println("[AssociationLicenseTestLocationService insertTestLocationDetail]list"+list);
-		return list;
+    public void insertTestLocationDetail(LicenseTestLocationDetail licenseTestLocationDetail) {
+    	//테이블의 PK를 위한 무작위 숫자 생성
+    			SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+    			Date now = new Date(); 
+    			String nowDate = dateFormat.format(now);
+    			nowDate = nowDate.substring(0, 13);
+    			nowDate = nowDate.toString().replace("-", "");
+    			nowDate = nowDate.toString().replace(" ", "");
+    			System.out.println(nowDate);
+    			int randomNo1 = (int)(Math.random()*10000);
+    			int randomNo2 = (int)(Math.random()*1000);
+    			int randomNo3 = (int)(Math.random()*100);
+    			int randomNo = randomNo1 + randomNo2 + randomNo3;
+    			if(randomNo >= 10000) {
+    				randomNo = randomNo/10;
+    			}
+    			String licenseTestLocationDetailCode = "LTLD"+nowDate+randomNo; //입력할 테이블의 PK 형식에 맞게 변수를 선언한다.
+    			licenseTestLocationDetail.setLicenseTestLocationDetailCode(licenseTestLocationDetailCode); //선언된 PK를 VO에 입력한다.
+    	 AssociationlicenseTestLocationMapper.insertLicenseTestLocationDetail(licenseTestLocationDetail);
+    	 System.out.println("[AssociationLicenseTestLocationService insertTestLocationDetail]licenseTestLocationDetail"+licenseTestLocationDetail);
     	
     }
     //자격 시험 장소 상세보기 메서드
