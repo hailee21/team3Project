@@ -11,6 +11,12 @@
 <th:block layout:fragment="script">
 <script>
 $(document).ready(function(){
+	// 과목 등록하기 버튼 클릭시 이벤트 처리
+	$('#btnAdd').on('click',function(){
+		console.log('#btnAdd click test');
+		location.href='/association/lecture/addInfoSubject'
+	});
+	
 	// 강의항목 선택
 	$('#infoLectureSortList').change(function(){
 		console.log('비동기 요청 진행..');
@@ -71,6 +77,9 @@ $(document).ready(function(){
 <div layout:fragment="content">
 	<!-- infoLecture 리스트 출력화면 -->
 	<h1>협회 : 과목 목록</h1>
+	
+	<button type="button" id="btnAdd" class="btn btn-primary btn-rightLarge">과목 등록하기</button><br><br>
+		
 		<select id="infoLectureSortList" name="infoLectureSortList">
 			<option value="">--강의항목선택--</option>
 			<option th:each="lecSort:${sortList}" th:text="${lecSort.infoLectureSort}" th:value="${lecSort.infoLectureSort}"></option>
@@ -80,7 +89,7 @@ $(document).ready(function(){
 			<option value="">--강의표준명--</option>
 		</select>
 		
-		<button id="searchSubject" type="button">조회</button><br><br>
+		<button id="searchSubject" type="button" class="btn btn-primary btn-rightLarge">조회</button><br><br>
 		
 		<!-- 과목리스트 출력을 위한 table 태그 -->
 		<table id="subjectList" class="table table-striped">

@@ -2,11 +2,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationNoticeLectureMapper"> 
+<mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionNoticeLectureMapper"> 
 
-	<!-- AssociationNoticeLectureMapper NoticeLecture resultMap  -->
+	<!-- InstitutionNoticeLectureMapper NoticeLecture resultMap  -->
 	<resultMap id="NoticeLectureResultMap"
-				type="kr.or.ksmart.lms.association.vo.NoticeLecture">
+				type="kr.or.ksmart.lms.institution.vo.NoticeLecture">
 		<result column="notice_lecture_code" property="noticeLectureCode"/>
 		<result column="info_lecture_code" property="infoLectureCode"/>
 		<result column="member_teacher_code" property="memberTeacherCode"/>
@@ -26,17 +26,17 @@
 		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
 		<result column="notice_lecture_date" property="noticeLectureDate"/>		
 	</resultMap>
-	<!-- AssociationNoticeLectureMapper InfoLecture resultMap  -->
+	<!-- InstitutionNoticeLectureMapper InfoLecture resultMap  -->
 	<resultMap id="InfoLectureResultMap"
-				type="kr.or.ksmart.lms.association.vo.InfoLecture">
+				type="kr.or.ksmart.lms.institution.vo.InfoLecture">
 		<result column="info_lecture_code" property="infoLectureCode"/>
 		<result column="info_lecture_sort" property="infoLectureSort"/>
 		<result column="info_lecture_name" property="infoLectureName"/>
 		<result column="info_lecture_date" property="infoLectureDate"/>
 	</resultMap>
-	<!-- AssociationNoticeLectureMapper MemberTeacher resultMap  -->
+	<!-- InstitutionNoticeLectureMapper MemberTeacher resultMap  -->
 	<resultMap id="MemberTeacherResultMap"
-				type="kr.or.ksmart.lms.association.vo.MemberTeacher">
+				type="kr.or.ksmart.lms.institution.vo.MemberTeacher">
 		<result column="member_teacher_code" property="memberTeacherCode"/>
 		<result column="teacher_approval_code" property="teacherApprovalCode"/>
 		<result column="member_code" property="memberCode"/>
@@ -44,9 +44,9 @@
 		<result column="member_teacher_career" property="memberTeacherCareer"/>
 		<result column="member_teacher_service_Check" property="memberTeacherServiceCheck"/>
 	</resultMap>
-	<!-- AssociationNoticeLectureMapper Institution resultMap  -->
+	<!-- InstitutionNoticeLectureMapper Institution resultMap  -->
 	<resultMap id="InstitutionResultMap"
-				type="kr.or.ksmart.lms.association.vo.Institution">
+				type="kr.or.ksmart.lms.institution.vo.Institution">
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>
 		<result column="institution_phone" property="institutionPhone"/>
@@ -56,9 +56,9 @@
 		<result column="institution_location" property="institutionLocation"/>
 		<result column="institution_registration_date" property="institutionRegistrationDate"/>
 	</resultMap>
-	<!-- AssociationNoticeLectureMapper Classroom resultMap  -->
+	<!-- institutionNoticeLectureMapper Classroom resultMap  -->
 	<resultMap id="ClassroomResultMap"
-				type="kr.or.ksmart.lms.association.vo.Classroom">
+				type="kr.or.ksmart.lms.institution.vo.Classroom">
 		<result column="classroom_code" property="classroomCode"/>
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>
@@ -73,7 +73,7 @@
 	<!-- noticeLecture 입력 -->
 		<!-- 1. 입력화면을 위한 준비 -->
 		<!-- 1-1. infoLecture-sort select리스트 출력 -->
-		<select id="associationSelectInfoLectureSortForNL"
+		<select id="institutionSelectInfoLectureSortForNL"
 				resultMap="InfoLectureResultMap">
 			SELECT DISTINCT 
 				info_lecture_sort 
@@ -81,7 +81,7 @@
 				info_lecture
 		</select>
 		<!-- 1-2. infoLecture-name select리스트 출력(비동기) -->
-		<select id="associationSelectInfoLectureNameForNL"
+		<select id="institutionSelectInfoLectureNameForNL"
 			parameterType="String"
 			resultMap="InfoLectureResultMap">
 			SELECT 
@@ -93,7 +93,7 @@
 				info_lecture_sort = #{infoLectureSort}
 		</select>
 		<!-- 1-3. memberTeacher select리스트 출력 -->
-		<select id="associationSelectMemberTeacherForNL"
+		<select id="institutionSelectMemberTeacherForNL"
 				resultMap="MemberTeacherResultMap">
 			SELECT 
 				member_teacher_code
@@ -102,7 +102,7 @@
 				member_teacher
 		</select>		
 		<!-- 1-4. institution select리스트 출력  -->	
-		<select id="associationSelectInstitutionForNL"
+		<select id="institutionSelectInstitutionForNL"
 				resultMap="InstitutionResultMap">
 			SELECT 
 				institution_code
@@ -111,7 +111,7 @@
 				institution
 		</select>
 		<!-- 1-5. classroom select리스트 출력(비동기 - institutionCode로) -->	
-		<select id="associationSelectClassroomForNL"
+		<select id="institutionSelectClassroomByInstitutionCode"
 				parameterType="String"
 				resultMap="ClassroomResultMap">
 			SELECT 
@@ -124,8 +124,8 @@
 		</select>
 		
 		<!-- 3. 강의공고 등록 -->
-		<insert id="associationInsertNoticeLecture"
-				parameterType="kr.or.ksmart.lms.association.vo.NoticeLecture">
+		<insert id="institutionInsertNoticeLecture"
+				parameterType="kr.or.ksmart.lms.institution.vo.NoticeLecture">
 			INSERT INTO notice_lecture (	
 				notice_lecture_code
 				,info_lecture_code
@@ -186,7 +186,7 @@
 		</insert>
 		
 	<!-- 강의공고 목록 출력 -->
-	<select id="associationSelectNoticeLectureList"
+	<select id="institutionSelectNoticeLectureList"
 			resultMap="NoticeLectureResultMap">
 		SELECT 
 			notice_lecture_code
@@ -211,7 +211,7 @@
 	</select>
 	
 	<!-- 세부 강의공고 조회 -->
-	<select id="associationSelectNoticeLectureByNoticeLectureCode"
+	<select id="institutionSelectNoticeLectureByNoticeLectureCode"
 			parameterType="String"
 			resultMap="NoticeLectureResultMap">
 		SELECT 
@@ -227,7 +227,7 @@
 			,notice_lecture_minimum_no
 			,notice_lecture_current_applicant_no
 			,left(notice_lecture_recruitment_start_date, 10) AS notice_lecture_recruitment_start_date
-			,left(notice_lecture_recruitment_end_dat, 10)e AS notice_lecture_recruitment_end_date
+			,left(notice_lecture_recruitment_end_date, 10) AS notice_lecture_recruitment_end_date
 			,left(notice_lecture_result_date, 10) AS notice_lecture_result_date
 			,notice_lecture_fee
 			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date

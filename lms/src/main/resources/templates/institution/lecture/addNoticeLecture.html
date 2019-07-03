@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/associationLayout">
+      layout:decorator="layout/institutionLayout">
 <meta charset="utf-8">
 <!-- html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -36,30 +36,13 @@ $(document).ready(function(){
 	});	
 	// 교사명 선택했을 시 출력하기
 	$('#memberTeacherCode').change(function(){
-		console.log("강의개요항목 :"+$('#memberTeacherCode').val());
+		console.log("교사명 :"+$('#memberTeacherCode').val());
 	});	
-	// 교육원명 선택했을 시 출력하기
-	$('#institutionCode').change(function(){
-		console.log("강의개요항목 :"+$('#institutionCode').val());
-		// 강의실 option(classroomList) 출력을 위한 비동기방식 시작
-		$.ajax({
-			url:'/getClassroomList'
-			,data:{institutionCode:$('#institutionCode').val()}
-			,type:'Post'
-			,dataType:'json'
-			,success:function(result){
-				$('#classroomCode').empty();
-				$('#classroomCode').append('<option value="">--- 선택 ---</option>');
-				$(result).each(function(i, item){
-					$('#classroomCode').append('<option value="'+item.classroomCode+'">'+item.classroomName+'</option>');
-				});
-			}
-		});	
-		// 강의실 선택했을 시 출력하기
-		$('#classroomCode').change(function(){
-			console.log("강의개요항목 :"+$('#classroomCode').val());
-		});
-	});	
+	
+	// 강의실 선택했을 시 출력하기
+	$('#classroomCode').change(function(){
+		console.log("강의실 :"+$('#classroomCode').val());
+	});
 	// 등록버튼 클릭
 	$('#insert').click(function(){
 		console.log("등록 버튼 클릭..");
@@ -119,7 +102,7 @@ $(document).ready(function(){
 
 <div layout:fragment="content">
 	<h1>강의공고 등록하기</h1>
-	<form id="addNoticeLecture" action="/association/lecture/addNoticeLecture" method="post">
+	<form id="addNoticeLecture" action="/institution/lecture/addNoticeLecture" method="post">
 		<div class="form-group">
 			<label>강의공고명 :</label>
 		    <input type="text" class="form-control" id="noticeLectureTitle" name="noticeLectureTitle">
@@ -142,16 +125,10 @@ $(document).ready(function(){
 			</select>
 		</div>
 		<div class="form-group">
-			<label>교육원명 :</label>
-			<select id="institutionCode" name="institutionCode">
-				<option>--- 선택 ---</option>
-				<option th:each="institution:${institution}" th:text="${institution.institutionName}" th:value="${institution.institutionCode}"></option> 
-			</select>
-		</div>
-		<div class="form-group">
 			<label>강의실 :</label>
 			<select id="classroomCode" name="classroomCode">
 				<option value="">--- 선택 ---</option>
+				<option th:each="list:${classroom}" th:text="${list.classroomName}" th:value="${list.classroomCode}">--- 선택 ---</option>
 			</select>
 		</div>
 		<div class="form-group">
@@ -192,7 +169,7 @@ $(document).ready(function(){
 		</div>
 				
 		<span id="helper" style="color:red"></span>
-		<button id="insert" type="button">등록하기</button>
+		<button id="insert" type="button" class="btn btn-primary btn-rightLarge">등록하기</button>
 	</form>
 </div>
 </html>

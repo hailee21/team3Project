@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/associationLayout">
+      layout:decorator="layout/institutionLayout">
 <meta charset="utf-8">
 <!-- html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -58,8 +58,8 @@
 				</tr>
 			</tbody>
 		</table>
-		<button id="modify" type="submit">수정</button>
-		<button id="delete" type="submit">삭제</button>
+		<button id="modify" type="submit" class="btn btn-primary btn-rightLarge">수정</button>
+		<button id="delete" type="submit" class="btn btn-primary btn-rightLarge">삭제</button>
 	</form>
 </div>
 </html>

@@ -12,7 +12,7 @@
 		<result column="classroom_location" property="classroomLocation"/>
 		<result column="classroom_name" property="classroomName"/>
 		<result column="classroom_use" property="classroomUse"/>
-		<result column="classroom_maximum_number" property="classroomMaximumNumber"/>
+		<result column="classroom_maximum_no" property="classroomMaximumNo"/>
 		<result column="classroom_date" property="classroomDate"/>
 	</resultMap>
 	<!-- ClassroomMapper Institution resultMap  -->
@@ -36,31 +36,7 @@
 		FROM 
 			classroom	
 	</select>
-	<!-- 강의용도 리스트 출력 -->
-	<select id="institutionSelectClassroomPK"
-				resultType="String">
-		SELECT
-			classroom_code
-		FROM 
-			classroom	
-		ORDER BY
-			classroom_code DESC
-		LIMIT
-			0,1
-	</select>	
-	<select id="institutionSelectInstitutionInfo"
-			parameterType="String"
-			resultMap="InstitutionResultMap">
-		SELECT
-			institution_code
-			,institution_name
-			,institution_location
-		FROM 
-			institution
-		WHERE 
-			institution_code=#{instCode}
-	</select>
-	
+
 	<!-- 강의실 등록 -->			
 	<insert id="institutionInsertClassroom"
 			parameterType="kr.or.ksmart.lms.institution.vo.Classroom">
@@ -71,31 +47,59 @@
 			,classroom_location
 			,classroom_name
 			,classroom_use
-			,classroom_maximum_number
-		)	VALUES (
+			,classroom_maximum_no
+			,classroom_date
+		) VALUES (
 			#{classroomCode}
 			,#{institutionCode}
-			,#{institutionName}
+			,(SELECT
+					institution_name
+				FROM
+					institution
+				WHERE
+					institution_code = #{institutionCode}
+				)
 			,#{classroomLocation}
 			,#{classroomName}
 			,#{classroomUse}
-			,#{classroomMaximumNumber}			
-		) 		
+			,#{classroomMaximumNo}
+			,#{classroomDate}	
+		)
 	</insert>
-	<!-- 교육원 리스트 출력 -->
-	<select id="institutionSelectInstitutionByInstitutionCode"
+	
+	<!-- 강의실 목록 리스트 출력 -->
+	<select id="institutionSelectClassroomListByInstitutionCode"
 			parameterType="String"
-			resultMap="InstitutionResultMap">
+			resultMap="ClassroomResultMap">
 		SELECT 
-			institution_code
-			,institution_name
-			,institution_location
-		FROM 
-			institution		
+			classroom_code
+			,classroom_location
+			,classroom_name
+			,classroom_use
+			,classroom_maximum_no
+			,left(classroom_date, 10) AS classroom_date
+		FROM
+			classroom
 		WHERE 
-			institution_code = #{instCode}
+			institution_code = #{institutionCode}
 	</select>
 	
-
-
+	<!-- 강의실 상세보기 출력 -->
+	<select id="institutionSelectDetailClassroomByClassroomCode"
+			parameterType="String"
+			resultMap="ClassroomResultMap">
+		SELECT 
+			classroom_code
+			,institution_code
+			,institution_name
+			,classroom_location
+			,classroom_name
+			,classroom_use
+			,classroom_maximum_no
+			,left(classroom_date, 10) AS classroom_date
+		FROM
+			classroom
+		WHERE 
+			classroom_code = #{classroomCode}
+	</select>
 </mapper>
