@@ -6,11 +6,13 @@ public class EvalByAssociation {
 	private String institutionCode;
 	private String institutionName;
 	private String infoEvalByAssociationCode;
-	private String infoEvalByAssociationType;
 	private String infoEvalByAssociationSort;
+	private String infoEvalByAssociationType;
+	private String infoEvalByAssociationContents;
 	private int evalByAssociationScore;
 	private String evalByAssociationStartDate;
 	private String evalByAssociationEndDate;
+	private String evalByAssociationMonth;
 	private String evalByAssociationResultDate;
 
 	public String getEvalByAssociationCode() {
@@ -53,6 +55,14 @@ public class EvalByAssociation {
 		this.infoEvalByAssociationCode = infoEvalByAssociationCode;
 	}
 
+	public String getInfoEvalByAssociationSort() {
+		return infoEvalByAssociationSort;
+	}
+
+	public void setInfoEvalByAssociationSort(String infoEvalByAssociationSort) {
+		this.infoEvalByAssociationSort = infoEvalByAssociationSort;
+	}
+
 	public String getInfoEvalByAssociationType() {
 		return infoEvalByAssociationType;
 	}
@@ -61,12 +71,12 @@ public class EvalByAssociation {
 		this.infoEvalByAssociationType = infoEvalByAssociationType;
 	}
 
-	public String getInfoEvalByAssociationSort() {
-		return infoEvalByAssociationSort;
+	public String getInfoEvalByAssociationContents() {
+		return infoEvalByAssociationContents;
 	}
 
-	public void setInfoEvalByAssociationSort(String infoEvalByAssociationSort) {
-		this.infoEvalByAssociationSort = infoEvalByAssociationSort;
+	public void setInfoEvalByAssociationContents(String infoEvalByAssociationContents) {
+		this.infoEvalByAssociationContents = infoEvalByAssociationContents;
 	}
 
 	public int getEvalByAssociationScore() {
@@ -93,6 +103,14 @@ public class EvalByAssociation {
 		this.evalByAssociationEndDate = evalByAssociationEndDate;
 	}
 
+	public String getEvalByAssociationMonth() {
+		return evalByAssociationMonth;
+	}
+
+	public void setEvalByAssociationMonth(String evalByAssociationMonth) {
+		this.evalByAssociationMonth = evalByAssociationMonth;
+	}
+
 	public String getEvalByAssociationResultDate() {
 		return evalByAssociationResultDate;
 	}
@@ -103,13 +121,13 @@ public class EvalByAssociation {
 
 	@Override
 	public String toString() {
-		return "EvalByAssociation [evalByAssociationCode=" + evalByAssociationCode + ", evalByAssociationEndDate=" + evalByAssociationEndDate
+		return "EvalByAssociation [evalByAssociationCode=" + evalByAssociationCode + ", evalByAssociationEndDate="
+				+ evalByAssociationEndDate + ", evalByAssociationMonth=" + evalByAssociationMonth
 				+ ", evalByAssociationResultDate=" + evalByAssociationResultDate + ", evalByAssociationScore="
 				+ evalByAssociationScore + ", evalByAssociationStartDate=" + evalByAssociationStartDate
 				+ ", evalTotalCode=" + evalTotalCode + ", infoEvalByAssociationCode=" + infoEvalByAssociationCode
-				+ ", infoEvalByAssociationSort=" + infoEvalByAssociationSort + ", infoEvalByAssociationType="
-				+ infoEvalByAssociationType + ", institutionCode=" + institutionCode + ", institutionName="
-				+ institutionName + "]";
-	}
-	
+				+ ", infoEvalByAssociationContents=" + infoEvalByAssociationContents + ", infoEvalByAssociationSort="
+				+ infoEvalByAssociationSort + ", infoEvalByAssociationType=" + infoEvalByAssociationType
+				+ ", institutionCode=" + institutionCode + ", institutionName=" + institutionName + "]";
+	}	
 }
