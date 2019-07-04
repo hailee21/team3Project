@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.teacher.mapper.TeacherMemberMapper">
-	<!-- insertTeacher.html에서 아이디 중복검사하는 select 쿼리	-->
-	<select id="selectMemberOnlineId" parameterType="String" resultType="String">
-		SELECT member_online_id
-		FROM member_online_insertid
-		WHERE member_online_id = #{memberOnlineId}
+	<!-- memberInsert 할때 institutionCode 받아와서 해당 교육원 이름을 찾는 select 쿼리 -->
+	<select id="selectInstitutionName"
+			resultType="String">
+		SELECT
+			institution_name AS institutionCode
+		FROM institution
+		WHERE
+			institution_code = #{institutionCode}
 	</select>
 	
 	<!-- memberInsert 할 때 institutionName을 찾기 위한 resultMap -->
@@ -56,21 +59,23 @@
 			#{memberOnlineId})
 	</insert>
 	
-	<insert id="memberTeacher" parameterType="kr.or.ksmart.lms.teacher.vo.TeacherMember">
+	<insert id="insertTeacher" parameterType="kr.or.ksmart.lms.association.vo.MemberTeacher">
 		INSERT INTO member_teacher (
 			member_teacher_code
 			, teacher_approval_code
 			, member_code
 			, member_teacher_name
 			, member_teacher_career
-			, member_teacher_service_check)
+			, member_teacher_service_check
+			, member_teacher_date)
 		VALUES (
 			#{memberTeacherCode}
 			, #{teacherApprovalCode}
 			, #{memberCode}
 			, #{memberTeacherName}
 			, #{memberTeacherCareer}
-			, #{memberTeacherServiceCheck})
+			, #{memberTeacherServiceCheck}
+			, now())
 	</insert>
 	
 	<insert id="insertMemberOnline" parameterType="kr.or.ksmart.lms.association.vo.MemberOnline">
