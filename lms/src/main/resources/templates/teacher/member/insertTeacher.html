@@ -188,47 +188,15 @@ $(document).ready(function(){
     	    	$('#institutionCode').focus();
         	return false;
         	}
-    		let memberOnlineId = $('#memberOnlineId').val();
-        	let memberOnlinePw = $('#memberOnlinePw').val();
-        	let memberName = $('#memberName').val();
-        	let memberRegistrationNumberFront = $('#memberRegistrationNumberFront').val();
-        	let memberRegistrationNumberBack = $('#memberRegistrationNumberBack').val();
-        	let teacherApprovalCode = $('teacherApprovalCode').val();
-        	let memberTeacherCareer = $('memberTeacherCareer').val();
-        	let memberPhoneNumber = $('#memberPhoneNumber').val();
-        	let memberPostcode = $('#memberPostcode').val();
-        	let memberAddress = $('#memberAddress').val();
-        	let memberAddressDesc = $('#memberAddressDesc').val();
-        	let memberRank = $('#memberRank').val();
-        	let institutionCode = $('#institutionCode').val();
-        	$.ajax({
-    			url:'/insertTeacher'
-        		,type:'POST'
-        		,data:{'memberOnlineId':memberOnlineId
-        			,'memberOnlinePw':memberOnlinePw
-        			,'memberName':memberName
-        			,'memberRegistrationNumberFront':memberRegistrationNumberFront
-        			,'memberRegistrationNumberBack':memberRegistrationNumberBack
-        			,'teacherApprovalCode':teacherApprovalCode
-        			,'memberTeacherCareer':memberTeacherCareer
-        			,'memberPhoneNumber':memberPhoneNumber
-        			,'memberPostcode':memberPostcode
-        			,'memberAddress':memberAddress
-        			,'memberAddressDesc':memberAddressDesc
-        			,'memberRank':memberRank
-        			,'institutionCode':institutionCode}
-    	    	,success:function(){
-//        	        $('#btnList').trigger('click');	//trigger 이벤트를 대신 해준다. trigger('load')하면 새로고침된다.
-        	        alert('정상적으로 입력되었습니다');
-        	        location.href='/teacherLogin';
-            	}
+    			$('#insertTeacher').submit();
+        	    alert('정상적으로 입력되었습니다');
         	});
     	});
     	$('#btnBack').on('click',function(){
     		console.log('#btnBack click test');
     		location.href='javascript:history.back()';
     	});
-});
+
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -369,6 +337,7 @@ $(document).ready(function(){
 							</div>
 					<!--	 회원등급	 -->
 					<input type="hidden" id="memberRank" name="memberRank" value="강사">
+					<input type="hidden" id="memberTeacherServiceCheck" name="memberTeacherServiceCheck" value="최초등록">
 							<div class="form-group">
 								<label for="InputInstitution">교육원</label>
 								<select class="form-control" id="institutionCode" name="institutionCode">

@@ -54,9 +54,11 @@
 	<!--	아이디 중복검사를 위한 member_online_insertid에 online_id insert-->
 		INSERT INTO
 			member_online_insertid (
-			member_online_id)
+			member_online_id
+			member_online_id_insert_date)
 		VALUES (
-			#{memberOnlineId})
+			#{memberOnlineId}
+			, #{memberOnlineIdInsertDate})
 	</insert>
 	
 	<insert id="insertTeacher" parameterType="kr.or.ksmart.lms.association.vo.MemberTeacher">
