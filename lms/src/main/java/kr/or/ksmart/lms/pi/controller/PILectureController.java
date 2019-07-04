@@ -18,6 +18,7 @@ import kr.or.ksmart.lms.pi.service.PILectureService;
 import kr.or.ksmart.lms.pi.vo.InfoLecture;
 import kr.or.ksmart.lms.pi.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.LectureSignup;
+import kr.or.ksmart.lms.pi.vo.Member;
 
 @Controller
 public class PILectureController {
@@ -29,20 +30,24 @@ public class PILectureController {
 	@GetMapping("/PI/lecture/subjectList")
 	public ModelAndView piGetSubjectList(ModelAndView mav, @RequestParam String institutionCode) {
 		System.out.println("[PILectureController piGetSubjectList] institutionCode:"+institutionCode);	
-		// 교육원코드를 mav에 담아 활용
-		mav.addObject("institutionCode", institutionCode);
-		// 교육원코드 활용해서 교육원명 mav에 담기
-		Institution institution = piLectureMapper.piSelectInstitution(institutionCode);
-		mav.addObject("institutionName", institution.getInstitutionName());
-		System.out.println("[PILectureController piSetSubjectList] institutionName:"+institution.getInstitutionName());
 		
 		System.out.println("[PILectureController piSetSubjectList] 수강생 강의,과목 조회시작");
 		mav.setViewName("/PI/lecture/subjectList");
 		
-		List<InfoLecture> sortList = piLectureService.piGetInfoLectureSortList();
-		System.out.println("[PILectureController piSetSubjectList] sortList : "+ sortList);
+		// service에서 메서드 호출하여 mav내부에 값 담아서 뷰에서 활용하자
+		Map<String, Object> map = piLectureService.piGetInfoLectureSortList(institutionCode);
 		
-		mav.addObject("sortList", sortList);	
+		// 교육원코드, 교육원명을 mav에 담아 활용
+		Institution institution = (Institution)map.get("institution");
+		mav.addObject("institutionCode", institution.getInstitutionCode());
+		mav.addObject("institutionName", institution.getInstitutionName());
+		System.out.println("[PILectureController piSetSubjectList] institutionCode:"+institution.getInstitutionCode());
+		System.out.println("[PILectureController piSetSubjectList] institutionName:"+institution.getInstitutionName());
+		
+		// 강의항목 list mav에 담아 활용 
+		mav.addObject("sortList", map.get("list"));	
+		System.out.println("[PILectureController piSetSubjectList] sortList : "+ map.get("list"));
+		
 		return mav;
 	}
 	
@@ -59,18 +64,21 @@ public class PILectureController {
 			
 			System.out.println("[PILectureController piGetNoticeLectureList]");
 			System.out.println("[PILectureController piGetNoticeLectureList] institutionCode:"+institutionCode);	
+			mav.setViewName("PI/lecture/lectureSignupNoticeLectureList");
 			
-			// 교육원코드를 mav에 담아 활용
-			mav.addObject("institutionCode", institutionCode);
-			// 교육원코드 활용해서 교육원명 mav에 담기
-			Institution institution = piLectureMapper.piSelectInstitution(institutionCode);
+			// service에서 메서드 호출하여 mav내부에 값 담아서 뷰에서 활용하자
+			Map<String, Object> map = piLectureService.piGetNoticeLectureList(institutionCode);
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			Institution institution = (Institution)map.get("institution");
+			mav.addObject("institutionCode", institution.getInstitutionCode());
 			mav.addObject("institutionName", institution.getInstitutionName());
+			System.out.println("[PILectureController piGetNoticeLectureList] institutionCode:"+institution.getInstitutionCode());
 			System.out.println("[PILectureController piGetNoticeLectureList] institutionName:"+institution.getInstitutionName());
 			
-			// service에서 가져온 list를 mav에 담아서 뷰에서 활용
-			List<NoticeLecture> list = piLectureService.piGetNoticeLectureList(institutionCode);
-			mav.setViewName("PI/lecture/lectureSignupNoticeLectureList");
-			mav.addObject("noticeLectureList", list);
+			// 강의공고 list mav에 담아 활용 
+			mav.addObject("noticeLectureList", map.get("list"));	
+			System.out.println("[PILectureController piGetNoticeLectureList] noticeLectureList : "+ map.get("list"));
 		}else {
 			System.out.println("수강생아님");
 			
@@ -93,18 +101,21 @@ public class PILectureController {
 			
 			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode]");
 			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] noticeLectureCode : "+noticeLectureCode);
+			mav.setViewName("PI/lecture/lectureSignupNoticeLectureDetail");
 			
-			// 교육원코드를 mav에 담아 활용
-			mav.addObject("institutionCode", institutionCode);
-			// 교육원코드 활용해서 교육원명 mav에 담기
-			Institution institution = piLectureMapper.piSelectInstitution(institutionCode);
+			// service에서 메서드 호출하여 mav내부에 값 담아서 뷰에서 활용하자
+			Map<String, Object> map = piLectureService.piSelectNoticeLectureDetailByNoticeLectureCode(institutionCode, noticeLectureCode);
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			Institution institution = (Institution)map.get("institution");
+			mav.addObject("institutionCode", institution.getInstitutionCode());
 			mav.addObject("institutionName", institution.getInstitutionName());
+			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionCode:"+institution.getInstitutionCode());
 			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionName:"+institution.getInstitutionName());
 			
-			// service에서 가져온 공고 상세내용을 mav에 담아서 뷰에서 활용
-			NoticeLecture noticeLecture = piLectureService.piSelectNoticeLectureDetailByNoticeLectureCode(noticeLectureCode);
-			mav.setViewName("PI/lecture/lectureSignupNoticeLectureDetail");
-			mav.addObject("noticeLecture", noticeLecture);
+			// 강의공고 list mav에 담아 활용 
+			mav.addObject("noticeLecture", map.get("noticeLecture"));	
+			System.out.println("[PILectureController piGetNoticeLectureList] noticeLecture : "+ map.get("noticeLecture"));
 		}else {
 			System.out.println("수강생아님");
 			
@@ -127,28 +138,34 @@ public class PILectureController {
 			
 			System.out.println("[PILectureController piAddLectureSignup]");
 			System.out.println("[PILectureController piAddLectureSignup] noticeLectureCode : "+noticeLectureCode);
+			mav.setViewName("/PI/lecture/lectureSignup");
 			
-			// 교육원코드를 mav에 담아 활용
-			mav.addObject("institutionCode", institutionCode);
-			// 교육원코드 활용해서 교육원명 mav에 담기
-			Institution institution = piLectureMapper.piSelectInstitution(institutionCode);
+			// 세션에 담긴 member정보 가져와서 Service 메서드 호출 시 사용하자
+			String memberCode = (String)session.getAttribute("memberCode");
+						
+			// service에서 메서드 호출하여 mav내부에 값 담아서 뷰에서 활용하자
+			Map<String, Object> map = piLectureService.piGetNoticeLectureInfoForLectureSignup(institutionCode, noticeLectureCode, memberCode);
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			Institution institution = (Institution)map.get("institution");
+			mav.addObject("institutionCode", institution.getInstitutionCode());
 			mav.addObject("institutionName", institution.getInstitutionName());
-			System.out.println("[PILectureController piAddLectureSignup] institutionName:"+institution.getInstitutionName());
+			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionCode:"+institution.getInstitutionCode());
+			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionName:"+institution.getInstitutionName());
 			
 			// 강의공고 코드를 이용하여 noticeLecture 정보 가져와서 mav에 담고 뷰에서 사용하자
-			NoticeLecture noticeLecture = piLectureService.piGetNoticeLectureInfoForLectureSignup(noticeLectureCode);
+			NoticeLecture noticeLecture = (NoticeLecture)map.get("noticeLecture");
 			mav.addObject("noticeLectureCode", noticeLecture.getNoticeLectureCode());
 			mav.addObject("noticeLectureTitle", noticeLecture.getNoticeLectureTitle());
 			mav.addObject("noticeLectureStartDate", noticeLecture.getNoticeLectureStartDate());
 			mav.addObject("noticeLectureEndDate", noticeLecture.getNoticeLectureEndDate());
 			
-			// 세션에 담긴 member정보 가져와서 mav에 담고 뷰에서 사용하자
-			String memberCode = (String)session.getAttribute("memberCode");
+			// map내부에 담긴 member정보 가져와서 mav에 담고 뷰에서 사용하자
 			String memberName = (String)session.getAttribute("memberName");
+			Member member = (Member)map.get("member");
 			mav.addObject("memberCode", memberCode);
 			mav.addObject("memberName", memberName);
-			
-			mav.setViewName("/PI/lecture/lectureSignup");
+			mav.addObject("memberRegistrationNumberFront", member.getMemberRegistrationNumberFront());			
 		}else {
 			System.out.println("수강생아님");
 			
@@ -169,17 +186,18 @@ public class PILectureController {
 			System.out.println("수강생");
 			
 			System.out.println("[PILectureController piAddLectureSignup]");
-			
-			// 교육원코드를 mav에 담아 활용
-			mav.addObject("institutionCode", institutionCode);
-			// 교육원코드 활용해서 교육원명 mav에 담기
-			Institution institution = piLectureMapper.piSelectInstitution(institutionCode);
-			mav.addObject("institutionName", institution.getInstitutionName());
-			System.out.println("[PILectureController piAddLectureSignup] institutionName:"+institution.getInstitutionName());
-			
-			// INSERT 작업을 위해 service 메서드 호출
-			piLectureService.piAddLectureSignup(lectureSignup);
 			mav.setViewName("redirect:/PIIndex");
+
+			// service에서 메서드 호출하여 mav내부에 값 담아서 뷰에서 활용하자
+			// INSERT 작업을 위해 service 메서드 호출
+			Map<String, Object> map = piLectureService.piAddLectureSignup(institutionCode, lectureSignup);
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			Institution institution = (Institution)map.get("institution");
+			mav.addObject("institutionCode", institution.getInstitutionCode());
+			mav.addObject("institutionName", institution.getInstitutionName());
+			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionCode:"+institution.getInstitutionCode());
+			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionName:"+institution.getInstitutionName());			
 		}else {
 			System.out.println("수강생아님");
 			

@@ -2,7 +2,9 @@ package kr.or.ksmart.lms.pi.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,18 +12,46 @@ import org.springframework.stereotype.Service;
 import kr.or.ksmart.lms.pi.mapper.PILectureMapper;
 import kr.or.ksmart.lms.pi.vo.InfoLecture;
 import kr.or.ksmart.lms.pi.vo.InfoSubject;
+import kr.or.ksmart.lms.pi.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.LectureSignup;
+import kr.or.ksmart.lms.pi.vo.Member;
 import kr.or.ksmart.lms.pi.vo.NoticeLecture;
 
 @Service
 public class PILectureService {
 	@Autowired private PILectureMapper piLectureMapper;
 	
+	// 화면출력을 위한 교육원명 고르기
+	public Institution piGetInstitutionName(String institutionCode) {
+		// 교육원코드 활용해서 화면에 출력할 교육원명, 코드 가져오기
+		Institution institution = piLectureMapper.piSelectInstitution(institutionCode);
+		return institution;
+	}
+	
+	// 회원정보 조회를 위한 메서드 
+	public Member piGetMemberInfo(String memberCode) {
+		// memberCode사용해서 회원정보 가져오기
+		Member member = piLectureMapper.piSelectMemberInfo(memberCode);
+		return member;
+	}
+	
 	// infoLecture 리스트 출력
 	// 1. select sort 
-	public List<InfoLecture> piGetInfoLectureSortList() {
+	public Map<String, Object> piGetInfoLectureSortList(String institutionCode) {
 		System.out.println("[PILectureService piGetInfoLectureSortList]");
-		return piLectureMapper.piSelectInfoLectureSortList();		 	
+		
+		// Controller로 리턴보내기 위한 map 객체잠조변수 선언
+		Map<String, Object> map = new HashMap<String, Object>();
+		// mapper에서 호출한 리스트 값을 list객체참조변수에 담는다
+		List<InfoLecture> list = piLectureMapper.piSelectInfoLectureSortList();		
+		
+		// service내부의 institution의 정보를 호출하는 메서드를 호출하자.
+		Institution institution = piGetInstitutionName(institutionCode);
+		
+		// 값이 담긴 list, instituiton 객체참조변수를 map 내부에 담아 controller에서 사용하자. 
+		map.put("list", list);
+		map.put("institution", institution);
+		return map;
 	}
 	// 2. 비동기 처리를 위한 select name, code
 	public List<InfoLecture> piGetInfoLectureNameList(String lectureSort) {
@@ -43,38 +73,89 @@ public class PILectureService {
 	}	
 	
 	// 수강신청을 위한 메서드
-	// 1. 강의공고리스트에서 수강신청
-	public List<NoticeLecture> piGetNoticeLectureList(String institutionCode){
+	// 1-1. 강의공고리스트에서 수강신청
+	public Map<String, Object> piGetNoticeLectureList(String institutionCode){
 		System.out.println("[PILectureService piGetNoticeLectureList]");
 		
-		// 단위테스트를 위해 list객체참조변수 내부에 mapper에서 호출한 메서드를 담아서 리턴보내기
+		// Controller로 리턴보내기 위한 map 객체잠조변수 선언
+		Map<String, Object> map = new HashMap<String, Object>();
+		// service내부의 institution의 정보를 호출하는 메서드를 호출하자.
+		Institution institution = piGetInstitutionName(institutionCode);
+		
+		// 단위테스트를 위해 list객체참조변수 내부에 mapper에서 호출한 메서드를 담기
 		List<NoticeLecture> list = piLectureMapper.piSelectNoticeLectureList(institutionCode);
 		System.out.println("[PILectureService piGetNoticeLectureList] list: "+list);
 		
-		return list;
+		// 값이 담긴 list, instituiton 객체참조변수를 map 내부에 담아 controller에서 사용하자. 
+		map.put("list", list);
+		map.put("institution", institution);		
+		return map;
 	}
-	// 2. 강의공고세부조회에서 수강신청
-	public NoticeLecture piSelectNoticeLectureDetailByNoticeLectureCode(String noticeLectureCode) {
+	// 1-2. 강의공고세부조회에서 수강신청
+	public Map<String, Object> piSelectNoticeLectureDetailByNoticeLectureCode(String institutionCode, String noticeLectureCode) {
 		System.out.println("[PILectureService piSelectNoticeLectureDetailByNoticeLectureCode]");
 		
+		// Controller로 리턴보내기 위한 map 객체잠조변수 선언
+		Map<String, Object> map = new HashMap<String, Object>();
+		// service내부의 institution의 정보를 호출하는 메서드를 호출하자.
+		Institution institution = piGetInstitutionName(institutionCode);
+		
 		// 단위테스트를 위해 noticeLecture 객체참조변수 내부에 mapper에서 호출한 메서드를 담아서 리턴보내기
 		NoticeLecture noticeLecture = piLectureMapper.piSelectNoticeLectureByNoticeLectureCode(noticeLectureCode);
 		System.out.println("[PILectureService piSelectNoticeLectureDetailByNoticeLectureCode] noticeLecture: "+noticeLecture);
 		
-		return noticeLecture;
+		// 값이 담긴 noticeLecture, instituiton 객체참조변수를 map 내부에 담아 controller에서 사용하자. 
+		map.put("noticeLecture", noticeLecture);
+		map.put("institution", institution);		
+		return map;
 	}
-	// 3. lectureSignup 화면을 위한 준비
-	public NoticeLecture piGetNoticeLectureInfoForLectureSignup(String noticeLectureCode){
+	// 2. lectureSignup 화면을 위한 준비
+	public Map<String, Object> piGetNoticeLectureInfoForLectureSignup(String institutionCode, String noticeLectureCode, String memberCode){
 		System.out.println("[PILectureService piGetNoticeLectureInfoForLectureSignup]");
 		
+		// Controller로 리턴보내기 위한 map 객체잠조변수 선언
+		Map<String, Object> map = new HashMap<String, Object>();
+		// service내부의 institution의 정보를 호출하는 메서드를 호출하자.
+		Institution institution = piGetInstitutionName(institutionCode);
+		
 		// 단위테스트를 위해 noticeLecture 객체참조변수 내부에 mapper에서 호출한 메서드를 담아서 리턴보내기
 		NoticeLecture noticeLecture = piLectureMapper.piSelectNoticeLectureByNoticeLectureCode(noticeLectureCode);
 		System.out.println("[PILectureService piSelectNoticeLectureDetailByNoticeLectureCode] noticeLecture: "+noticeLecture);
 		
-		return noticeLecture;
+		// 화면에 회원정보를 뿌려주기 위해 service내부의 메서드 호출
+		Member member = piGetMemberInfo(memberCode);
+		
+		// 값이 담긴 noticeLecture, instituiton 객체참조변수를 map 내부에 담아 controller에서 사용하자. 
+		map.put("noticeLecture", noticeLecture);
+		map.put("institution", institution);		
+		map.put("member", member);		
+		return map;
 	}
-	// 4. 수강신청 메서드
-	public void piAddLectureSignup(LectureSignup lectureSignup) {
+	// 3. 수강신청 중복조회를 위한 메서드
+	public boolean piLectureSignupCheck(String noticeLectureCode, String memberRegistrationNumberFront) {
+		System.out.println("[PILectureService piLectureSignupCheck]");
+		System.out.println("[PILectureService piLectureSignupCheck] noticeLectureCode: "+noticeLectureCode);
+		System.out.println("[PILectureService piLectureSignupCheck] memberRegistrationNumberFront: "+memberRegistrationNumberFront);
+		
+		boolean lectureSignupCheck = false;
+		
+		// mapper로 리턴보내기 위한 map 객체잠조변수 선언
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noticeLectureCode", noticeLectureCode);
+		map.put("memberRegistrationNumberFront", memberRegistrationNumberFront);
+		LectureSignup lectureSignup = piLectureMapper.piLectureSignupCheck(map);
+		
+		if(lectureSignup == null) {
+			System.out.println("Service ■■oo수강신청 등록 가능oo■■");
+		} else {
+			lectureSignupCheck = true;
+			System.out.println("Service ■■xx수강신청 등록 불가xx■■");
+		}
+		return lectureSignupCheck;
+	}
+	
+	// 4. 수강신청 등록  메서드
+	public Map<String, Object> piAddLectureSignup(String institutionCode, LectureSignup lectureSignup) {
 		System.out.println("[PILectureService piAddLectureSignup]");
 		
 		// 1. 강의실 테이블에 추가할 PK 구하는 코드 
@@ -98,8 +179,16 @@ public class PILectureService {
 		String LSPK = "LS"+nowDate+randomNo;
 		lectureSignup.setLectureSignupCode(LSPK);;
 		System.out.println("[InstitutionClassroomService institutionAddClassroom] 최종 LSPK: "+LSPK);
-		
+		System.out.println("[InstitutionClassroomService institutionAddClassroom] lectureSignup: "+lectureSignup);
 		// 2. classroom 테이블에 강의실 등록하기		
 		piLectureMapper.piInsertLectureSignup(lectureSignup);
+		
+		// 3. redirect 이후 화면에 교육원 정보 출력해주기 위한 메서드 호출
+		// Controller로 리턴보내기 위한 map 객체잠조변수 선언
+		Map<String, Object> map = new HashMap<String, Object>();
+		// service내부의 institution의 정보를 호출하는 메서드를 호출하자.
+		Institution institution = piGetInstitutionName(institutionCode);
+		map.put("institution", institution);		
+		return map;
 	}
 }
