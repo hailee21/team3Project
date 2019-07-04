@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.association.service.AssociationNoticeLicenseTestService;
@@ -20,15 +21,19 @@ public class AssociationNoticeLicenseTestController {
 	AssociationNoticeLicenseTestService associationNoticeLicenseTestService;
 	
 	@GetMapping("/association/notice/addNoticeLicenseTestLocation") //자격 시험 공고 등록 폼
-	public ModelAndView addNoticeLicenseTest(HttpSession session, ModelAndView mav) {
+	public ModelAndView addNoticeLicenseTest(HttpSession session, ModelAndView mav,
+			@RequestParam String infoQualificationCode,
+			@RequestParam String noticeAnnualLicenseTestCode,
+			@RequestParam String licenseTestLocationCode) {
 		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
-			associationNoticeLicenseTestService.insertNoticeLicenseTest(null);
-			System.out.println("[AssociationNoticeLicenseTestController addNoticeLicenseTest]");
+			mav.addObject("infoQualificationCode", infoQualificationCode);
+			mav.addObject("noticeAnnualLicenseTestCode", noticeAnnualLicenseTestCode);
+			mav.addObject("licenseTestLocationCode", licenseTestLocationCode);
 			mav.setViewName("/association/notice/addNoticeLicenseTestLocation");
 		} else {
 			System.out.println("[AssociationInfoQualificationController addinfoQualification] 협회직원 아님");
@@ -53,8 +58,7 @@ public class AssociationNoticeLicenseTestController {
 		}
 		return mav;
 	}
-	//자격 시험 공고 리스트
-	@GetMapping("/association/notice/noticeLicenseTestLocationList")
+	@GetMapping("/association/notice/noticeLicenseTestLocationList") //자격 시험 공고 리스트
 	public ModelAndView selectNoticeLicenseTest(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
@@ -72,4 +76,5 @@ public class AssociationNoticeLicenseTestController {
 		}
 		return mav;
 	}
+	
 }
