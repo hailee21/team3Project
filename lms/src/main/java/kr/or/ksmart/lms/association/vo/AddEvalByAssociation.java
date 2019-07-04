@@ -10,6 +10,7 @@ public class AddEvalByAssociation {
 	private int evalByAssociationScore;
 	private String evalByAssociationStartDate;
 	private String evalByAssociationEndDate;
+	private String evalByAssociationMonth;
 	private String evalByAssociationResultDate;
 
 	public List<String> getInstitutionCode() {
@@ -18,6 +19,14 @@ public class AddEvalByAssociation {
 
 	public void setInstitutionCode(List<String> institutionCode) {
 		this.institutionCode = institutionCode;
+	}
+
+	public String getInfoEvalByAssociationSort() {
+		return infoEvalByAssociationSort;
+	}
+
+	public void setInfoEvalByAssociationSort(String infoEvalByAssociationSort) {
+		this.infoEvalByAssociationSort = infoEvalByAssociationSort;
 	}
 
 	public List<String> getInfoEvalByAssociationCode() {
@@ -60,6 +69,14 @@ public class AddEvalByAssociation {
 		this.evalByAssociationEndDate = evalByAssociationEndDate;
 	}
 
+	public String getEvalByAssociationMonth() {
+		return evalByAssociationMonth;
+	}
+
+	public void setEvalByAssociationMonth(String evalByAssociationMonth) {
+		this.evalByAssociationMonth = evalByAssociationMonth;
+	}
+
 	public String getEvalByAssociationResultDate() {
 		return evalByAssociationResultDate;
 	}
@@ -68,22 +85,14 @@ public class AddEvalByAssociation {
 		this.evalByAssociationResultDate = evalByAssociationResultDate;
 	}
 
-	public String getInfoEvalByAssociationSort() {
-		return infoEvalByAssociationSort;
-	}
-
-	public void setInfoEvalByAssociationSort(String infoEvalByAssociationSort) {
-		this.infoEvalByAssociationSort = infoEvalByAssociationSort;
-	}
-
 	@Override
 	public String toString() {
 		return "AddEvalByAssociation [evalByAssociationEndDate=" + evalByAssociationEndDate
-				+ ", evalByAssociationResultDate=" + evalByAssociationResultDate + ", evalByAssociationScore="
-				+ evalByAssociationScore + ", evalByAssociationStartDate=" + evalByAssociationStartDate
-				+ ", infoEvalByAssociationCode=" + infoEvalByAssociationCode + ", infoEvalByAssociationSort="
-				+ infoEvalByAssociationSort + ", institutionCode=" + institutionCode + ", year=" + year + "]";
+				+ ", evalByAssociationMonth=" + evalByAssociationMonth + ", evalByAssociationResultDate="
+				+ evalByAssociationResultDate + ", evalByAssociationScore=" + evalByAssociationScore
+				+ ", evalByAssociationStartDate=" + evalByAssociationStartDate + ", infoEvalByAssociationCode="
+				+ infoEvalByAssociationCode + ", infoEvalByAssociationSort=" + infoEvalByAssociationSort
+				+ ", institutionCode=" + institutionCode + ", year=" + year + "]";
 	}
-
 	
 }

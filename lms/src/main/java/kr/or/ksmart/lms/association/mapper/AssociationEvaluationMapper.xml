@@ -45,6 +45,25 @@
 		<result column="institution_name" property="institutionName"/>
 	</resultMap>
 
+	<!-- 교육원 평가 resultMap -->
+	<resultMap id="EvalByAssociationMap"
+				type="kr.or.ksmart.lms.association.vo.EvalByAssociation">
+		<result column="eval_by_association_code" property="evalByAssociationCode"/>
+		<result column="eval_total_code" property="evalTotalCode"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="info_eval_by_association_code" property="infoEvalByAssociationCode"/>
+		<result column="info_eval_by_association_sort" property="infoEvalByAssociationSort"/>
+		<result column="info_eval_by_association_type" property="infoEvalByAssociationType"/>
+		<result column="info_eval_by_association_contents" property="infoEvalByAssociationContents"/>
+		<result column="eval_by_association_score" property="evalByAssociationScore"/>
+		<result column="eval_by_association_start_date" property="evalByAssociationStartDate"/>
+		<result column="eval_by_association_end_date" property="evalByAssociationEndDate"/>
+		<result column="eval_by_association_month" property="evalByAssociationMonth"/>
+		<result column="eval_by_association_result_date" property="evalByAssociationResultDate"/>
+	</resultMap>
+
+
 	<!-- 평가를 해야하는 교육원 리스트 select  -->
 	<select id="selectInstitutionCodeList"
 			resultType="String">
@@ -315,6 +334,7 @@
 			, #{evalByAssociationScore}
 			, #{evalByAssociationStartDate}
 			, #{evalByAssociationEndDate}
+			, #{evalByAssociationMonth}
 			, #{evalByAssociationResultDate}
 			)
 	</insert>
@@ -331,4 +351,120 @@
 		WHERE
 			eval_total_year LIKE #{evalTotalYear}
 	</select>
+
+	<!-- 교육원 평가 리스트 출력 -->
+	<select id="selectEvalByAssociationList"
+			resultMap="EvalByAssociationMap">
+		SELECT
+			eval_by_association_code
+			, eval_total_code
+			, institution_code
+			, institution_name
+			, info_eval_by_association_code
+			, info_eval_by_association_sort
+			, info_eval_by_association_type
+			, info_eval_by_association_contents
+			, eval_by_association_score
+			, LEFT(eval_by_association_start_date, 10) AS eval_by_association_start_date
+			, LEFT(eval_by_association_end_date, 10) AS eval_by_association_end_date
+			, eval_by_association_month
+			, LEFT(eval_by_association_result_date, 10) AS eval_by_association_result_date
+		FROM 
+			eval_by_association
+		ORDER BY
+			eval_by_association_start_date DESC
+			, eval_by_association_month DESC
+			, info_eval_by_association_sort ASC
+			, info_eval_by_association_type ASC
+			, institution_name ASC
+	</select>
+
+	<!-- 각 교육원 월별 평가 리스트 출력 출력 -->
+	<select id="selectEvalByAssociationListByEvalTotalCodeAndMonth"
+			parameterType="java.util.Map"
+			resultMap="EvalByAssociationMap">
+		SELECT
+			eval_by_association_code
+			, eval_total_code
+			, institution_code
+			, institution_name
+			, info_eval_by_association_code
+			, info_eval_by_association_sort
+			, info_eval_by_association_type
+			, info_eval_by_association_contents
+			, eval_by_association_score
+			, LEFT(eval_by_association_start_date, 10) AS eval_by_association_start_date
+			, LEFT(eval_by_association_end_date, 10) AS eval_by_association_end_date
+			, eval_by_association_month
+			, LEFT(eval_by_association_result_date, 10) AS eval_by_association_result_date
+		FROM 
+			eval_by_association
+		WHERE
+			eval_total_code = #{evalTotalCode}
+			AND
+			eval_by_association_month = #{evalByAssociationMonth}
+		ORDER BY
+			eval_by_association_start_date DESC
+			, eval_by_association_month DESC
+			, info_eval_by_association_sort ASC
+			, info_eval_by_association_type ASC
+			, institution_name ASC
+	</select>
+
+	<!--각 교육원 월별 평가 수정--> 
+	<update id="updateEvalByAssociationScore"
+		parameterType="java.util.Map">
+		UPDATE 
+			eval_by_association
+		SET
+			eval_by_association_score = #{evalByAssociationScore}
+		WHERE 
+			eval_by_association_code = #{evalByAssociationCode}
+	</update>
+
+	<!-- 각 교육원 월별 평가완료시 교육원 평가 합계 월별 점수 수정 -->
+	<update id="updateEvalTotalMonth"
+		parameterType="java.util.Map">
+		UPDATE 
+			eval_total
+		SET
+			<if test="evalByAssociationMonth == '01'">
+				eval_total_jan = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '02'">
+				eval_total_feb = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '03'">
+				eval_total_mar = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '04'">
+				eval_total_apr = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '05'">
+				eval_total_may = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '06'">
+				eval_total_jun = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '07'">
+				eval_total_jul = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '08'">
+				eval_total_aug = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '09'">
+				eval_total_sep = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '10'">
+				eval_total_oct = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '11'">
+				eval_total_nov = #{sumScore}
+			</if>
+			<if test="evalByAssociationMonth == '12'">
+				eval_total_dec = #{sumScore}
+			</if>
+		WHERE 
+			eval_total_code = #{evalTotalCode}
+	</update>
 </mapper>

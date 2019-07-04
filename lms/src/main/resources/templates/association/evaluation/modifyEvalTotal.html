@@ -14,117 +14,164 @@
         //월별 평가 항목 상세 보기 이벤트 처리
         $('.btn').on('click',function() {
             console.log($(this).val());
+            let evalTotalCode = $('#evalTotalCode').val();
+            let evalByAssociationMonth = $(this).val();
+            $.ajax({
+                url:'/getEvalByAssociationListByInstitutionCodeAndMonth'
+                ,type:'post'
+                ,data:{'evalTotalCode':evalTotalCode,'evalByAssociationMonth':evalByAssociationMonth}
+                ,success:function(EvalByAssociation){
+                    console.log(EvalByAssociation)
+                    $('#evalByAssociationList').empty();
+                    $('#evalByAssociationMonth').val(evalByAssociationMonth);
+                    $(EvalByAssociation).each(function(index,list){
+						$('#evalByAssociationList').append('<tr>');
+						$('#evalByAssociationList').append('<td>'+list.infoEvalByAssociationType+'</td>');
+						$('#evalByAssociationList').append('<td>'+list.infoEvalByAssociationContents+'</td>');
+						$('#evalByAssociationList').append('<td><input type="number" name="evalByAssociationScore" class="form-control" value="'+list.evalByAssociationScore+'"></td>');
+						$('#evalByAssociationList').append('<td>'+list.evalByAssociationStartDate+'</td>');
+                        $('#evalByAssociationList').append('<td>'+list.evalByAssociationEndDate+'</td>');
+                        $('#evalByAssociationList').append('<td>'+list.evalByAssociationResultDate+'</td>');
+                        $('#evalByAssociationList').append('<td><input type="hidden" name="evalByAssociationCode" value="'+list.evalByAssociationCode+'"></td>');
+						$('#evalByAssociationList').append('</tr>');
+					});
+                }
+            })
         });
+
         //월별 평가 항목 상세 보기 이벤트 처리
-        $('#btnModify').on('click',function() {
-            $('#modifyEvalTotal').submit();
+        $('#btnModifyEvalByAssociation').on('click',function() {
+            console.log($(this).val());
+            $('#modifyEvalByAssociation').submit();
         });
+
     })
 </script>
 </th:block>
 
 <div layout:fragment="content">
-    <h3>교육원 평가 수정</h3>
-    <form id="modifyEvalTotal" action="/associationModifyEvalTotal" method="post">
-        <input type="hidden" id="evalTotalCode" name="evalTotalCode" th:value="${evalTotal.evalTotalCode}">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>			
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>교육원 명</td>
-                    <td><input type="text" class="form-control" th:value="${evalTotal.institutionName}" id="institutionName" name="institutionName" readonly="readonly"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>평가 항목</td>
-                    <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalType}" id="evalTotalType" name="evalTotalType" readonly="readonly"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>평가 년도</td>
-                    <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalYear}" id="evalTotalYear" name="evalTotalYear" readonly="readonly"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>1월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalJan}" id="evalTotalJan" name="evalTotalJan"></td>
-                    <td><button type="button" class="btn btn-secondary" value="01">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>2월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalFeb}" id="evalTotalFeb" name="evalTotalFeb"></td>
-                    <td><button type="button" class="btn btn-secondary" value="02">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>3월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalMar}" id="evalTotalMar" name="evalTotalMar"></td>
-                    <td><button type="button" class="btn btn-secondary" value="03">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>4월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalApr}" id="evalTotalApr" name="evalTotalApr"></td>
-                    <td><button type="button" class="btn btn-secondary" value="04">평가 상세 보기</button></td></tr>
-                <tr>
-                    <td>5월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalMay}" id="evalTotalMay" name="evalTotalMay"></td>
-                    <td><button type="button" class="btn btn-secondary" value="05">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>6월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalJun}" id="evalTotalJun" name="evalTotalJun"></td>
-                    <td><button type="button" class="btn btn-secondary" value="06">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>7월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalJul}" id="evalTotalJul" name="evalTotalJul"></td>    
-                    <td><button type="button" class="btn btn-secondary" value="07">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>8월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalAug}" id="evalTotalAug" name="evalTotalAug"></td>
-                    <td><button type="button" class="btn btn-secondary" value="08">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>9월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalSep}" id="evalTotalSep" name="evalTotalSep"></td>
-                    <td><button type="button" class="btn btn-secondary" value="09">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>10월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalOct}" id="evalTotalOct" name="evalTotalOct"></td>
-                    <td><button type="button" class="btn btn-secondary" value="10">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>11월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalNov}" id="evalTotalNov" name="evalTotalNov"></td>
-                    <td><button type="button" class="btn btn-secondary" value="11">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>12월</td>
-                    <td><input type="number" class="form-control" th:value="${evalTotal.evalTotalDec}" id="evalTotalDec" name="evalTotalDec"></td>
-                    <td><button type="button" class="btn btn-secondary" value="12">평가 상세 보기</button></td>
-                </tr>
-                <tr>
-                    <td>총합계</td>
-                    <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalSumScore}" id="evalTotalSumScore" name="evalTotalSumScore" readonly="readonly"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><button type="button" class="form-control" id="btnModify">수정</button></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-    <div id="evalTotal">
-
+    <h1>교육원 평가 수정</h1>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>교육원 평가 월별 합계</h3>
+            <form>
+                <input type="hidden" id="evalTotalCode" name="evalTotalCode" th:value="${evalTotal.evalTotalCode}">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>			
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>교육원 명</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.institutionName}" id="institutionName" name="institutionName" readonly="readonly"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>평가 항목</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalType}" id="evalTotalType" name="evalTotalType" readonly="readonly"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>평가 년도</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalYear}" id="evalTotalYear" name="evalTotalYear" readonly="readonly"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>1월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalJan}" id="evalTotalJan" name="evalTotalJan" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="01">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>2월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalFeb}" id="evalTotalFeb" name="evalTotalFeb" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="02">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>3월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalMar}" id="evalTotalMar" name="evalTotalMar" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="03">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>4월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalApr}" id="evalTotalApr" name="evalTotalApr" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="04">평가 선택</button></td></tr>
+                        <tr>
+                            <td>5월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalMay}" id="evalTotalMay" name="evalTotalMay" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="05">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>6월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalJun}" id="evalTotalJun" name="evalTotalJun" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="06">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>7월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalJul}" id="evalTotalJul" name="evalTotalJul" readonly="readonly"></td>    
+                            <td><button type="button" class="btn btn-secondary" value="07">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>8월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalAug}" id="evalTotalAug" name="evalTotalAug" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="08">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>9월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalSep}" id="evalTotalSep" name="evalTotalSep" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="09">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>10월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalOct}" id="evalTotalOct" name="evalTotalOct" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="10">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>11월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalNov}" id="evalTotalNov" name="evalTotalNov" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="11">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>12월</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalDec}" id="evalTotalDec" name="evalTotalDec" readonly="readonly"></td>
+                            <td><button type="button" class="btn btn-secondary" value="12">평가 선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>총합계</td>
+                            <td><input type="text" class="form-control" th:value="${evalTotal.evalTotalSumScore}" id="evalTotalSumScore" name="evalTotalSumScore" readonly="readonly"></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+            </form>
+        </div>
+        <div class="col-sm-8">
+            <h3>교육원 평가 월별 세부 사항</h3>
+            <form id="modifyEvalByAssociation" action="/modifyEvalByAssociationScore" method="post">
+                <input type="hidden" name="evalTotalCode" th:value="${evalTotal.evalTotalCode}">
+                <input type="hidden" id="evalByAssociationMonth" name="evalByAssociationMonth">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>평가 종류</th>
+                            <th>평가 내용</th>			
+                            <th>평가 점수</th>
+                            <th>평가 시작일</th>
+                            <th>평가 종료일</th>			
+                            <th>평가 발표일</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="evalByAssociationList">
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-rightLarge btn-secondary" id="btnModifyEvalByAssociation">점수 수정</button>
+            </form>
+        </div>
     </div>
 </div>
 </html>

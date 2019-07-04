@@ -13,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.lms.association.mapper.AssociationEvaluationMapper;
 import kr.or.ksmart.lms.association.vo.AddEvalByAssociation;
+import kr.or.ksmart.lms.association.vo.EvalByAssociation;
 import kr.or.ksmart.lms.association.vo.EvalTotal;
 import kr.or.ksmart.lms.association.vo.InfoEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.InsertEvalTotal;
+import kr.or.ksmart.lms.association.vo.ModifyEvalByAssociation;
 
 @Service
 @Transactional
@@ -31,10 +33,12 @@ public class AssociationEvaluationService {
         
         //전체 리스트 mapper 호출
         List<EvalTotal> evalTotalList = associationEvaluationMapper.selectEvalTotalList();
-        
+        List<EvalByAssociation> evalList = associationEvaluationMapper.selectEvalByAssociationList();
+       
         //컨트롤러로 리턴할 데이터 선언 및 설정
         Map<String, Object> returnMap = new HashMap<String, Object>();
         returnMap.put("evalTotalList", evalTotalList);
+        returnMap.put("evalList", evalList);
         returnMap.put("evalTotalType", evalTotalType);
         returnMap.put("evalTotalYear", evalTotalYear);
 		return returnMap;
@@ -53,16 +57,17 @@ public class AssociationEvaluationService {
 		nowDate = nowDate.toString().replace("-", "");
 		nowDate = nowDate.toString().replace(" ", "");
 		System.out.println(nowDate);
-		int randomNo1 = (int)(Math.random()*10000);
-		int randomNo2 = (int)(Math.random()*1000);
-		int randomNo3 = (int)(Math.random()*100);
-		int randomNo = randomNo1 + randomNo2 + randomNo3;
-		if(randomNo >= 10000) {
-			randomNo = randomNo/10;
-		}
+
 
         //평가 해야한 교육원들 수만큼 반복하여 교육원 평가 합계를 추가한다.
         for(String institutionCode: institutionCodeList) {
+            int randomNo1 = (int)(Math.random()*10000);
+            int randomNo2 = (int)(Math.random()*1000);
+            int randomNo3 = (int)(Math.random()*100);
+            int randomNo = randomNo1 + randomNo2 + randomNo3;
+            if(randomNo >= 10000) {
+                randomNo = randomNo/10;
+            }
             InsertEvalTotal insert = new InsertEvalTotal();
             String evalTotalCode = "ET" + nowDate + randomNo;
             insert.setEvalTotalCode(evalTotalCode);
@@ -72,9 +77,6 @@ public class AssociationEvaluationService {
 
             //교육원 평가 합계 추가 mapper 호출
             associationEvaluationMapper.insertEvalTotal(insert);
-
-            //추가하면 lastNo에 1을더하여 PK가 중복되지 않도록 한다.
-            randomNo++;
 		}
     }
 
@@ -91,10 +93,12 @@ public class AssociationEvaluationService {
         
         //검색 조건 항목 service 호출
         Map<String, Object> serachKey = getEvaluationTotal();
+        List<EvalByAssociation> evalList = associationEvaluationMapper.selectEvalByAssociationList();
 
         //컨트롤러로 리턴할 데이터 선언 및 설정
         Map<String, Object> returnMap = new HashMap<String, Object>();
         returnMap.put("evalTotalList", evalTotalList);
+        returnMap.put("evalList", evalList);
         returnMap.put("evalTotalType", serachKey.get("evalTotalType"));
         returnMap.put("evalTotalYear", serachKey.get("evalTotalYear"));
         return returnMap;
@@ -217,10 +221,48 @@ public class AssociationEvaluationService {
                 map.put("evalByAssociationScore", addEvalByAssociation.getEvalByAssociationScore());
                 map.put("evalByAssociationStartDate", addEvalByAssociation.getEvalByAssociationStartDate());
                 map.put("evalByAssociationEndDate", addEvalByAssociation.getEvalByAssociationEndDate());
+                map.put("evalByAssociationMonth", addEvalByAssociation.getEvalByAssociationMonth());
                 map.put("evalByAssociationResultDate", addEvalByAssociation.getEvalByAssociationResultDate());
 
+                //EvalByAssociation 테이블에 insert mapper 호출
                 associationEvaluationMapper.insertEvalByAssociation(map);
             }
         }
+    }
+    
+    //각 교육원 월별 평가 리스트 출력 service
+    public List<EvalByAssociation> getEvalByAssociationListByInstitutionCodeAndMonth(Map<String, Object> map) {
+        return associationEvaluationMapper.selectEvalByAssociationListByEvalTotalCodeAndMonth(map);
+    }
+
+    //교육원 평가 세부사항 수정 service
+	public void modifyEvalByAssociationScore(ModifyEvalByAssociation modifyEvalByAssociation) {
+        //ModifyEvalByAssociation의 변수 나누기
+        List<String> evalByAssociationCodeList = modifyEvalByAssociation.getEvalByAssociationCode();
+        List<Integer> evalByAssociationScoreList = modifyEvalByAssociation.getEvalByAssociationScore();
+        String evalTotalCode = modifyEvalByAssociation.getEvalTotalCode();
+        String evalByAssociationMonth = modifyEvalByAssociation.getEvalByAssociationMonth();
+        int sumScore = 0;
+
+        //mapper 호출을 위한 map 만들기
+        int i = evalByAssociationCodeList.size();
+        for(int a = 0; a<i; a++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("evalByAssociationCode", evalByAssociationCodeList.get(a));
+            map.put("evalByAssociationScore", evalByAssociationScoreList.get(a));
+            associationEvaluationMapper.updateEvalByAssociationScore(map);
+            sumScore = sumScore+evalByAssociationScoreList.get(a);
+        }
+
+        //교육원 평가 합계 월별 점수 수정
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("evalTotalCode",evalTotalCode);
+        map.put("evalByAssociationMonth", evalByAssociationMonth);
+        map.put("sumScore", sumScore);
+        associationEvaluationMapper.updateEvalTotalMonth(map);
+
+        //교육원 평가 합계 총합 수정
+        EvalTotal evalTotal = associationEvaluationMapper.selectEvalTotal(evalTotalCode);
+        modifyEvalTotal(evalTotal);
 	}
 }

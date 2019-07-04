@@ -16,6 +16,7 @@ import kr.or.ksmart.lms.association.service.AssociationEvaluationService;
 import kr.or.ksmart.lms.association.vo.AddEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.EvalTotal;
 import kr.or.ksmart.lms.association.vo.InsertEvalTotal;
+import kr.or.ksmart.lms.association.vo.ModifyEvalByAssociation;
 
 @Controller
 public class AssociationEvaluationController {
@@ -33,6 +34,7 @@ public class AssociationEvaluationController {
 		if(memberRank.equals("협회직원")) {
 			Map<String, Object> map = associationEvaluationService.getEvaluationTotal();
 			mav.addObject("evalTotalList", map.get("evalTotalList"));
+			mav.addObject("evalList", map.get("evalList"));
 			mav.addObject("evalTotalType", map.get("evalTotalType"));
 			mav.addObject("evalTotalYear", map.get("evalTotalYear"));
 			mav.setViewName("association/evaluation/evaluationTotal");
@@ -78,24 +80,6 @@ public class AssociationEvaluationController {
 			mav.addObject("evalTotal", evalTotal);
 			System.out.println(evalTotal);
 			mav.setViewName("association/evaluation/modifyEvalTotal");
-		} else {
-			System.out.println("[AssociationEvaluationController modifyEvalTotal] 협회직원 아님");
-			mav.setViewName("association/associationLogin");
-		}
-		return mav;
-	}
-
-	//교육원 평가 합계 수정 액션 controller
-	@PostMapping("/associationModifyEvalTotal")
-	public ModelAndView modifyEvalTotal(HttpSession session, ModelAndView mav, EvalTotal evalTotal) {
-		System.out.println("[AssociationEvaluationController modifyEvalTotal] 호출");
-		String memberRank = (String)session.getAttribute("memberRank");
-		if(memberRank == null) {
-			memberRank = "로그인 실패";
-		}
-		if(memberRank.equals("협회직원")) {
-			associationEvaluationService.modifyEvalTotal(evalTotal);
-			mav.setViewName("redirect:/association/evaluation/evaluationTotal");
 		} else {
 			System.out.println("[AssociationEvaluationController modifyEvalTotal] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
@@ -199,14 +183,30 @@ public class AssociationEvaluationController {
 			mav.addObject("evalTotalList", returnMap.get("evalTotalList"));
 			mav.addObject("evalTotalType", returnMap.get("evalTotalType"));
 			mav.addObject("evalTotalYear", returnMap.get("evalTotalYear"));
+			mav.addObject("evalList", returnMap.get("evalList"));
 			mav.addObject("searchYear", evalTotalYear);
 			mav.addObject("searchSort", evalTotalType);
-			System.out.println(returnMap.get("evalTotalList"));
-			System.out.println(returnMap.get("evalTotalType"));
-			System.out.println(returnMap.get("evalTotalYear"));
 			mav.setViewName("association/evaluation/evaluationTotal");
 		} else {
 			System.out.println("[AssociationEvaluationController getEvalTotatList] 협회직원 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		return mav;
+	}
+
+	//교육원 평가 세부사항 수정 controller
+	@PostMapping("/modifyEvalByAssociationScore")
+	public ModelAndView modifyEvalByAssociationScore(HttpSession session, ModelAndView mav, ModifyEvalByAssociation modifyEvalByAssociation) {
+		System.out.println("[AssociationEvaluationController modifyEvalByAssociationScore] 호출");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank = "로그인 실패";
+		}
+		if(memberRank.equals("협회직원")) {
+			associationEvaluationService.modifyEvalByAssociationScore(modifyEvalByAssociation);
+			mav.setViewName("redirect:/association/evaluation/modifyEvalTotal?evalTotalCode="+modifyEvalByAssociation.getEvalTotalCode());
+		} else {
+			System.out.println("[AssociationEvaluationController modifyEvalByAssociationScore] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
 		}
 		return mav;
