@@ -1,6 +1,5 @@
 package kr.or.ksmart.lms.pi.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.pi.vo.NoticeLecture;
-import kr.or.ksmart.lms.pi.mapper.PILectureMapper;
 import kr.or.ksmart.lms.pi.service.PILectureService;
-import kr.or.ksmart.lms.pi.vo.InfoLecture;
 import kr.or.ksmart.lms.pi.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.LectureSignup;
 import kr.or.ksmart.lms.pi.vo.Member;
@@ -23,9 +20,7 @@ import kr.or.ksmart.lms.pi.vo.Member;
 @Controller
 public class PILectureController {
 
-	@Autowired private PILectureService piLectureService;
-	@Autowired private PILectureMapper piLectureMapper;
-	
+	@Autowired private PILectureService piLectureService;	
 	// PI layout 강의항목, 과목 리스트 출력 controller
 	@GetMapping("/PI/lecture/subjectList")
 	public ModelAndView piGetSubjectList(ModelAndView mav, @RequestParam String institutionCode) {
@@ -83,6 +78,12 @@ public class PILectureController {
 			System.out.println("수강생아님");
 			
 			mav.setViewName("PI/PILogin");
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
 		}
 		return mav;
 	}
@@ -120,6 +121,12 @@ public class PILectureController {
 			System.out.println("수강생아님");
 			
 			mav.setViewName("PI/PILogin");
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
 		}
 		return mav;
 	}
@@ -170,6 +177,12 @@ public class PILectureController {
 			System.out.println("수강생아님");
 			
 			mav.setViewName("PI/PILogin");
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
 		}
 		return mav;
 	}
@@ -202,6 +215,12 @@ public class PILectureController {
 			System.out.println("수강생아님");
 			
 			mav.setViewName("PI/PILogin");
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
 		}
 		return mav;
 	}
