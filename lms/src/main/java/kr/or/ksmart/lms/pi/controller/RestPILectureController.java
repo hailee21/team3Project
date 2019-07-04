@@ -15,20 +15,35 @@ import kr.or.ksmart.lms.pi.vo.InfoSubject;
 public class RestPILectureController {
 	@Autowired private PILectureService piLectureService;
 	
-	// institution layout 강의표준명 리스트 출력 controller	
+	// PI layout 강의표준명 리스트 출력 controller	
 	@PostMapping("/PI/getInfoLectureNameList")
 	public List<InfoLecture> piGetInfoLectureNameList(@RequestParam() String lectureSort){
-		System.out.println("[RestLectureController piGetInfoLectureNameList] lectureSort: "+ lectureSort);
+		System.out.println("[RestPILectureController piGetInfoLectureNameList] lectureSort: "+ lectureSort);
 		return  piLectureService.piGetInfoLectureNameList(lectureSort);
-		
 	}
 	
-	// institution layout 과목리스트 출력 controller
+	// PI layout 과목리스트 출력 controller
 	@PostMapping("/PI/getSubjectList")
 	public List<InfoSubject> piGetSubjectListByLectureCode(@RequestParam() String lectureCode){
-		System.out.println("[RestLectureController piGetInfoLectureNameList] lectureCode: "+ lectureCode);
+		System.out.println("[RestPILectureController piGetSubjectListByLectureCode] lectureCode: "+ lectureCode);
 		return  piLectureService.piGetSubjectListByLectureCode(lectureCode);
-		
 	}
-
+	
+	// PI layout 비동기 수강신청 중복조회 controller
+	@PostMapping("/PI/lectureSignupCheck")
+	public boolean piLectureSignupCheck(@RequestParam() String noticeLectureCode, @RequestParam() String memberRegistrationNumberFront){
+		System.out.println("[RestPILectureController piLectureSignupCheck] noticeLectureCode: "+ noticeLectureCode);
+		System.out.println("[RestPILectureController piLectureSignupCheck] memberRegistrationNumberFront: "+ memberRegistrationNumberFront);
+		
+		boolean lectureSignupCheck = piLectureService.piLectureSignupCheck(noticeLectureCode, memberRegistrationNumberFront);
+		
+		// service에서 boolean 리턴데이터타입으로 검사한 값 확인하기
+		if(lectureSignupCheck) {
+			System.out.println("RestController ■■xx수강신청 등록 불가xx■■");
+		}else {
+			System.out.println("RestController ■■oo수강신청 등록 가능oo■■");
+			
+		}
+		return  lectureSignupCheck;
+	}
 }
