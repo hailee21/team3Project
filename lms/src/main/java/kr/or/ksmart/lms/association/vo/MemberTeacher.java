@@ -7,6 +7,7 @@ public class MemberTeacher {
 	private String memberTeacherName;
 	private String memberTeacherCareer;
 	private String memberTeacherServiceCheck;
+	private String memberTeacherDate;
 	
 	public String getMemberTeacherCode() {
 		return memberTeacherCode;
@@ -44,11 +45,19 @@ public class MemberTeacher {
 	public void setMemberTeacherServiceCheck(String memberTeacherServiceCheck) {
 		this.memberTeacherServiceCheck = memberTeacherServiceCheck;
 	}
+	public String getMemberTeacherDate() {
+		return memberTeacherDate;
+	}
+	public void setMemberTeacherDate(String memberTeacherDate) {
+		this.memberTeacherDate = memberTeacherDate;
+	}
 	
 	@Override
 	public String toString() {
 		return "MemberTeacher [memberTeacherCode=" + memberTeacherCode + ", teacherApprovalCode=" + teacherApprovalCode
 				+ ", memberCode=" + memberCode + ", memberTeacherName=" + memberTeacherName + ", memberTeacherCareer="
-				+ memberTeacherCareer + ", memberTeacherServiceCheck=" + memberTeacherServiceCheck + "]";
+				+ memberTeacherCareer + ", memberTeacherServiceCheck=" + memberTeacherServiceCheck
+				+ ", memberTeacherDate=" + memberTeacherDate + "]";
 	}
+	
 }

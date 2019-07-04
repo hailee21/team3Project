@@ -16,7 +16,7 @@ public class PIMemberRestController {
 	@PostMapping("/memberInsert")
 	public void memberInsert(Member member, MemberOnline memberOnline
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		System.out.println("[MemberController memberInsert] member:" + member);
+		System.out.println("[MemberRestController memberInsert] member:" + member);
 		memberService.insertMember(member, memberOnline, institutionCode);
 //		mav.setViewName("redirect:/login?institutionCode=" + institutionCode);	//	로그인 바로가기
 //		mav.setViewName("redirect:/joinSuccess?institutionCode=" + institutionCode);

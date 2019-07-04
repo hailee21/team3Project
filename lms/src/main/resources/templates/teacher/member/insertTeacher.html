@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/root">
 <meta charset="UTF-8">
 <title>강사 등록</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/sandstone/bootstrap.min.css">
-<!--	필요한 api	-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<!--	daum 주소 api	-->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 $(document).ready(function(){
@@ -191,6 +193,8 @@ $(document).ready(function(){
         	let memberName = $('#memberName').val();
         	let memberRegistrationNumberFront = $('#memberRegistrationNumberFront').val();
         	let memberRegistrationNumberBack = $('#memberRegistrationNumberBack').val();
+        	let teacherApprovalCode = $('teacherApprovalCode').val();
+        	let memberTeacherCareer = $('memberTeacherCareer').val();
         	let memberPhoneNumber = $('#memberPhoneNumber').val();
         	let memberPostcode = $('#memberPostcode').val();
         	let memberAddress = $('#memberAddress').val();
@@ -205,6 +209,8 @@ $(document).ready(function(){
         			,'memberName':memberName
         			,'memberRegistrationNumberFront':memberRegistrationNumberFront
         			,'memberRegistrationNumberBack':memberRegistrationNumberBack
+        			,'teacherApprovalCode':teacherApprovalCode
+        			,'memberTeacherCareer':memberTeacherCareer
         			,'memberPhoneNumber':memberPhoneNumber
         			,'memberPostcode':memberPostcode
         			,'memberAddress':memberAddress
@@ -270,13 +276,11 @@ $(document).ready(function(){
             }
         }).open();
     }
-</script>
-</head>
-<body>
+
+    </script>
+    </th:block>
+<div layout:fragment="content">
 <!-- 	간격조정	 -->
-<div class="row">
-	<div class="col-sm-2"></div>
-	<div class="col-sm-8">
 		<div class="jumbotron">
 			<h1 class="display-3">강사 등록</h1><!-- 	제목	 -->
 			<!-- <p class="lead">강사로 채용 확정되신 분들만 가입을 할 수 있습니다. </p> -->
@@ -286,7 +290,7 @@ $(document).ready(function(){
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-6">
-					<form action="/insertTeacher" method="post">
+					<form action="/insertTeacher" id="insertTeacher" method="post">
 						<fieldset>
     						<div class="form-group">
     							<legend>회원정보</legend>
@@ -364,7 +368,7 @@ $(document).ready(function(){
 								<small class="form-text" id="addrCheck"></small><small class="form-text" id="addrDescCheck"></small>
 							</div>
 					<!--	 회원등급	 -->
-					<input type="hidden" name="memberRank" value="강사">
+					<input type="hidden" id="memberRank" name="memberRank" value="강사">
 							<div class="form-group">
 								<label for="InputInstitution">교육원</label>
 								<select class="form-control" id="institutionCode" name="institutionCode">
@@ -383,8 +387,5 @@ $(document).ready(function(){
 				<div class="col-md-5"></div>
 			</div>
 		</div>
-		<div class="col-sm-2"></div>
 	</div>
-</div>
-</body>
 </html>

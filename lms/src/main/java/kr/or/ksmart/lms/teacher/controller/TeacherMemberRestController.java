@@ -17,8 +17,8 @@ public class TeacherMemberRestController {
 	@PostMapping("/insertTeacher")
 	public void insertTeacher(Member member, MemberOnline memberOnline, MemberTeacher memberTeacher
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
-		System.out.println("[MemberController memberInsert] member:" + member);
-		teacherMemberService.insertTeacher(member, memberOnline, institutionCode);
+		System.out.println("[TeacherMemberRestController insertTeacher] member:" + member);
+		teacherMemberService.insertTeacher(member, memberOnline, memberTeacher, institutionCode);
 		
 	}
 }

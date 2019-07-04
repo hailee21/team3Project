@@ -67,7 +67,7 @@ public class PIMemberService {
 		//	member_online 테이블에 insert
 		
 		String memberOnlineCode = "MO"+nowDate+randomNo;	//	memberOnlineCode 생성
-		System.out.println("[MemberService insertMemberOnline] memberOnlineCode : " + memberOnlineCode);
+		System.out.println("[PIMemberService insertMemberOnline] memberOnlineCode : " + memberOnlineCode);
 		memberOnline.setMemberOnlineCode(memberOnlineCode);	//	memberOnline VO 내 memberOnlineCode set
 		memberOnline.setMemberCode(memberCode);
 		String institutionName = memberMapper.selectInstitutionName(institutionCode);
