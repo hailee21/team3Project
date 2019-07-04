@@ -30,11 +30,12 @@
 		</tr>
 		<tr th:each="subject:${list}">
 			<td th:text="${subject.licenseTestLocationCode}"></td>
-			<td><a th:text="${subject.licenseTestLocationRegion}" th:href="@{'/association/license/licenseTestLocationDetailList?licenseTestLocationCode='+${subject.licenseTestLocationCode}}" th:value="${subject.licenseTestLocationCode}"></a></td>
+			<td th:text="${subject.licenseTestLocationRegion}"></td>
 			<td th:text="${subject.licenseTestLocationAddress}"></td>
 			<td th:text="${subject.licenseTestLocationUse}"></td>
 			<td th:text="${subject.licenseTestLocationMaximumNumber}"></td>
-			<td th:text="${subject.licenseTestLocationInsertDate}"></td>				
+			<td th:text="${subject.licenseTestLocationInsertDate}"></td>
+			<td type="button" th:href="@{'/association/license/licenseTestLocationDetailList?licenseTestLocationCode='+${subject.licenseTestLocationCode}}" th:value="${subject.licenseTestLocationCode}">				
 		</tr>
 	</table>
 </div>
