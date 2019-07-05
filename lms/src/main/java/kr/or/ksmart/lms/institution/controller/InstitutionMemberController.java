@@ -14,9 +14,9 @@ import kr.or.ksmart.lms.institution.vo.InstitutionMember;
 
 @Controller
 public class InstitutionMemberController {
-	@Autowired InstitutionMemberService institutionMemberService;
+	@Autowired private InstitutionMemberService institutionMemberService;
 	
-	//	교육원 직원 등록 화면
+	//	교육원 직원 등록 화면 get요청
 	@GetMapping("/insertInstAdmin")
 	public ModelAndView insertInstAdmin (ModelAndView mav) {
 		mav.setViewName("institution/member/insertInstAdmin");
