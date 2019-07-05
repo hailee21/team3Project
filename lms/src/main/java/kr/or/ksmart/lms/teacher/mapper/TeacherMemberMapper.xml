@@ -50,15 +50,15 @@
 		)
 	</insert>
 	
-	<insert id="insertMemberOnlineId" parameterType="kr.or.ksmart.lms.association.vo.MemberOnline">
+	<insert id="insertMemberOnlineId" parameterType="kr.or.ksmart.lms.pi.vo.MemberOnlineInsertid">
 	<!--	아이디 중복검사를 위한 member_online_insertid에 online_id insert-->
 		INSERT INTO
 			member_online_insertid (
 			member_online_id
-			member_online_id_insert_date)
+			, member_online_id_insert_date)
 		VALUES (
 			#{memberOnlineId}
-			, #{memberOnlineIdInsertDate})
+			, now())
 	</insert>
 	
 	<insert id="insertTeacher" parameterType="kr.or.ksmart.lms.association.vo.MemberTeacher">

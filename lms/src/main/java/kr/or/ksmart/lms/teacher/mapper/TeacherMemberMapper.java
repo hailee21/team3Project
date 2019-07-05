@@ -16,7 +16,7 @@ public interface TeacherMemberMapper {
 	//	신규회원 등록
 	public int insertMember(Member member);
 	//	회원 아이디 저장
-	public int insertMemberOnlineId(MemberOnline memberOnline);
+	public int insertMemberOnlineId(String memberOnlineInsertid);
 	//	신규회원등록(memberOnline)
 	public int insertMemberOnline(MemberOnline memberOnline);
 	//	신규 강사 등록

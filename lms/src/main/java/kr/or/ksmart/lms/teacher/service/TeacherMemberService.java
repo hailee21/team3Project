@@ -51,7 +51,8 @@ public class TeacherMemberService {
 		teacherMemberMapper.insertMember(member);	//	mapper 실행
 		
 		//	member_online_insertid 테이블에 member_online_id insert
-		teacherMemberMapper.insertMemberOnlineId(memberOnline);
+		String memberOnlineInsertid = memberOnline.getMemberOnlineId();
+		teacherMemberMapper.insertMemberOnlineId(memberOnlineInsertid);
 		
 		//	member_online 테이블에 insert
 		
