@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionLectureFailMapper"> 
+	
+	<!-- InstitutionNoticeLectureMapper LectureFail resultMap  -->
+	<resultMap id="LectureFailResultMap"
+				type="kr.or.ksmart.lms.institution.vo.LectureFail">
+		<result column="lecture_fail_code" property="lectureFailCode"/>
+		<result column="notice_lecture_code" property="noticeLectureCode"/>
+		<result column="notice_lecture_title" property="noticeLectureTitle"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="member_teacher_code" property="memberTeacherCode"/>
+		<result column="member_teacher_name" property="memberTeacherName"/>
+		<result column="lecture_start_date" property="lectureStartDate"/>
+		<result column="lecture_end_date" property="lectureEndDate"/>
+		<result column="lecture_fail_reason" property="lectureFailReason"/>
+		<result column="lecture_fail_date" property="lectureFailDate"/>
+	</resultMap>	
+	
+	<!-- 폐강 세부조회 출력 -->
+	<select id="institutionSelectLectureFailByLectureFailCode"
+			resultMap="LectureFailResultMap">
+		SELECT 
+			lecture_fail_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,institution_code
+			,institution_name
+			,member_teacher_code
+			,member_teacher_name
+			,lecture_start_date
+			,lecture_end_date
+			,lecture_fail_reason
+			,left(lecture_fail_date, 10) AS lecture_fail_date
+		FROM 
+			lecture_fail
+		WHERE 
+			CURRENT_DATE() > lecture_fail_date
+	</select>
+	
+</mapper>

@@ -68,7 +68,21 @@
 		<result column="classroom_maximum_no" property="classroomMaximumNo"/>
 		<result column="classroom_date" property="classroomDate"/>
 	</resultMap>
-	
+	<!-- InstitutionNoticeLectureMapper LectureFail resultMap  -->
+	<resultMap id="LectureFailResultMap"
+				type="kr.or.ksmart.lms.institution.vo.LectureFail">
+		<result column="lecture_fail_code" property="lectureFailCode"/>
+		<result column="notice_lecture_code" property="noticeLectureCode"/>
+		<result column="notice_lecture_title" property="noticeLectureTitle"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="member_teacher_code" property="memberTeacherCode"/>
+		<result column="member_teacher_name" property="memberTeacherName"/>
+		<result column="lecture_start_date" property="lectureStartDate"/>
+		<result column="lecture_end_date" property="lectureEndDate"/>
+		<result column="lecture_fail_reason" property="lectureFailReason"/>
+		<result column="lecture_fail_date" property="lectureFailDate"/>
+	</resultMap>	
 	
 	<!-- noticeLecture 입력 -->
 		<!-- 1. 입력화면을 위한 준비 -->
@@ -208,6 +222,27 @@
 			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
 		FROM 
 			notice_lecture
+		WHERE	
+			date(notice_lecture_recruitment_end_date) >= date(now())		
+	</select>
+	
+	<!-- 폐깡 목록 출력 -->
+	<select id="institutionSelectLectureFailList"
+			resultMap="LectureFailResultMap">
+		SELECT 
+			lecture_fail_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,institution_code
+			,institution_name
+			,member_teacher_code
+			,member_teacher_name
+			,lecture_start_date
+			,lecture_end_date
+			,lecture_fail_reason
+			,left(lecture_fail_date, 10) AS lecture_fail_date
+		FROM 
+			lecture_fail
 	</select>
 	
 	<!-- 세부 강의공고 조회 -->
@@ -237,4 +272,5 @@
 		WHERE 
 			notice_lecture_code = #{noticeLectureCode}
 	</select>
+	
 </mapper>

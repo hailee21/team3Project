@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.institution.service.InstitutionNoticeLectureService;
 import kr.or.ksmart.lms.institution.vo.Classroom;
+import kr.or.ksmart.lms.institution.vo.LectureFail;
 import kr.or.ksmart.lms.institution.vo.NoticeLecture;
 
 @Controller
@@ -85,7 +86,7 @@ public class InstitutionNoticeLectureController {
 	
 	// institution Layout 강의공고 리스트 출력 controller
 	@GetMapping("/institution/lecture/noticeLectureList")
-	public ModelAndView institutionGetNoticeLectureList(ModelAndView mav, HttpSession session) {
+	public ModelAndView institutionGetNoticeAndFailLectureList(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		if(memberRank == null) {
 			memberRank="로그인 실패";
@@ -96,9 +97,15 @@ public class InstitutionNoticeLectureController {
 			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList]");
 			
 			// service에서 가져온 list를 mav에 담아서 뷰에서 활용
-			List<NoticeLecture> list = institutionNoticeLectureService.institutionGetNoticeLectureList();
+			Map<String, Object> map = institutionNoticeLectureService.institutionGetNoticeLectureList();
+			List<NoticeLecture> noticeLecturelist = (List<NoticeLecture>)map.get("noticeLecturelist");
+			List<LectureFail> lectureFailList = (List<LectureFail>)map.get("lectureFailList");
+			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] noticeLecturelist: "+noticeLecturelist);
+			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] lectureFailList: "+lectureFailList);
+			
 			mav.setViewName("institution/lecture/noticeLectureList");
-			mav.addObject("noticeLectureList", list);
+			mav.addObject("noticeLecturelist", noticeLecturelist);
+			mav.addObject("lectureFailList", lectureFailList);
 		}else {
 			System.out.println("교육원직원아님");
 			

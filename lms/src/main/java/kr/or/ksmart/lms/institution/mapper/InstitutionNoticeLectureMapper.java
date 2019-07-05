@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.or.ksmart.lms.institution.vo.Classroom;
 import kr.or.ksmart.lms.institution.vo.InfoLecture;
 import kr.or.ksmart.lms.institution.vo.Institution;
+import kr.or.ksmart.lms.institution.vo.LectureFail;
 import kr.or.ksmart.lms.institution.vo.MemberTeacher;
 import kr.or.ksmart.lms.institution.vo.NoticeLecture;
 
@@ -32,6 +33,8 @@ public interface InstitutionNoticeLectureMapper {
 	
 	// 강의공고 목록 출력
 	public List<NoticeLecture> institutionSelectNoticeLectureList();
+	// 폐강목록 출력
+	public List<LectureFail> institutionSelectLectureFailList();
 	// 세부 강의공고 조회
 	public NoticeLecture institutionSelectNoticeLectureByNoticeLectureCode(String NoticeLectureCode);
 }

@@ -155,10 +155,10 @@ public class PILectureService {
 	}
 	
 	// 4. 수강신청 등록  메서드
-	public Map<String, Object> piAddLectureSignup(String institutionCode, LectureSignup lectureSignup) {
+	public Map<String, Object> piAddLectureSignup(String institutionCode, String noticeLectureCode, LectureSignup lectureSignup) {
 		System.out.println("[PILectureService piAddLectureSignup]");
 		
-		// 1. 강의실 테이블에 추가할 PK 구하는 코드 
+		// 1. lectureSignup 테이블에 추가할 PK 구하는 코드 
 		// 1-1. 테이블의 PK를 위한 무작위 숫자 생성
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
 		Date now = new Date(); 
@@ -180,15 +180,28 @@ public class PILectureService {
 		lectureSignup.setLectureSignupCode(LSPK);;
 		System.out.println("[InstitutionClassroomService institutionAddClassroom] 최종 LSPK: "+LSPK);
 		System.out.println("[InstitutionClassroomService institutionAddClassroom] lectureSignup: "+lectureSignup);
-		// 2. classroom 테이블에 강의실 등록하기		
+		// 2. lectureSignup 테이블에 수강신청내역 등록하기		
 		piLectureMapper.piInsertLectureSignup(lectureSignup);
+		
+		// 3. 수강신청 이후 notice_lecture의 컬럼을 업데이트
+		// 3-1. select
+		int noticeLectureCurrentApplicantNo = piLectureMapper.piSelectNoticeLectureCurrentApplicantNoByNoticeLectureCode(noticeLectureCode);
+		System.out.println("noticeLectureCurrentApplicantNo : "+noticeLectureCurrentApplicantNo);
+			//골라 온 notice_lecture_current_applicant_no값에 1을 추가하여 map내부에 담은 뒤 update쿼리를 실행하자
+			int updateApplicantNo = noticeLectureCurrentApplicantNo+1;
+			System.out.println("증가된 noticeLectureCurrentApplicantNo : "+updateApplicantNo);
+		// 3-2. update
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("updateApplicantNo", updateApplicantNo);
+		map.put("noticeLectureCode", noticeLectureCode);
+		piLectureMapper.piUpdateNoticeLectureCurrentApplicationNoWithNoticeLectureCode(map);
 		
 		// 3. redirect 이후 화면에 교육원 정보 출력해주기 위한 메서드 호출
 		// Controller로 리턴보내기 위한 map 객체잠조변수 선언
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> returnMap = new HashMap<String, Object>();
 		// service내부의 institution의 정보를 호출하는 메서드를 호출하자.
 		Institution institution = piGetInstitutionName(institutionCode);
-		map.put("institution", institution);		
-		return map;
+		returnMap.put("institution", institution);		
+		return returnMap;
 	}
 }

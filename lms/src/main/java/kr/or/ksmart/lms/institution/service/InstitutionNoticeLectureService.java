@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ksmart.lms.institution.mapper.InstitutionNoticeLectureMapper;
 import kr.or.ksmart.lms.institution.vo.Classroom;
 import kr.or.ksmart.lms.institution.vo.InfoLecture;
+import kr.or.ksmart.lms.institution.vo.LectureFail;
 import kr.or.ksmart.lms.institution.vo.MemberTeacher;
 import kr.or.ksmart.lms.institution.vo.NoticeLecture;
 
@@ -90,14 +91,20 @@ public class InstitutionNoticeLectureService {
 	
 	
 	// 강의공고 리스트 출력
-	public List<NoticeLecture> institutionGetNoticeLectureList(){
+	public Map<String, Object> institutionGetNoticeLectureList(){
 		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList]");
 		
-		// 단위테스트를 위해 list객체참조변수 내부에 mapper에서 호출한 메서드를 담아서 리턴보내기
-		List<NoticeLecture> list = institutionNoticeLectureMapper.institutionSelectNoticeLectureList();
-		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] list: "+list);
+		// mapper에서 호출해온 각 리스트들을 map에 담아서 controller에서 ModelAndView에 담아 뷰에서 활용하자
+		List<NoticeLecture> noticeLecturelist = institutionNoticeLectureMapper.institutionSelectNoticeLectureList();
+		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] list: "+noticeLecturelist);
 		
-		return list;
+		List<LectureFail> lectureFailList = institutionNoticeLectureMapper.institutionSelectLectureFailList();
+		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] list: "+lectureFailList);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noticeLecturelist", noticeLecturelist);
+		map.put("lectureFailList", lectureFailList);
+		return map;
 	}
 	// 세부 강의공고 출력
 	public NoticeLecture institutionGetNoticeLectureByNoticeLectureCode(String noticeLectureCode) {
