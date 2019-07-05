@@ -10,7 +10,6 @@ import kr.or.ksmart.lms.association.vo.EvalTotal;
 import kr.or.ksmart.lms.association.vo.InfoEvalByAssociation;
 import kr.or.ksmart.lms.association.vo.InsertEvalTotal;
 import kr.or.ksmart.lms.association.vo.Institution;
-import kr.or.ksmart.lms.association.vo.ModifyEvalByAssociation;
 
 @Mapper
 public interface AssociationEvaluationMapper {
@@ -54,7 +53,7 @@ public interface AssociationEvaluationMapper {
     public List<EvalTotal> selectEvalTotalByYear(Map<String, Object> map);
 
     //교육원 평가 리스트 출력 mapper
-    public List<EvalByAssociation> selectEvalByAssociationList();
+    public List<EvalByAssociation> selectEvalByAssociationList(Map<String, Object> map);
 
     //각 교육원 월별 평가 리스트 출력 mapper
     public List<EvalByAssociation> selectEvalByAssociationListByEvalTotalCodeAndMonth(Map<String, Object> map); 
@@ -64,4 +63,7 @@ public interface AssociationEvaluationMapper {
 
     //각 교육원 월별 평가완료시 교육원 평가 합계 월별 점수 수정 mapper
     public void updateEvalTotalMonth(Map<String, Object> map);
+
+    //교육원 평가 상세 페이징을 위한 mapper
+    public int selectEvalByAssociationConut();
 }

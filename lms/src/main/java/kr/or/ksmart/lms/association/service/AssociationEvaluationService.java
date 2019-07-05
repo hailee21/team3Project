@@ -30,15 +30,9 @@ public class AssociationEvaluationService {
         //검색 조건 항목 mapper 호출
         List<String> evalTotalType = associationEvaluationMapper.selectEvalTotalType();
         List<Integer> evalTotalYear = associationEvaluationMapper.selectEvalTotalYear();
-        
-        //전체 리스트 mapper 호출
-        List<EvalTotal> evalTotalList = associationEvaluationMapper.selectEvalTotalList();
-        List<EvalByAssociation> evalList = associationEvaluationMapper.selectEvalByAssociationList();
-       
+
         //컨트롤러로 리턴할 데이터 선언 및 설정
         Map<String, Object> returnMap = new HashMap<String, Object>();
-        returnMap.put("evalTotalList", evalTotalList);
-        returnMap.put("evalList", evalList);
         returnMap.put("evalTotalType", evalTotalType);
         returnMap.put("evalTotalYear", evalTotalYear);
 		return returnMap;
@@ -82,23 +76,46 @@ public class AssociationEvaluationService {
 
     //교육원 평가 합계 출력 service
     public Map<String, Object> getEvalTotatList(Map<String, Object> map) {
-        System.out.println(map);
-        String evalTotalYear = ""+map.get("evalTotalYear");
-        if(evalTotalYear.equals("0")){
-            evalTotalYear = "%%";
-            map.put("evalTotalYear", evalTotalYear);
-        }
-    	//입력조건에 따른 교육원 평가 합계 리스트 출력 mapper 호출
+        //입력조건에 따른 교육원 평가 합계 리스트 출력 mapper 호출
         List<EvalTotal> evalTotalList = associationEvaluationMapper.selectSerachEvalTotalList(map);
         
         //검색 조건 항목 service 호출
         Map<String, Object> serachKey = getEvaluationTotal();
-        List<EvalByAssociation> evalList = associationEvaluationMapper.selectEvalByAssociationList();
+        Map<String, Object> serachMap = new HashMap<String, Object>();
+        int currentEvalPage = (int)map.get("currentEvalPage");
+        final int ROW_PER_PAGE = 10;
+		int beginRow = (currentEvalPage-1)*ROW_PER_PAGE;
+		serachMap.put("beginRow", beginRow);
+		serachMap.put("rowPerPage", ROW_PER_PAGE);
+        List<EvalByAssociation> evalList = associationEvaluationMapper.selectEvalByAssociationList(serachMap);
 
+        //페이징을 위한 데이터 처리
+        int maxEvalCount = associationEvaluationMapper.selectEvalByAssociationConut();
+        int currentTenEvalPage = currentEvalPage/10;
+		if(currentEvalPage%10 == 0) {
+			currentTenEvalPage--;
+		}
+		int lastEvalPage = maxEvalCount/ROW_PER_PAGE;
+		if(maxEvalCount%ROW_PER_PAGE !=0) {
+			lastEvalPage++;
+		}
+		int lastTenEvalPage = lastEvalPage/10;
+		if(lastEvalPage%10 == 0) {
+			lastTenEvalPage--;
+		}
+		int repetitionPage = 10;
+		if((lastEvalPage - currentTenEvalPage*10) < 10) {
+			repetitionPage = lastEvalPage % 10 ;
+		}	
         //컨트롤러로 리턴할 데이터 선언 및 설정
         Map<String, Object> returnMap = new HashMap<String, Object>();
         returnMap.put("evalTotalList", evalTotalList);
         returnMap.put("evalList", evalList);
+        returnMap.put("currentEvalPage", currentEvalPage);
+        returnMap.put("currentTenEvalPage", currentTenEvalPage);
+        returnMap.put("lastEvalPage", lastEvalPage);
+        returnMap.put("lastTenEvalPage", lastTenEvalPage);
+        returnMap.put("repetitionPage", repetitionPage);
         returnMap.put("evalTotalType", serachKey.get("evalTotalType"));
         returnMap.put("evalTotalYear", serachKey.get("evalTotalYear"));
         return returnMap;

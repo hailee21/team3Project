@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,23 +24,37 @@ public class AssociationEvaluationController {
 	@Autowired
 	AssociationEvaluationService associationEvaluationService;
 	
-	//교육원 평가 합계 리스트 출력 controller
-	@GetMapping("/association/evaluation/evaluationTotal")
-	public ModelAndView getEvaluationTotal(HttpSession session, ModelAndView mav) {
-		System.out.println("[AssociationEvaluationController getEvaluationTotal] 호출");
+	//교육원 평가 합계리스트 출력 controller
+	@RequestMapping("/association/evaluation/evaluationTotal")
+	public ModelAndView getEvalTotatList(HttpSession session, ModelAndView mav
+			, @RequestParam(value="evalTotalYear", required = false, defaultValue = "%") String evalTotalYear
+			, @RequestParam(value="currentEvalPage", required = false, defaultValue = "1") int currentEvalPage
+			, @RequestParam(value="evalTotalType", required = false, defaultValue = "%") String evalTotalType) {
+		System.out.println("[AssociationEvaluationController getEvalTotatList] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
-			Map<String, Object> map = associationEvaluationService.getEvaluationTotal();
-			mav.addObject("evalTotalList", map.get("evalTotalList"));
-			mav.addObject("evalList", map.get("evalList"));
-			mav.addObject("evalTotalType", map.get("evalTotalType"));
-			mav.addObject("evalTotalYear", map.get("evalTotalYear"));
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("evalTotalYear", evalTotalYear);
+			map.put("evalTotalType", evalTotalType);
+			map.put("currentEvalPage", currentEvalPage);
+			Map<String, Object> returnMap = associationEvaluationService.getEvalTotatList(map);
+			mav.addObject("currentEvalPage", returnMap.get("currentEvalPage"));
+			mav.addObject("currentTenEvalPage", returnMap.get("currentTenEvalPage"));
+			mav.addObject("lastEvalPage", returnMap.get("lastEvalPage"));
+			mav.addObject("lastTenEvalPage", returnMap.get("lastTenEvalPage"));
+			mav.addObject("repetitionPage", returnMap.get("repetitionPage"));
+			mav.addObject("evalTotalList", returnMap.get("evalTotalList"));
+			mav.addObject("evalTotalType", returnMap.get("evalTotalType"));
+			mav.addObject("evalTotalYear", returnMap.get("evalTotalYear"));
+			mav.addObject("evalList", returnMap.get("evalList"));
+			mav.addObject("searchYear", evalTotalYear);
+			mav.addObject("searchSort", evalTotalType);
 			mav.setViewName("association/evaluation/evaluationTotal");
 		} else {
-			System.out.println("[AssociationEvaluationController getEvaluationTotal] 협회직원 아님");
+			System.out.println("[AssociationEvaluationController getEvalTotatList] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
 		}
 		return mav;
@@ -160,35 +175,6 @@ public class AssociationEvaluationController {
 			mav.setViewName("redirect:/association/evaluation/evaluationTotal");
 		} else {
 			System.out.println("[AssociationEvaluationController addEvaluationTotal] 협회직원 아님");
-			mav.setViewName("association/associationLogin");
-		}
-		return mav;
-	}
-
-	//교육원 평가 합계리스트 출력 controller
-	@PostMapping("/association/evaluation/evaluationTotal")
-	public ModelAndView getEvalTotatList(HttpSession session, ModelAndView mav
-			, @RequestParam(value="evalTotalYear") int evalTotalYear
-			, @RequestParam(value="evalTotalType") String evalTotalType) {
-		System.out.println("[AssociationEvaluationController getEvalTotatList] 호출");
-		String memberRank = (String)session.getAttribute("memberRank");
-		if(memberRank == null) {
-			memberRank = "로그인 실패";
-		}
-		if(memberRank.equals("협회직원")) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("evalTotalYear", evalTotalYear);
-			map.put("evalTotalType", evalTotalType);
-			Map<String, Object> returnMap = associationEvaluationService.getEvalTotatList(map);
-			mav.addObject("evalTotalList", returnMap.get("evalTotalList"));
-			mav.addObject("evalTotalType", returnMap.get("evalTotalType"));
-			mav.addObject("evalTotalYear", returnMap.get("evalTotalYear"));
-			mav.addObject("evalList", returnMap.get("evalList"));
-			mav.addObject("searchYear", evalTotalYear);
-			mav.addObject("searchSort", evalTotalType);
-			mav.setViewName("association/evaluation/evaluationTotal");
-		} else {
-			System.out.println("[AssociationEvaluationController getEvalTotatList] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
 		}
 		return mav;

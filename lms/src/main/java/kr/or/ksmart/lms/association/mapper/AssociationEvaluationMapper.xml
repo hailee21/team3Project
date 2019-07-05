@@ -354,6 +354,7 @@
 
 	<!-- 교육원 평가 리스트 출력 -->
 	<select id="selectEvalByAssociationList"
+			parameterType="java.util.Map"
 			resultMap="EvalByAssociationMap">
 		SELECT
 			eval_by_association_code
@@ -377,6 +378,7 @@
 			, info_eval_by_association_sort ASC
 			, info_eval_by_association_type ASC
 			, institution_name ASC
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 
 	<!-- 각 교육원 월별 평가 리스트 출력 출력 -->
@@ -455,7 +457,7 @@
 			<if test="evalByAssociationMonth == '09'">
 				eval_total_sep = #{sumScore}
 			</if>
-			<if test="evalByAssociationMonth == '10'">
+			<if test="evalByAssosciationMonth == '10'">
 				eval_total_oct = #{sumScore}
 			</if>
 			<if test="evalByAssociationMonth == '11'">
@@ -467,4 +469,11 @@
 		WHERE 
 			eval_total_code = #{evalTotalCode}
 	</update>
+
+	<!-- 교육원 평가 상세 페이징을 위한 select -->
+	<select id="selectEvalByAssociationConut"
+			resultType="int">
+		SELECT COUNT(*)	
+		FROM eval_by_association
+	</select>
 </mapper>
