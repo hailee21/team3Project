@@ -4,12 +4,20 @@
 <mapper namespace="kr.or.ksmart.lms.member.mapper.SendEmailMapper">
 	<insert id="insertTeacherApproval"
 			parameterType="String">
-		INSERT INTO teacher_approval
-		VALUES (#{teacherApprovalCode})
+		INSERT INTO teacher_approval (
+			teacher_approval_code
+			, teacher_approval_insert_date)
+		VALUES (
+			#{teacherApprovalCode}
+			, now())
 	</insert>
 	<insert id="insertInstitutionApproval"
 			parameterType="String">
-		INSERT INTO institution_approval
-		VALUES (#{institutionApprovalCode})
+		INSERT INTO institution_approval (
+			institution_approval_code
+			, institution_approval_insert_date)
+		VALUES (
+			#{institutionApprovalCode}
+			, now())
 	</insert>
 </mapper>

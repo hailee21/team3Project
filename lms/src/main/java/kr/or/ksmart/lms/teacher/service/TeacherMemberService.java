@@ -28,6 +28,21 @@ public class TeacherMemberService {
 	}
 	// idCheck는 PIMemberRestController에서 처리함.
 	
+	// 강사 승인코드 존재유무와 사용여부 조회
+	public boolean approvalCodeCheck(String teacherApprovalCode) {
+		String check = teacherMemberMapper.selectTeacherApprovalCode(teacherApprovalCode);
+		String result = teacherMemberMapper.selectMemberTeacherApprovalCode(teacherApprovalCode);
+		System.out.println("[TeacherMemberService 강사코드존재여부 확인:]" + check);
+		boolean code = false;
+		if (check != null) {	//	입력받은코드가 teacher_approval에 있으면(결과가 null이 아니면)
+			System.out.println("[approvalCodeCheck teacher_approval code select결과:]" + check);
+			if (result == null) {	//	입력받은 코드가 member_teacher에 없으면(결과가 null이면)
+				System.out.println("[approvalCodeCheck member_teacher에서 code select결과:]" + result);
+				code = true;
+			}
+		}
+		return code;
+	}
 	//	강사회원 insert 처리
 	public void insertTeacher(Member member, MemberOnline memberOnline, MemberTeacher memberTeacher, String institutionCode) {
 		//	member 테이블에 insert 준비. membercode 생성
