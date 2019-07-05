@@ -14,7 +14,7 @@
 		WHERE teacher_approval_code=#{teacherApprovalCode}
 	</select>
 	
-	<!-- memberInsert 할때 institutionCode 받아와서 해당 교육원 이름을 찾는 select 쿼리 -->
+	<!-- select 폼에서 institutionCode 받아와서 해당 교육원 이름을 찾는 select 쿼리 -->
 	<select id="selectInstitutionName"
 			resultType="String">
 		SELECT
@@ -24,7 +24,7 @@
 			institution_code = #{institutionCode}
 	</select>
 	
-	<!-- memberInsert 할 때 institutionName을 찾기 위한 resultMap -->
+	<!-- memberOnlineInsert 할 때 institutionName을 찾기 위한 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="InstitutionMap">
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>

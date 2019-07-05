@@ -52,5 +52,28 @@ public class AssociationMemberService {
 		member.setMemberCode(memberCode);	//Member VO 내 memberCode set
 		//	member 테이블에 insert
 		associationMemberMapper.insertMember(member);	// mapper 실행
+		
+		//	member_online_insertid 테이블에 member_online_id insert
+		String memberOnlineInsertid = memberOnline.getMemberOnlineId();
+		associationMemberMapper.insertMemberOnlinId(memberOnlineInsertid);
+		
+		//	member_online 테이블에 insert
+		String memberOnlineCode = "MO"+nowDate+randomNo;	//	memberOnlineCode 생성
+		System.out.println("[TeacherMemberService insertTeacher] memberOnlineCode : " + memberOnlineCode);
+		memberOnline.setMemberOnlineCode(memberOnlineCode);	//	memberOnline VO 내 memberOnlineCode set
+		memberOnline.setMemberCode(memberCode);
+		String institutionName = associationMemberMapper.selectInstitutionName(institutionCode);
+		memberOnline.setInstitutionName(institutionName);
+		
+		associationMemberMapper.insertMemberOnline(memberOnline);	//	mapper 실행
+		
+		//	member_institution 테이블에 insert
+		String memberInstitutionCode = "MI"+nowDate+randomNo;	//	memberTeacherCode 생성
+		System.out.println("[TeacherMemberService insertTeacher] memberTeacherCode : " + memberInstitutionCode);
+		System.out.println(memberInstitution);
+		memberInstitution.setMemberInstitutionCode(memberInstitutionCode);
+		memberInstitution.setMemberCode(memberCode);
+		
+		associationMemberMapper.insertAdmin(memberInstitution);
 	}
 }
