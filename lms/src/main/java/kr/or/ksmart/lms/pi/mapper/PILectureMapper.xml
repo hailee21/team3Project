@@ -251,4 +251,27 @@
 			,now()
 		)
 	</insert>
+	
+	<!-- notice_lecture테이블의 notice_lecture_current_applicant_no컬럼 수 업데이트 -->
+	<!-- Select -->
+	<select id="piSelectNoticeLectureCurrentApplicantNoByNoticeLectureCode"
+			parameterType="String"
+			resultType="Integer">
+		SELECT
+			notice_lecture_current_applicant_no
+		FROM 
+			notice_lecture
+		WHERE
+			notice_lecture_code = #{noticeLectureCode}
+	</select>	
+	<!-- Update -->
+	<update id="piUpdateNoticeLectureCurrentApplicationNoWithNoticeLectureCode"
+			parameterType="java.util.Map">
+		UPDATE
+			notice_lecture
+		SET	
+			notice_lecture_current_applicant_no = #{updateApplicantNo}
+		WHERE
+			notice_lecture_code = #{noticeLectureCode}
+	</update>
 </mapper>

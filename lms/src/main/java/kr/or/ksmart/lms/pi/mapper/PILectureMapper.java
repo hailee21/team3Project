@@ -35,4 +35,9 @@ public interface PILectureMapper {
 	public LectureSignup piLectureSignupCheck(Map<String, Object> map);
 	// 수강신청 메서드
 	public void piInsertLectureSignup(LectureSignup lectureSignup);
+	// 수강신청과 동시에 notice_lecture테이블의 notice_lecture_current_applicant_no컬럼 수 업데이트를 위한 준비
+	// Select
+	public Integer piSelectNoticeLectureCurrentApplicantNoByNoticeLectureCode(String NoticeLectureCode);
+	// Update
+	public void piUpdateNoticeLectureCurrentApplicationNoWithNoticeLectureCode(Map<String, Object> map);
 }

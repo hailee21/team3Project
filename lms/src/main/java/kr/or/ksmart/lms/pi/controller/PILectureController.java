@@ -190,7 +190,7 @@ public class PILectureController {
 	// 수강신청 처리 
 	@PostMapping("/PI/lecture/lectureSignup")
 	public ModelAndView piAddLectureSignup(ModelAndView mav, HttpSession session, LectureSignup lectureSignup
-										, @RequestParam String institutionCode) {
+										, @RequestParam String institutionCode, @RequestParam String noticeLectureCode) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		if(memberRank == null) {
 			memberRank="로그인 실패";
@@ -203,7 +203,7 @@ public class PILectureController {
 
 			// service에서 메서드 호출하여 mav내부에 값 담아서 뷰에서 활용하자
 			// INSERT 작업을 위해 service 메서드 호출
-			Map<String, Object> map = piLectureService.piAddLectureSignup(institutionCode, lectureSignup);
+			Map<String, Object> map = piLectureService.piAddLectureSignup(institutionCode, noticeLectureCode, lectureSignup);
 			
 			// 교육원코드, 교육원명을 mav에 담아 활용
 			Institution institution = (Institution)map.get("institution");

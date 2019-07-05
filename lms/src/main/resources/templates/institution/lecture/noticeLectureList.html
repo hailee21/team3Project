@@ -23,13 +23,13 @@
 	<h1>강의공고 목록</h1>
 	
 	<button type="button" id="btnAdd" class="btn btn-primary btn-rightLarge">강의공고 등록하기</button><br><br>
-	
+	<h3>현재 진행중인 강의</h3>
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>강의공고명</th>
-				<th>강사</th>
 				<th>교육원</th>
+				<th>강사</th>
 				<th>최소인원</th>
 				<th>강의료</th>
 				<th>모집 시작일</th>
@@ -39,16 +39,36 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="list:${noticeLectureList}">
+			<tr th:each="list:${noticeLecturelist}">
 				<td><a th:href="@{'/institution/lecture/detailNoticeLecture?noticeLectureCode='+${list.noticeLectureCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.noticeLectureCode}"></a></td>
-				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
 				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
+				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
 				<td th:text="${list.noticeLectureMinimumNo}" th:value="${list.noticeLectureMinimumNo}"></td>
 				<td th:text="${list.noticeLectureFee}" th:value="${list.noticeLectureFee}"></td>
 				<td th:text="${list.noticeLectureRecruitmentStartDate}" th:value="${list.noticeLectureRecruitmentStartDate}"></td>
 				<td th:text="${list.noticeLectureRecruitmentEndDate}" th:value="${list.noticeLectureRecruitmentEndDate}"></td>
 				<td th:text="${list.noticeLectureStartDate}" th:value="${list.noticeLectureStartDate}"></td>
 				<td th:text="${list.noticeLectureEndDate}" th:value="${list.noticeLectureEndDate}"></td>				
+			</tr>
+		</tbody>
+	</table>
+	
+	<h3>폐강된 강의</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>강의공고명</th>
+				<th>교육원</th>
+				<th>강사명</th>
+				<th>폐강일자</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list:${lectureFailList}">
+				<td><a th:href="@{'/institution/lecture/detailLectureFail?lectureFailCode='+${list.lectureFailCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.lectureFailCode}"></a></td>
+				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
+				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
+				<td th:text="${list.lectureFailDate}" th:value="${list.lectureFailDate}"></td>				
 			</tr>
 		</tbody>
 	</table>
