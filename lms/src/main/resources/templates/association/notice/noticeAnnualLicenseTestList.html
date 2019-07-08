@@ -34,7 +34,7 @@
 			<td th:text="${subject.noticeAnnualLicenseTestEndDate}"></td>
 			<td th:text="${subject.noticeAnnualLicenseTestResultDate}"></td>
 			<td th:text="${subject.noticeAnnualLicenseTestInsertDate}"></td>
-			<td><a th:href="@{'/association/notice/addNoticeLicenseTestLocation?noticeAnnualLicenseTestCode='+${subject.noticeAnnualLicenseTestCode}}">등록</a></td>				
+			<td><a class="btn btn-secondary" th:href="@{'/association/notice/addNoticeLicenseTest?noticeAnnualLicenseTestCode='+${subject.noticeAnnualLicenseTestCode}}">등록</a></td>				
 		</tr>
 	</table>
 </div>

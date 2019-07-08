@@ -12,7 +12,6 @@
 <script>
 	$(document).ready(function() {
 		//유효성 검사를 위한 변수 선언
-		let noticeLicenseTestCodeCheck = true;
 		let infoQualificationCodeCheck = true;
 		let noticeLicenseTestNameCheck = true;
 		let noticeAnnualLicenseTestCodeCheck = true;
@@ -23,18 +22,7 @@
 		let noticeAnnualLicenseTestApplyEndDateCheck = true;
 		let noticeLicenseTestDateCheck = true;
 		let noticeAnnualLicenseTestResultDateCheck = true;
-		
 
-		//noticeLicenseTestCode 입력 유효성 검사
-		$('#noticeLicenseTestCode').blur(function() {
-			if($('#noticeLicenseTestCode').val() == "") {
-				console.log('noticeLicenseTestCode 공백입력')
-				noticeLicenseTestCodeCheck = true;
-			} else {
-                console.log('noticeAnnualLicenseTestName 유효성 검사 완료')
-				noticeLicenseTestCodeCheck = false;
-			}
-		});
 
 		//infoQualificationCode 입력 유효성 검사
 		$('#infoQualificationCode').blur(function() {
@@ -141,10 +129,7 @@
 
 		//btnAdd 클릭 이벤트 처리
 		$('#btnAdd').on('click',function() {
-			if(noticeLicenseTestCodeCheck) {
-				$('h4').addClass('red');
-				$('h4').text('자격시험공고코드가 공백 상태 입니다.');
-			} else if(infoQualificationCodeCheck) {
+			if(infoQualificationCodeCheck) {
 				$('h4').addClass('red');
 				$('h4').text('자격종목코드가 공백 상태 입니다.');
 			} else if(noticeLicenseTestNameCheck) {
@@ -175,7 +160,7 @@
 				$('h4').addClass('red');
 				$('h4').text('결과발표일이 공백 상태 입니다.');
 			} else {
-				$('#addNoticeAnnualLicenseTest').submit()
+				$('#addNoticeLicenseTest').submit()
 			}
 		});
 
@@ -186,10 +171,10 @@
 
 <div layout:fragment="content">
 	<h3>자격 시험 공고 등록</h3>
-	<form id="addNoticeLicenseTest" action="/association/notice/addNoticeLicenseTestLocation" method="post">
+	<form id="addNoticeLicenseTest" action="/association/notice/addNoticeLicenseTest" method="post">
 		<div class="form-group">
 			<label>자격시험공고코드 :</label>
-			<input type="text" class="form-control" id="noticeLicenseTestCode" name="noticeLicenseTestCode">
+			<input type="text" class="form-control" id="noticeLicenseTestCode" name="noticeLicenseTestCode" th:value="${noticeAnnualLicenseTestCode}">
 		</div>
 		<div class="form-group">
 			<label>자격종목코드 :</label>

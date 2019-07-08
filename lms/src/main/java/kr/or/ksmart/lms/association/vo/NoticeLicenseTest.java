@@ -1,5 +1,7 @@
 package kr.or.ksmart.lms.association.vo;
 
+import java.util.List;
+
 public class NoticeLicenseTest {
 	private String noticeLicenseTestCode;
 	private String infoQualificationCode;
@@ -12,6 +14,7 @@ public class NoticeLicenseTest {
 	private String noticeAnnualLicenseTestApplyEndDate;
 	private String noticeLicenseTestDate;
 	private String noticeAnnualLicenseTestResultDate;
+	private String noticeLicenseTestInsertDate;
 	public String getNoticeLicenseTestCode() {
 		return noticeLicenseTestCode;
 	}
@@ -78,6 +81,12 @@ public class NoticeLicenseTest {
 	public void setNoticeAnnualLicenseTestResultDate(String noticeAnnualLicenseTestResultDate) {
 		this.noticeAnnualLicenseTestResultDate = noticeAnnualLicenseTestResultDate;
 	}
+	public String getNoticeLicenseTestInsertDate() {
+		return noticeLicenseTestInsertDate;
+	}
+	public void setNoticeLicenseTestInsertDate(String noticeLicenseTestInsertDate) {
+		this.noticeLicenseTestInsertDate = noticeLicenseTestInsertDate;
+	}
 	@Override
 	public String toString() {
 		return "NoticeLicenseTest [noticeLicenseTestCode=" + noticeLicenseTestCode + ", infoQualificationCode="
@@ -88,7 +97,8 @@ public class NoticeLicenseTest {
 				+ ", noticeAnnualLicenseTestApplyStartDate=" + noticeAnnualLicenseTestApplyStartDate
 				+ ", noticeAnnualLicenseTestApplyEndDate=" + noticeAnnualLicenseTestApplyEndDate
 				+ ", noticeLicenseTestDate=" + noticeLicenseTestDate + ", noticeAnnualLicenseTestResultDate="
-				+ noticeAnnualLicenseTestResultDate + "]";
+				+ noticeAnnualLicenseTestResultDate + ", noticeLicenseTestInsertDate=" + noticeLicenseTestInsertDate
+				+ "]";
 	}
 	
 }

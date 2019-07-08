@@ -20,28 +20,24 @@ public class AssociationNoticeLicenseTestController {
 	@Autowired
 	AssociationNoticeLicenseTestService associationNoticeLicenseTestService;
 	
-	@GetMapping("/association/notice/addNoticeLicenseTestLocation") //자격 시험 공고 등록 폼
+	@GetMapping("/association/notice/addNoticeLicenseTest") //자격 시험 공고 등록 폼
 	public ModelAndView addNoticeLicenseTest(HttpSession session, ModelAndView mav,
-			@RequestParam String infoQualificationCode,
-			@RequestParam String noticeAnnualLicenseTestCode,
-			@RequestParam String licenseTestLocationCode) {
+			@RequestParam String noticeAnnualLicenseTestCode) {
 		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
-			mav.addObject("infoQualificationCode", infoQualificationCode);
 			mav.addObject("noticeAnnualLicenseTestCode", noticeAnnualLicenseTestCode);
-			mav.addObject("licenseTestLocationCode", licenseTestLocationCode);
-			mav.setViewName("/association/notice/addNoticeLicenseTestLocation");
+			mav.setViewName("/association/notice/addNoticeLicenseTest");
 		} else {
 			System.out.println("[AssociationInfoQualificationController addinfoQualification] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
 		}
 		return mav;
 	}
-	@PostMapping("/association/notice/addNoticeLicenseTestLocation") //자격 시험 공고 등록 액션 컨트롤러
+	@PostMapping("/association/notice/addNoticeLicenseTest") //자격 시험 공고 등록 액션 컨트롤러
 	public ModelAndView addNoticeLicenseTest(HttpSession session, ModelAndView mav, NoticeLicenseTest noticeLicenseTest) {
 		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
@@ -49,9 +45,11 @@ public class AssociationNoticeLicenseTestController {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
+			
 			associationNoticeLicenseTestService.insertNoticeLicenseTest(noticeLicenseTest);
-			mav.addObject("noticeLicenseTest", noticeLicenseTest);
-			mav.setViewName("redirect:/association/notice/addNoticeLicenseTestLocationList");
+			System.out.println("[AssociationNoticeLicenseTestController addNoticeLicenseTest]noticeLicenseTest"+noticeLicenseTest);
+			mav.setViewName("redirect:/association/notice/noticeLicenseTestLocationList?noticeAnnualLicenseTestCode="+noticeLicenseTest.getNoticeAnnualLicenseTestCode());
+			
 		} else {
 			System.out.println("[AssociationInfoQualificationController addinfoQualification] 협회직원 아님");
 			mav.setViewName("association/associationLogin");

@@ -16,6 +16,7 @@
 		<result column="notice_annual_license_test_apply_end_date" property="noticeAnnualLicenseTestApplyEndDate"/>
 		<result column="notice_license_test_date" property="noticeLicenseTestDate"/>
 		<result column="notice_annual_license_test_result_date" property="noticeAnnualLicenseTestResultDate"/>
+		<result column="notice_license_test_insert_date" property="noticeLicenseTestInsertDate"/>
 	</resultMap>
 
 	<!-- 자격 시험 공고 등록 -->
@@ -35,7 +36,7 @@
 			, #{noticeAnnualLicenseTestApplyEndDate}
 			, #{noticeLicenseTestDate}
 			, #{noticeAnnualLicenseTestResultDate}
-		SELECT	
+			, now()
 		 );
 	</insert>
 	<!-- 자격 시험 공고 리스트  -->
