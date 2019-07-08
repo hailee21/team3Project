@@ -12,7 +12,7 @@ public class AssociationMemberRestController {
 	@Autowired private AssociationMemberService associationMemberService;
 	
 	@PostMapping("/instApprovalCheck")
-	public boolean instApprovalCheck(@RequestParam(value="teacherApprovalCode", required=false) String institutionApprovalCode) {
+	public boolean instApprovalCheck(@RequestParam(value="institutionApprovalCode", required=false) String institutionApprovalCode) {
 		return associationMemberService.instApprovalCheck(institutionApprovalCode);
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.institution.service.InstitutionMemberService;
+import kr.or.ksmart.lms.institution.vo.Institution;
 import kr.or.ksmart.lms.institution.vo.InstitutionMember;
 
 @Controller
@@ -19,6 +20,9 @@ public class InstitutionMemberController {
 	//	교육원 직원 등록 화면 get요청
 	@GetMapping("/insertInstAdmin")
 	public ModelAndView insertInstAdmin (ModelAndView mav) {
+		//	교육원명 출력하기 위한 institutionList 호출
+		List<Institution> instList = institutionMemberService.insertAdmin();
+		mav.addObject("instList", instList);
 		mav.setViewName("institution/member/insertInstAdmin");
 		return mav;
 	}

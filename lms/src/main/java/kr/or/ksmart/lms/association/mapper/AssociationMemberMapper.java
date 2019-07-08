@@ -16,11 +16,11 @@ public interface AssociationMemberMapper {
 	//	institution_approval 테이블에서 발행된코드인지 조회
 	public String selectAdminApprovalCode(String institutionApprovalCode);
 	//	member_institution 테이블에서 사용여부확인을 위한 조회
-	public String selectMemberInstitutionApprovalCode(String teacherApprovalCode);
+	public String selectMemberInstitutionApprovalCode(String institutionApprovalCode);
 	//	신규 회원 등록(member)
 	public void insertMember(Member member);
 	//	회원 아이디 저장
-	public void insertMemberOnlinId(String memberOnlineInsertid);
+	public void insertMemberOnlineId(String memberOnlineInsertid);
 	//	교육원 코드로 교육원이름 조회
 	public String selectInstitutionName(String institutionCode);
 	//	신규 회원 등록(memberOnline)

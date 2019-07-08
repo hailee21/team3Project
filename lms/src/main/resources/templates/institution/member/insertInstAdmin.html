@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/root">
 <meta charset="UTF-8">
-<title>강사 등록</title>
+<title>교육원직원 등록</title>
 <!-- html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
 </th:block>
@@ -203,7 +203,7 @@ $(document).ready(function(){
     	    	$('#institutionCode').focus();
         	return false;
         	}
-    			$('#insertTeacher').submit();
+    			$('#insertAdmin').submit();
         	    alert('정상적으로 입력되었습니다');
         	});
     	});
@@ -273,7 +273,7 @@ $(document).ready(function(){
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-6">
-					<form action="/insertInstAdmin" method="post">
+					<form action="/insertAdmin" id="insertAdmin" method="post">
 						<fieldset>
     						<div class="form-group">
     							<legend>회원정보</legend>
@@ -311,8 +311,8 @@ $(document).ready(function(){
 							</div>
 					<!-- 	직원코드	 -->
 							<div class="form-group">
-								<label for="InputTeacherApproval">직원코드</label>
-								<input type="text" class="form-control" id="teacherApprovalCode" name="teacherApprovalCode" aria-describedby="" placeholder="TeacherApproval" value="">
+								<label for="InputInstitutionApprovalCode">직원코드</label>
+								<input type="text" class="form-control" id="institutionApprovalCode" name="institutionApprovalCode" aria-describedby="" placeholder="InstitutionApproval" value="">
 								<small class="form-text text-muted">발급받은 직원코드를 입력하세요</small>
 								<small class="form-text" id="approvalSub"></small>
 							</div>
@@ -351,8 +351,8 @@ $(document).ready(function(){
 								<small class="form-text" id="addrSub"></small><small class="form-text" id="addrDescSub"></small>
 							</div>
 					<!--	 회원등급	 -->
-					<input type="hidden" id="memberRank" name="memberRank" value="강사">
-					<input type="hidden" id="memberTeacherServiceCheck" name="memberTeacherServiceCheck" value="최초등록">
+					<input type="hidden" id="memberRank" name="memberRank" value="교육원직원">
+					<input type="hidden" id="memberInstitutionServiceCheck" name="memberInstitutionServiceCheck" value="최초등록">
 							<div class="form-group">
 								<label for="InputInstitution">교육원</label>
 								<select class="form-control" id="institutionCode" name="institutionCode">
@@ -363,7 +363,7 @@ $(document).ready(function(){
 							</div>
 							<p style="height: 10px"></p>
 							<div class="form-group">
-								<button type="button" id="btnAdd" class="btn btn-primary">강사등록</button> <button type="button" id="btnBack" class="btn btn-secondary disabled">뒤로가기</button>
+								<button type="button" id="btnAdd" class="btn btn-primary">직원등록</button> <button type="button" id="btnBack" class="btn btn-secondary disabled">뒤로가기</button>
 							</div>
 						</fieldset>
 					</form>
