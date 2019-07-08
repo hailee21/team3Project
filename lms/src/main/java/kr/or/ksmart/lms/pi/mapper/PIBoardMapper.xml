@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.pi.mapper.PIBoardMapper">
+	<insert id="insertBoard" parameterType="kr.or.ksmart.lms.association.vo.Board">
+	INSERT INTO board (
+		board_title
+		, board_contents
+		, board_type
+		, member_online_code
+		, member_online_id
+		, member_name
+		, institution_code
+		, institution_name
+		, board_date
+	) VALUES (
+		#{boardTitle}
+		, #{boardContents}
+		, #{boardType}
+		, #{memberOnlineCode}
+		, #{memberOnlineId}
+		, #{memberName}
+		, #{institutionCode}
+		, #{institutionName}
+		, now()
+	)
+	</insert>
+	
+	<resultMap type="kr.or.ksmart.lms.association.vo.Board" id="BoardMap">
+		<result column="board_no" property="boardNo"/>
+		<result column="board_title" property="boardTitle"/>
+		<result column="board_contents" property="boardContents"/>
+		<result column="board_type" property="boardType"/>
+		<result column="member_online_code" property="memberOnlineCode"/>
+		<result column="member_online_id" property="memberOnlineId"/>
+		<result column="member_name" property="memberName"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="board_date" property="BoardDate"/>
+		
+	</resultMap>
+	<!-- board 게시판 리스트 출력 select 쿼리 -->
+	<select id="getBoard"
+			parameterType="String"
+			resultMap="BoardMap">
+		SELECT
+			board_title
+			, member_name
+		FROM board
+		WHERE
+			board_type = '커뮤니티'
+	</select>
+
 <!-- institutionCode, name을 가지고 가기 위한 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="IndexInstitutionMap">
 		<result column="institution_code" property="institutionCode"/>
