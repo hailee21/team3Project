@@ -5,11 +5,6 @@
 <meta charset="utf-8">
 <!-- html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-    <style>
-        ul {
-            text-align: center;
-        }
-    </style>
 </th:block>
 
 <!-- html 고유 스크립트 추가 -->
@@ -214,20 +209,18 @@
             </tr>
 		</tbody>
     </table>
-    <div>
-        <ul class="pagination">
-            <li th:if="${currentEvalPage > 10}" class="page-item">
-                <a class="page-link" th:href="@{'/association/evaluation/evaluationTotal?currentEvalPage='+${currentTenEvalPage*10}}">&laquo;</a>
-            </li>    
-            <th:block th:each="num:${#numbers.sequence(1,repetitionPage)}">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{'/association/evaluation/evaluationTotal?currentEvalPage='+${(currentTenEvalPage*10)+num}}" th:text="${(currentTenEvalPage*10)+num}"></a>
-                </li>
-            </th:block>
-            <li th:if="${lastTenEvalPage > currentTenEvalPage}" class="page-item">
-                <a class="page-link" th:href="@{'/association/evaluation/evaluationTotal?currentEvalPage='+${(currentTenEvalPage+1)*10+1}}">&raquo;</a>
+    <ul class="pagination">
+        <li th:if="${currentEvalPage > 10}" class="page-item">
+            <a class="page-link" th:href="@{'/association/evaluation/evaluationTotal?currentEvalPage='+${currentTenEvalPage*10}}">&laquo;</a>
+        </li>    
+        <th:block th:each="num:${#numbers.sequence(1,repetitionPage)}">
+            <li class="page-item">
+                <a class="page-link" th:href="@{'/association/evaluation/evaluationTotal?currentEvalPage='+${(currentTenEvalPage*10)+num}}" th:text="${(currentTenEvalPage*10)+num}"></a>
             </li>
-        </ul>
-      </div>
+        </th:block>
+        <li th:if="${lastTenEvalPage > currentTenEvalPage}" class="page-item">
+            <a class="page-link" th:href="@{'/association/evaluation/evaluationTotal?currentEvalPage='+${(currentTenEvalPage+1)*10+1}}">&raquo;</a>
+        </li>
+    </ul>
 </div>
 </html>

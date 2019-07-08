@@ -40,5 +40,20 @@ public class RestAssociationEvaluationController {
 		return associationEvaluationService.getEvalByAssociationListByInstitutionCodeAndMonth(map);
 	}
 
+	//각 교육원 월별 평가 입력을 위한 비동기 처리 controller
+	@PostMapping("/getEvalByAssociationListForAdd")
+	public List<InfoEvalByAssociation> evalByAssociationListForAdd(String infoEvalByAssociationSort) {
+		return associationEvaluationService.getInfoEvalByAssociation(infoEvalByAssociationSort);
+	}
 
+	//교육원 평가 합계 리스트 차트 출력 controller
+	@PostMapping("/restEvaluationTotalChart")
+	public Map<String, Object> getEvalTotatChart(String evalTotalYear, String evalTotalType) {
+		System.out.println("[AssociationEvaluationRestController getEvalTotatChart] 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("evalTotalYear", evalTotalYear);
+		map.put("evalTotalType", evalTotalType);
+		Map<String, Object> returnMap = associationEvaluationService.getEvalTotatChart(map);
+		return returnMap;
+	}
 }

@@ -121,9 +121,28 @@ public class AssociationEvaluationService {
         return returnMap;
     }
 
+    //교육원 평가 합계 차트 service
+    public Map<String, Object> getEvalTotatChart(Map<String, Object> map) {
+        //입력조건에 따른 교육원 평가 합계 리스트 출력 mapper 호출
+        List<EvalTotal> evalTotalList = associationEvaluationMapper.selectSerachEvalTotalList(map);
+        
+        //컨트롤러로 리턴할 데이터 선언 및 설정
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        returnMap.put("evalTotalList", evalTotalList);
+        return returnMap;
+    }
+
     //교육원 평가 합계 한개 출력 service
-    public EvalTotal getEvalTotal(String evalTotalCode) {
-        return associationEvaluationMapper.selectEvalTotal(evalTotalCode);
+    public Map<String, Object> getEvalTotal(String evalTotalCode) {
+        EvalTotal evalTotal = associationEvaluationMapper.selectEvalTotal(evalTotalCode);
+        
+        String infoEvalByAssociationSort = evalTotal.getEvalTotalType();
+        List<InfoEvalByAssociation> infoEvalByAssociation = associationEvaluationMapper.selectInfoEvalByAssociationList(infoEvalByAssociationSort);
+        
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        returnMap.put("evalTotal", evalTotal);
+        returnMap.put("infoEvalByAssociation", infoEvalByAssociation);
+        return returnMap;
     }
 
     //교육원 평가 합계 update service
@@ -206,9 +225,10 @@ public class AssociationEvaluationService {
     //평가 항목 상세 추가 액션 service
 	public void addEvalByAssociation(AddEvalByAssociation addEvalByAssociation) {
         //AddEvalByAssociation에서 리스트 분리하기 
-        List<String> institutionCodeList = addEvalByAssociation.getInstitutionCode();
+        String institutionCode = addEvalByAssociation.getInstitutionCode();
         List<String> infoEvalByAssociationCodeList = addEvalByAssociation.getInfoEvalByAssociationCode();
-
+        List<Integer> evalByAssociationScoreList = addEvalByAssociation.getEvalByAssociationScore();
+        
         //테이블의 PK를 위한 무작위 숫자 생성
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
 		Date now = new Date(); 
@@ -216,35 +236,46 @@ public class AssociationEvaluationService {
 		nowDate = nowDate.substring(0, 13);
 		nowDate = nowDate.toString().replace("-", "");
         nowDate = nowDate.toString().replace(" ", "");
-        for(String institutionCode: institutionCodeList) {
-            for(String infoEvalByAssociationCode: infoEvalByAssociationCodeList) {
-                Map<String, Object> map = new HashMap<String, Object>();
-                //테이블의 PK를 위한 무작위 숫자 생성
-                int randomNo1 = (int)(Math.random()*10000);
-                int randomNo2 = (int)(Math.random()*1000);
-                int randomNo3 = (int)(Math.random()*100);
-                int randomNo = randomNo1 + randomNo2 + randomNo3;
-                if(randomNo >= 10000) {
-                    randomNo = randomNo/10;
-                }
-                String evalByAssociationCode = "EA" + nowDate + randomNo;
 
-                //map에 담아서 교육원 평가 항목을 추가한다.
-                map.put("evalByAssociationCode", evalByAssociationCode);
-                map.put("institutionCode", institutionCode);
-                map.put("infoEvalByAssociationSort", addEvalByAssociation.getInfoEvalByAssociationSort());
-                map.put("evalTotalYear", addEvalByAssociation.getYear());
-                map.put("infoEvalByAssociationCode", infoEvalByAssociationCode);
-                map.put("evalByAssociationScore", addEvalByAssociation.getEvalByAssociationScore());
-                map.put("evalByAssociationStartDate", addEvalByAssociation.getEvalByAssociationStartDate());
-                map.put("evalByAssociationEndDate", addEvalByAssociation.getEvalByAssociationEndDate());
-                map.put("evalByAssociationMonth", addEvalByAssociation.getEvalByAssociationMonth());
-                map.put("evalByAssociationResultDate", addEvalByAssociation.getEvalByAssociationResultDate());
-
-                //EvalByAssociation 테이블에 insert mapper 호출
-                associationEvaluationMapper.insertEvalByAssociation(map);
+        int sumScore = 0;
+        for(int i=0; i<infoEvalByAssociationCodeList.size(); i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            //테이블의 PK를 위한 무작위 숫자 생성
+            int randomNo1 = (int)(Math.random()*10000);
+            int randomNo2 = (int)(Math.random()*1000);
+            int randomNo3 = (int)(Math.random()*100);
+            int randomNo = randomNo1 + randomNo2 + randomNo3;
+            if(randomNo >= 10000) {
+                randomNo = randomNo/10;
             }
+            String evalByAssociationCode = "EA" + nowDate + randomNo;
+
+            //map에 담아서 교육원 평가 항목을 추가한다.
+            map.put("evalByAssociationCode", evalByAssociationCode);
+            map.put("evalTotalCode",addEvalByAssociation.getEvalTotalCode() );
+            map.put("institutionCode", institutionCode);
+            map.put("evalTotalYear", addEvalByAssociation.getYear());
+            map.put("infoEvalByAssociationCode", infoEvalByAssociationCodeList.get(i));
+            map.put("evalByAssociationScore", evalByAssociationScoreList.get(i));
+            map.put("evalByAssociationStartDate", addEvalByAssociation.getEvalByAssociationStartDate());
+            map.put("evalByAssociationEndDate", addEvalByAssociation.getEvalByAssociationEndDate());
+            map.put("evalByAssociationMonth", addEvalByAssociation.getEvalByAssociationMonth());
+            map.put("evalByAssociationResultDate", addEvalByAssociation.getEvalByAssociationResultDate());
+            sumScore = sumScore + evalByAssociationScoreList.get(i);
+            //EvalByAssociation 테이블에 insert mapper 호출
+            associationEvaluationMapper.insertEvalByAssociation(map);
         }
+        //교육원 평가 합계 월별 점수 수정
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("evalTotalCode",addEvalByAssociation.getEvalTotalCode());
+        map.put("evalByAssociationMonth", addEvalByAssociation.getEvalByAssociationMonth());
+        map.put("sumScore", sumScore);
+        associationEvaluationMapper.updateEvalTotalMonth(map);
+
+        //교육원 평가 합계 총합 수정
+        EvalTotal evalTotal = associationEvaluationMapper.selectEvalTotal(addEvalByAssociation.getEvalTotalCode());
+        modifyEvalTotal(evalTotal);
+
     }
     
     //각 교육원 월별 평가 리스트 출력 service

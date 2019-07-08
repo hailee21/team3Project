@@ -11,31 +11,47 @@
 <th:block layout:fragment="script">
 <script type="text/javascript">
     $(document).ready(function() {
+        //버튼을 숨긴다.
+        $('#modifyEvalByAssociation').hide();
+        $('#addEvalByAssociation').hide();
+
         //월별 평가 항목 상세 보기 이벤트 처리
         $('.btn').on('click',function() {
             console.log($(this).val());
             let evalTotalCode = $('#evalTotalCode').val();
             let evalByAssociationMonth = $(this).val();
+            let infoEvalByAssociationSort = $('#evalTotalType').val();
+            $('#evalByAssociationList').empty();
+            $('#infoEvalByAssociationList').empty();
             $.ajax({
                 url:'/getEvalByAssociationListByInstitutionCodeAndMonth'
                 ,type:'post'
                 ,data:{'evalTotalCode':evalTotalCode,'evalByAssociationMonth':evalByAssociationMonth}
                 ,success:function(EvalByAssociation){
                     console.log(EvalByAssociation)
-                    $('#evalByAssociationList').empty();
-                    $('#evalByAssociationMonth').val(evalByAssociationMonth);
-                    $(EvalByAssociation).each(function(index,list){
-						$('#evalByAssociationList').append('<tr>');
-						$('#evalByAssociationList').append('<td>'+list.infoEvalByAssociationType+'</td>');
-						$('#evalByAssociationList').append('<td>'+list.infoEvalByAssociationContents+'</td>');
-						$('#evalByAssociationList').append('<td><input type="number" name="evalByAssociationScore" class="form-control" value="'+list.evalByAssociationScore+'"></td>');
-						$('#evalByAssociationList').append('<td>'+list.evalByAssociationStartDate+'</td>');
-                        $('#evalByAssociationList').append('<td>'+list.evalByAssociationEndDate+'</td>');
-                        $('#evalByAssociationList').append('<td>'+list.evalByAssociationResultDate+'</td>');
-                        $('#evalByAssociationList').append('<td><input type="hidden" name="evalByAssociationCode" value="'+list.evalByAssociationCode+'"></td>');
-						$('#evalByAssociationList').append('</tr>');
-					});
+                    
+                    $('.evalByAssociationMonth').val(evalByAssociationMonth);
+                    $('#addEvalByAssociation').hide();
+                    $('#modifyEvalByAssociation').show();
+                    if(EvalByAssociation[0] != null) {
+                        $(EvalByAssociation).each(function(index,list){
+                            $('#evalByAssociationList').append('<tr>');
+					    	$('#evalByAssociationList').append('<td>'+list.infoEvalByAssociationType+'</td>');
+					    	$('#evalByAssociationList').append('<td>'+list.infoEvalByAssociationContents+'</td>');
+					    	$('#evalByAssociationList').append('<td><input type="number" name="evalByAssociationScore" class="form-control" value="'+list.evalByAssociationScore+'"></td>');
+					    	$('#evalByAssociationList').append('<td>'+list.evalByAssociationStartDate+'</td>');
+                            $('#evalByAssociationList').append('<td>'+list.evalByAssociationEndDate+'</td>');
+                            $('#evalByAssociationList').append('<td>'+list.evalByAssociationResultDate+'</td>');
+                            $('#evalByAssociationList').append('<td><input type="hidden" name="evalByAssociationCode" value="'+list.evalByAssociationCode+'"></td>');
+					    	$('#evalByAssociationList').append('</tr>');       
+                        })
+                    } else {
+                        $('#modifyEvalByAssociation').hide();
+                        $('#addEvalByAssociation').show();
+                    }
                 }
+
+            
             })
         });
         
@@ -44,26 +60,22 @@
             console.log($(this).val());
             $('#modifyEvalByAssociation').submit();
         });
+        $('#btnAddEvalByAssociation').on('click',function() {
+            console.log($(this).val());
+            $('#addEvalByAssociation').submit();
+        });
     })
 </script>
 </th:block>
 
 <div layout:fragment="content">
     <h1>교육원 평가 수정</h1>
-    <a href="/association/evaluation/evaluationTotal" class="btn btn-rightLarge btn-secondary">교육원 평가 리스트</a>
     <div class="row">
         <div class="col-sm-4">
             <h3>교육원 평가 월별 합계</h3>
             <form>
                 <input type="hidden" id="evalTotalCode" name="evalTotalCode" th:value="${evalTotal.evalTotalCode}">
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th></th>			
-                            <th></th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr>
                             <td>교육원 명</td>
@@ -150,10 +162,11 @@
             </form>
         </div>
         <div class="col-sm-8">
+            <a href="/association/evaluation/evaluationTotal" class="btn btn-rightLarge btn-secondary">교육원 평가 리스트</a>
             <h3>교육원 평가 월별 세부 사항</h3>
             <form id="modifyEvalByAssociation" action="/modifyEvalByAssociationScore" method="post">
                 <input type="hidden" name="evalTotalCode" th:value="${evalTotal.evalTotalCode}">
-                <input type="hidden" id="evalByAssociationMonth" name="evalByAssociationMonth">
+                <input type="hidden" class="evalByAssociationMonth" name="evalByAssociationMonth">
                 <table class="table">
                     <thead>
                         <tr>
@@ -169,7 +182,54 @@
                     <tbody id="evalByAssociationList">
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-rightLarge btn-secondary" id="btnModifyEvalByAssociation">점수 수정</button>
+                <button type="button" class="btn-rightLarge btn-secondary" id="btnModifyEvalByAssociation">점수 수정</button>
+            </form>
+            <form id="addEvalByAssociation" action="/associationAddEval" method="post">
+                <input type="hidden" name="evalTotalCode" th:value="${evalTotal.evalTotalCode}">
+                <input type="hidden" class="evalByAssociationMonth" name="evalByAssociationMonth">
+                <input type="hidden" th:value="${evalTotal.institutionCode}" id="institutionCode" name="institutionCode">
+                <input type="hidden" th:value="${evalTotal.evalTotalYear}"  name="year">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>평가 종류</th>
+                            <th>평가 내용</th>			
+                            <th>평가 점수</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="list:${infoEvalByAssociation}">
+                            <td th:text="${list.infoEvalByAssociationType}"></td>
+                            <td th:text="${list.infoEvalByAssociationContents}"></td>
+                            <td><input type="number" name="evalByAssociationScore"></td>
+                            <td><input type="hidden" th:value="${list.infoEvalByAssociationCode}"  name="infoEvalByAssociationCode"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>평가 시작일</td>
+                            <td>
+                                <input type="date" class="form-control" id="evalByAssociationStartDate" name="evalByAssociationStartDate">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>평가 종료일</td>
+                            <td>
+                                <input type="date" class="form-control" id="evalByAssociationEndDate" name="evalByAssociationEndDate">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>평가 발표일</td>
+                            <td>
+                                <input type="date" class="form-control" id="evalByAssociationResultDate" name="evalByAssociationResultDate">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn-rightLarge btn-secondary" id="btnAddEvalByAssociation">점수 입력</button>
             </form>
         </div>
     </div>
