@@ -2,6 +2,7 @@ package kr.or.ksmart.lms.association.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.lms.association.mapper.AssociationMemberMapper;
 import kr.or.ksmart.lms.association.vo.MemberInstitution;
+import kr.or.ksmart.lms.institution.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.Member;
 import kr.or.ksmart.lms.pi.vo.MemberOnline;
 
@@ -16,6 +18,13 @@ import kr.or.ksmart.lms.pi.vo.MemberOnline;
 @Transactional
 public class AssociationMemberService {
 	@Autowired AssociationMemberMapper associationMemberMapper;
+	
+	//	직원 회원 가입화면에서 select박스에 institutionList 출력
+	public List<Institution> insertAdmin() {
+		System.out.println("[AssociationMemberService insertAdmin]");
+		List<Institution> instList = associationMemberMapper.selectInstList();
+		return instList;
+	}
 	
 	// 직원 승인코드 존재유무와 사용여부 조회
 	public boolean instApprovalCheck(String institutionApprovalCode) {
@@ -52,5 +61,28 @@ public class AssociationMemberService {
 		member.setMemberCode(memberCode);	//Member VO 내 memberCode set
 		//	member 테이블에 insert
 		associationMemberMapper.insertMember(member);	// mapper 실행
+		
+		//	member_online_insertid 테이블에 member_online_id insert
+		String memberOnlineInsertid = memberOnline.getMemberOnlineId();
+		associationMemberMapper.insertMemberOnlineId(memberOnlineInsertid);
+		
+		//	member_online 테이블에 insert
+		String memberOnlineCode = "MO"+nowDate+randomNo;	//	memberOnlineCode 생성
+		System.out.println("[TeacherMemberService insertTeacher] memberOnlineCode : " + memberOnlineCode);
+		memberOnline.setMemberOnlineCode(memberOnlineCode);	//	memberOnline VO 내 memberOnlineCode set
+		memberOnline.setMemberCode(memberCode);
+		String institutionName = associationMemberMapper.selectInstitutionName(institutionCode);
+		memberOnline.setInstitutionName(institutionName);
+		
+		associationMemberMapper.insertMemberOnline(memberOnline);	//	mapper 실행
+		
+		//	member_institution 테이블에 insert
+		String memberInstitutionCode = "MI"+nowDate+randomNo;	//	memberTeacherCode 생성
+		System.out.println("[TeacherMemberService insertTeacher] memberTeacherCode : " + memberInstitutionCode);
+		System.out.println(memberInstitution);
+		memberInstitution.setMemberInstitutionCode(memberInstitutionCode);
+		memberInstitution.setMemberCode(memberCode);
+		
+		associationMemberMapper.insertAdmin(memberInstitution);
 	}
 }

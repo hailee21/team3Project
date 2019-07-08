@@ -11,6 +11,108 @@
 	<select id="selectMemberInstitutionApprovalCode" parameterType="String" resultType="String">
 		SELECT institution_approval_code
 		FROM member_institution
-		WHERE institution_approval_code=#{teacherApprovalCode}
+		WHERE institution_approval_code=#{institutionApprovalCode}
 	</select>
+	
+	<!-- select 폼에서 institutionCode 받아와서 해당 교육원 이름을 찾는 select 쿼리 -->
+	<select id="selectInstitutionName"
+			resultType="String">
+		SELECT
+			institution_name AS institutionCode
+		FROM institution
+		WHERE
+			institution_code = #{institutionCode}
+	</select>
+	
+	<!-- memberOnlineInsert 할 때 institutionName을 찾기 위한 resultMap -->
+	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="InstitutionMap">
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+	</resultMap>
+	<select id="selectInstList" resultMap="InstitutionMap">
+		SELECT institution_code
+			, institution_name
+		FROM institution
+	</select>
+	<insert id="insertMember" parameterType="kr.or.ksmart.lms.association.vo.Member">
+	<!-- member 테이블에 insert -->
+		INSERT INTO
+			member (
+			member_code
+			, member_name
+			, member_registration_number_front
+			, member_registration_number_back
+			, member_phone_number
+			, member_postcode
+			, member_address
+			, member_address_desc
+			, member_rank
+			, member_date)
+		VALUES (
+			#{memberCode}
+			, #{memberName}
+			, #{memberRegistrationNumberFront}
+			, #{memberRegistrationNumberBack}
+			, #{memberPhoneNumber}
+			, #{memberPostcode}
+			, #{memberAddress}
+			, #{memberAddressDesc}
+			, #{memberRank}
+			, now()
+		)
+	</insert>
+	
+	<insert id="insertMemberOnlineId" parameterType="kr.or.ksmart.lms.pi.vo.MemberOnlineInsertid">
+	<!--	member_online_insertid에 online_id insert-->
+		INSERT INTO
+			member_online_insertid (
+			member_online_id
+			, member_online_id_insert_date)
+		VALUES (
+			#{memberOnlineId}
+			, now())
+	</insert>
+	
+	<insert id="insertAdmin" parameterType="kr.or.ksmart.lms.association.vo.MemberInstitution">
+	<!-- 	member_institution 테이블에 insert	 -->
+		INSERT INTO member_institution (
+			member_institution_code
+			, institution_approval_code
+			, member_code
+			, member_name
+			, member_institution_service_check
+			, member_institution_date)
+		VALUES (
+			#{memberInstitutionCode}
+			, #{institutionApprovalCode}
+			, #{memberCode}
+			, #{memberName}
+			, #{memberInstitutionServiceCheck}
+			, now())
+	</insert>
+	
+	<insert id="insertMemberOnline" parameterType="kr.or.ksmart.lms.association.vo.MemberOnline">
+	<!-- member_online 테이블에 insert -->
+		INSERT INTO
+			member_online (
+			member_online_code
+			, member_code
+			, member_name
+			, member_online_id
+			, member_online_pw
+			, member_rank
+			, institution_code
+			, institution_name
+			, member_online_date)
+		VALUES (
+			#{memberOnlineCode}
+			, #{memberCode}
+			, #{memberName}
+			, #{memberOnlineId}
+			, #{memberOnlinePw}
+			, #{memberRank}
+			, #{institutionCode}
+			, #{institutionName}
+			, now())
+	</insert>
 </mapper>

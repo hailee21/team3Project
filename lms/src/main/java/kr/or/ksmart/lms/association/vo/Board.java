@@ -2,6 +2,7 @@ package kr.or.ksmart.lms.association.vo;
 
 public class Board {
 	private String boardNo;
+	private String boardTitle;
 	private String boardContents;
 	private String boardType;
 	private String memberOnlineCode;
@@ -16,6 +17,12 @@ public class Board {
 	}
 	public void setBoardNo(String boardNo) {
 		this.boardNo = boardNo;
+	}
+	public String getBoardTitle() {
+		return boardTitle;
+	}
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
 	}
 	public String getBoardContents() {
 		return boardContents;
@@ -68,7 +75,7 @@ public class Board {
 	
 	@Override
 	public String toString() {
-		return "Board [boardNo=" + boardNo + ", boardContents=" + boardContents + ", boardType=" + boardType
+		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContents=" + boardContents + ", boardType=" + boardType
 				+ ", memberOnlineCode=" + memberOnlineCode + ", memberOnlineId=" + memberOnlineId + ", memberName="
 				+ memberName + ", institutionCode=" + institutionCode + ", institutionName=" + institutionName
 				+ ", BoardDate=" + BoardDate + "]";
