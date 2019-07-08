@@ -63,7 +63,7 @@ public class InstitutionNoticeLectureService {
 	public void institutionAddNoticeLecture(NoticeLecture noticeLecture) {
 		System.out.println("[institutionNoticeLectureService institutionAddNoticeLecture]");
 		
-		// 1. 강의실 테이블에 추가할 PK 구하는 코드 
+		// 1. noticeLecture 테이블에 추가할 PK 구하는 코드 
 		// 1-1. 테이블의 PK를 위한 무작위 숫자 생성
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
 		Date now = new Date(); 
@@ -85,7 +85,7 @@ public class InstitutionNoticeLectureService {
 		noticeLecture.setNoticeLectureCode(NLPK);
 		System.out.println("[institutionNoticeLectureService institutionAddNoticeLecture] 최종 NLPK: "+NLPK);
 		
-		// 2. classroom 테이블에 강의실 등록하기		
+		// 2. noticeLecture 테이블에 강의공고 등록하기		
 		institutionNoticeLectureMapper.institutionInsertNoticeLecture(noticeLecture);
 	}
 	
@@ -96,16 +96,21 @@ public class InstitutionNoticeLectureService {
 		
 		// mapper에서 호출해온 각 리스트들을 map에 담아서 controller에서 ModelAndView에 담아 뷰에서 활용하자
 		List<NoticeLecture> noticeLecturelist = institutionNoticeLectureMapper.institutionSelectNoticeLectureList();
-		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] list: "+noticeLecturelist);
+		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] noticeLecturelist: "+noticeLecturelist);
 		
-		List<LectureFail> lectureFailList = institutionNoticeLectureMapper.institutionSelectLectureFailList();
-		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] list: "+lectureFailList);
+		List<NoticeLecture> failWaitingList = institutionNoticeLectureMapper.institutionSelectNoticeLectureFailWaitingList();
+		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] failWaitingList: "+failWaitingList);
+		
+		List<LectureFail> failLectureList = institutionNoticeLectureMapper.institutionSelectLectureFailList();
+		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] failLectureList: "+failLectureList);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("noticeLecturelist", noticeLecturelist);
-		map.put("lectureFailList", lectureFailList);
+		map.put("failWaitingList", failWaitingList);
+		map.put("failLectureList", failLectureList);
 		return map;
 	}
+	
 	// 세부 강의공고 출력
 	public NoticeLecture institutionGetNoticeLectureByNoticeLectureCode(String noticeLectureCode) {
 		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureByNoticeLectureCode]");

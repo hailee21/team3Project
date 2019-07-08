@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/institutionLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+//등록버튼 클릭
+$(document).ready(function(){
+	$('#insert').click(function(){
+		if($('#lectureFailReason').val() ==''){
+				$('#helper').text('폐강사유를 적어주세요!');
+				$('#lectureFailReason').focus();
+		}
+		else {
+			console.log('등록버튼클릭..');
+			$('#addLectureFail').submit();
+		}		
+	});
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h2>폐강 등록</h2>
+	<br>
+	<h4>해당 강의공고 내용이 맞으시면 폐강등록 버튼을 클릭하여 주십시오<br>
+		폐강사유를 꼭 적어야 등록이 가능합니다. </h4>
+	<form id="addLectureFail" action="/institution/lecture/addLectureFail" method="post">
+		<div class="form-group">
+			<label>강의공고명 :</label>
+			<input type="text" th:value="${noticeLectureCode}" hidden="hidden" id="noticeLectureCode" name="noticeLectureCode">
+			<input type="text" th:value="${noticeLectureTitle}" class="form-control" id="noticeLectureTitle" name="noticeLectureTitle">
+		</div>
+		<div class="form-group">
+			<label>교육원명 :</label>
+		    <input type="text" th:value="${institutionCode}" hidden="hidden" id="institutionCode" name="institutionCode">
+		    <input type="text" th:value="${institutionName}" class="form-control" id="institutionName" name="institutionName">
+		</div>
+		<div class="form-group">
+			<label>강사명 :</label>
+			 <input type="text" th:value="${memberTeacherCode}" hidden="hidden" id="memberTeacherCode" name="memberTeacherCode">
+			  <input type="text" th:value="${memberTeacherName}" class="form-control" id="memberTeacherName" name="memberTeacherName">
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label>강의시작일 :</label>
+			    <input type="date" th:value="${lectureStartDate}" class="form-control" readonly="readonly" id="lectureStartDate" name="lectureStartDate">
+			</div>
+			<div class="col-sm-6">
+				<label>강의종료일 :</label>
+			    <input type="date" th:value="${lectureEndDate}" class="form-control" readonly="readonly" id="lectureEndDate" name="lectureEndDate">
+			</div>
+		</div>		
+		<div class="form-group">
+			<label>폐강사유 :</label>
+		    <input type="text" class="form-control" placeholder="ex) 폐강사유를 적어주세요.." id="lectureFailReason" name="lectureFailReason">
+		</div>
+		
+		<span id="helper" style="color:red"></span>
+		<button id="insert" type="button">폐강등록</button>	
+	</form>
+</div>
+</html>

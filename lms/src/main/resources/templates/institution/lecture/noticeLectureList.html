@@ -15,6 +15,12 @@
 		console.log('#btnAdd click test');
 		location.href='/institution/lecture/addNoticeLecture'
 	});
+	// 폐강 등록하기 버튼 클릭시 이벤트 처리
+	$('#btnAddFailLecture').on('click',function(){
+		console.log('#btnAddFailLecture click test');
+		location.href='/institution/lecture/failWaitingLectureList'
+	});
+	
 });
 </script>
 </th:block>
@@ -23,6 +29,7 @@
 	<h1>강의공고 목록</h1>
 	
 	<button type="button" id="btnAdd" class="btn btn-primary btn-rightLarge">강의공고 등록하기</button><br><br>
+	
 	<h3>현재 진행중인 강의</h3>
 	<table class="table table-striped">
 		<thead>
@@ -52,7 +59,36 @@
 			</tr>
 		</tbody>
 	</table>
-	
+	<br>
+	<br>
+	<h3>폐강 예정 강의</h3>
+	<button type="button" id="btnAddFailLecture" class="btn btn-primary btn-rightLarge">폐강 등록하기</button><br><br>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>강의공고명</th>
+				<th>교육원</th>
+				<th>강사명</th>
+				<th>모집 시작일</th>
+				<th>모집마감일</th>				
+				<th>강의 시작일</th>
+				<th>강의 마감일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list:${failWaitingList}">
+				<td><a th:href="@{'/institution/lecture/detailNoticeLecture?noticeLectureCode='+${list.noticeLectureCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.noticeLectureCode}"></a></td>
+				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
+				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>	
+				<td th:text="${list.noticeLectureRecruitmentStartDate}" th:value="${list.noticeLectureRecruitmentStartDate}"></td>
+				<td th:text="${list.noticeLectureRecruitmentEndDate}" th:value="${list.noticeLectureRecruitmentEndDate}"></td>
+				<td th:text="${list.noticeLectureStartDate}" th:value="${list.noticeLectureStartDate}"></td>
+				<td th:text="${list.noticeLectureEndDate}" th:value="${list.noticeLectureEndDate}"></td>				
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<br>
 	<h3>폐강된 강의</h3>
 	<table class="table table-striped">
 		<thead>
@@ -64,7 +100,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="list:${lectureFailList}">
+			<tr th:each="list:${failLectureList}">
 				<td><a th:href="@{'/institution/lecture/detailLectureFail?lectureFailCode='+${list.lectureFailCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.lectureFailCode}"></a></td>
 				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
 				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>

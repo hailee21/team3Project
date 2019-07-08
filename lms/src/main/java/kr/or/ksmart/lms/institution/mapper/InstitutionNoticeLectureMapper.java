@@ -32,9 +32,12 @@ public interface InstitutionNoticeLectureMapper {
 	public void institutionInsertNoticeLecture(NoticeLecture noticeLecture);
 	
 	// 강의공고 목록 출력
-	public List<NoticeLecture> institutionSelectNoticeLectureList();
-	// 폐강목록 출력
-	public List<LectureFail> institutionSelectLectureFailList();
+		// 1. 현재 진행중인 목록 출력
+		public List<NoticeLecture> institutionSelectNoticeLectureList();
+		// 2. 폐강예정 목록 출력
+		public List<NoticeLecture> institutionSelectNoticeLectureFailWaitingList();
+		// 3. 폐강목록 출력 
+		public List<LectureFail> institutionSelectLectureFailList();
 	// 세부 강의공고 조회
 	public NoticeLecture institutionSelectNoticeLectureByNoticeLectureCode(String NoticeLectureCode);
 }

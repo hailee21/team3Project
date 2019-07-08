@@ -99,13 +99,16 @@ public class InstitutionNoticeLectureController {
 			// service에서 가져온 list를 mav에 담아서 뷰에서 활용
 			Map<String, Object> map = institutionNoticeLectureService.institutionGetNoticeLectureList();
 			List<NoticeLecture> noticeLecturelist = (List<NoticeLecture>)map.get("noticeLecturelist");
-			List<LectureFail> lectureFailList = (List<LectureFail>)map.get("lectureFailList");
+			List<NoticeLecture> failWaitingList = (List<NoticeLecture>)map.get("failWaitingList");
+			List<LectureFail> failLectureList = (List<LectureFail>)map.get("failLectureList");
 			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] noticeLecturelist: "+noticeLecturelist);
-			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] lectureFailList: "+lectureFailList);
+			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] failWaitingList: "+failWaitingList);
+			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] failLectureList: "+failLectureList);
 			
 			mav.setViewName("institution/lecture/noticeLectureList");
 			mav.addObject("noticeLecturelist", noticeLecturelist);
-			mav.addObject("lectureFailList", lectureFailList);
+			mav.addObject("failWaitingList", failWaitingList);
+			mav.addObject("failLectureList", failLectureList);
 		}else {
 			System.out.println("교육원직원아님");
 			

@@ -3,7 +3,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionLectureFailMapper"> 
-	
+	<!-- InstitutionNoticeLectureMapper NoticeLecture resultMap  -->
+	<resultMap id="NoticeLectureResultMap"
+				type="kr.or.ksmart.lms.institution.vo.NoticeLecture">
+		<result column="notice_lecture_code" property="noticeLectureCode"/>
+		<result column="info_lecture_code" property="infoLectureCode"/>
+		<result column="member_teacher_code" property="memberTeacherCode"/>
+		<result column="member_teacher_name" property="memberTeacherName"/>
+		<result column="classroom_code" property="classroomCode"/>
+		<result column="notice_lecture_title" property="noticeLectureTitle"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="classroom_maximum_no" property="classroomMaximumNo"/>
+		<result column="notice_lecture_minimum_no" property="noticeLectureMinimumNo"/>
+		<result column="notice_lecture_current_applicant_no" property="noticeLectureCurrentApplicantNo"/>
+		<result column="notice_lecture_recruitment_start_date" property="noticeLectureRecruitmentStartDate"/>
+		<result column="notice_lecture_recruitment_end_date" property="noticeLectureRecruitmentEndDate"/>
+		<result column="notice_lecture_result_date" property="noticeLectureResultDate"/>
+		<result column="notice_lecture_fee" property="noticeLectureFee"/>	
+		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
+		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
+		<result column="notice_lecture_date" property="noticeLectureDate"/>		
+	</resultMap>
 	<!-- InstitutionNoticeLectureMapper LectureFail resultMap  -->
 	<resultMap id="LectureFailResultMap"
 				type="kr.or.ksmart.lms.institution.vo.LectureFail">
@@ -31,8 +52,8 @@
 			,institution_name
 			,member_teacher_code
 			,member_teacher_name
-			,lecture_start_date
-			,lecture_end_date
+			,left(lecture_start_date, 10) AS lecture_start_date
+			,left(lecture_end_date, 10) AS lecture_start_date
 			,lecture_fail_reason
 			,left(lecture_fail_date, 10) AS lecture_fail_date
 		FROM 
@@ -40,5 +61,90 @@
 		WHERE 
 			CURRENT_DATE() > lecture_fail_date
 	</select>
+	
+	<!-- 폐강대기 리스트 출력 -->
+	<select id="institutionSelectFailWaitingList"
+			resultMap="NoticeLectureResultMap">
+		SELECT 
+			notice_lecture_code
+			,info_lecture_code
+			,member_teacher_code
+			,member_teacher_name
+			,classroom_code
+			,notice_lecture_title
+			,institution_code
+			,institution_name
+			,classroom_maximum_no
+			,notice_lecture_minimum_no
+			,notice_lecture_current_applicant_no
+			,left(notice_lecture_recruitment_start_date, 10) AS notice_lecture_recruitment_start_date
+			,left(notice_lecture_recruitment_end_date, 10) AS notice_lecture_recruitment_end_date
+			,left(notice_lecture_result_date, 10) AS notice_lecture_result_date
+			,notice_lecture_fee
+			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
+			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
+		FROM 
+			notice_lecture
+		WHERE	
+			CURRENT_DATE() > date(notice_lecture_recruitment_end_date)		
+	</select>
+	
+	<!-- 폐강추가 등록을 위한 noticeLecture정보 추출 -->
+	<select id="institutionSelectNoticeLectureInfoToAddFailLectureByNoticeLectureCode"
+			parameterType="String"
+			resultMap="NoticeLectureResultMap">
+		SELECT 
+			notice_lecture_code
+			,notice_lecture_title
+			,institution_code
+			,institution_name
+			,member_teacher_code
+			,member_teacher_name
+			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
+			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
+		FROM 
+			notice_lecture
+		WHERE	
+			notice_lecture_code = #{noticeLectureCode}
+	</select>	
+	
+	<!-- 폐강 등록 -->
+	<insert id="institutionInsertLectureFail"
+			parameterType="kr.or.ksmart.lms.institution.vo.LectureFail">
+		INSERT INTO lecture_fail (
+			lecture_fail_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,institution_code
+			,institution_name
+			,member_teacher_code
+			,member_teacher_name
+			,lecture_start_date
+			,lecture_end_date
+			,lecture_fail_reason
+			,lecture_fail_date
+		) VALUES (
+			#{lectureFailCode}
+			,#{noticeLectureCode}
+			,#{noticeLectureTitle}
+			,#{institutionCode}
+			,#{institutionName}
+			,#{memberTeacherCode}
+			,#{memberTeacherName}
+			,#{lectureStartDate}
+			,#{lectureEndDate}
+			,#{lectureFailReason}
+			,now()
+		)	
+	</insert>
+	
+	<!-- 폐강등록 후 notice_lecture의 강의공고 삭제하기 -->
+	<delete id="institutionDeleteNoticeLectureAfterInsertLectureFailByNoticeLectureCode"
+			parameterType="String">
+		DELETE FROM 
+			notice_lecture
+		WHERE 
+			notice_lecture_code = #{noticeLectureCode}
+	</delete>
 	
 </mapper>
