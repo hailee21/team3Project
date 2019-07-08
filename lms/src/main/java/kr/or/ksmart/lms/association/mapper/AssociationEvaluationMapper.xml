@@ -180,6 +180,8 @@
 			eval_total_year
 		FROM 
 			eval_total
+		ORDER BY
+			eval_total_date DESC
 	</select>
 
 	<!-- 교육원 평가 항목에 따른 입력 조건 출력 select  -->
@@ -221,6 +223,8 @@
 			eval_total_year LIKE #{evalTotalYear}
 			AND
 			eval_total_type LIKE #{evalTotalType}
+		ORDER BY
+			eval_total_date DESC
 	</select>
 	
 	<!-- 교육원 평가 합계 리스트 출력 select  -->
@@ -248,6 +252,8 @@
 			, eval_total_date
 		FROM 
 			eval_total
+		ORDER BY
+			eval_total_date DESC
 	</select>
 
 	<!-- 교육원 평가 항목 리스트 출력 select  -->
@@ -285,18 +291,7 @@
 		INSERT INTO eval_by_association 
 		VALUES (
 			#{evalByAssociationCode}
-			, (
-			SELECT
-				eval_total_code
-			FROM
-				eval_total
-			WHERE
-				institution_code = #{institutionCode}
-			AND
-				eval_total_type = #{infoEvalByAssociationSort}
-			AND 
-				eval_total_year = #{evalTotalYear}
-			)
+			, #{evalTotalCode} 
 			, #{institutionCode}
 			, (
 			SELECT
