@@ -3,7 +3,8 @@
 <mapper namespace="kr.or.ksmart.lms.pi.mapper.PIBoardMapper">
 	<insert id="insertBoard" parameterType="kr.or.ksmart.lms.association.vo.Board">
 	INSERT INTO board (
-		board_title
+		board_no
+		, board_title
 		, board_contents
 		, board_type
 		, member_online_code
@@ -13,7 +14,8 @@
 		, institution_name
 		, board_date
 	) VALUES (
-		#{boardTitle}
+		#{boardNo}
+		, #{boardTitle}
 		, #{boardContents}
 		, #{boardType}
 		, #{memberOnlineCode}

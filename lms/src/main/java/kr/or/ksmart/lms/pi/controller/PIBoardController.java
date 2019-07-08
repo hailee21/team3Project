@@ -75,11 +75,11 @@ public class PIBoardController {
 	}
 	//	교육원홈페이지 커뮤니티 글쓰기 처리 POST 요청
 	@PostMapping("/addBoard")
-	public ModelAndView addBoard (Board board, HttpSession session, ModelAndView mav
-	, @RequestParam(value="institutionCode", required = true) String institutionCode) {
+	public ModelAndView addBoard (Board board, HttpSession session, ModelAndView mav) {
 		System.out.println("[PIBoardController addBoard] 글등록 처리요청");
-		piBoardService.addBoard(board, session, institutionCode);
-		mav.setViewName("PI/Board/PIBoard?institutionCode="+institutionCode);
+		piBoardService.addBoard(board, session);
+		String institutionCode = (String)session.getAttribute("institutionCode");
+		mav.setViewName("redirect:/PIBoard?institutionCode="+institutionCode);
 		return mav;
 	}
 	
