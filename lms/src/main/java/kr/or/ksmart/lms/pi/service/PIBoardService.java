@@ -20,9 +20,24 @@ public class PIBoardService {
 	public IndexInstitution PIIndex(String institutionCode) {
 		return piBoardMapper.selectInstitution(institutionCode);
 	}
+	//	게시판 Notice 리스트 출력
+	public List<Board> getNoticeList(String institutionCode) {
+		List<Board> board = piBoardMapper.getNotice(institutionCode);
+		return board;
+	}
 	//	게시판 Board 리스트 출력
-	public List<Board> getBoardList() {
-		List<Board> board = piBoardMapper.getBoard();
+	public List<Board> getBoardList(String institutionCode) {
+		List<Board> board = piBoardMapper.getBoard(institutionCode);
+		return board;
+	}
+	//	게시판 Q&A 리스트 출력
+	public List<Board> getQnAList(String institutionCode) {
+		List<Board> board = piBoardMapper.getQnA(institutionCode);
+		return board;
+	}
+	//	게시판 FAQ 리스트 출력
+	public List<Board> getFAQList(String institutionCode) {
+		List<Board> board = piBoardMapper.getFAQ(institutionCode);
 		return board;
 	}
 	public void addBoard(Board board, HttpSession session) {
@@ -46,15 +61,16 @@ public class PIBoardService {
 		board.setBoardNo(boardNo);	//Member VO 내 memberCode set
 		
 		//	session에서 회원 정보 가져오기
-		String memberOnlineCode = (String)session.getAttribute("memberOnlineCode");
+		System.out.println("[PIBoardService addBoard session 정보 확인]"+session);
 		String memberOnlineId = (String)session.getAttribute("memberOnlineId");
 		String memberName = (String)session.getAttribute("memberName");
+		String institutionCode = (String)session.getAttribute("institutionCode");
 		String institutionName = (String)session.getAttribute("institutionName");
-		board.setMemberOnlineCode(memberOnlineCode);
 		board.setMemberOnlineId(memberOnlineId);
 		board.setMemberName(memberName);
+		board.setInstitutionCode(institutionCode);
 		board.setInstitutionName(institutionName);
-		System.out.println(board.getBoardTitle());
+		System.out.println();
 		
 		piBoardMapper.insertBoard(board);
 	}

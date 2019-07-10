@@ -353,14 +353,15 @@ $(document).ready(function(){
 					<!--	 회원등급	 -->
 					<input type="hidden" id="memberRank" name="memberRank" value="협회직원">
 					<input type="hidden" id="memberInstitutionServiceCheck" name="memberInstitutionServiceCheck" value="최초등록">
-							<div class="form-group">
+					<input type="hidden" id="institutionCode" name="institutionCode" value="I20120101000000">
+							<!-- <div class="form-group">
 								<label for="InputInstitution">교육원</label>
 								<select class="form-control" id="institutionCode" name="institutionCode">
 									<option value="">--교육원선택--</option>
 									<option th:each="institution:${instList}" th:value="${institution.institutionCode}" th:text="${institution.institutionName}"></option>
 								</select>
 								<small class="form-text" id="instCodeSub"></small>
-							</div>
+							</div> -->
 							<p style="height: 10px"></p>
 							<div class="form-group">
 								<button type="button" id="btnAdd" class="btn btn-primary">직원등록</button> <button type="button" id="btnBack" class="btn btn-secondary disabled">뒤로가기</button>

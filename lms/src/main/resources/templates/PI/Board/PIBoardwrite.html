@@ -14,6 +14,15 @@
 $(document).ready(function(){
 	$('#btnAdd').on('click',function(){	//$('#btnRemove').click() 가능.
 		console.log('#btnAdd click test');
+		if ($('#boardTitle').val() == ''){
+			$('#helper').attr('style','color:red');
+			$('#helper').text('*제목을 입력하세요');
+		return false;
+		} else if ($('#boardContents').val() == ''){
+			$('#helper').attr('style','color:red');
+			$('#helper').text('*내용을 입력하세요');
+		return false;
+		}
 		$('#addBoard').submit();
 	    alert('새 글이 등록 되었습니다');
     });
@@ -29,21 +38,20 @@ $(document).ready(function(){
     	<div class="row">
     		<div class="col-md-1"></div>
     		<div class="col-md-10">
-					<!-- <h1 class="display-3">커뮤니티</h1>	제목	
-					<p class="lead">타인을 비방, 비난하는 글은 경고 없이 삭제될 수 있으며, 이용이 제한 될 수 있습니다.</p>
-					<hr class="my-4">
-					<p>타인을 비방, 비난하는 글은 경고 없이 삭제될 수 있으며, 이용이 제한 될 수 있습니다.</p> -->
+					<!-- <h5 class="display-3">커뮤니티 글쓰기</h5> -->	<!-- 제목 -->	
+					<!-- <p class="lead">타인을 비방, 비난하는 글은 경고 없이 삭제될 수 있으며, 이용이 제한 될 수 있습니다.</p> -->
 				<p class="lead">
 				<form action="/addBoard" id="addBoard" method="post">
 					<fieldset>
 		    			<div class="form-group">
     						<legend>커뮤니티 글쓰기</legend>
+							<hr class="my-4">
+							<p>타인을 비방, 비난하는 글은 경고 없이 삭제될 수 있으며, 이용이 제한 될 수 있습니다.</p>
     					</div>
     						<!-- 	글 제목	 -->
     					<div class="form-group">
 							<label for="InputTitle">글제목</label>
 							<input type="text" class="form-control" id="boardTitle" name="boardTitle" aria-describedby="" placeholder="제목을 입력하세요" value="">
-		    				<small class="form-text text-muted"></small>
 						</div>
 							<!-- 	글종류	 -->
 						<input type="hidden" name="boardType" value="커뮤니티">
@@ -51,7 +59,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<label for="InputContents">글내용</label>
 	    					<textarea class="form-control" name="boardContents" id="boardContents" rows="10"></textarea>
-		      				<small class="form-text text-muted"></small>
+		      				<small id="helper" class="form-text text-muted"></small>
 						</div>
 							<p style="height: 10px"></p>
 						<div class="form-group">

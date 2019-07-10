@@ -11,8 +11,14 @@ import kr.or.ksmart.lms.index.vo.IndexInstitution;
 public interface PIBoardMapper {
 	//	institution 코드
 	public IndexInstitution selectInstitution(String institutionCode);
+	//	Notice 리스트 출력
+	public List<Board> getNotice(String institutionCode);
 	//	Board 리스트 출력
-	public List<Board> getBoard(); 
+	public List<Board> getBoard(String institutionCode);
+	//	Q&A 리스트 출력
+	public List<Board> getQnA(String institutionCode);
+	//	FAQ 리스트 출력
+	public List<Board> getFAQ(String institutionCode);
 	//	Board 
 	public void insertBoard(Board board);
 }

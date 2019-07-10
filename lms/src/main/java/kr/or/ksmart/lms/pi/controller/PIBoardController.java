@@ -22,10 +22,13 @@ public class PIBoardController {
 	@GetMapping("/PINotice")
 	public ModelAndView getNoticeByPI (HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
+		//	institutionCode 가져오기
 		IndexInstitution institution = piBoardService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
-		
+		//	리스트 출력
+		List<Board> noticeList = piBoardService.getNoticeList(institutionCode);
+		mav.addObject("noticeList", noticeList);
 		mav.setViewName("PI/Board/PINotice");
 		return mav;
 	}
@@ -52,7 +55,7 @@ public class PIBoardController {
 		IndexInstitution institution = piBoardService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
-		List<Board> boardList = piBoardService.getBoardList();
+		List<Board> boardList = piBoardService.getBoardList(institutionCode);
 		mav.addObject("boardList", boardList);
 		mav.setViewName("PI/Board/PIBoard");
 		return mav;
@@ -73,13 +76,22 @@ public class PIBoardController {
 		}
 		return mav;
 	}
-	//	교육원홈페이지 커뮤니티 글쓰기 처리 POST 요청
+	//	교육원홈페이지 글쓰기 처리 POST 요청
 	@PostMapping("/addBoard")
 	public ModelAndView addBoard (Board board, HttpSession session, ModelAndView mav) {
 		System.out.println("[PIBoardController addBoard] 글등록 처리요청");
 		piBoardService.addBoard(board, session);
-		String institutionCode = (String)session.getAttribute("institutionCode");
-		mav.setViewName("redirect:/PIBoard?institutionCode="+institutionCode);
+		String instCode=(String)session.getAttribute("institutionCode");
+		if (board.getBoardType().equals("공지사항")) {
+			mav.setViewName("redirect:/PINotice?institutionCode="+instCode);
+		} else if (board.getBoardType().equals("커뮤니티")) {
+			mav.setViewName("redirect:/PIBoard?institutionCode="+instCode);
+		} else if (board.getBoardType().equals("Q&A")) {
+			mav.setViewName("redirect:/PIQnA?institutionCode="+instCode);
+		} else if (board.getBoardType().equals("FAQ")) {
+			mav.setViewName("redirect:/PIFAQ?institutionCode="+instCode);
+		}
+		
 		return mav;
 	}
 	
@@ -90,6 +102,9 @@ public class PIBoardController {
 		IndexInstitution institution = piBoardService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
+		//	리스트 출력
+		List<Board> QnAList = piBoardService.getQnAList(institutionCode);
+		mav.addObject("QnAList", QnAList);
 		mav.setViewName("PI/Board/PIQnA");
 		return mav;
 	}
@@ -115,6 +130,9 @@ public class PIBoardController {
 		IndexInstitution institution = piBoardService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
+		//	리스트 출력
+		List<Board> FAQList = piBoardService.getFAQList(institutionCode);
+		mav.addObject("FAQList", FAQList);
 		mav.setViewName("PI/Board/PIFAQ");
 		return mav;
 	}
