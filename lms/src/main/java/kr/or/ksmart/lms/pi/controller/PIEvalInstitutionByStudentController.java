@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.index.vo.IndexInstitution;
-import kr.or.ksmart.lms.pi.service.EvalInstitutionByStudentService;
+import kr.or.ksmart.lms.pi.service.PIEvalInstitutionByStudentService;
 import kr.or.ksmart.lms.pi.service.PIMemberService;
 import kr.or.ksmart.lms.pi.vo.InfoEvalInstitutionByStudent;
 
 @Controller
-public class EvalInstitutionByStudentController {
+public class PIEvalInstitutionByStudentController {
 	@Autowired
 	PIMemberService memberService;
-	EvalInstitutionByStudentService evalInstitutionByStudentService;
+	PIEvalInstitutionByStudentService evalInstitutionByStudentService;
 	
 	@GetMapping("/PI/myPage/evaluation")
 	//PI/myPage/evaluation을 위한 (수강생이 교육원평가)문제 항목 

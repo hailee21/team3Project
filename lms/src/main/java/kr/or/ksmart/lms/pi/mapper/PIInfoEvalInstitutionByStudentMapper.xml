@@ -2,7 +2,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="kr.or.ksmart.lms.pi.mapper.InfoEvalInstitutionByStudentMapper">
+<mapper namespace="kr.or.ksmart.lms.pi.mapper.PIInfoEvalInstitutionByStudentMapper">
 	<resultMap type="kr.or.ksmart.lms.pi.vo.InfoEvalInstitutionByStudent" id="InfoEvalInstitutionByStudentMap">
 		<result column="info_eval_institution_by_student_code" property="infoEvalInstitutionByStudentCode"/>
 		<result column="info_eval_institution_by_student_sort" property="infoEvalInstitutionByStudentSort"/>
