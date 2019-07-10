@@ -16,10 +16,7 @@
 	<table class="table table-striped">
 		<tr>
 			<th>자격시험공고코드</th>
-			<th>자격종목코드</th>
 			<th>시험명</th>
-			<th>연간자격시험계획코드</th>
-			<th>시험장소코드</th>
 			<th>지역</th>
 			<th>주소</th>
 			<th>접수시작일</th>
@@ -30,17 +27,14 @@
 		</tr>
 		<tr th:each="subject:${list}">
 			<td th:text="${subject.noticeLicenseTestCode}"></td>
-			<td th:text="${subject.infoQualificationCode}"></td>
 			<td th:text="${subject.noticeLicenseTestName}"></td>
-			<td th:text="${subject.noticeAnnualLicenseTestCode}"></td>
-			<td th:text="${subject.licenseTestLocationCode}"></td>
 			<td th:text="${subject.licenseTestLocationRegion}"></td>
 			<td th:text="${subject.licenseTestLocationAddress}"></td>
 			<td th:text="${subject.noticeAnnualLicenseTestApplyStartDate}"></td>
 			<td th:text="${subject.noticeAnnualLicenseTestApplyEndDate}"></td>
 			<td th:text="${subject.noticeLicenseTestDate}"></td>
 			<td th:text="${subject.noticeAnnualLicenseTestResultDate}"></td>
-			<td><a class="btn btn-primary" th:href="@{'/association/notice/addNoticeLicenseTestLocation?infoQualificationCode='+${subject.infoQualificationCode}+'&'+'noticeAnnualLicenseTestCode='+${subject.noticeAnnualLicenseTestCode}+'&licenseTestLocationCode='+${subject.licenseTestLocationCode}}">수정</a></td>			
+			<td><a class="btn btn-primary" th:href="@{'/association/notice/addNoticeLicenseTest?infoQualificationCode='+${subject.infoQualificationCode}+'&'+'noticeAnnualLicenseTestCode='+${subject.noticeAnnualLicenseTestCode}+'&licenseTestLocationCode='+${subject.licenseTestLocationCode}}">수정</a></td>			
 		</tr>
 	</table>
 </div>
