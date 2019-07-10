@@ -44,7 +44,11 @@ public class PILoginController {
 			session.setAttribute("memberRank", loginMember.getMemberRank());
 			session.setAttribute("institutionCode", loginMember.getInstitutionCode());
 			session.setAttribute("institutionName", loginMember.getInstitutionName());
-			mav.setViewName("redirect:/PIIndex?institutionCode="+loginMember.getInstitutionCode());
+			if(session.getAttribute("memberRank").equals("협회직원")){
+				mav.setViewName("redirect:/PAIndex?institutionCode="+loginMember.getInstitutionCode());
+			} else {
+				mav.setViewName("redirect:/PIIndex?institutionCode="+loginMember.getInstitutionCode());
+			}
 		}
 		return mav;
 	}

@@ -24,7 +24,7 @@
 	                <a style="font-size: 12px"  class="nav-link" href="/PALogout">로그아웃</a>
 	            </li>
 	            <li class="nav-item">
-	                <a style="font-size: 12px"  class="nav-link" th:href="@{'/myInfo?institutionCode='+${institutionCode}}">내정보</a>
+	                <a style="font-size: 12px"  class="nav-link" href="/PAmyInfo">내정보</a>
 	            </li>
 	        </ul>
 	    </div>
@@ -55,9 +55,9 @@
 	                    <button class="dropbtn">교육원
 	                    </button>
 	                    <div class="dropdownatuo-content">
-	                        <a href="/PIIndex?institutionCode=I1">전주평생교육원</a>
-	                        <a href="/PIIndex?institutionCode=I2">서울평생교육원</a>
-	                        <a href="/PIIndex?institutionCode=I3">성남평생교육원</a>
+	                        <a href="/PIIndex?institutionCode=I20140101000000">전주평생교육원</a>
+	                        <a href="/PIIndex?institutionCode=I20140102000000">서울평생교육원</a>
+	                        <a href="/PIIndex?institutionCode=I20140102000000">성남평생교육원</a>
 	                    </div>
 	                </div>
 	            </li>
@@ -67,7 +67,7 @@
 	                    </button>
 	                    <div class="dropdownatuo-content">
 	                        <a href="/PA/lincense/LicenseTestApplication">#원서접수</a>
-	                        <a href="#">#힙격자/답안발표</a>
+	                        <a href="#">#합격자/답안발표</a>
 	                        <a href="#">#시험일정</a>
 							<a href="#">#필기시험안내</a>
 	                    	<a href="#">#실기시험안내</a>
@@ -80,10 +80,10 @@
 	                    <button class="dropbtn">고객지원 
 	                    </button>
 	                    <div class="dropdownatuo-content">
-	                        <a href="#">#공지사항</a>
-	                        <a href="#">#이용안내</a>
-	                        <a href="#">#환불안내</a>
-	                        <a href="#">#시험계획공지</a>
+							<a th:href="@{'/PANotice?institutionCode='+${institutionCode}}">공지사항</a>
+							<a href="#">#이용안내</a>
+							<a href="#">#환불안내</a>
+							<a href="#">#시험계획공지</a>
 	                    </div>
 	                </div>
 	            </li>

@@ -5,7 +5,6 @@ public class Board {
 	private String boardTitle;
 	private String boardContents;
 	private String boardType;
-	private String memberOnlineCode;
 	private String memberOnlineId;
 	private String memberName;
 	private String institutionCode;
@@ -35,12 +34,6 @@ public class Board {
 	}
 	public void setBoardType(String boardType) {
 		this.boardType = boardType;
-	}
-	public String getMemberOnlineCode() {
-		return memberOnlineCode;
-	}
-	public void setMemberOnlineCode(String memberOnlineCode) {
-		this.memberOnlineCode = memberOnlineCode;
 	}
 	public String getMemberOnlineId() {
 		return memberOnlineId;
@@ -76,7 +69,7 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContents=" + boardContents + ", boardType=" + boardType
-				+ ", memberOnlineCode=" + memberOnlineCode + ", memberOnlineId=" + memberOnlineId + ", memberName="
+				+ ", memberOnlineId=" + memberOnlineId + ", memberName="
 				+ memberName + ", institutionCode=" + institutionCode + ", institutionName=" + institutionName
 				+ ", BoardDate=" + BoardDate + "]";
 	}

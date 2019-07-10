@@ -38,7 +38,7 @@
 					<tr th:each="board:${boardList}">
 						<!-- <input type="hidden" value="${member.memberCode}"> -->
 						<!-- <input type="hidden" value="${member.memberCode}"> -->
-						<th scope="row" th:href="@{'/PIBoardDetail?institutionCode='+${institutionCode}}" th:text="${board.boardTitle}"></th>
+						<th scope="row" th:text="${board.boardTitle}"></th>
 						<td th:text="${board.memberName}"></td>
 				</tbody>
 			</table>
