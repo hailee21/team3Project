@@ -81,26 +81,6 @@ public class AssociationEvaluationController {
 		return mav;
 	}
 
-	//평가 항목 상세 추가 폼 출력 controller
-	@GetMapping("/association/evaluation/addEvalByAssociation")
-	public ModelAndView addEvalByAssociationForm(HttpSession session, ModelAndView mav) {
-		System.out.println("[AssociationEvaluationController addEvalByAssociationForm] 호출");
-		String memberRank = (String)session.getAttribute("memberRank");
-		if(memberRank == null) {
-			memberRank = "로그인 실패";
-		}
-		if(memberRank.equals("협회직원")) {
-			Map<String, Object> map = associationEvaluationService.addEvalByAssociationForm();
-			mav.addObject("yearList", map.get("yearList"));
-			mav.addObject("sortList", map.get("sortList"));
-			mav.setViewName("association/evaluation/addEvalByAssociation");
-		} else {
-			System.out.println("[AssociationEvaluationController addEvalByAssociationForm] 협회직원 아님");
-			mav.setViewName("association/associationLogin");
-		}
-		return mav;
-	}
-
 	//평가 항목 상세 추가 액션 controller
 	@PostMapping("/associationAddEval")
 	public ModelAndView addEvalByAssociation(HttpSession session, ModelAndView mav, AddEvalByAssociation addEvalByAssociation) {
