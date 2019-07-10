@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+	$(document).ready(function() {
+		//유효성 검사를 위한 변수 선언
+		let licenseCodeCheck = true;
+		let infoQualificationCodeCheck = true;
+		let infoQualificationNameCheck = true;
+		let memberCodeCheck = true;
+		let memberNameCheck = true;
+		let noticeAnnualLicenseTestResultDateCheck = true;
+		let licenseIssueDateCheck = true;
+		
+		//licenseCode 입력 유효성 검사
+		$('#licenseCode').blur(function() {
+			if($('#licenseCode').val() == "") {
+				console.log('licenseCode 공백입력')
+				licenseCodeCheck = true;
+			} else {
+                console.log('infoQualificationCode 유효성 검사 완료')
+				licenseCodeCheck = false;
+			}
+		});
+
+		//infoQualificationCode 입력 유효성 검사
+		$('#infoQualificationCode').blur(function() {
+			if($('#infoQualificationCode').val() == "") {
+				console.log('infoQualificationCode 공백입력')
+				infoQualificationCodeCheck = true;
+			} else {
+                console.log('infoQualificationCode 유효성 검사 완료')
+				infoQualificationCodeCheck = false;
+			}
+		});
+
+		//infoQualificationName 입력 유효성 검사
+		$('#infoQualificationName').blur(function() {
+			if($('#infoQualificationName').val() == "") {
+				console.log('infoQualificationName 공백입력')
+				infoQualificationNameCheck = true;
+			} else {
+                console.log('infoQualificationName 유효성 검사 완료')
+				infoQualificationNameCheck = false;
+			}
+		});
+		
+		//memberCode 입력 유효성 검사
+		$('#memberCode').blur(function() {
+			if($('#memberCode').val() == "") {
+				console.log('memberCode 공백입력')
+				memberCodeCheck = true;
+			} else {
+                console.log('memberCode 유효성 검사 완료')
+				memberCodeCheck = false;
+			}
+		});
+
+		//memberName 입력 유효성 검사
+		$('#memberName').blur(function() {
+			if($('#memberName').val() == "") {
+				console.log('memberName 공백입력')
+				memberNameCheck = true;
+			} else {
+                console.log('memberName 유효성 검사 완료')
+				memberNameCheck = false;
+			}
+		});
+
+		//noticeAnnualLicenseTestResultDate 입력 유효성 검사
+		$('#noticeAnnualLicenseTestResultDate').blur(function() {
+			if($('#noticeAnnualLicenseTestResultDate').val() == "") {
+				console.log('noticeAnnualLicenseTestResultDate 공백입력')
+				noticeAnnualLicenseTestResultDateCheck = true;
+			} else {
+                console.log('noticeAnnualLicenseTestResultDate 유효성 검사 완료')
+				noticeAnnualLicenseTestResultDateCheck = false;
+			}	
+		});
+		
+		//licenseIssueDate 입력 유효성 검사
+		$('#licenseIssueDate').blur(function() {
+			if($('#licenseIssueDate').val() == "") {
+				console.log('licenseIssueDate 공백입력')
+				licenseIssueDateCheck = true;
+			} else {
+                console.log('licenseIssueDate 유효성 검사 완료')
+				licenseIssueDateCheck = false;
+			}	
+		});
+		
+		
+		
+		//btnAdd 클릭 이벤트 처리
+		$('#btnAdd').on('click',function() {
+			if(infoQualificationCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('자격종목코드가 공백 상태 입니다.');
+			} else if(infoQualificationNameCheck) {
+				$('h4').addClass('red');
+				$('h4').text('자격종목명이 공백 상태 입니다.');
+			} else if(infoQualificationRequiredCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('필요조건코드가 공백 상태 입니다.');
+			} else if(infoQualificationTestUseCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험방법이 공백 상태 입니다.');
+			} else if(infoQualificationRequiredTypeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('필요종류가 공백 상태 입니다.');
+			} else if(infoQualificationDescriptionCheck) {
+				$('h4').addClass('red');
+				$('h4').text('종목개요가 공백 상태 입니다.');
+			} else {
+				$('#addLicenese').submit()
+			}
+		});
+
+	});
+</script>
+</th:block>
+	let licenseCodeCheck = true;
+		let infoQualificationCodeCheck = true;
+		let infoQualificationNameCheck = true;
+		let memberCodeCheck = true;
+		let memberNameCheck = true;
+		let noticeAnnualLicenseTestResultDateCheck = true;
+		let licenseIssueDateCheck = true;
+<div layout:fragment="content">
+	<h3>자격증 발급 등록</h3>
+	<form id="addLicenese" action="/association/license/addLicense" method="post">
+		<div class="form-group">
+			<label>자격증코드 :</label>
+			<input type="text" class="form-control" id="licenseCode" name="licenseCode">
+		</div>
+		<div class="form-group">
+			<label>자격종목코드 :</label>
+			<input type="text" class="form-control" id="infoQualificationCode" name="infoQualificationCode">
+		</div>
+		<div class="form-group">
+			<label>자격종목명 :</label>
+			<input type="text" class="form-control" id="infoQualificationName" name="infoQualificationName">
+		</div>
+		<div class="form-group">
+			<label>회원코드 :</label>
+			<input type="text" class="form-control" id="memberCode" name="memberCode">
+		</div>
+		<div class="form-group">
+			<label>회원명 :</label>
+			<input type="text" class="form-control" id="memberName" name="memberName">
+		</div>
+		<div class="form-group">
+			<label>결과발표일 :</label>
+			<input type="text" class="form-control" id="noticeAnnualLicenseTestResultDate" name="noticeAnnualLicenseTestResultDate">
+		</div>
+		<div class="form-group">
+			<label>자격증발급일 :</label>
+			<input type="text" class="form-control" id="licenseIssueDate" name="licenseIssueDate">
+		</div>	
+		<button type="button" id="btnAdd" class="btn btn-primary">자격증 발급 등록</button>		
+	</form>
+	<h4></h4>
+</div>
+</html>

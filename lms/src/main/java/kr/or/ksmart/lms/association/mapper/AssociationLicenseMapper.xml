@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationLicenseMapper">
+	<!-- 자격증 발급 resultMap -->
+	<resultMap id="licenseMap"
+			   type="kr.or.ksmart.lms.association.vo.License">
+		<result column="license_code" property="licenseCode"/>
+		<result column="info_qualification_code" property="infoQualificationCode"/>
+		<result column="info_qualification_name" property="infoQualificationName"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="member_name" property="memberName"/>
+		<result column="notice_annual_license_test_result_date" property="noticeAnnualLicenseTestResultDate"/>
+		<result column="license_issue_date" property="licenseIssueDate"/>
+		<result column="license_insert_date" property="licenseInsertDate"/>
+		
+	</resultMap>
+	<!-- 자격증 발급 등록 -->
+	<insert id="insertLicense"
+			parameterType="kr.or.ksmart.lms.association.vo.License">
+	INSERT INTO 
+		license
+	VALUES(
+		#{licenseCode}
+		, #{infoQualificationCode}
+		, #{infoQualificationName}
+		, #{memberCode}
+		, #{memberName}
+		, #{noticeAnnualLicenseTestResultDate}
+		, #{licenseIssueDate}
+		, now())
+		
+	</insert>
+	<!-- 자격증 발급 List -->
+	<select id="licenseMap"
+			resultType="kr.or.ksmart.lms.association.vo.License">
+	SELECT license_code
+		, info_qualification_code
+		, info_qualification_name
+		, member_code
+		, member_name
+		, notice_annual_license_test_result_date
+		, license_issue_date
+	FROM license
+	</select>
+	
+</mapper>
