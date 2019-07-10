@@ -33,11 +33,9 @@ public interface InstitutionNoticeLectureMapper {
 	
 	// 강의공고 목록 출력
 		// 1. 현재 진행중인 목록 출력
-		public List<NoticeLecture> institutionSelectNoticeLectureList();
-		// 2. 폐강예정 목록 출력
-		public List<NoticeLecture> institutionSelectNoticeLectureFailWaitingList();
-		// 3. 폐강목록 출력 
-		public List<LectureFail> institutionSelectLectureFailList();
+		public List<NoticeLecture> institutionSelectNoticeLectureList(String institutionCode);
+		// 2. 폐강목록 출력 
+		public List<LectureFail> institutionSelectLectureFailList(String institutionCode);
 	// 세부 강의공고 조회
 	public NoticeLecture institutionSelectNoticeLectureByNoticeLectureCode(String NoticeLectureCode);
 }

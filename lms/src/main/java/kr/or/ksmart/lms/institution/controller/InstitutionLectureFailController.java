@@ -22,9 +22,45 @@ import kr.or.ksmart.lms.institution.vo.NoticeLecture;
 public class InstitutionLectureFailController {
 	
 	@Autowired InstitutionLectureFailService institutionLectureFailService;
+
+	// institution layout 폐강, 폐강예정 목록 출력하기 controller
+	@GetMapping("/institution/lecture/failLectureList")
+	public ModelAndView institutionGetFailWaitingLectureList(ModelAndView mav, HttpSession session) {
+		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("교육원직원")) {
+			System.out.println("교육원직원");
+			
+			System.out.println("[InstitutionLectureFailController institutionGetFailWaitingLectureList]");
+			
+			// 해당 교육원만의 폐강 대상들 보여주기 위해 instituitonCode 사용하기
+			String institutionCode = (String)session.getAttribute("institutionCode");
+			System.out.println("[InstitutionLectureFailController institutionGetFailWaitingLectureList] institutionCode: "+institutionCode);
+			
+			// service에서 map내부에 담아 가져온 list를 mav에 담아서 뷰에서 활용
+			Map<String, Object> map = institutionLectureFailService.institutionGetFailWaitingLectureList(institutionCode);
+			// 폐강대기리스트
+			List<NoticeLecture> failWaitingList = (List<NoticeLecture>)map.get("failWaitingList");
+			System.out.println("[InstitutionLectureFailController institutionGetFailWaitingLectureList] failWaitingList: "+failWaitingList);
+			// 폐강리스트
+			List<LectureFail> failLectureList = (List<LectureFail>)map.get("failLectureList");
+			System.out.println("[InstitutionLectureFailController institutionGetFailWaitingLectureList] failLectureList: "+failLectureList);
+			
+			mav.setViewName("institution/lecture/failLectureList");
+			mav.addObject("failWaitingList", failWaitingList);
+			mav.addObject("failLectureList", failLectureList);
+		}else {
+			System.out.println("교육원직원아님");
+			
+			mav.setViewName("institution/institutionLogin");
+		}
+		return mav;
+	}
 	
 	// institution layout 폐강상세보기 controller
-	@GetMapping("/institution/lecture/detailLectureFail")
+	@GetMapping("/institution/lecture/detailFailLecture")
 	public ModelAndView institutionGetLectureFailByLectureFailCode(ModelAndView mav, HttpSession session
 																	, @RequestParam String lectureFailCode) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
@@ -38,33 +74,8 @@ public class InstitutionLectureFailController {
 			System.out.println("[InstitutionLectureFailController institutionGetLectureFailByLectureFailCode]lectureFailCode : "+lectureFailCode);
 			// service에서 가져온 공고 상세내용을 mav에 담아서 뷰에서 활용
 			LectureFail lectureFail = institutionLectureFailService.institutionGetLectureFailByLectureFailCode(lectureFailCode);
-			mav.setViewName("institution/lecture/detailLectureFail");
+			mav.setViewName("institution/lecture/detailFailLecture");
 			mav.addObject("lectureFail", lectureFail);
-		}else {
-			System.out.println("교육원직원아님");
-			
-			mav.setViewName("institution/institutionLogin");
-		}
-		return mav;
-	}
-
-	// institution layout 폐강예정 목록 출력하기 controller
-	@GetMapping("/institution/lecture/failWaitingLectureList")
-	public ModelAndView institutionGetFailWaitingLectureList(ModelAndView mav, HttpSession session) {
-		String memberRank = (String)session.getAttribute(("memberRank"));
-		if(memberRank == null) {
-			memberRank="로그인 실패";
-		}
-		if(memberRank.equals("교육원직원")) {
-			System.out.println("교육원직원");
-			
-			System.out.println("[InstitutionLectureFailController institutionGetFailWaitingLectureList]");
-			// service에서 가져온 list를 mav에 담아서 뷰에서 활용
-			List<NoticeLecture> failWaitingList = institutionLectureFailService.institutionGetFailWaitingLectureList();
-			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] failWaitingList: "+failWaitingList);
-			
-			mav.setViewName("institution/lecture/failWaitingLectureList");
-			mav.addObject("failWaitingList", failWaitingList);
 		}else {
 			System.out.println("교육원직원아님");
 			
@@ -122,7 +133,7 @@ public class InstitutionLectureFailController {
 			System.out.println("[InstitutionLectureFailController institutionAddFailLecture]noticeLectureCode : "+noticeLectureCode);
 			
 			// service에서 가져온 공고 상세내용을 mav에 담아서 뷰에서 활용
-			institutionLectureFailService.institutionAddFailLectureAndDeleteNoticeLecture(lectureFail, noticeLectureCode);
+			institutionLectureFailService.institutionAddFailLectureAndUpdateNoticeLecture(lectureFail, noticeLectureCode);
 			mav.setViewName("redirect:/institution/lecture/noticeLectureList");
 		}else {
 			System.out.println("교육원직원아님");

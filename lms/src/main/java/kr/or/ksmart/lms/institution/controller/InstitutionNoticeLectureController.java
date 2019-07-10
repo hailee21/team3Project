@@ -96,18 +96,19 @@ public class InstitutionNoticeLectureController {
 			
 			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList]");
 			
+			// 해당 교육원만의 강의공고 조회를 위해 session에서 institutionCode받아와서 조회하기
+			String institutionCode = (String)session.getAttribute("institutionCode");
+			System.out.println("[InstitutionLectureController institutionGetNoticeLectureListForLectureSignupResult]institutionCode: "+institutionCode);
+			
 			// service에서 가져온 list를 mav에 담아서 뷰에서 활용
-			Map<String, Object> map = institutionNoticeLectureService.institutionGetNoticeLectureList();
+			Map<String, Object> map = institutionNoticeLectureService.institutionGetNoticeLectureList(institutionCode);
 			List<NoticeLecture> noticeLecturelist = (List<NoticeLecture>)map.get("noticeLecturelist");
-			List<NoticeLecture> failWaitingList = (List<NoticeLecture>)map.get("failWaitingList");
 			List<LectureFail> failLectureList = (List<LectureFail>)map.get("failLectureList");
 			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] noticeLecturelist: "+noticeLecturelist);
-			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] failWaitingList: "+failWaitingList);
 			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] failLectureList: "+failLectureList);
 			
 			mav.setViewName("institution/lecture/noticeLectureList");
 			mav.addObject("noticeLecturelist", noticeLecturelist);
-			mav.addObject("failWaitingList", failWaitingList);
 			mav.addObject("failLectureList", failLectureList);
 		}else {
 			System.out.println("교육원직원아님");

@@ -65,7 +65,8 @@
 		<result column="notice_lecture_result_date" property="noticeLectureResultDate"/>
 		<result column="notice_lecture_fee" property="noticeLectureFee"/>	
 		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
-		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
+		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>		
+		<result column="notice_lecture_status" property="noticeLectureStatus"/>
 		<result column="notice_lecture_date" property="noticeLectureDate"/>		
 	</resultMap>
 	<!-- PILectureMapper LectureSignup resultMap  -->
@@ -159,7 +160,7 @@
 		WHERE 
 			institution_code = #{institutionCode}
 		AND	
-			date(notice_lecture_recruitment_end_date) >= date(now())			
+			notice_lecture_status = '진행중'		
 	</select>	
 	<!-- 세부 강의공고 조회 -->
 	<select id="piSelectNoticeLectureByNoticeLectureCode"

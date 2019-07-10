@@ -14,11 +14,14 @@ public interface InstitutionLectureFailMapper {
 	public LectureFail institutionSelectLectureFailByLectureFailCode(String lectureFailCode);
 	
 	// 폐강 대기 목록 출력
-	public List<NoticeLecture> institutionSelectFailWaitingList();
-	// 폐강추가를위한 해당 대기 강의공고 출력
+	public List<NoticeLecture> institutionSelectFailWaitingList(String institutionCode);
+	// 폐강 목록 출력
+	public List<LectureFail> institutionSelectLectureFailList(String institutionCode);
+	
+	// 폐강추가화면입력을 위한 해당 대기 강의공고 출력
 	public NoticeLecture institutionSelectNoticeLectureInfoToAddFailLectureByNoticeLectureCode(String noticeLectureCode);
 	// 폐강추가
 	public void institutionInsertLectureFail(LectureFail lectureFail);
-	// 삭제
-	public int institutionDeleteNoticeLectureAfterInsertLectureFailByNoticeLectureCode(String noticeLectureCode);
+	// 폐강 이후 notice_lecture테이블의 notice_lecture_status 컬럼 업데이터
+	public void institutionUpdateNoticeLectureStatusByNoticeLectureCode(String noticeLectureCode);
 }

@@ -23,6 +23,7 @@
 		<result column="notice_lecture_fee" property="noticeLectureFee"/>	
 		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
 		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
+		<result column="notice_lecture_status" property="noticeLectureStatus"/>
 		<result column="notice_lecture_date" property="noticeLectureDate"/>		
 	</resultMap>
 	<!-- InstitutionNoticeLectureMapper LectureFail resultMap  -->
@@ -41,29 +42,9 @@
 		<result column="lecture_fail_date" property="lectureFailDate"/>
 	</resultMap>	
 	
-	<!-- 폐강 세부조회 출력 -->
-	<select id="institutionSelectLectureFailByLectureFailCode"
-			resultMap="LectureFailResultMap">
-		SELECT 
-			lecture_fail_code
-			,notice_lecture_code
-			,notice_lecture_title
-			,institution_code
-			,institution_name
-			,member_teacher_code
-			,member_teacher_name
-			,left(lecture_start_date, 10) AS lecture_start_date
-			,left(lecture_end_date, 10) AS lecture_start_date
-			,lecture_fail_reason
-			,left(lecture_fail_date, 10) AS lecture_fail_date
-		FROM 
-			lecture_fail
-		WHERE 
-			CURRENT_DATE() > lecture_fail_date
-	</select>
-	
 	<!-- 폐강대기 리스트 출력 -->
 	<select id="institutionSelectFailWaitingList"
+			parameterType="String"
 			resultMap="NoticeLectureResultMap">
 		SELECT 
 			notice_lecture_code
@@ -85,10 +66,58 @@
 			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
 		FROM 
 			notice_lecture
-		WHERE	
-			CURRENT_DATE() > date(notice_lecture_recruitment_end_date)		
+		WHERE
+			notice_lecture_status = '모집중'	
+		AND 
+			institution_code = #{institutionCode}
+		AND	
+			CURRENT_DATE()+5 > date(notice_lecture_recruitment_end_date)		
 	</select>
 	
+	<!-- 폐강목록 출력 -->
+	<select id="institutionSelectLectureFailList"
+			parameterType="String"
+			resultMap="LectureFailResultMap">
+		SELECT 
+			lecture_fail_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,institution_code
+			,institution_name
+			,member_teacher_code
+			,member_teacher_name
+			,lecture_start_date
+			,lecture_end_date
+			,lecture_fail_reason
+			,left(lecture_fail_date, 10) AS lecture_fail_date
+		FROM 
+			lecture_fail
+		WHERE 
+			institution_code = #{institutionCode}
+	</select>
+	
+	<!-- 폐강 세부조회 출력 -->
+	<select id="institutionSelectLectureFailByLectureFailCode"
+			parameterType="String"
+			resultMap="LectureFailResultMap">
+		SELECT 
+			lecture_fail_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,institution_code
+			,institution_name
+			,member_teacher_code
+			,member_teacher_name
+			,left(lecture_start_date, 10) AS lecture_start_date
+			,left(lecture_end_date, 10) AS lecture_end_date
+			,lecture_fail_reason
+			,left(lecture_fail_date, 10) AS lecture_fail_date
+		FROM 
+			lecture_fail
+		WHERE 
+			lecture_fail_code = #{lectureFailCode}
+	</select>
+			
 	<!-- 폐강추가 등록을 위한 noticeLecture정보 추출 -->
 	<select id="institutionSelectNoticeLectureInfoToAddFailLectureByNoticeLectureCode"
 			parameterType="String"
@@ -137,14 +166,14 @@
 			,now()
 		)	
 	</insert>
-	
-	<!-- 폐강등록 후 notice_lecture의 강의공고 삭제하기 -->
-	<delete id="institutionDeleteNoticeLectureAfterInsertLectureFailByNoticeLectureCode"
+	<!-- Update -->
+	<update id="institutionUpdateNoticeLectureStatusByNoticeLectureCode"
 			parameterType="String">
-		DELETE FROM 
+		UPDATE
 			notice_lecture
-		WHERE 
+		SET	
+			notice_lecture_status = '폐강'
+		WHERE
 			notice_lecture_code = #{noticeLectureCode}
-	</delete>
-	
+	</update>	
 </mapper>

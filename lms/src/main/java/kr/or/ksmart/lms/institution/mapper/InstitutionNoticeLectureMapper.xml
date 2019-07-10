@@ -24,6 +24,7 @@
 		<result column="notice_lecture_fee" property="noticeLectureFee"/>	
 		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
 		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
+		<result column="notice_lecture_status" property="noticeLectureStatus"/>
 		<result column="notice_lecture_date" property="noticeLectureDate"/>		
 	</resultMap>
 	<!-- InstitutionNoticeLectureMapper InfoLecture resultMap  -->
@@ -158,6 +159,7 @@
 				,notice_lecture_fee
 				,notice_lecture_start_date
 				,notice_lecture_end_date
+				,notice_lecture_status
 				,notice_lecture_date
 			) VALUES (
 				#{noticeLectureCode}
@@ -194,7 +196,8 @@
 				,#{noticeLectureResultDate}
 				,#{noticeLectureFee}
 				,#{noticeLectureStartDate}
-				,#{noticeLectureEndDate}	
+				,#{noticeLectureEndDate}					
+				,'모집중'
 				,now()		
 			)
 		</insert>
@@ -202,6 +205,7 @@
 	<!-- 강의공고 목록 출력 -->
 			<!-- 진행중인 강의목록 -->
 			<select id="institutionSelectNoticeLectureList"
+					parameterType="String"
 					resultMap="NoticeLectureResultMap">
 				SELECT 
 					notice_lecture_code
@@ -221,41 +225,19 @@
 					,notice_lecture_fee
 					,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
 					,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
+					,notice_lecture_status
 				FROM 
 					notice_lecture
-				WHERE	
-					date(notice_lecture_recruitment_end_date) >= date(now())		
-			</select>
-			
-			<!-- 폐강예정인 강의목록 -->
-			<select id="institutionSelectNoticeLectureFailWaitingList"
-					resultMap="NoticeLectureResultMap">
-				SELECT 
-					notice_lecture_code
-					,info_lecture_code
-					,member_teacher_code
-					,member_teacher_name
-					,classroom_code
-					,notice_lecture_title
-					,institution_code
-					,institution_name
-					,classroom_maximum_no
-					,notice_lecture_minimum_no
-					,notice_lecture_current_applicant_no
-					,left(notice_lecture_recruitment_start_date, 10) AS notice_lecture_recruitment_start_date
-					,left(notice_lecture_recruitment_end_date, 10) AS notice_lecture_recruitment_end_date
-					,left(notice_lecture_result_date, 10) AS notice_lecture_result_date
-					,notice_lecture_fee
-					,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
-					,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
-				FROM 
-					notice_lecture
-				WHERE	
-					CURRENT_DATE() > date(notice_lecture_recruitment_end_date)		
+				WHERE
+					institution_code = #{institutionCode}
+				ORDER BY 
+					notice_lecture_recruitment_start_date
+				DESC
 			</select>
 			
 			<!-- 폐깡 목록 출력 -->
 			<select id="institutionSelectLectureFailList"
+					parameterType="String"
 					resultMap="LectureFailResultMap">
 				SELECT 
 					lecture_fail_code
@@ -271,6 +253,8 @@
 					,left(lecture_fail_date, 10) AS lecture_fail_date
 				FROM 
 					lecture_fail
+				WHERE 
+					institution_code = #{institutionCode}
 			</select>
 	
 	<!-- 세부 강의공고 조회 -->
@@ -295,6 +279,7 @@
 			,notice_lecture_fee
 			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
 			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
+			,notice_lecture_status
 		FROM 
 			notice_lecture
 		WHERE 

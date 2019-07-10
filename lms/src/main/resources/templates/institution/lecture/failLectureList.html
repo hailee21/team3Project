@@ -12,9 +12,10 @@
 </th:block>
 
 <div layout:fragment="content">
-	<h1>폐강 예정 강의</h1>
+	<h1>폐강 관리</h1>
 	<br>
-	<h4>폐강을 원하시는 강의공고를 선택하여 주십시오</h4>
+	<h3>폐강 예정 강의</h3>
+	<h6>폐강을 원하시는 강의공고를 선택하여 주십시오</h6>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -38,6 +39,26 @@
 				<td th:text="${list.noticeLectureStartDate}" th:value="${list.noticeLectureStartDate}"></td>
 				<td th:text="${list.noticeLectureEndDate}" th:value="${list.noticeLectureEndDate}"></td>		
 				<td><a th:href="@{'/institution/lecture/addFailLecture?noticeLectureCode='+${list.noticeLectureCode}}" type="submit" class="btn btn-primary">등록하기</a></td>		
+			</tr>
+		</tbody>
+	</table>
+	
+	<h3>폐강된 강의공고</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>강의공고명</th>
+				<th>교육원</th>
+				<th>강사명</th>
+				<th>폐강일자</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list:${failLectureList}">
+				<td><a th:href="@{'/institution/lecture/detailFailLecture?lectureFailCode='+${list.lectureFailCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.lectureFailCode}"></a></td>
+				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
+				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
+				<td th:text="${list.lectureFailDate}" th:value="${list.lectureFailDate}"></td>				
 			</tr>
 		</tbody>
 	</table>

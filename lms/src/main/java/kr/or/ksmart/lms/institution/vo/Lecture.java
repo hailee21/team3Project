@@ -9,8 +9,8 @@ public class Lecture {
 	private String institutionName;
 	private String memberTeacherCode;
 	private String memberTeacherName;
-	private String lectureStartDate;
-	private String lectureEndDate;
+	private String noticeLectureStartDate;
+	private String noticeLectureEndDate;
 	private String lectureClassDays;
 	private String lectureDate;
 	
@@ -62,17 +62,17 @@ public class Lecture {
 	public void setMemberTeacherName(String memberTeacherName) {
 		this.memberTeacherName = memberTeacherName;
 	}
-	public String getLectureStartDate() {
-		return lectureStartDate;
+	public String getNoticeLectureStartDate() {
+		return noticeLectureStartDate;
 	}
-	public void setLectureStartDate(String lectureStartDate) {
-		this.lectureStartDate = lectureStartDate;
+	public void setNoticeLectureStartDate(String noticeLectureStartDate) {
+		this.noticeLectureStartDate = noticeLectureStartDate;
 	}
-	public String getLectureEndDate() {
-		return lectureEndDate;
+	public String getNoticeLectureEndDate() {
+		return noticeLectureEndDate;
 	}
-	public void setLectureEndDate(String lectureEndDate) {
-		this.lectureEndDate = lectureEndDate;
+	public void setNoticeLectureEndDate(String noticeLectureEndDate) {
+		this.noticeLectureEndDate = noticeLectureEndDate;
 	}
 	public String getLectureClassDays() {
 		return lectureClassDays;
@@ -93,7 +93,7 @@ public class Lecture {
 				+ ", noticeLectureTitle=" + noticeLectureTitle + ", infoLectureCode=" + infoLectureCode
 				+ ", institutionCode=" + institutionCode + ", institutionName=" + institutionName
 				+ ", memberTeacherCode=" + memberTeacherCode + ", memberTeacherName=" + memberTeacherName
-				+ ", lectureStartDate=" + lectureStartDate + ", lectureEndDate=" + lectureEndDate
+				+ ", noticeLectureStartDate=" + noticeLectureStartDate + ", noticeLectureEndDate=" + noticeLectureEndDate
 				+ ", lectureClassDays=" + lectureClassDays + ", lectureDate=" + lectureDate + "]";
 	}
 }

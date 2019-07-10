@@ -46,6 +46,7 @@
 					<th>결과발표일</th>
 					<th>강의 시작일</th>
 					<th>강의 마감일</th>
+					<th>진행여부</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,7 +55,8 @@
 					<td th:text="${info.noticeLectureRecruitmentEndDate}" th:value="${info.noticeLectureRecruitmentEndDate}"></td>
 					<td th:text="${info.noticeLectureResultDate}" th:value="${info.noticeLectureResultDate}"></td>
 					<td th:text="${info.noticeLectureStartDate}" th:value="${info.noticeLectureStartDate}"></td>
-					<td th:text="${info.noticeLectureEndDate}" th:value="${info.noticeLectureEndDate}"></td>				
+					<td th:text="${info.noticeLectureEndDate}" th:value="${info.noticeLectureEndDate}"></td>	
+					<td th:text="${info.noticeLectureStatus}" th:value="${info.noticeLectureStatus}"></td>				
 				</tr>
 			</tbody>
 		</table>

@@ -3,6 +3,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionLectureMapper"> 
+	<!-- InstitutionNoticeLectureMapper NoticeLecture resultMap  -->
+	<resultMap id="NoticeLectureResultMap"
+				type="kr.or.ksmart.lms.institution.vo.NoticeLecture">
+		<result column="notice_lecture_code" property="noticeLectureCode"/>
+		<result column="info_lecture_code" property="infoLectureCode"/>
+		<result column="member_teacher_code" property="memberTeacherCode"/>
+		<result column="member_teacher_name" property="memberTeacherName"/>
+		<result column="classroom_code" property="classroomCode"/>
+		<result column="notice_lecture_title" property="noticeLectureTitle"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="classroom_maximum_no" property="classroomMaximumNo"/>
+		<result column="notice_lecture_minimum_no" property="noticeLectureMinimumNo"/>
+		<result column="notice_lecture_current_applicant_no" property="noticeLectureCurrentApplicantNo"/>
+		<result column="notice_lecture_recruitment_start_date" property="noticeLectureRecruitmentStartDate"/>
+		<result column="notice_lecture_recruitment_end_date" property="noticeLectureRecruitmentEndDate"/>
+		<result column="notice_lecture_result_date" property="noticeLectureResultDate"/>
+		<result column="notice_lecture_fee" property="noticeLectureFee"/>	
+		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
+		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
+		<result column="notice_lecture_status" property="noticeLectureStatus"/>
+		<result column="notice_lecture_date" property="noticeLectureDate"/>		
+	</resultMap>
 	<!-- InstitutionLectureMapper InfoLecture resultMap  -->
 	<resultMap id="InfoLectureResultMap"
 				type="kr.or.ksmart.lms.institution.vo.InfoLecture">
@@ -31,8 +54,8 @@
 		<result column="institution_name" property="institutionName"/>
 		<result column="member_teacher_code" property="memberTeacherCode"/>
 		<result column="member_teacher_name" property="memberTeacherName"/>
-		<result column="lecture_start_date" property="lectureStartDate"/>
-		<result column="lecture_end_date" property="lectureEndDate"/>
+		<result column="notice_lecture_start_date" property="lectureStartDate"/>
+		<result column="notice_lecture_end_date" property="lectureEndDate"/>
 		<result column="lecture_class_days" property="lectureClassDays"/>
 		<result column="lecture_date" property="lectureDate"/>
 	</resultMap>
@@ -101,8 +124,8 @@
 			,institution_name
 			,member_teacher_code
 			,member_teacher_name
-			,lecture_start_date
-			,lecture_end_date
+			,notice_lecture_start_date
+			,notice_lecture_end_date
 			,lecture_class_days
 			,lecture_date
 		) VALUES (
@@ -151,8 +174,8 @@
 			,institution_name
 			,member_teacher_code
 			,member_teacher_name
-			,lecture_start_date
-			,lecture_end_date
+			,notice_lecture_start_date
+			,notice_lecture_end_date
 			,lecture_class_days
 			,left(lecture_date, 10) AS lecture_date
 		FROM 
@@ -174,13 +197,46 @@
 			,institution_name
 			,member_teacher_code
 			,member_teacher_name
-			,lecture_start_date
-			,lecture_end_date
+			,notice_lecture_start_date
+			,notice_lecture_end_date
 			,lecture_class_days
 			,left(lecture_date, 10) AS lecture_date
 		FROM 
 			lecture
 		WHERE
 			lecture_code = #{lectureCode}
+	</select>
+	
+	<select id="institutionSelectNoticeLectureListByInstitutionCode"
+			parameterType="String"
+			resultMap="NoticeLectureResultMap">
+		SELECT 
+			notice_lecture_code
+			,info_lecture_code
+			,member_teacher_code
+			,member_teacher_name
+			,classroom_code
+			,notice_lecture_title
+			,institution_code
+			,institution_name
+			,classroom_maximum_no
+			,notice_lecture_minimum_no
+			,notice_lecture_current_applicant_no
+			,left(notice_lecture_recruitment_start_date, 10) AS notice_lecture_recruitment_start_date
+			,left(notice_lecture_recruitment_end_date, 10) AS notice_lecture_recruitment_end_date
+			,left(notice_lecture_result_date, 10) AS notice_lecture_result_date
+			,notice_lecture_fee
+			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
+			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
+			,notice_lecture_status
+		FROM 
+			notice_lecture
+		WHERE
+			institution_code = #{institutionCode}
+		AND
+			notice_lecture_status = '모집중'
+		ORDER BY 
+			notice_lecture_recruitment_start_date
+		DESC
 	</select>
 </mapper>

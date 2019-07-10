@@ -9,6 +9,7 @@ import kr.or.ksmart.lms.institution.mapper.InstitutionLectureMapper;
 import kr.or.ksmart.lms.institution.vo.InfoLecture;
 import kr.or.ksmart.lms.institution.vo.InfoSubject;
 import kr.or.ksmart.lms.institution.vo.Lecture;
+import kr.or.ksmart.lms.institution.vo.NoticeLecture;
 
 @Service
 public class InstitutionLectureService {
@@ -68,4 +69,17 @@ public class InstitutionLectureService {
 		System.out.println("[InstitutionLectureService institutionGetDetailLectureByLectureCode] lecture: "+lecture);
 		return lecture;
 	}
+	
+	// 면접결과 등록을 위한 준비
+	// 1. 해당 교육원의 모집중인 notice_lecture리스트 출력
+	public List<NoticeLecture> institutionGetNoticeLectureListForLectureSignupResult(String institutionCode){
+		System.out.println("[InstitutionLectureService institutionGetNoticeLectureListForLectureSignupResult]");
+		
+		// mapper에서 받은 detailLecture를 lecture객체참조변수 내부에담아서 controller에서 사용하기
+		List<NoticeLecture> list = institutionLectureMapper.institutionSelectNoticeLectureListByInstitutionCode(institutionCode);
+		System.out.println("[InstitutionLectureService institutionGetDetailLectureByLectureCode] list: "+list);
+		return list;
+	}
+	// 2. 해당 강의공고 조회 -> 수강신청자 목록 출력 -> lecture_signup_result 0등록
+	// 3. notice_lecture_status 모집완료 로 업데이트
 }

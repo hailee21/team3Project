@@ -14,5 +14,10 @@ import kr.or.ksmart.lms.institution.vo.InfoLecture;
 public class RestInstitutionNoticeLectureController {
 	@Autowired private InstitutionNoticeLectureService institutionNoticeLectureService;
 	
-	
+	// infoLecture-name select리스트 출력(비동기)
+	@PostMapping("/getInfoLectureNameList")
+	public List<InfoLecture> institutionGetInfoLectureNameList(@RequestParam() String infoLectureSort){
+		System.out.println("[RestInstitutionNoticeLectureController institutionGetInfoLectureNameList] infoLectureSort: "+ infoLectureSort);
+		return  institutionNoticeLectureService.institutionReadyForRestAddNoticeLecture1(infoLectureSort);
+	}
 }

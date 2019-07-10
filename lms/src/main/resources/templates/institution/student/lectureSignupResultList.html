@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/institutionLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h1>강의공고 목록</h1>
+	<h3>면접 결과를 입력할 강의공고를 선택해주세요</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>강의공고명</th>
+				<th>교육원</th>
+				<th>강사</th>
+				<th>최소인원</th>
+				<th>신청인원</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list:${list}">
+				<td><a th:href="@{'/institution/student/addLectureSignupResult?noticeLectureCode='+${list.noticeLectureCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.noticeLectureCode}"></a></td>
+				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
+				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
+				<td th:text="${list.noticeLectureMinimumNo}" th:value="${list.noticeLectureMinimumNo}"></td>
+				<td th:text="${list.noticeLectureCurrentApplicantNo}" th:value="${list.noticeLectureCurrentApplicantNo}"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</html>

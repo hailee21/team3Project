@@ -18,8 +18,15 @@ public class NoticeLecture {
 	private int noticeLectureFee;
 	private String noticeLectureStartDate;
 	private String noticeLectureEndDate;
+	private String noticeLectureStatus;
 	private String noticeLectureDate;
 	
+	public String getNoticeLectureStatus() {
+		return noticeLectureStatus;
+	}
+	public void setNoticeLectureStatus(String noticeLectureStatus) {
+		this.noticeLectureStatus = noticeLectureStatus;
+	}	
 	public String getNoticeLectureDate() {
 		return noticeLectureDate;
 	}
@@ -128,6 +135,7 @@ public class NoticeLecture {
 	public void setNoticeLectureEndDate(String noticeLectureEndDate) {
 		this.noticeLectureEndDate = noticeLectureEndDate;
 	}
+	
 	@Override
 	public String toString() {
 		return "NoticeLecture [noticeLectureCode=" + noticeLectureCode + ", infoLectureCode=" + infoLectureCode
@@ -139,10 +147,8 @@ public class NoticeLecture {
 				+ ", noticeLectureRecruitmentStartDate=" + noticeLectureRecruitmentStartDate
 				+ ", noticeLectureRecruitmentEndDate=" + noticeLectureRecruitmentEndDate + ", noticeLectureResultDate="
 				+ noticeLectureResultDate + ", noticeLectureFee=" + noticeLectureFee + ", noticeLectureStartDate="
-				+ noticeLectureStartDate + ", noticeLectureEndDate=" + noticeLectureEndDate + ", noticeLectureDate="
-				+ noticeLectureDate + "]";
-	}
-	
-	
-	
+				+ noticeLectureStartDate + ", noticeLectureEndDate=" + noticeLectureEndDate
+				+ ", noticeLectureStatus=" + noticeLectureStatus + ", noticeLectureDate=" + noticeLectureDate
+				+ "]";
+	}	
 }

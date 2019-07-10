@@ -14,6 +14,7 @@ import kr.or.ksmart.lms.institution.service.InstitutionLectureService;
 import kr.or.ksmart.lms.institution.vo.InfoLecture;
 import kr.or.ksmart.lms.institution.vo.InfoSubject;
 import kr.or.ksmart.lms.institution.vo.Lecture;
+import kr.or.ksmart.lms.institution.vo.NoticeLecture;
 
 @Controller
 public class InstitutionLectureController {
@@ -130,24 +131,78 @@ public class InstitutionLectureController {
 	}
 	
 	// institution layout detailLecture 출력 controller
-		@GetMapping("/institution/lecture/detailLecture")
-		public ModelAndView institutionGetDetailLectureByLectureCode(ModelAndView mav, HttpSession session
-												, @RequestParam String lectureCode) {
+	@GetMapping("/institution/lecture/detailLecture")
+	public ModelAndView institutionGetDetailLectureByLectureCode(ModelAndView mav, HttpSession session
+											, @RequestParam String lectureCode) {
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("교육원직원")) {
+			System.out.println("교육원직원");
+			
+			System.out.println("[InstitutionLectureController institutionGetDetailLecture]");
+			System.out.println("[InstitutionLectureController institutionGetDetailLecture]lectureCode: "+lectureCode);
+			mav.setViewName("/institution/lecture/detailLecture");
+			
+			// 해당 교육원의 해당 강의만을 보여주어야 하므로 lectureCode를 받아와서 service의 메서드 호출하자			
+			Lecture lecture = institutionLectureService.institutionGetDetailLectureByLectureCode(lectureCode);
+			// mav내부에 service에서 받은 detailLecture값을 lecture객체참조변수에 담아서 뷰에서 활용하자
+			mav.addObject("lecture", lecture);
+		}else {
+			System.out.println("교육원직원아님");
+			
+			mav.setViewName("/institution/institutionLogin");
+		}		
+		return mav;
+	}
+	
+	// institution layout 면접결과 등록을 위한 모집중 강의공고 list 출력 controller
+	@GetMapping("/institution/student/lectureSignupResultList")
+	public ModelAndView institutionGetNoticeLectureListForLectureSignupResult(ModelAndView mav, HttpSession session) {
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("교육원직원")) {
+			System.out.println("교육원직원");
+			
+			System.out.println("[InstitutionLectureController institutionGetNoticeLectureListForLectureSignupResult]");
+			// 해당 교육원만의 강의공고 조회를 위해 session에서 institutionCode받아와서 조회하기
+			String institutionCode = (String)session.getAttribute("institutionCode");
+			System.out.println("[InstitutionLectureController institutionGetNoticeLectureListForLectureSignupResult]institutionCode: "+institutionCode);
+			mav.setViewName("/institution/student/lectureSignupResultList");
+			
+			// 해당 교육원의 해당 강의만을 보여주어야 하므로 institutionCode를 받아와서 service의 메서드 호출하자
+			List<NoticeLecture> list= institutionLectureService.institutionGetNoticeLectureListForLectureSignupResult(institutionCode);
+			System.out.println("[InstitutionLectureController institutionGetNoticeLectureListForLectureSignupResult]list: "+list);
+			// mav내부에 service에서 받은 detailLecture값을 lecture객체참조변수에 담아서 뷰에서 활용하자
+			mav.addObject("list", list);
+		}else {
+			System.out.println("교육원직원아님");
+			
+			mav.setViewName("/institution/institutionLogin");
+		}		
+		return mav;
+	}
+	// institution layout 면접결과 등록을 위한 모집중 강의공고 list 출력 controller
+		@GetMapping("/institution/student/addLectureSignupResult")
+		public ModelAndView institutionAddLectureSignupResult(ModelAndView mav, HttpSession session
+															, @RequestParam String noticeLectureCode) {
 			String memberRank = (String)session.getAttribute("memberRank");
 			if(memberRank == null) {
 				memberRank="로그인 실패";
 			}
 			if(memberRank.equals("교육원직원")) {
 				System.out.println("교육원직원");
+				System.out.println("[InstitutionLectureController institutionAddLectureSignupResult]");
+				System.out.println("[InstitutionLectureController institutionAddLectureSignupResult] noticeLectureCode: "+noticeLectureCode);
+				// 해당 교육원만의 강의공고 조회를 위해 session에서 institutionCode받아와서 조회하기
+				mav.setViewName("/institution/student/addLectureSignupResult");
 				
-				System.out.println("[InstitutionLectureController institutionGetDetailLecture]");
-				System.out.println("[InstitutionLectureController institutionGetDetailLecture]lectureCode: "+lectureCode);
-				mav.setViewName("/institution/lecture/detailLecture");
+				// 해당 교육원의 해당 강의만을 보여주어야 하므로 institutionCode를 받아와서 service의 메서드 호출하자
 				
-				// 해당 교육원의 해당 강의만을 보여주어야 하므로 lectureCode를 받아와서 service의 메서드 호출하자
-				Lecture lecture = institutionLectureService.institutionGetDetailLectureByLectureCode(lectureCode);
 				// mav내부에 service에서 받은 detailLecture값을 lecture객체참조변수에 담아서 뷰에서 활용하자
-				mav.addObject("lecture", lecture);
 			}else {
 				System.out.println("교육원직원아님");
 				
@@ -155,5 +210,4 @@ public class InstitutionLectureController {
 			}		
 			return mav;
 		}
-	
 }

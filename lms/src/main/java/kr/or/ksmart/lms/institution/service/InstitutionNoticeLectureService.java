@@ -91,22 +91,20 @@ public class InstitutionNoticeLectureService {
 	
 	
 	// 강의공고 리스트 출력
-	public Map<String, Object> institutionGetNoticeLectureList(){
+	public Map<String, Object> institutionGetNoticeLectureList(String institutionCode){
 		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList]");
 		
 		// mapper에서 호출해온 각 리스트들을 map에 담아서 controller에서 ModelAndView에 담아 뷰에서 활용하자
-		List<NoticeLecture> noticeLecturelist = institutionNoticeLectureMapper.institutionSelectNoticeLectureList();
-		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] noticeLecturelist: "+noticeLecturelist);
-		
-		List<NoticeLecture> failWaitingList = institutionNoticeLectureMapper.institutionSelectNoticeLectureFailWaitingList();
-		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] failWaitingList: "+failWaitingList);
-		
-		List<LectureFail> failLectureList = institutionNoticeLectureMapper.institutionSelectLectureFailList();
-		System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] failLectureList: "+failLectureList);
-		
+			// 진행중인 강의 리스트
+			List<NoticeLecture> noticeLecturelist = institutionNoticeLectureMapper.institutionSelectNoticeLectureList(institutionCode);
+			System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] noticeLecturelist: "+noticeLecturelist);
+			
+			// 폐강 리스트
+			List<LectureFail> failLectureList = institutionNoticeLectureMapper.institutionSelectLectureFailList(institutionCode);
+			System.out.println("[institutionNoticeLectureService institutionGetNoticeLectureList] failLectureList: "+failLectureList);
+			
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("noticeLecturelist", noticeLecturelist);
-		map.put("failWaitingList", failWaitingList);
 		map.put("failLectureList", failLectureList);
 		return map;
 	}
