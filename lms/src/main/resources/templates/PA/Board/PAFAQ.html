@@ -25,7 +25,7 @@
 				<button th:if="${session.memberRank=='교육원직원'||session.memberRank=='협회직원'}" type="button" id="btn-write" class="btn btn-outline-info" th:onclick="|location.href='@{/PIFaqWrite(institutionCode=${institutionCode})}'|">글쓰기</button><br>
 			</div> -->
 			<div th:if="${session.memberRank=='협회직원'}">
-				<a th:href="@{'/PAFaqWrite?institutionCode='+${institutionCode}}" id="btn-write" class="btn btn-outline-info">글쓰기</a>
+				<a href="/PAFaqWrite" id="btn-write" class="btn btn-outline-info">글쓰기</a>
 			</div>
 			<table class="table table-hover">
 				<thead>
@@ -38,7 +38,7 @@
 					<tr th:each="board:${board}">
 						<!-- <input type="hidden" value="${member.memberCode}"> -->
 						<!-- <input type="hidden" value="${member.memberCode}"> -->
-						<th scope="row"><a th:href="@{'/PABoardDetail?institutionCode='+${institutionCode}+'&boardNo='+${board.boardNo}}" th:text="${board.boardTitle}"></a></th>
+						<th scope="row"><a th:href="@{'/PABoardDetail?institutionCode='+${board.institutionCode}+'&boardNo='+${board.boardNo}}" th:text="${board.boardTitle}"></a></th>
 						<!-- <td th:text="${faq.memberName}"></td> -->
 				</tbody>
 			</table>

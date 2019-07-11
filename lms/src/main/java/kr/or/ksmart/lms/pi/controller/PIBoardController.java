@@ -83,16 +83,27 @@ public class PIBoardController {
 		System.out.println("[PIBoardController addBoard] 글등록 처리요청");
 		piBoardService.addBoard(board, session);
 		String instCode=(String)session.getAttribute("institutionCode");
-		if (board.getBoardType().equals("공지사항")) {
-			mav.setViewName("redirect:/PINotice?institutionCode="+instCode);
-		} else if (board.getBoardType().equals("커뮤니티")) {
-			mav.setViewName("redirect:/PIBoard?institutionCode="+instCode);
-		} else if (board.getBoardType().equals("QnA")) {
-			mav.setViewName("redirect:/PIQnA?institutionCode="+instCode);
-		} else if (board.getBoardType().equals("FAQ")) {
-			mav.setViewName("redirect:/PIFAQ?institutionCode="+instCode);
+		if (instCode.equals("I20120101000000")) {
+			if (board.getBoardType().equals("공지사항")) {
+				mav.setViewName("redirect:/PANotice");
+			} else if (board.getBoardType().equals("커뮤니티")) {
+				mav.setViewName("redirect:/PIBoard");
+			} else if (board.getBoardType().equals("QnA")) {
+				mav.setViewName("redirect:/PIQnA");
+			} else if (board.getBoardType().equals("FAQ")) {
+				mav.setViewName("redirect:/PIFAQ");
+			}
+		} else {
+			if (board.getBoardType().equals("공지사항")) {
+				mav.setViewName("redirect:/PINotice?institutionCode="+instCode);
+			} else if (board.getBoardType().equals("커뮤니티")) {
+				mav.setViewName("redirect:/PIBoard?institutionCode="+instCode);
+			} else if (board.getBoardType().equals("QnA")) {
+				mav.setViewName("redirect:/PIQnA?institutionCode="+instCode);
+			} else if (board.getBoardType().equals("FAQ")) {
+				mav.setViewName("redirect:/PIFAQ?institutionCode="+instCode);
+			}
 		}
-		
 		return mav;
 	}
 	

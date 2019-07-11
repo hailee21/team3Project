@@ -48,15 +48,39 @@ public class PABoardController {
 		mav.setViewName("PA/Board/PAFAQ");
 		return mav;
 	}
-	//	협회 홈페이지 글쓰기 화면 get요청
-	@GetMapping("/PABoardWrite")
-	public ModelAndView paWriteBoard (HttpSession session, ModelAndView mav) {
+	//	협회 홈페이지 공지사항 글쓰기 화면 get요청
+	@GetMapping("/PANoticeWrite")
+	public ModelAndView paNoticeWrite (HttpSession session, ModelAndView mav) {
 		String memberName = (String)session.getAttribute("memberName");
 		if (memberName == null) {
-			System.out.println("[PABoardController paWriteBoard] 로그아웃상태");
+			System.out.println("[PABoardController paNoticeWrite] 로그아웃상태");
 			mav.setViewName("redirect:/PALogin");
 		} else if (memberName != null) {
-			mav.setViewName("PA/Board/PABoardWrite");
+			mav.setViewName("PA/Board/PANoticeWrite");
+		}
+		return mav;
+	}
+	//	협회 홈페이지 Q&A 글쓰기 화면 get요청
+	@GetMapping("/PAqnaWrite")
+	public ModelAndView paQnaWrite (HttpSession session, ModelAndView mav) {
+		String memberName = (String)session.getAttribute("memberName");
+		if (memberName == null) {
+			System.out.println("[PABoardController paQnaWrite] 로그아웃상태");
+			mav.setViewName("redirect:/PALogin");
+		} else if (memberName != null) {
+			mav.setViewName("PA/Board/PAqnaWrite");
+		}
+		return mav;
+	}
+	//	협회 홈페이지 faq 글쓰기 화면 get요청
+	@GetMapping("/PAFaqWrite")
+	public ModelAndView paFaqWrite (HttpSession session, ModelAndView mav) {
+		String memberName = (String)session.getAttribute("memberName");
+		if (memberName == null) {
+			System.out.println("[PABoardController paFaqWrite] 로그아웃상태");
+			mav.setViewName("redirect:/PALogin");
+		} else if (memberName != null) {
+			mav.setViewName("PA/Board/PAFaqWrite");
 		}
 		return mav;
 	}
