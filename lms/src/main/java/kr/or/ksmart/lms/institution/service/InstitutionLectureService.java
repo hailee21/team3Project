@@ -1,6 +1,8 @@
 package kr.or.ksmart.lms.institution.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import kr.or.ksmart.lms.institution.mapper.InstitutionLectureMapper;
 import kr.or.ksmart.lms.institution.vo.InfoLecture;
 import kr.or.ksmart.lms.institution.vo.InfoSubject;
 import kr.or.ksmart.lms.institution.vo.Lecture;
+import kr.or.ksmart.lms.institution.vo.LectureSignup;
 import kr.or.ksmart.lms.institution.vo.NoticeLecture;
 
 @Service
@@ -80,6 +83,23 @@ public class InstitutionLectureService {
 		System.out.println("[InstitutionLectureService institutionGetDetailLectureByLectureCode] list: "+list);
 		return list;
 	}
-	// 2. 해당 강의공고 조회 -> 수강신청자 목록 출력 -> lecture_signup_result 0등록
-	// 3. notice_lecture_status 모집완료 로 업데이트
+	// 2. 해당 강의공고 조회 -> 수강신청자 목록 출력 
+	public Map<String, Object> institutionGetLectureSignupListByNoticeLectureCode(String noticeLectureCode){
+		System.out.println("[InstitutionLectureService institutionGetLectureSignupListByNoticeLectureCode]");
+		// mapper에서 받은 detailLecture를 lecture객체참조변수 내부에담아서 controller에서 사용하기
+		NoticeLecture noticeLecture = institutionLectureMapper.institutionSelectNoticeLectureByNoticeLectureCode(noticeLectureCode);
+		System.out.println("[InstitutionLectureService institutionGetDetailLectureByLectureCode] noticeLecture: "+noticeLecture);
+		
+		// mapper에서 받은 detailLecture를 lecture객체참조변수 내부에담아서 controller에서 사용하기
+		List<LectureSignup> lectureSignupList = institutionLectureMapper.institutionSelectLectureSignupListByNoticeLectureCode(noticeLectureCode);
+		System.out.println("[InstitutionLectureService institutionGetLectureSignupListByNoticeLectureCode] lectureSignupList: "+lectureSignupList);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noticeLecture", noticeLecture);
+		map.put("lectureSignupList", lectureSignupList);
+		
+		return map;
+	}
+	// 3. 면접결과 등록 처리 -> lecture_signup_result 0등록
+	// 4. notice_lecture_status 모집완료 로 업데이트
 }

@@ -9,12 +9,16 @@
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-<script>$(document).ready(function(){
+<script>
+$(document).ready(function(){
+	
 	// 강의공고 등록하기 버튼 클릭시 이벤트 처리
 	$('#btnAdd').on('click',function(){
 		console.log('#btnAdd click test');
 		location.href='/PI/lecture/lectureSignup'
+		}
 	});
+	
 });
 </script>
 </th:block>
@@ -45,7 +49,7 @@
 				<td th:text="${list.noticeLectureMinimumNo}" th:value="${list.noticeLectureMinimumNo}"></td>
 				<td th:text="${list.noticeLectureFee}" th:value="${list.noticeLectureFee}"></td>
 				<td th:text="${list.noticeLectureRecruitmentStartDate}" th:value="${list.noticeLectureRecruitmentStartDate}"></td>
-				<td th:text="${list.noticeLectureRecruitmentEndDate}" th:value="${list.noticeLectureRecruitmentEndDate}"></td>
+				<td th:text="${list.noticeLectureRecruitmentEndDate}" th:value="${list.noticeLectureRecruitmentEndDate}" id="noticeLectureRecruitmentEndDate"></td>
 				<td th:text="${list.noticeLectureStartDate}" th:value="${list.noticeLectureStartDate}"></td>
 				<td th:text="${list.noticeLectureEndDate}" th:value="${list.noticeLectureEndDate}"></td>	
 				<td><a type="button" id="btnAdd" class="btn btn-primary" th:href="@{'/PI/lecture/lectureSignup?noticeLectureCode='+${list.noticeLectureCode}+'&institutionCode='+${institutionCode}}">수강신청</a></td>			

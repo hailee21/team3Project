@@ -9,53 +9,115 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>
+$(document).ready(function(){	
+	// 강의공고 등록하기 버튼 클릭시 이벤트 처리
+	$('#insert').click(function(){
+		console.log('#insert click test');
+		
+		let noticeLectureCode = $('#noticeLectureCode').val();
+		let memberRegistrationNumberFront = $('#memberRegistrationNumberFront').val();
+		
+		$.ajax({
+			url:'/institution/addLectureSignupResult'
+			,data: {noticeLectureCode:noticeLectureCode, memberRegistrationNumberFront:memberRegistrationNumberFront}
+			,type:'Post'
+			,dataType:'json'
+			,success:function(result){
+				if(result){
+				alert('수강신청 이력이 존재합니다. 해당강의는 수강신청 하실 수 없습니다');
+				} else{
+					alert('면접결과 등록이 완료되었습니다. 강의등록을 진행하여 주십시오');
+					$('#addLectureSignupResult').submit();	
+				}
+			}
+		});		
+	});
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
 	<h1>면접결과 입력</h1>
-	<h3>면접 결과를 입력해주세요</h3>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>강의공고명</th>
-				<th>교육원</th>
-				<th>강사</th>
-				<th>최소인원</th>
-				<th>신청인원</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="list:${noticeLecturelist}">
-				<td><a th:href="@{'/institution/student/addLectureSignupResult?noticeLectureCode='+${list.noticeLectureCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.noticeLectureCode}"></a></td>
-				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
-				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
-				<td th:text="${list.noticeLectureMinimumNo}" th:value="${list.noticeLectureMinimumNo}"></td>
-				<td th:text="${list.noticeLectureCurrentApplicantNo}" th:value="${list.noticeLectureCurrentApplicantNo}"></td>
-			</tr>
-		</tbody>
-	</table>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>모집 시작일</th>
-				<th>모집마감일</th>
-				<th>결과발표일</th>
-				<th>강의 시작일</th>
-				<th>강의 마감일</th>
-				<th>진행여부</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="info:${noticeLecture}">
-				<td th:text="${info.noticeLectureRecruitmentStartDate}" th:value="${info.noticeLectureRecruitmentStartDate}"></td>
-				<td th:text="${info.noticeLectureRecruitmentEndDate}" th:value="${info.noticeLectureRecruitmentEndDate}"></td>
-				<td th:text="${info.noticeLectureResultDate}" th:value="${info.noticeLectureResultDate}"></td>
-				<td th:text="${info.noticeLectureStartDate}" th:value="${info.noticeLectureStartDate}"></td>
-				<td th:text="${info.noticeLectureEndDate}" th:value="${info.noticeLectureEndDate}"></td>	
-				<td th:text="${info.noticeLectureStatus}" th:value="${info.noticeLectureStatus}"></td>				
-			</tr>
-		</tbody>
-	</table>
-	<button id="modify" type="submit" class="btn btn-primary btn-rightLarge">수정</button>
+	<h5>면접 결과를 입력해주세요</h5>
+	<div class="row">
+		<div class="col-sm-4">
+		<table class="table table-striped" th:each="info:${noticeLecture}">
+				<tr>
+					<th>강의공고명</th>
+					<td th:text="${info.noticeLectureTitle}" th:value="${info.noticeLectureCode}"></td>					
+				</tr>
+				<tr>
+					<th>교육원</th>
+					<td th:text="${info.institutionName}" th:value="${info.institutionName}"></td>
+				</tr>
+				<tr>
+					<th>최소인원</th>
+					<td th:text="${info.noticeLectureMinimumNo}" th:value="${info.noticeLectureMinimumNo}"></td>
+				</tr>
+				<tr>
+					<th>신청인원</th>
+					<td th:text="${info.noticeLectureCurrentApplicantNo}" th:value="${info.noticeLectureCurrentApplicantNo}"></td>
+				</tr>
+				<tr>
+					<th>모집 시작일</th>
+					<td th:text="${info.noticeLectureRecruitmentStartDate}" th:value="${info.noticeLectureRecruitmentStartDate}"></td>
+				</tr>
+				<tr>
+					<th>모집 마감일</th>
+					<td th:text="${info.noticeLectureRecruitmentEndDate}" th:value="${info.noticeLectureRecruitmentEndDate}"></td>
+				</tr>
+				<tr>
+					<th>강의시작일</th>
+					<td th:text="${info.noticeLectureStartDate}" th:value="${info.noticeLectureStartDate}"></td>
+				</tr>
+				<tr>
+					<th>강의마감일</th>
+					<td th:text="${info.noticeLectureEndDate}" th:value="${info.noticeLectureEndDate}"></td>
+				</tr>
+				<tr>
+					<th>결과발표일</th>					
+					<td th:text="${info.noticeLectureResultDate}" th:value="${info.noticeLectureResultDate}"></td>
+				</tr>
+				
+		</table>
+		</div>
+		
+		<div class="col-sm-8">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>학생명</th>
+						<th>교육원명</th>
+						<th>생년월일</th>
+						<th>수강신청일자</th>
+						<th>진행상황</th>
+						<th>면접결과</th>
+						<th>등록하기</th>
+					</tr>
+				</thead>	
+				<tbody>
+					<tr th:each="list:${lectureSignupList}">
+						<td th:text="${list.memberName}" th:value="${list.memberName}">
+							<input hidden="hidden" th:value="${list.lectureSignupCode}" id="lectureSignupCode" name="lectureSignupCode">
+							<input hidden="hidden" th:value="${list.noticeLectureCode}" id="noticeLectureCode" name="noticeLectureCode"></td>
+						<td th:text="${list.institutionName}" th:value="${list.institutionName}" id="institutionName" name="institutionName">
+							<input hidden="hidden" th:value="${list.institutionCode}" id="institutionCode" name="institutionCode"></td>
+						<td th:text="${list.memberRegistrationNumberFront}" th:value="${list.memberRegistrationNumberFront}"></td>
+						<td th:text="${list.lectureSignupDate}" th:value="${list.lectureSignupDate}"></td>
+						<td><span id="badge" class="badge badge-danger">미등록</span></td>
+						<td>
+   							<select class="lectureSignupResult" name="lectureSignupResult">
+								<option value="">---</option>
+								<option value="0">불합격</option>
+								<option value="1">합격</option>
+							</select>
+						</td>
+						<td><button id="insert" type="submit" class="btn btn-primary btn-rightLarge">등록하기</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 </html>

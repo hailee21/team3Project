@@ -3,7 +3,7 @@ package kr.or.ksmart.lms.institution.vo;
 public class LectureSignupResult {
 	private String lectureSignupResultCode;
 	private String lectureSignupCode;
-	private int lectureSignupResult;
+	private Integer lectureSignupResult;
 	private String noticeLectureCode;
 	private String noticeLectureResultDate;
 	private String instituitionCode;
@@ -22,10 +22,10 @@ public class LectureSignupResult {
 	public void setLectureSignupCode(String lectureSignupCode) {
 		this.lectureSignupCode = lectureSignupCode;
 	}
-	public int getLectureSignupResult() {
+	public Integer getLectureSignupResult() {
 		return lectureSignupResult;
 	}
-	public void setLectureSignupResult(int lectureSignupResult) {
+	public void setLectureSignupResult(Integer lectureSignupResult) {
 		this.lectureSignupResult = lectureSignupResult;
 	}
 	public String getNoticeLectureCode() {
@@ -40,17 +40,17 @@ public class LectureSignupResult {
 	public void setNoticeLectureResultDate(String noticeLectureResultDate) {
 		this.noticeLectureResultDate = noticeLectureResultDate;
 	}
+	public String getInstituitionCode() {
+		return instituitionCode;
+	}
+	public void setInstituitionCode(String instituitionCode) {
+		this.instituitionCode = instituitionCode;
+	}
 	public String getInstitutionName() {
 		return institutionName;
 	}
 	public void setInstitutionName(String institutionName) {
 		this.institutionName = institutionName;
-	}
-	public String getNoticeLectureStartDate() {
-		return noticeLectureStartDate;
-	}
-	public void setNoticeLectureStartDate(String noticeLectureStartDate) {
-		this.noticeLectureStartDate = noticeLectureStartDate;
 	}
 	
 	@Override
@@ -60,5 +60,5 @@ public class LectureSignupResult {
 				+ noticeLectureCode + ", noticeLectureResultDate=" + noticeLectureResultDate + ", instituitionCode="
 				+ instituitionCode + ", institutionName=" + institutionName + ", noticeLectureStartDate="
 				+ noticeLectureStartDate + "]";
-	}
+	}	
 }
