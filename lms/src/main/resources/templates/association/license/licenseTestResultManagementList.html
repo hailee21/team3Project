@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+		div {
+		    text-align: center;
+		}
+	</style>
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<h3>자격증 시험 결과 관리 리스트</h3>
+	<table class="table table-striped">
+		<tr>
+			<th>자격증시험결과관리코드</th>
+			<th>자격종목코드</th>
+			<th>자격시험접수번호</th>
+			<th>시험방법</th>
+			<th>회원코드</th>
+			<th>회원명</th>
+			<th>결과발표일</th>
+			<th>시험점수</th>
+			<th>합격여부</th>
+			<th>등록일자</th>
+		</tr>
+		<tr th:each="subject:${list}">
+			<td th:text="${subject.licenseTestResultManagementCode}"></td>
+			<td th:text="${subject.infoQualificationCode}"></td>
+			<td th:text="${subject.licenseTestApplicationNo}"></td>
+			<td th:text="${subject.licenseTestApplicationType}"></td>
+			<td th:text="${subject.memberCode}"></td>
+			<td th:text="${subject.memberName}"></td>
+			<td th:text="${subject.licenseTestResultManagementResultDate}"></td>
+			<td th:text="${subject.licenseTestResultManagementScore}"></td>
+			<td th:text="${subject.licenseTestResultManagementCheck}"></td>
+			<td th:text="${subject.licenseTestResultManagementInsertDate}"></td>	
+		</tr>
+
+	</table>
+</div>
+</html>
