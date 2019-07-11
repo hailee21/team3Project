@@ -12,12 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.ksmart.lms.association.vo.Board;
+import kr.or.ksmart.lms.association.vo.BoardComment;
 import kr.or.ksmart.lms.index.vo.IndexInstitution;
+import kr.or.ksmart.lms.pi.mapper.PIBoardCommentMapper;
 import kr.or.ksmart.lms.pi.mapper.PIBoardMapper;
 
 @Service
 public class PIBoardService {
-	@Autowired private PIBoardMapper piBoardMapper;
+	@Autowired
+	private PIBoardMapper piBoardMapper;
+	private PIBoardCommentMapper piBoardCommentMapper;
 	
 	public IndexInstitution PIIndex(String institutionCode) {
 		return piBoardMapper.selectInstitution(institutionCode);
@@ -45,6 +49,7 @@ public class PIBoardService {
 	//	게시판 view 보기
 	public Map<String, Object> boardDetailView(String boardNo){
 		Board board = piBoardMapper.getBoardDetail(boardNo);
+		List<BoardComment> boardCommentList = piBoardCommentMapper.selectBoardCommentListByBoardNo(boardNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("board", board);
 		return map;
