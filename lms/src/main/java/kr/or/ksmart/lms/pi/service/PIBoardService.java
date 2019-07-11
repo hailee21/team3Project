@@ -2,7 +2,9 @@ package kr.or.ksmart.lms.pi.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -39,6 +41,13 @@ public class PIBoardService {
 	public List<Board> getFAQList(String institutionCode) {
 		List<Board> board = piBoardMapper.getFAQ(institutionCode);
 		return board;
+	}
+	//	게시판 view 보기
+	public Map<String, Object> boardDetailView(String boardNo){
+		Board board = piBoardMapper.getBoardDetail(boardNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board", board);
+		return map;
 	}
 	public void addBoard(Board board, HttpSession session) {
 		System.out.println("[PIBoardService addBoard] Service 호출");

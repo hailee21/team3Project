@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/PILayout">
+      layout:decorator="layout/PALayout">
 <meta charset="utf-8">
-<title>커뮤니티</title>
+<title>공지사항</title>
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
 <style>
@@ -20,24 +20,25 @@
 		<div class="row">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
-				<h1>커뮤니티</h1>
+				<!-- <h1 th:text="${board.boardType}"></h1> -->
+				<h1>공지사항</h1>
 				<!-- <div>
 					<button th:if="${session.memberRank=='교육원직원'||session.memberRank=='협회직원'}" type="button" id="btn-write" class="btn btn-outline-info" th:onclick="|location.href='@{/PINoticeWrite(institutionCode=${institutionCode})}'|">글쓰기</button><br>
 				</div> -->
-				<div th:if="${session.memberRank!='협회직원'}">
-					<a th:href="@{'/PIBoardWrite?institutionCode='+${institutionCode}}" id="btn-write" class="btn btn-outline-info">글쓰기</a>
+				<div th:if="${session.memberRank=='협회직원'}">
+					<a th:href="@{'/PANoticeWrite}" id="btn-write" class="btn btn-outline-info">글쓰기</a>
 				</div>
 				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th scope="col">제목</th>
-							<th scope="col">작성자</th>
+							<th scope="col">글쓴이</th>
 							<th scope="col">작성일</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="board:${boardList}">
-							<th scope="row"><a th:href="@{'/PIBoardDetail?institutionCode='+${institutionCode}+'&boardNo='+${board.boardNo}}" th:text="${board.boardTitle}"></a></th>
+						<tr th:each="board:${board}">
+							<th scope="row"><a th:href="@{'/PABoardDetail?institutionCode='+${institutionCode}+'&boardNo='+${board.boardNo}}" th:text="${board.boardTitle}"></a></th>
 							<td th:text="${board.memberName}"></td>
 							<td th:text="${board.boardDate}"></td>
 					</tbody>

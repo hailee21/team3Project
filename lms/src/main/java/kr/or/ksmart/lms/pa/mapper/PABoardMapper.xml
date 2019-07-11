@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.ksmart.lms.pi.mapper.PIBoardMapper">
-	<!-- Board Detail을 보기 위한 resultMap -->
+<mapper namespace="kr.or.ksmart.lms.pa.mapper.PABoardMapper">
+<!-- Board Detail을 보기 위한 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.association.vo.Board" id="BoardMap">
 		<result column="board_no" property="boardNo"/>
 		<result column="board_title" property="boardTitle"/>
@@ -23,30 +23,6 @@
 		FROM	board
 		WHERE	board_no=#{boardNo}
 	</select>
-	<!-- Board에 새 글을 입력 -->
-	<insert id="insertBoard" parameterType="kr.or.ksmart.lms.association.vo.Board">
-	INSERT INTO board (
-		board_no
-		, board_title
-		, board_contents
-		, board_type
-		, member_online_id
-		, member_name
-		, institution_code
-		, institution_name
-		, board_date
-	) VALUES (
-		#{boardNo}
-		, #{boardTitle}
-		, #{boardContents}
-		, #{boardType}
-		, #{memberOnlineId}
-		, #{memberName}
-		, #{institutionCode}
-		, #{institutionName}
-		, now()
-	)
-	</insert>
 	<!-- Q&A 리스트 출력 select 쿼리 -->
 	<select id="getQnA"
 			parameterType="String"
@@ -54,6 +30,7 @@
 		SELECT	board_no
 				, board_title
 				, member_name
+				, institution_code
 				, left(board_date,10) AS boardDate
 		FROM	board
 		WHERE	board_type = 'QnA'
@@ -66,6 +43,7 @@
 		SELECT	board_no
 				, board_title
 				, member_name
+				, institution_code
 				, left(board_date,10) AS boardDate
 		FROM	board
 		WHERE	board_type = 'FAQ'
@@ -77,6 +55,7 @@
 		SELECT	board_no
 				, board_title
 				, member_name
+				, institution_code
 				, left(board_date,10) AS boardDate
 		FROM	board
 		WHERE	board_type = '공지사항'
@@ -98,21 +77,5 @@
 		AND
 			institution_code = #{institutionCode}
 	</select>
-
-<!-- institutionCode, name을 가지고 가기 위한 resultMap -->
-	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="IndexInstitutionMap">
-		<result column="institution_code" property="institutionCode"/>
-		<result column="institution_name" property="institutionName"/>
-	</resultMap>
-	<!-- institutionCode, name을 가지고 가기 위한 select 쿼리 -->
-	<select id="selectInstitution"
-			parameterType="String"
-			resultMap="IndexInstitutionMap">
-		SELECT
-			institution_code
-			, institution_name
-		FROM institution
-		WHERE
-			institution_code = #{institutionCode}
-	</select>
+	
 </mapper>

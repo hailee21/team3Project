@@ -1,6 +1,7 @@
 package kr.or.ksmart.lms.pi.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -48,7 +49,7 @@ public class PIBoardController {
 		}
 		return mav;
 	}
-	//	교육원홈페이지 커뮤니티 view
+	//	교육원홈페이지 view
 	@GetMapping("/PIBoard")
 	public ModelAndView getBoardByPI (HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
@@ -60,8 +61,8 @@ public class PIBoardController {
 		mav.setViewName("PI/Board/PIBoard");
 		return mav;
 	}
-	//	교육원홈페이지 커뮤니티 글쓰기 화면 get요청
-	@GetMapping("/PIBoardwrite")
+	//	교육원홈페이지 글쓰기 화면 get요청
+	@GetMapping("/PIBoardWrite")
 	public ModelAndView piWriteBoard (HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode) {
 		IndexInstitution institution = piBoardService.PIIndex(institutionCode);
@@ -69,10 +70,10 @@ public class PIBoardController {
 		mav.addObject("institutionName", institution.getInstitutionName());
 		String memberName = (String)session.getAttribute("memberName");
 		if (memberName == null) {
-			System.out.println("[PIMemberController memberInfoModify] 로그아웃상태");
+			System.out.println("[PIBoardController piWriteBoard] 로그아웃상태");
 			mav.setViewName("redirect:/PILogin?"+institutionCode);
 		} else if (memberName != null) {
-			mav.setViewName("PI/Board/PIBoardwrite");
+			mav.setViewName("PI/Board/PIBoardWrite");
 		}
 		return mav;
 	}
@@ -86,7 +87,7 @@ public class PIBoardController {
 			mav.setViewName("redirect:/PINotice?institutionCode="+instCode);
 		} else if (board.getBoardType().equals("커뮤니티")) {
 			mav.setViewName("redirect:/PIBoard?institutionCode="+instCode);
-		} else if (board.getBoardType().equals("Q&A")) {
+		} else if (board.getBoardType().equals("QnA")) {
 			mav.setViewName("redirect:/PIQnA?institutionCode="+instCode);
 		} else if (board.getBoardType().equals("FAQ")) {
 			mav.setViewName("redirect:/PIFAQ?institutionCode="+instCode);
@@ -119,7 +120,7 @@ public class PIBoardController {
 			System.out.println("[PIMemberController memberInfoModify] 로그아웃상태");
 			mav.setViewName("redirect:/PILogin?"+institutionCode);
 		} else if (memberName != null) {
-			mav.setViewName("PI/Board/PIBoardwrite");
+			mav.setViewName("PI/Board/PIqnaWrite");
 		}
 		return mav;
 	}
@@ -149,6 +150,20 @@ public class PIBoardController {
 		} else if (memberRank != null) {
 			mav.setViewName("PI/Board/PIFaqWrite");
 		}
+		return mav;
+	}
+	//	교육원 글 상세보기
+	@GetMapping("/PIBoardDetail")
+	public ModelAndView boardDetailView (HttpSession session, ModelAndView mav
+			, @RequestParam(value="institutionCode", required = true) String institutionCode,
+			@RequestParam(value="boardNo", required = true) String boardNo) {
+		
+		IndexInstitution institution = piBoardService.PIIndex(institutionCode);
+		mav.addObject("institutionCode", institution.getInstitutionCode());
+		mav.addObject("institutionName", institution.getInstitutionName());
+		Map<String, Object> map = piBoardService.boardDetailView(boardNo);
+		mav.addObject("board", map.get("board"));
+		mav.setViewName("PI/Board/PIBoardDetail");
 		return mav;
 	}
 }

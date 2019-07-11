@@ -24,22 +24,22 @@
 				<!-- <div>
 					<button th:if="${session.memberRank=='교육원직원'||session.memberRank=='협회직원'}" type="button" id="btn-write" class="btn btn-outline-info" th:onclick="|location.href='@{/PINoticeWrite(institutionCode=${institutionCode})}'|">글쓰기</button><br>
 				</div> -->
-				<div th:if="${session.memberRank=='교육원직원'||session.memberRank=='협회직원'}">
+				<div th:if="${session.memberRank=='교육원직원'}">
 					<a th:href="@{'/PINoticeWrite?institutionCode='+${institutionCode}}" id="btn-write" class="btn btn-outline-info">글쓰기</a>
 				</div>
 				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th scope="col">제목</th>
-							<th scope="col">글쓴이</th>
+							<th scope="col">작성자</th>
+							<th scope="col">작성일</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="notice:${noticeList}">
-							<!-- <input type="hidden" value="${member.memberCode}"> -->
-							<!-- <input type="hidden" value="${member.memberCode}"> -->
-							<th scope="row" th:text="${notice.boardTitle}"></th>
+							<th scope="row"><a th:href="@{'/PIBoardDetail?institutionCode='+${institutionCode}+'&boardNo='+${notice.boardNo}}" th:text="${notice.boardTitle}"></a></th>
 							<td th:text="${notice.memberName}"></td>
+							<td th:text="${notice.boardDate}"></td>
 					</tbody>
 				</table>
 			</div>
