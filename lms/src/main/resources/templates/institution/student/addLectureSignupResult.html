@@ -11,27 +11,12 @@
 <th:block layout:fragment="script">
 <script>
 $(document).ready(function(){	
-	// 강의공고 등록하기 버튼 클릭시 이벤트 처리
 	$('#insert').click(function(){
+		// 등록하기 클릭 시
 		console.log('#insert click test');
 		
-		let noticeLectureCode = $('#noticeLectureCode').val();
-		let memberRegistrationNumberFront = $('#memberRegistrationNumberFront').val();
-		
-		$.ajax({
-			url:'/institution/addLectureSignupResult'
-			,data: {noticeLectureCode:noticeLectureCode, memberRegistrationNumberFront:memberRegistrationNumberFront}
-			,type:'Post'
-			,dataType:'json'
-			,success:function(result){
-				if(result){
-				alert('수강신청 이력이 존재합니다. 해당강의는 수강신청 하실 수 없습니다');
-				} else{
-					alert('면접결과 등록이 완료되었습니다. 강의등록을 진행하여 주십시오');
-					$('#addLectureSignupResult').submit();	
-				}
-			}
-		});		
+		alert('면접결과 등록이 완료되었습니다. 강의등록을 진행하여 주십시오');
+		$('#addLectureSignupResult').submit();		
 	});
 });
 </script>
@@ -84,39 +69,44 @@ $(document).ready(function(){
 		</div>
 		
 		<div class="col-sm-8">
+		<form id="addLectureSignupResult" action="/institution/student/addLectureSignupResult" method="post">
+			
+			<input hidden="hidden" th:value="${noticeLectureCode}" class="noticeLectureCode" name="noticeLectureCode">
+			<input hidden="hidden" th:value="${institutionCode}" class="institutionCode" name="institutionCode">
+			<input hidden="hidden" th:value="${institutionName}" class="institutionName" name="institutionName">
+			
 			<table class="table table-striped">
+			
 				<thead>
 					<tr>
 						<th>학생명</th>
-						<th>교육원명</th>
 						<th>생년월일</th>
 						<th>수강신청일자</th>
 						<th>진행상황</th>
 						<th>면접결과</th>
-						<th>등록하기</th>
+						<th></th>
 					</tr>
 				</thead>	
 				<tbody>
 					<tr th:each="list:${lectureSignupList}">
-						<td th:text="${list.memberName}" th:value="${list.memberName}">
-							<input hidden="hidden" th:value="${list.lectureSignupCode}" id="lectureSignupCode" name="lectureSignupCode">
-							<input hidden="hidden" th:value="${list.noticeLectureCode}" id="noticeLectureCode" name="noticeLectureCode"></td>
-						<td th:text="${list.institutionName}" th:value="${list.institutionName}" id="institutionName" name="institutionName">
-							<input hidden="hidden" th:value="${list.institutionCode}" id="institutionCode" name="institutionCode"></td>
+						<td th:text="${list.memberName}" th:value="${list.memberName}"></td>
 						<td th:text="${list.memberRegistrationNumberFront}" th:value="${list.memberRegistrationNumberFront}"></td>
 						<td th:text="${list.lectureSignupDate}" th:value="${list.lectureSignupDate}"></td>
-						<td><span id="badge" class="badge badge-danger">미등록</span></td>
+						<td id="badge"><span class="badge badge-danger">미등록</span></td>
 						<td>
    							<select class="lectureSignupResult" name="lectureSignupResult">
-								<option value="">---</option>
 								<option value="0">불합격</option>
 								<option value="1">합격</option>
 							</select>
 						</td>
-						<td><button id="insert" type="submit" class="btn btn-primary btn-rightLarge">등록하기</button></td>
+						<td>							
+							<input hidden="hidden" th:value="${list.lectureSignupCode}" class="lectureSignupCode" name="lectureSignupCode">
+						</td>
 					</tr>
 				</tbody>
 			</table>
+			<button id="insert" type="submit" class="btn btn-primary btn-rightLarge">등록하기</button>
+		</form>	
 		</div>
 	</div>
 </div>

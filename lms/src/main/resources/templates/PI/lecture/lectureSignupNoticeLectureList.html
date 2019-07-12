@@ -11,14 +11,11 @@
 <th:block layout:fragment="script">
 <script>
 $(document).ready(function(){
-	
-	// 강의공고 등록하기 버튼 클릭시 이벤트 처리
+	// 수강신청 버튼 클릭시 이벤트 처리
 	$('#btnAdd').on('click',function(){
 		console.log('#btnAdd click test');
 		location.href='/PI/lecture/lectureSignup'
-		}
 	});
-	
 });
 </script>
 </th:block>
