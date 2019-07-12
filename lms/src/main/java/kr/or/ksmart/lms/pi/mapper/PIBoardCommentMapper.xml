@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.lms.pi.mapper.PIBoardCommentMapper">
+	<!-- Board Comment resultMap -->
+	<resultMap type="kr.or.ksmart.lms.association.vo.BoardComment" id="BoardCommentMap">
+		<result column="board_comment_no" property="boardCommentNo"/>
+		<result column="board_no" property="boardNo"/>
+		<result column="board_comment_contents" property="boardCommentContents"/>
+		<result column="member_online_code" property="memberOnlineCode"/>
+		<result column="member_online_id" property="memberOnlineId"/>
+		<result column="member_name" property="memberName"/>
+		<result column="board_comment_date" property="boardCommentDate"/>
+	</resultMap>
+	<select id="selectBoardCommentListByBoardNo" parameterType="String" resultMap="BoardCommentMap">
+		SELECT
+			board_comment_no
+			, board_no
+			, board_comment_contents
+			, member_online_code
+			, member_online_id
+			, member_name
+			, board_comment_date
+		FROM	board_comment
+		WHERE	board_no=#{boardNo}
+	</select>
+	<!-- Board에 새 글을 입력 -->
+	<insert id="insertBoardComment" parameterType="kr.or.ksmart.lms.association.vo.BoardComment">
+	INSERT INTO board_comment (
+		board_comment_no
+		, board_no
+		, board_comment_contents
+		, member_online_code
+		, member_online_id
+		, member_name
+		, board_comment_date
+	) VALUES (
+		#{boardCommentNo}
+		, #{boardNo}
+		, #{boardCommentContents}
+		, #{memberOnlineCode}
+		, #{memberOnlineId}
+		, #{memberName}
+		, now()
+	)
+	</insert>
+</mapper>

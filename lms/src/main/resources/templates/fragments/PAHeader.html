@@ -7,10 +7,10 @@
 	        <p></p>
 	        <ul th:if="${session.memberName == null}" class="nav navbar-nav navbar-right">
 	            <li class="nav-item">
-	                <a style="font-size: 14px"  class="nav-link" th:href="@{'/PALogin?institutionCode='+${institutionCode}}">로그인</a>
+	                <a style="font-size: 14px"  class="nav-link" href="/PALogin">로그인</a>
 	            </li>
 	            <li class="nav-item">
-	                <a style="font-size: 14px"  class="nav-link" th:href="@{'/join?institutionCode='+${institutionCode}}">회원가입</a>
+	                <a style="font-size: 14px"  class="nav-link" href="/join">회원가입</a>
 	            </li>
 	        </ul>
 	        <ul th:if="${session.memberName != null}" class="nav navbar-nav navbar-right">
@@ -31,7 +31,7 @@
 	</nav>
 	<div class="container-fluid container bg-info text-white" style="height: 250px">
 	    <p style="height: 100px"></p>
-	    <p><a style="font-size: 30px" class="text-white" href="/PAIndex?institutionCode=I0">평생교육지원협회</a></p>
+	    <p><a style="font-size: 30px" class="text-white" href="/PAIndex">평생교육지원협회</a></p>
 	</div>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	    <div class="container-fluid">
@@ -80,7 +80,9 @@
 	                    <button class="dropbtn">고객지원 
 	                    </button>
 	                    <div class="dropdownatuo-content">
-							<a th:href="@{'/PANotice?institutionCode='+${institutionCode}}">공지사항</a>
+							<a href="/PANotice">공지사항</a>
+							<a href="/PAQnA">Q&A</a>
+							<a href="/PAFAQ">FAQ</a>
 							<a href="#">#이용안내</a>
 							<a href="#">#환불안내</a>
 							<a href="#">#시험계획공지</a>

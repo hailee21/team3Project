@@ -51,9 +51,6 @@ public class PALoginController {
 	@GetMapping("/PAIndex")
 	public ModelAndView associationIndex(HttpSession session, ModelAndView mav) {
 		mav.setViewName("PA/PAIndex");
-		IndexInstitution institution = paLoginService.PIIndex();
-		mav.addObject("institutionCode", institution.getInstitutionCode());
-		mav.addObject("institutionName", institution.getInstitutionName());
 		return mav;
 	}
 
