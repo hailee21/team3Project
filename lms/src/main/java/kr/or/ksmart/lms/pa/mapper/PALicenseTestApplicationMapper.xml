@@ -1,1 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.lms.pa.mapper.PALicenseTestApplicationMapper">
+	<!-- 자격 시험 신청 resultMap -->
+	<resultMap type="kr.or.ksmart.lms.pa.vo.LicenseTestApplication" id="LicenseTestApplicationMap">
+		<result column="license_test_application_no" property="licenseTestApplicationNo"/>
+		<result column="info_qualification_code" property="infoQualificationCode"/>
+		<result column="info_qualification_name" property="infoQualificationName"/>
+		<result column="license_test_location_region" property="licenseTestLocationRegion"/>
+		<result column="license_test_location_address" property="licenseTestLocationAddress"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="member_name" property="memberName"/>
+		<result column="notice_license_test_code" property="noticeLicenseTestCode"/>
+		<result column="license_test_application_type" property="licenseTestApplicationType"/>
+		<result column="notice_license_test_name" property="noticeLicenseTestName"/>
+		<result column="license_test_application_date" property="licenseTestApplicationDate"/>
+		<result column="license_test_location_code" property="licenseTestLocationCode"/>
+		<result column="license_test_location" property="licenseTestLocation"/>
+		<result column="license_test_payment_method" property="licenseTestPaymentMethod"/>
+	</resultMap>
+	<select id="selectLicenseTestApplication"
+			resultMap="LicenseTestApplicationMap">
+		SELECT
+			license_test_application_no
+			, info_qualification_code
+			, info_qualification_name
+			, license_test_location_region
+			, license_test_location_address
+			, member_code
+			, member_name
+			, notice_license_test_code
+			, license_test_application_type
+			, notice_license_test_name
+			, LEFT(license_test_application_date, 10) AS license_test_application_date
+			, license_test_location_code
+			, license_test_location
+			, license_test_payment_method
+		FROM
+			license_test_application
+		WHERE
+			
+			
+	</select>
+</mapper>
