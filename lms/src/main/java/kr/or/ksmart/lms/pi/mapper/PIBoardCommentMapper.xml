@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.pi.mapper.PIBoardCommentMapper">
-	<!-- Board Detail을 보기 위한 resultMap -->
+	<!-- Board Comment resultMap -->
 	<resultMap type="kr.or.ksmart.lms.association.vo.BoardComment" id="BoardCommentMap">
 		<result column="board_comment_no" property="boardCommentNo"/>
 		<result column="board_no" property="boardNo"/>

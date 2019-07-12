@@ -174,6 +174,7 @@ public class PIBoardController {
 		mav.addObject("institutionName", institution.getInstitutionName());
 		Map<String, Object> map = piBoardService.boardDetailView(boardNo);
 		mav.addObject("board", map.get("board"));
+		mav.addObject("boardCommentList", map.get("boardCommentList"));
 		mav.setViewName("PI/Board/PIBoardDetail");
 		return mav;
 	}

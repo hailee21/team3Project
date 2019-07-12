@@ -52,6 +52,7 @@ public class PIBoardService {
 		List<BoardComment> boardCommentList = piBoardCommentMapper.selectBoardCommentListByBoardNo(boardNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("board", board);
+		map.put("boardCommentList", boardCommentList);
 		return map;
 	}
 	public void addBoard(Board board, HttpSession session) {
