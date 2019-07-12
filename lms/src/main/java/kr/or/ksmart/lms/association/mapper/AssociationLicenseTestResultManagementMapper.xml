@@ -1,0 +1,55 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationLicenseTestResultManagementMapper">
+	<!-- 자격 시험 결과 관리 resultMapp -->
+	<resultMap type="kr.or.ksmart.lms.association.vo.LicenseTestResultManagement" id="LicenseTestResultManagementMap">
+		<result column="license_test_result_management_code" property="licenseTestResultManagementCode"/>
+		<result column="license_test_application_no" property="licenseTestApplicationNo"/>
+		<result column="info_qualification_code" property="infoQualificationCode"/>
+		<result column="license_test_application_type" property="licenseTestApplicationType"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="member_name" property="memberName"/>
+		<result column="license_test_result_management_result_date" property="licenseTestResultManagementResultDate"/>
+		<result column="license_test_result_management_score" property="licenseTestResultManagementScore"/>
+		<result column="license_test_result_management_check" property="licenseTestResultManagementCheck"/>
+		<result column="license_test_result_management_insert_date" property="licenseTestResultManagementInsertDate"/>
+	</resultMap>
+	<!-- 자격 시험 결과 관리 등록 -->
+	<insert id="insertLicenseTestResultManagement"
+			parameterType="kr.or.ksmart.lms.association.vo.LicenseTestResultManagement">
+		INSERT INTO
+			license_test_result_management
+		VALUES
+			license_test_result_management_code
+			, info_qualification_code
+			, license_test_application_no
+			, info_qualification_code
+			, license_test_application_type
+			, member_code
+			, member_name
+			, LEFT(license_test_result_management_result_date, 10) AS license_test_result_management_result_date
+			, LEFT(license_test_result_management_score, 10) AS license_test_result_management_score
+			, LEFT(license_test_result_management_check, 10) AS license_test_result_management_check
+	</insert>
+	<!-- 자격 시험 결과 관리 List -->
+	<select id="selectLicenseTestResultManagement"
+			resultMap="LicenseTestResultManagementMap">
+		SELECT
+			license_test_result_management_code
+			, info_qualification_code
+			, license_test_application_no
+			, info_qualification_code
+			, license_test_application_type
+			, member_code
+			, member_name
+			, LEFT(license_test_result_management_result_date, 10) AS license_test_result_management_result_date
+			, LEFT(license_test_result_management_score, 10) AS license_test_result_management_score
+			, LEFT(license_test_result_management_check, 10) AS license_test_result_management_check	
+		FROM 
+			license_test_result_management
+	</select>
+</mapper>
+	
+					

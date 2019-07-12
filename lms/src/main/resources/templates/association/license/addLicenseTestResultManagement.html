@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+	$(document).ready(function() {
+		//유효성 검사를 위한 변수 선언
+		let licenseTestResultManagementCodeCheck = true;
+		let infoQualificationCodeCheck = true;
+		let licenseTestApplicationNoCheck = true;
+		let licenseTestApplicationTypeCheck = true;
+		let memberCodeCheck = true;
+		let memberNameCheck = true;
+		let licenseTestResultManagementResultDateCheck = true;
+		let licenseTestResultManagementScoreCheck = true;
+		let licenseTestResultManagementCheckCheck = true;
+		
+		
+		//licenseTestResultManagementCode 입력 유효성 검사
+		$('#licenseTestResultManagementCode').blur(function() {
+			if($('#licenseTestResultManagementCode').val() == "") {
+				console.log('licenseTestResultManagementCode 공백입력')
+				licenseTestResultManagementCodeCheck = true;
+			} else {
+                console.log('licenseTestResultManagementCode 유효성 검사 완료')
+				licenseTestResultManagementCodeCheck = false;
+			}
+		});
+
+		//infoQualificationCode 입력 유효성 검사
+		$('#infoQualificationCode').blur(function() {
+			if($('#infoQualificationCode').val() == "") {
+				console.log('infoQualificationCode 공백입력')
+				infoQualificationCodeCheck = true;
+			} else {
+                console.log('infoQualificationCode 유효성 검사 완료')
+				infoQualificationCodeCheck = false;
+			}
+		});
+
+		//licenseTestApplicationNo 입력 유효성 검사
+		$('#licenseTestApplicationNo').blur(function() {
+			if($('#licenseTestApplicationNo').val() == "") {
+				console.log('licenseTestApplicationNo 공백입력')
+				infoQualificationNameCheck = true;
+			} else {
+                console.log('licenseTestApplicationNo 유효성 검사 완료')
+				infoQualificationNameCheck = false;
+			}
+		});
+		
+		//licenseTestApplicationType 입력 유효성 검사
+		$('#licenseTestApplicationType').blur(function() {
+			if($('#licenseTestApplicationType').val() == "") {
+				console.log('licenseTestApplicationType 공백입력')
+				licenseTestApplicationTypeCheck = true;
+			} else {
+                console.log('licenseTestApplicationType 유효성 검사 완료')
+				licenseTestApplicationTypeCheck = false;
+			}
+		});
+
+		//memberCode 입력 유효성 검사
+		$('#memberCode').blur(function() {
+			if($('#memberCode').val() == "") {
+				console.log('memberCode 공백입력')
+				memberCodeCheck = true;
+			} else {
+                console.log('memberCode 유효성 검사 완료')
+				memberCodeCheck = false;
+			}
+		});
+
+		//memberName 입력 유효성 검사
+		$('#memberName').blur(function() {
+			if($('#memberName').val() == "") {
+				console.log('memberName 공백입력')
+				memberNameCheck = true;
+			} else {
+                console.log('memberName 유효성 검사 완료')
+				memberNameCheck = false;
+			}	
+		});
+		
+		//licenseTestResultManagementResultDate 입력 유효성 검사
+		$('#licenseTestResultManagementResultDate').blur(function() {
+			if($('#licenseTestResultManagementResultDate').val() == "") {
+				console.log('licenseTestResultManagementResultDate 공백입력')
+				licenseTestResultManagementResultDateCheck = true;
+			} else {
+                console.log('licenseTestResultManagementResultDate 유효성 검사 완료')
+				licenseTestResultManagementResultDateCheck = false;
+			}	
+		});
+		
+		//licenseTestResultManagementScore 입력 유효성 검사
+		$('#licenseTestResultManagementScore').blur(function() {
+			if($('#licenseTestResultManagementScore').val() == "") {
+				console.log('licenseTestResultManagementScore 공백입력')
+				licenseTestResultManagementScoreCheck = true;
+			} else {
+                console.log('licenseTestResultManagementScore 유효성 검사 완료')
+				licenseTestResultManagementScoreCheck = false;
+			}	
+		});
+		//licenseTestResultManagementCheck 입력 유효성 검사
+		$('#licenseTestResultManagementCheck').blur(function() {
+			if($('#licenseTestResultManagementCheck').val() == "") {
+				console.log('licenseTestResultManagementCheck 공백입력')
+				licenseTestResultManagementCheckCheck = true;
+			} else {
+                console.log('licenseTestResultManagementCheck 유효성 검사 완료')
+				licenseTestResultManagementCheckCheck = false;
+			}	
+		});
+		
+		
+		//btnAdd 클릭 이벤트 처리
+		$('#btnAdd').on('click',function() {
+			if(licenseTestResultManagementCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('자격증시험결과관리코드가 공백 상태 입니다.');
+			} else if(infoQualificationCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('자격종목코드가 공백 상태 입니다.');
+			} else if(licenseTestApplicationNoCheck) {
+				$('h4').addClass('red');
+				$('h4').text('자격시험접수번호가 공백 상태 입니다.');
+			} else if(licenseTestApplicationTypeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험방법이 공백 상태 입니다.');
+			} else if(memberCodeCheck) {
+				$('h4').addClass('red');
+				$('h4').text('회원코드가 공백 상태 입니다.');
+			} else if(memberNameCheck) {
+				$('h4').addClass('red');
+				$('h4').text('회원명이 공백 상태 입니다.');
+			} else if(licenseTestResultManagementResultDateCheck) {
+				$('h4').addClass('red');
+				$('h4').text('결과발표일가 공백 상태 입니다.');
+			} else if(licenseTestResultManagementScoreCheck) {
+				$('h4').addClass('red');
+				$('h4').text('시험점수가 공백 상태 입니다.');
+			} else if(licenseTestResultManagementCheckCheck) {
+				$('h4').addClass('red');
+				$('h4').text('합격여부가 공백 상태 입니다.');
+			} else {
+				$('#addLiceneseTestResultManagement').submit()
+			}
+		});
+
+	});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h3>자격증 시험 결과 관리 등록</h3>
+	<form id="addLiceneseTestResultManagement" action="/association/license/addLicenseTestResultManagement" method="post">
+		<div class="form-group">
+			<label>자격증시험결과관리코드 :</label>
+			<input type="text" class="form-control" id="licenseTestResultManagementCode" name="licenseTestResultManagementCode">
+		</div>
+		<div class="form-group">
+			<label>자격종목코드 :</label>
+			<input type="text" class="form-control" id="infoQualificationCode" name="infoQualificationCode">
+		</div>
+		<div class="form-group">
+			<label>자격시험접수번호 :</label>
+			<input type="text" class="form-control" id="licenseTestApplicationNo" name="licenseTestApplicationNo">
+		</div>
+		<div class="form-group">
+			<label>시험방법 :</label>
+			<input type="text" class="form-control" id="licenseTestApplicationType" name="licenseTestApplicationType">
+		</div>
+		<div class="form-group">
+			<label>회원코드 :</label>
+			<input type="text" class="form-control" id="memberCode" name="memberCode">
+		</div>
+		<div class="form-group">
+			<label>회원명 :</label>
+			<input type="text" class="form-control" id="memberName" name="memberName">
+		</div>
+		<div class="form-group">
+			<label>결과발표일 :</label>
+			<input type="text" class="form-control" id="licenseTestResultManagementResultDate" name="licenseTestResultManagementResultDate">
+		</div>
+		<div class="form-group">
+			<label>시험점수 :</label>
+			<input type="text" class="form-control" id="licenseTestResultManagementScore" name="licenseTestResultManagementScore">
+		</div>
+		<div class="form-group">
+			<label>합격여부 :</label>
+			<input type="text" class="form-control" id="licenseTestResultManagementCheck" name="licenseTestResultManagementCheck">
+		</div>	
+		<button type="button" id="btnAdd" class="btn btn-primary">자격증 시험 결과 관리 등록</button>		
+	</form>
+	<h4></h4>
+</div>
+</html>

@@ -26,7 +26,7 @@
 				console.log('licenseCode 공백입력')
 				licenseCodeCheck = true;
 			} else {
-                console.log('infoQualificationCode 유효성 검사 완료')
+                console.log('licenseCode 유효성 검사 완료')
 				licenseCodeCheck = false;
 			}
 		});
@@ -127,13 +127,7 @@
 	});
 </script>
 </th:block>
-	let licenseCodeCheck = true;
-		let infoQualificationCodeCheck = true;
-		let infoQualificationNameCheck = true;
-		let memberCodeCheck = true;
-		let memberNameCheck = true;
-		let noticeAnnualLicenseTestResultDateCheck = true;
-		let licenseIssueDateCheck = true;
+
 <div layout:fragment="content">
 	<h3>자격증 발급 등록</h3>
 	<form id="addLicenese" action="/association/license/addLicense" method="post">
