@@ -9,37 +9,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.or.ksmart.lms.association.service.AssociationInfoQualificationService;
-import kr.or.ksmart.lms.association.vo.InfoQualification;
+import kr.or.ksmart.lms.pa.service.PALicenseTestApplicationService;
+import kr.or.ksmart.lms.pa.vo.LicenseTestApplication;
 
 @Controller
 public class PALicenseTestApplicationController {
-	@Autowired AssociationInfoQualificationService associationinfoQualificationService;
+	@Autowired 
+	PALicenseTestApplicationService pALicenseTestApplicationService;
 	
-	@GetMapping("/PA/lincense/LicenseTestApplication") //PA lincense 자격 시험 접수 controller
-	public ModelAndView insertLicenseTestApplication(HttpSession session, ModelAndView mav) {
-		System.out.println("[LicenseTestApplicationController insertLicenseTestApplication] 호출");
-		String memberRank = (String)session.getAttribute(("memberRank"));
-		
-		if(memberRank==null){
-		System.out.println("로그인 안한 상태");
-		mav.setViewName("/login");	
+	@GetMapping("/PA/license/listLicenseTestApplication") //자격증 시험 신청 리스트
+	public ModelAndView addLicenseTestApplication(HttpSession session, ModelAndView mav) {
+		System.out.println("[PALicenseTestApplicationController addLicenseTestApplication] 호출");
+		String memberName = (String)session.getAttribute("memberName");
+		if(memberName == null) {
+			memberName = "로그인 실패";
 		}
-		
-		else {
-		List<InfoQualification> list = associationinfoQualificationService.getInfoQualification(); //자격종목코드 선택
-		System.out.println("[LicenseTestApplicationController insertLicenseTestApplication]"+list.get(0).getInfoQualificationName());
-		System.out.println("[LicenseTestApplicationController insertLicenseTestApplication]"+list.get(0).getInfoQualificationCode());
-		
+		if(memberName.equals("로그인 실패")) {
+		System.out.println("로그인 안됨");
+		mav.setViewName("/PALogin");	
+		} else {
+		List<LicenseTestApplication> list = pALicenseTestApplicationService.selectLicenseTestApplication(); //자격증 시험 리스트
+		System.out.println("[PALicenseTestApplicationController addLicenseTestApplication]"+list);
 		mav.addObject("list", list);
-		mav.setViewName("/PA/lincense/LicenseTestApplication");
-		
-		}
-		
+		mav.setViewName("/PA/license/listLicenseTestApplication");
+		}		
 		return mav;
 	}
-	
-	
-	
-	
 }

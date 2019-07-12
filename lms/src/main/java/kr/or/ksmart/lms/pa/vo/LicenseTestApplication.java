@@ -15,8 +15,7 @@ public class LicenseTestApplication {
 	private String licenseTestApplicationDate;
 	private String licenseTestLocationCode;
 	private String licenseTestLocation;
-	
-	
+	private	String licenseTestPaymentMethod;
 	public int getLicenseTestApplicationNo() {
 		return licenseTestApplicationNo;
 	}
@@ -95,7 +94,12 @@ public class LicenseTestApplication {
 	public void setLicenseTestLocation(String licenseTestLocation) {
 		this.licenseTestLocation = licenseTestLocation;
 	}
-	
+	public String getLicenseTestPaymentMethod() {
+		return licenseTestPaymentMethod;
+	}
+	public void setLicenseTestPaymentMethod(String licenseTestPaymentMethod) {
+		this.licenseTestPaymentMethod = licenseTestPaymentMethod;
+	}
 	@Override
 	public String toString() {
 		return "LicenseTestApplication [licenseTestApplicationNo=" + licenseTestApplicationNo
@@ -106,10 +110,7 @@ public class LicenseTestApplication {
 				+ ", licenseTestApplicationType=" + licenseTestApplicationType + ", noticeLicenseTestName="
 				+ noticeLicenseTestName + ", licenseTestApplicationDate=" + licenseTestApplicationDate
 				+ ", licenseTestLocationCode=" + licenseTestLocationCode + ", licenseTestLocation="
-				+ licenseTestLocation + "]";
+				+ licenseTestLocation + ", licenseTestPaymentMethod=" + licenseTestPaymentMethod + "]";
 	}
-	
-	
-	
 	
 }

@@ -17,7 +17,7 @@ import kr.or.ksmart.lms.association.vo.InfoQualification;
 public class AssociationInfoQualificationController {
 	@Autowired
 	AssociationInfoQualificationService associationinfoQualificationService;
-	@GetMapping("/association/license/addInfoQualification") // 2.자격증 추가 폼 컨트롤러
+	@GetMapping("/association/license/addInfoQualification") // 자격증 추가 폼 컨트롤러
 	public ModelAndView addinfoQualification(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationInfoQualificationController addinfoQualification] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
@@ -34,7 +34,7 @@ public class AssociationInfoQualificationController {
 	}
 
 
-	@PostMapping("/association/license/addInfoQualification") // 2.자격증을 추가 액션
+	@PostMapping("/association/license/addInfoQualification") // 자격증을 추가 액션
 		public ModelAndView addinfoQualification(HttpSession session, ModelAndView mav, InfoQualification infoQualification) {
 			System.out.println("[AssociationInfoQualificationController addinfoQualification] 호출");
 			String memberRank = (String)session.getAttribute("memberRank");
@@ -53,7 +53,7 @@ public class AssociationInfoQualificationController {
 		return mav;
 	}
 		
-	@GetMapping("/PI/infoQualificationList") // 1.자격 정보 개요 리스트를 보여주기 위한 메서드
+	@GetMapping("/PI/infoQualificationList") // 자격 정보 개요 리스트를 보여주기 위한 메서드
 	public ModelAndView infoQualification(HttpSession session, ModelAndView mav) {
 		mav.setViewName("/PI/infoQualificationList");
 		List<InfoQualification> list = associationinfoQualificationService.getInfoQualification();
