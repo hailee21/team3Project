@@ -24,4 +24,14 @@ public class InstitutionMemberService {
 		List<InstitutionMember> memberList = institutionMemberMapper.selectInstitutionMemberList(institutionCode);
 		return memberList;
 	}
+	//	회원 목록에서 권한별 select
+	public List<InstitutionMember> selectMemberRankList () {
+		List<InstitutionMember> memberRank = institutionMemberMapper.selectInstitutionMemberRank();
+		return memberRank;
+	}
+	//	회원 목록에서 권한별로 조회하기
+	public List<InstitutionMember> selectMemberRank(String memberRank) {
+		List<InstitutionMember> rank = institutionMemberMapper.selectMemberRank(memberRank);
+		return rank;
+	}
 }

@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionMemberMapper">
+	<resultMap type="kr.or.ksmart.lms.institution.vo.InstitutionMember" id="InstitutionMemberListMap">
+		<result column="member_code" property="memberCode"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_online_id" property="memberOnlineId"/>
+		<result column="member_phone_number" property="memberPhoneNumber"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="member_rank" property="memberRank"/>
+		<result column="member_date" property="memberDate"/>
+	</resultMap>
+	<!-- memberlist 조회시 권한별로 선택 조회하기 위한 resultMap -->
+	<select id="selectInstitutionMemberRank" resultType="kr.or.ksmart.lms.institution.vo.InstitutionMember">
+		SELECT DISTINCT
+			member_rank AS memberRank
+		FROM
+			member
+	</select>
+	<!-- memberlist 조회시 권한별로 조회하기 -->
+	<select id="selectMemberRank" parameterType="String" resultMap="InstitutionMemberListMap">
+		SELECT
+			m.member_code
+			, m.member_name
+			, member_online_id
+			, member_phone_number
+			, institution_code
+			, institution_name
+			, mo.member_rank
+			, member_date
+		FROM member AS m
+		INNER JOIN member_online AS mo
+		ON m.member_code = mo.member_code
+		WHERE institution_code = #{institutionCode}
+		AND mo.member_rank = #{memberRank}
+		ORDER BY member_date
+	</select>
+	
 	<!-- memberOnlineInsert 할 때 institutionName을 찾기 위한 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.index.vo.IndexInstitution" id="InstitutionMap">
 		<result column="institution_code" property="institutionCode"/>
@@ -12,18 +48,7 @@
 		FROM institution
 		LIMIT 1,100
 	</select>
-
-
-	<resultMap type="kr.or.ksmart.lms.institution.vo.InstitutionMember" id="InstitutionMemberListMap">
-		<result column="member_code" property="memberCode"/>
-		<result column="member_name" property="memberName"/>
-		<result column="member_online_id" property="memberOnlineId"/>
-		<result column="member_phone_number" property="memberPhoneNumber"/>
-		<result column="institution_code" property="institutionCode"/>
-		<result column="institution_name" property="institutionName"/>
-		<result column="member_rank" property="memberRank"/>
-		<result column="member_date" property="memberDate"/>
-	</resultMap>
+	
 	<select id="selectInstitutionMemberList" parameterType="String"
 			resultMap="InstitutionMemberListMap">
 		SELECT

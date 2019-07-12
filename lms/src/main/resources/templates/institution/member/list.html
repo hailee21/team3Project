@@ -10,12 +10,38 @@
 
 <!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	$('#memberRank').change(function(){
+		console.log("조회할회원등급: "+$('#memberRank').val());
+		$.ajax({
+            type : 'GET'
+	        ,data : {'memberRank':memberRank}
+    	    ,url : '/rankList'
+        	,success : function(data) {
+            	console.log(data)
+				
+            }
+	    });
+	});
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
 	<h1>회원 조회</h1>
-	<select>
-	</select>
+	<div class="row">
+		<div class="col-md-2">
+			<div class="form-group">
+				<label for="memberRank">등급별조회</label>
+				<select class="form-control" id="memberRank" name="memberRank">
+					<option value="전체보기">전체보기</option>
+					<option th:each="rank:${rank}" th:value="${rank.memberRank}" th:text="${rank.memberRank}"></option>
+				</select>
+				<small class="form-text text-muted">조회할 등급을 선택하세요</small>
+			</div>
+		</div>
+	</div>
 	<table class="table table-hover">
 		<thead>
 			<tr>
