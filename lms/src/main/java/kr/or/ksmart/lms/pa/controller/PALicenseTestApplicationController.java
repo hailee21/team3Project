@@ -13,7 +13,7 @@ import kr.or.ksmart.lms.association.service.AssociationInfoQualificationService;
 import kr.or.ksmart.lms.association.vo.InfoQualification;
 
 @Controller
-public class LicenseTestApplicationController {
+public class PALicenseTestApplicationController {
 	@Autowired AssociationInfoQualificationService associationinfoQualificationService;
 	
 	@GetMapping("/PA/lincense/LicenseTestApplication") //PA lincense 자격 시험 접수 controller
