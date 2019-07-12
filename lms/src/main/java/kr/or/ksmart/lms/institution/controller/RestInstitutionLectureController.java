@@ -28,5 +28,4 @@ public class RestInstitutionLectureController {
 		System.out.println("[RestLectureController institutionGetInfoLectureNameList] lectureCode: "+ lectureCode);
 		return  institutionLectureService.institutionGetSubjectListByLectureCode(lectureCode);		
 	}
-
 }

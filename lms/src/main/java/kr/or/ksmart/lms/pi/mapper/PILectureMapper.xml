@@ -159,6 +159,8 @@
 			notice_lecture
 		WHERE 
 			institution_code = #{institutionCode}
+		AND 
+			notice_lecture_recruitment_end_date >= CURRENT_DATE()
 		AND	
 			notice_lecture_status = '모집중'		
 	</select>	

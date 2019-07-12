@@ -1,6 +1,5 @@
 package kr.or.ksmart.lms.institution.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -211,6 +210,13 @@ public class InstitutionLectureController {
 			List<LectureSignup> lectureSignupList = (List<LectureSignup>)map.get("lectureSignupList");
 			System.out.println("[InstitutionLectureController institutionAddLectureSignupResult] noticeLecture: "+noticeLecture);
 			System.out.println("[InstitutionLectureController institutionAddLectureSignupResult] lectureSignupList: "+lectureSignupList);
+			
+			String NLCode = noticeLecture.getNoticeLectureCode();
+			String institutionCode = noticeLecture.getInstitutionCode();
+			String institutionName = noticeLecture.getInstitutionName();
+			System.out.println("[InstitutionLectureController institutionAddLectureSignupResult] NLCode: "+NLCode);
+			System.out.println("[InstitutionLectureController institutionAddLectureSignupResult] institutionCode: "+institutionCode);
+			System.out.println("[InstitutionLectureController institutionAddLectureSignupResult] institutionName: "+institutionName);
 			// 수강신청 학생 수 
 			int num = lectureSignupList.size();
 			System.out.println("[InstitutionLectureController institutionAddLectureSignupResult] 수강신청학생 수: "+num);
@@ -218,6 +224,9 @@ public class InstitutionLectureController {
 			// mav내부에 service에서 받은 lectureSignup값을 lecture객체참조변수에 담아서 뷰에서 활용하자
 			mav.addObject("noticeLecture", noticeLecture);
 			mav.addObject("lectureSignupList", lectureSignupList);
+			mav.addObject("noticeLectureCode", NLCode);
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
 		}else {
 			System.out.println("교육원직원아님");
 			
@@ -226,23 +235,27 @@ public class InstitutionLectureController {
 		return mav;
 	}
 	
-	/*
-	 * // institution layout 면접결과 등록을 위한 해당 강의공고정보 + 수강신청한 학생들 list 출력 controller
-	 * 
-	 * @PostMapping("/institution/student/addLectureSignupResult") public
-	 * ModelAndView institutionAddLectureSignupResult(ModelAndView mav, HttpSession
-	 * session, LectureSignupResult lectureSignupResult) { String memberRank =
-	 * (String)session.getAttribute("memberRank"); if(memberRank == null) {
-	 * memberRank="로그인 실패"; } if(memberRank.equals("교육원직원")) {
-	 * System.out.println("교육원직원"); System.out.
-	 * println("[InstitutionLectureController institutionAddLectureSignupResult]");
-	 * System.out.
-	 * println("[InstitutionLectureController institutionAddLectureSignupResult] lectureSignupResult: "
-	 * +lectureSignupResult);
-	 * 
-	 * mav.setViewName("redirect:/institution/student/lectureSignupResultList");
-	 * }else { System.out.println("교육원직원아님");
-	 * 
-	 * mav.setViewName("/institution/institutionLogin"); } return mav; }
-	 */
-}
+	
+	  // institution layout 면접결과 등록을 위한 해당 강의공고정보 + 수강신청한 학생들 list 출력 controller
+	  @PostMapping("/institution/student/addLectureSignupResult") 
+	  public ModelAndView institutionAddLectureSignupResult(ModelAndView mav, HttpSession session, LectureSignupResult lectureSignupResult) { 
+		  String memberRank = (String)session.getAttribute("memberRank"); 
+		  if(memberRank == null) {
+			  memberRank="로그인 실패";
+		  } 
+		  if(memberRank.equals("교육원직원")) {
+			  System.out.println("교육원직원"); 
+			  System.out.println("[InstitutionLectureController institutionAddLectureSignupResult]");
+			  System.out.println("[InstitutionLectureController institutionAddLectureSignupResult] lectureSignupResult:" +lectureSignupResult);
+	  
+			  mav.setViewName("redirect:/institution/student/lectureSignupResultList");
+			  
+			  // 등록을 위해 service의 메서드 호출하기
+			  institutionLectureService.institutionAddLectureSignupResult(lectureSignupResult);
+		  }else { System.out.println("교육원직원아님");
+	  
+			 mav.setViewName("/institution/institutionLogin"); 
+		  } 
+		  return mav; 
+		}
+	}

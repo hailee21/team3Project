@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.lms.institution.vo.Lecture;
 import kr.or.ksmart.lms.institution.vo.LectureSignup;
+import kr.or.ksmart.lms.institution.vo.LectureSignupResultDomain;
 import kr.or.ksmart.lms.institution.vo.NoticeLecture;
 import kr.or.ksmart.lms.institution.vo.InfoLecture;
 import kr.or.ksmart.lms.institution.vo.InfoSubject;
@@ -35,4 +36,11 @@ public interface InstitutionLectureMapper {
 	public NoticeLecture institutionSelectNoticeLectureByNoticeLectureCode(String noticeLectureCode);
 	// 2. 해당 강의공고를 수강신청한 학생들 목록 출력
 	public List<LectureSignup> institutionSelectLectureSignupListByNoticeLectureCode(String noticeLectureCode);
+	// 3. 면접결과 등록 후 insert처리
+	public void institutionInsertLectureSignupResult(LectureSignupResultDomain lectureSignupResultDomain);
+	// 4. 강의공고 모집상태 선택
+	public NoticeLecture institutionSelectNoticeLectureStatusByNoticeLectureCode(String noticeLectureCode);
+	// 5. 강의공고 모집ㅈ상태 수정
+	public void institutionUpdateNoticeLectureStatusByNoticeLectureCode(String noticeLectureCode);
+	
 }

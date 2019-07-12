@@ -1,10 +1,9 @@
 package kr.or.ksmart.lms.institution.vo;
 
-import java.util.List;
-
-public class LectureSignupResult {
-	private List<String> lectureSignupCode;
-	private List<Integer> lectureSignupResult;
+public class LectureSignupResultDomain {
+	private String lectureSignupResultCode;
+	private String lectureSignupCode;
+	private Integer lectureSignupResult;
 	private String noticeLectureCode;
 	private String noticeLectureResultDate;
 	private String institutionCode;
@@ -12,16 +11,22 @@ public class LectureSignupResult {
 	private String noticeLectureStartDate;
 	private String lectureSignupResultDate;
 	
-	public List<String> getLectureSignupCode() {
+	public String getLectureSignupResultCode() {
+		return lectureSignupResultCode;
+	}
+	public void setLectureSignupResultCode(String lectureSignupResultCode) {
+		this.lectureSignupResultCode = lectureSignupResultCode;
+	}
+	public String getLectureSignupCode() {
 		return lectureSignupCode;
 	}
-	public void setLectureSignupCode(List<String> lectureSignupCode) {
+	public void setLectureSignupCode(String lectureSignupCode) {
 		this.lectureSignupCode = lectureSignupCode;
 	}
-	public List<Integer> getLectureSignupResult() {
+	public Integer getLectureSignupResult() {
 		return lectureSignupResult;
 	}
-	public void setLectureSignupResult(List<Integer> lectureSignupResult) {
+	public void setLectureSignupResult(Integer lectureSignupResult) {
 		this.lectureSignupResult = lectureSignupResult;
 	}
 	public String getNoticeLectureCode() {
@@ -63,7 +68,7 @@ public class LectureSignupResult {
 	
 	@Override
 	public String toString() {
-		return "LectureSignupResult [lectureSignupCode="
+		return "LectureSignupResultDomain [lectureSignupResultCode=" + lectureSignupResultCode + ", lectureSignupCode="
 				+ lectureSignupCode + ", lectureSignupResult=" + lectureSignupResult + ", noticeLectureCode="
 				+ noticeLectureCode + ", noticeLectureResultDate=" + noticeLectureResultDate + ", institutionCode="
 				+ institutionCode + ", institutionName=" + institutionName + ", noticeLectureStartDate="

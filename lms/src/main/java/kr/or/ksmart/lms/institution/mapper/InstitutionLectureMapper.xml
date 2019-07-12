@@ -73,18 +73,7 @@
 		<result column="member_registration_number_front" property="memberRegistrationNumberFront"/>
 		<result column="lecture_signup_date" property="lectureSignupDate"/>
 	</resultMap>
-	<!--  InstitutionLectureMapper LectureSignupResult resultMap -->
-	<resultMap id="LectureSignupResultResultMap"
-				type="kr.or.ksmart.lms.institution.vo.LectureSignupResult">
-		<result column="lecture_signup_result_code" property="lectureSignupResultCode"/>
-		<result column="lecture_signup_code" property="lectureSignupCode"/>
-		<result column="lecture_signup_result" property="lectureSignupResult"/>
-		<result column="notice_lecture_code" property="noticeLectureCode"/>
-		<result column="notice_lecture_result_date" property="noticeLectureResultDate"/>
-		<result column="instituition_code" property="instituitionCode"/>
-		<result column="institution_name" property="institutionName"/>
-		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
-	</resultMap>	
+		
 	
 	<!-- Lecture 강의분류 리스트 출력 -->
 	<select id="institutionSelectInfoLectureSortList" 
@@ -318,4 +307,64 @@
 			lecture_signup_date
 		DESC
 	</select>
+	<!-- 2-3. 면접결과 등록 -->
+	<insert id="institutionInsertLectureSignupResult"
+			parameterType="kr.or.ksmart.lms.institution.vo.LectureSignupResultDomain">
+		INSERT INTO lecture_signup_result (
+			lecture_signup_result_code
+			,lecture_signup_code
+			,lecture_signup_result
+			,notice_lecture_code
+			,notice_lecture_result_date
+			,notice_lecture_start_date
+			,institution_code
+			,institution_name
+			,lecture_signup_result_date
+		) VALUES ( 
+			#{lectureSignupResultCode}
+			,#{lectureSignupCode}
+			,#{lectureSignupResult}
+			,#{noticeLectureCode}
+			,(SELECT 
+					notice_lecture_result_date
+				FROM
+					notice_lecture
+				WHERE 
+					notice_lecture_code = #{noticeLectureCode}
+				)
+			,(SELECT 
+					notice_lecture_start_date
+				FROM
+					notice_lecture
+				WHERE 
+					notice_lecture_code = #{noticeLectureCode}
+				)
+			,#{institutionCode}
+			,#{institutionName}
+			,now()
+		)	
+	</insert>
+	<!-- 면접결과 등록한 강의공고 모집상태 수정 -->
+		<!-- 1. 강의공고 모집상태 선택 -->
+		<select id="institutionSelectNoticeLectureStatusByNoticeLectureCode"
+				parameterType="String"
+				resultMap="NoticeLectureResultMap">
+			SELECT 
+				notice_lecture_code
+				,notice_lecture_status
+			FROM 
+				notice_lecture
+			WHERE
+				notice_lecture_code = #{noticeLectureCode}		
+		</select>
+		<!-- 2. 강의공고 모집상태 수정 -->
+		<update id="institutionUpdateNoticeLectureStatusByNoticeLectureCode"
+				parameterType="String">
+			UPDATE
+				notice_lecture
+			SET	
+				notice_lecture_status = '모집완료'
+			WHERE
+				notice_lecture_code = #{noticeLectureCode}
+		</update>
 </mapper>
