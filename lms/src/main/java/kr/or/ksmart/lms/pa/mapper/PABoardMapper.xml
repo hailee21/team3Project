@@ -34,7 +34,6 @@
 				, left(board_date,10) AS boardDate
 		FROM	board
 		WHERE	board_type = 'QnA'
-		AND		institution_code = #{institutionCode}
 	</select>
 	<!-- FAQ 리스트 출력 select 쿼리 -->
 	<select id="getFAQ"
@@ -59,23 +58,7 @@
 				, left(board_date,10) AS boardDate
 		FROM	board
 		WHERE	board_type = '공지사항'
-		AND		(institution_code = 'I20120101000000'	<!-- 협회에서 쓴 글과 교육원에서 쓴 글을 함께 보여준다 -->
-		OR		institution_code = #{institutionCode})
-	</select>
-	<!-- board 게시판 리스트 출력 select 쿼리 -->
-	<select id="getBoard"
-			parameterType="String"
-			resultMap="BoardMap">
-		SELECT
-			board_no
-			, board_title
-			, member_name
-			, left(board_date,10) AS boardDate
-		FROM board
-		WHERE
-			board_type = '커뮤니티'
-		AND
-			institution_code = #{institutionCode}
+		AND		institution_code = 'I20120101000000'
 	</select>
 	
 </mapper>

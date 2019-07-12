@@ -25,7 +25,7 @@ public class PABoardController {
 		String institutionCode = (String)session.getAttribute("institutionCode");
 		List<Board> board = paBoardService.getNoticeList(institutionCode);
 		mav.addObject("board", board);
-		mav.setViewName("PA/Board/PANotice");
+		mav.setViewName("PA/Board/listPaNotice");
 		return mav;
 	}
 	//	협회 홈페이지 QnA view
@@ -35,7 +35,7 @@ public class PABoardController {
 		String institutionCode = (String)session.getAttribute("institutionCode");
 		List<Board> board = paBoardService.getQnAList(institutionCode);
 		mav.addObject("board", board);
-		mav.setViewName("PA/Board/PAQnA");
+		mav.setViewName("PA/Board/listPaQnA");
 		return mav;
 	}
 	//	협회 홈페이지 FAQ view
@@ -45,7 +45,7 @@ public class PABoardController {
 		String institutionCode = (String)session.getAttribute("institutionCode");
 		List<Board> board = paBoardService.getFAQList(institutionCode);
 		mav.addObject("board", board);
-		mav.setViewName("PA/Board/PAFAQ");
+		mav.setViewName("PA/Board/listPaFAQ");
 		return mav;
 	}
 	//	협회 홈페이지 공지사항 글쓰기 화면 get요청
@@ -56,7 +56,7 @@ public class PABoardController {
 			System.out.println("[PABoardController paNoticeWrite] 로그아웃상태");
 			mav.setViewName("redirect:/PALogin");
 		} else if (memberName != null) {
-			mav.setViewName("PA/Board/PANoticeWrite");
+			mav.setViewName("PA/Board/addPaNotice");
 		}
 		return mav;
 	}
@@ -68,7 +68,7 @@ public class PABoardController {
 			System.out.println("[PABoardController paQnaWrite] 로그아웃상태");
 			mav.setViewName("redirect:/PALogin");
 		} else if (memberName != null) {
-			mav.setViewName("PA/Board/PAqnaWrite");
+			mav.setViewName("PA/Board/addPaQnA");
 		}
 		return mav;
 	}
@@ -80,7 +80,7 @@ public class PABoardController {
 			System.out.println("[PABoardController paFaqWrite] 로그아웃상태");
 			mav.setViewName("redirect:/PALogin");
 		} else if (memberName != null) {
-			mav.setViewName("PA/Board/PAFaqWrite");
+			mav.setViewName("PA/Board/addPaFAQ");
 		}
 		return mav;
 	}
@@ -90,7 +90,8 @@ public class PABoardController {
 			,@RequestParam(value="boardNo", required = true) String boardNo) {
 		Map<String, Object> map = paBoardService.boardDetailView(boardNo);
 		mav.addObject("board", map.get("board"));
-		mav.setViewName("PA/Board/PABoardDetail");
+		mav.addObject("boardCommentList", map.get("boardCommentList"));
+		mav.setViewName("PA/Board/detailPaBoard");
 		return mav;
 	}
 }

@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.lms.association.vo.Board;
+import kr.or.ksmart.lms.association.vo.BoardComment;
 import kr.or.ksmart.lms.pa.mapper.PABoardMapper;
+import kr.or.ksmart.lms.pi.mapper.PIBoardCommentMapper;
 
 @Service
 @Transactional
 public class PABoardService {
 	@Autowired private PABoardMapper paBoardMapper;
+	@Autowired private PIBoardCommentMapper piBoardCommentMapper;
 	
 	//	협회 홈페이지 공지사항 list view
 	public List<Board> getNoticeList(String institutionCode) {
@@ -34,8 +37,10 @@ public class PABoardService {
 	//	게시글 보기
 	public Map<String, Object> boardDetailView(String boardNo) {
 		Board board = paBoardMapper.getBoardDetail(boardNo);
+		List<BoardComment> boardCommentList = piBoardCommentMapper.selectBoardCommentListByBoardNo(boardNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("board", board);
+		map.put("boardCommentList", boardCommentList);
 		return map;
 	}
 }

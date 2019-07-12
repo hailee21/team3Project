@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/PALayout">
+<meta charset="utf-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+<style>
+	.btn {
+	float: right;
+	}
+</style>
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	$('#btnAdd').on('click',function(){
+		console.log('#btnAdd click test');
+		if ($('#boardCommentContents').val() == ''){
+			alert('내용을 입력하세요');
+		return false;
+		}
+		let boardNo = $('#boardNo').val();
+    	let boardCommentContents = $('#boardCommentContents').val();
+		$.ajax({
+			url:'/addComment'
+    		,type:'POST'
+    		,data:{'boardNo':boardNo
+    			,'boardCommentContents':boardCommentContents}
+	    	,success:function(){
+//    	        $('#boardCommentList').trigger('load');	//trigger 이벤트를 대신 해준다. trigger('load')하면 새로고침된다.
+    	        window.location.reload();
+        	}
+		});
+	});
+	$('#btnBack').on('click',function(){
+		console.log('#btnBack click test');
+		location.href='javascript:history.back()';
+	});
+});
+</script>
+</th:block>
+<div layout:fragment="content">
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10">
+			<h1 th:text="${board.boardType}"></h1>	<!-- th:onclick="|window.location.href='@{/update(server=${key})}'|" -->
+			<div>
+				<button type="button" id="btnBack" class="btn btn-secondary">뒤로가기</button>
+			</div>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">제목</th>
+						<th scope="row" th:text="${board.boardTitle}"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>작성자</td>
+						<td th:text="${board.memberName}"></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td th:text="${board.boardContents}"></td>
+					</tr>
+				</tbody>
+			</table>
+						<input type="hidden" value="${member.memberCode}">
+						<input type="hidden" value="${board.institutionCode}">
+						<input type="hidden" value="${board.institutionName}">
+					<!-- 댓글 목록 -->
+			<hr class="my-4">
+			<p style="height: 10px"></p>
+			<div th:each="comment:${boardCommentList}">
+				<pre><a><strong th:text="${comment.memberName}"></strong></a>	<a th:text="${comment.boardCommentContents}"></a></pre>
+			</div>
+			
+			<!-- 댓글 입력 폼 -->
+			<div th:if="${session.memberRank != null}">
+			<div th:if="${board.boardType != 'FAQ'}">
+			<hr class="my-4">
+				<form action="/addComment" id="addComment" method="post">
+					<fieldset>
+    					<input type="hidden" name="boardNo" id="boardNo" th:value="${board.boardNo}">
+    					<label for="InputBoardCommentContents">댓글</label>
+      						<textarea class="form-control" name="boardCommentContents" id="boardCommentContents" rows="3"></textarea><button type="button" id="btnAdd" class="btn btn-primary">등록</button>
+							<p style="height: 10px"></p>
+					</fieldset>
+				</form>
+			</div>
+			</div>
+			<div th:if="${session.memberRank == null}">
+				<p>댓글을 남기시려면 로그인하세요</p>
+			</div>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>
+</html>
