@@ -19,18 +19,18 @@
 			<tr>
 				<th>강의공고명</th>
 				<th>교육원</th>
-				<th>강사</th>
 				<th>최소인원</th>
 				<th>신청인원</th>
+				<th>결과발표일</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="list:${list}">
 				<td><a th:href="@{'/institution/student/addLectureSignupResult?noticeLectureCode='+${list.noticeLectureCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.noticeLectureCode}"></a></td>
 				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
-				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
 				<td th:text="${list.noticeLectureMinimumNo}" th:value="${list.noticeLectureMinimumNo}"></td>
 				<td th:text="${list.noticeLectureCurrentApplicantNo}" th:value="${list.noticeLectureCurrentApplicantNo}"></td>
+				<td th:text="${list.noticeLectureResultDate}" th:value="${list.noticeLectureResultDate}"></td>
 			</tr>
 		</tbody>
 	</table>

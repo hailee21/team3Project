@@ -160,7 +160,7 @@
 		WHERE 
 			institution_code = #{institutionCode}
 		AND	
-			notice_lecture_status = '진행중'		
+			notice_lecture_status = '모집중'		
 	</select>	
 	<!-- 세부 강의공고 조회 -->
 	<select id="piSelectNoticeLectureByNoticeLectureCode"
