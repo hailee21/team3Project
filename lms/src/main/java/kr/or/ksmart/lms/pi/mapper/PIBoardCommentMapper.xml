@@ -16,7 +16,6 @@
 			board_comment_no
 			, board_no
 			, board_comment_contents
-			, member_online_code
 			, member_online_id
 			, member_name
 			, board_comment_date
@@ -29,7 +28,6 @@
 		board_comment_no
 		, board_no
 		, board_comment_contents
-		, member_online_code
 		, member_online_id
 		, member_name
 		, board_comment_date
@@ -37,7 +35,6 @@
 		#{boardCommentNo}
 		, #{boardNo}
 		, #{boardCommentContents}
-		, #{memberOnlineCode}
 		, #{memberOnlineId}
 		, #{memberName}
 		, now()

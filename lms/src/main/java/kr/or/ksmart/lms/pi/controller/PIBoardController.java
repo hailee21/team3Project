@@ -30,7 +30,7 @@ public class PIBoardController {
 		//	리스트 출력
 		List<Board> noticeList = piBoardService.getNoticeList(institutionCode);
 		mav.addObject("noticeList", noticeList);
-		mav.setViewName("PI/Board/PINotice");
+		mav.setViewName("PI/Board/listPiNotice");
 		return mav;
 	}
 	//	교육원/협회 공지사항 글쓰기 화면 get요청
@@ -45,7 +45,7 @@ public class PIBoardController {
 			System.out.println("[PIMemberController memberInfoModify] 로그아웃상태");
 			mav.setViewName("redirect:/PILogin?"+institutionCode);
 		} else if (memberRank != null) {
-			mav.setViewName("PI/Board/PINoticeWrite");
+			mav.setViewName("PI/Board/addPiNotice");
 		}
 		return mav;
 	}
@@ -58,7 +58,7 @@ public class PIBoardController {
 		mav.addObject("institutionName", institution.getInstitutionName());
 		List<Board> boardList = piBoardService.getBoardList(institutionCode);
 		mav.addObject("boardList", boardList);
-		mav.setViewName("PI/Board/PIBoard");
+		mav.setViewName("PI/Board/listPiBoard");
 		return mav;
 	}
 	//	교육원홈페이지 글쓰기 화면 get요청
@@ -73,7 +73,7 @@ public class PIBoardController {
 			System.out.println("[PIBoardController piWriteBoard] 로그아웃상태");
 			mav.setViewName("redirect:/PILogin?"+institutionCode);
 		} else if (memberName != null) {
-			mav.setViewName("PI/Board/PIBoardWrite");
+			mav.setViewName("PI/Board/addPiBoard");
 		}
 		return mav;
 	}
@@ -117,7 +117,7 @@ public class PIBoardController {
 		//	리스트 출력
 		List<Board> QnAList = piBoardService.getQnAList(institutionCode);
 		mav.addObject("QnAList", QnAList);
-		mav.setViewName("PI/Board/PIQnA");
+		mav.setViewName("PI/Board/listPiQnA");
 		return mav;
 	}
 	@GetMapping("/PIqnaWrite")
@@ -131,7 +131,7 @@ public class PIBoardController {
 			System.out.println("[PIMemberController memberInfoModify] 로그아웃상태");
 			mav.setViewName("redirect:/PILogin?"+institutionCode);
 		} else if (memberName != null) {
-			mav.setViewName("PI/Board/PIqnaWrite");
+			mav.setViewName("PI/Board/addPiQna");
 		}
 		return mav;
 	}
@@ -145,7 +145,7 @@ public class PIBoardController {
 		//	리스트 출력
 		List<Board> FAQList = piBoardService.getFAQList(institutionCode);
 		mav.addObject("FAQList", FAQList);
-		mav.setViewName("PI/Board/PIFAQ");
+		mav.setViewName("PI/Board/listPiFAQ");
 		return mav;
 	}
 	@GetMapping("/PIFaqWrite")
@@ -159,7 +159,7 @@ public class PIBoardController {
 			System.out.println("[PIMemberController memberInfoModify] 로그아웃상태");
 			mav.setViewName("redirect:/PILogin?"+institutionCode);
 		} else if (memberRank != null) {
-			mav.setViewName("PI/Board/PIFaqWrite");
+			mav.setViewName("PI/Board/addPiFaq");
 		}
 		return mav;
 	}
@@ -168,14 +168,15 @@ public class PIBoardController {
 	public ModelAndView boardDetailView (HttpSession session, ModelAndView mav
 			, @RequestParam(value="institutionCode", required = true) String institutionCode,
 			@RequestParam(value="boardNo", required = true) String boardNo) {
-		
+		System.out.println("boardDetailView 호출");
 		IndexInstitution institution = piBoardService.PIIndex(institutionCode);
 		mav.addObject("institutionCode", institution.getInstitutionCode());
 		mav.addObject("institutionName", institution.getInstitutionName());
 		Map<String, Object> map = piBoardService.boardDetailView(boardNo);
 		mav.addObject("board", map.get("board"));
 		mav.addObject("boardCommentList", map.get("boardCommentList"));
-		mav.setViewName("PI/Board/PIBoardDetail");
+		mav.setViewName("PI/Board/detailPiBoard");
 		return mav;
 	}
+	
 }

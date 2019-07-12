@@ -17,8 +17,11 @@
 			board_no
 			, board_title
 			, board_contents
+			, board_type
 			, member_online_id
 			, member_name
+			, institution_code
+			, institution_name
 			, board_date AS boardDate
 		FROM	board
 		WHERE	board_no=#{boardNo}
@@ -48,9 +51,7 @@
 	)
 	</insert>
 	<!-- Q&A 리스트 출력 select 쿼리 -->
-	<select id="getQnA"
-			parameterType="String"
-			resultMap="BoardMap">
+	<select id="getQnA" parameterType="String" resultMap="BoardMap">
 		SELECT	board_no
 				, board_title
 				, member_name
