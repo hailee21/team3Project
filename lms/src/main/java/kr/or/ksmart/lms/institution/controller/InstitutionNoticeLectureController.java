@@ -75,7 +75,7 @@ public class InstitutionNoticeLectureController {
 			
 			noticeLecture.setInstitutionCode(institutionCode);
 			institutionNoticeLectureService.institutionAddNoticeLecture(noticeLecture);
-			mav.setViewName("redirect:/institution/lecture/noticeLectureList");
+			mav.setViewName("redirect:/institution/lecture/listNoticeLecture");
 		}else {
 			System.out.println("교육원직원아님");
 			
@@ -85,7 +85,7 @@ public class InstitutionNoticeLectureController {
 	}
 	
 	// institution Layout 강의공고 리스트 출력 controller
-	@GetMapping("/institution/lecture/noticeLectureList")
+	@GetMapping("/institution/lecture/listNoticeLecture")
 	public ModelAndView institutionGetNoticeAndFailLectureList(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		if(memberRank == null) {
@@ -107,7 +107,7 @@ public class InstitutionNoticeLectureController {
 			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] noticeLecturelist: "+noticeLecturelist);
 			System.out.println("[institutionNoticeLectureController institutionGetNoticeLectureList] failLectureList: "+failLectureList);
 			
-			mav.setViewName("institution/lecture/noticeLectureList");
+			mav.setViewName("institution/lecture/listNoticeLecture");
 			mav.addObject("noticeLecturelist", noticeLecturelist);
 			mav.addObject("failLectureList", failLectureList);
 		}else {

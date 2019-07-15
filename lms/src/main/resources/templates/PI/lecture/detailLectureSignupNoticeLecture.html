@@ -36,7 +36,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="info:${noticeLecture}">
-					<td><a type="button" id="btnAdd" class="btn btn-primary" th:href="@{'/PI/lecture/lectureSignup?noticeLectureCode='+${info.noticeLectureCode}+'&institutionCode='+${institutionCode}}">수강신청</a></td>
+					<td><a type="button" id="btnAdd" class="btn btn-primary" th:href="@{'/PI/lecture/viewLectureSignup?noticeLectureCode='+${info.noticeLectureCode}+'&institutionCode='+${institutionCode}}">수강신청</a></td>
 					<td th:text="${info.noticeLectureTitle}" th:value="${info.noticeLectureCode}"></td>
 					<td th:text="${info.memberTeacherName}" th:value="${info.memberTeacherCode}"></td>
 					<td th:text="${info.institutionName}" th:value="${info.institutionCode}"></td>

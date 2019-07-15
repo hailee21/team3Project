@@ -22,12 +22,12 @@ public class PILectureController {
 
 	@Autowired private PILectureService piLectureService;	
 	// PI layout 강의항목, 과목 리스트 출력 controller
-	@GetMapping("/PI/lecture/subjectList")
+	@GetMapping("/PI/lecture/listSubject")
 	public ModelAndView piGetSubjectList(ModelAndView mav, @RequestParam String institutionCode) {
 		System.out.println("[PILectureController piGetSubjectList] institutionCode:"+institutionCode);	
 		
 		System.out.println("[PILectureController piSetSubjectList] 수강생 강의,과목 조회시작");
-		mav.setViewName("/PI/lecture/subjectList");
+		mav.setViewName("/PI/lecture/listSubject");
 		
 		// service에서 메서드 호출하여 mav내부에 값 담아서 뷰에서 활용하자
 		Map<String, Object> map = piLectureService.piGetInfoLectureSortList(institutionCode);
@@ -47,7 +47,7 @@ public class PILectureController {
 	}
 	
 	// PI layout 수강신청을 위한 강의공고 리스트 출력 controller 
-	@GetMapping("/PI/lecture/lectureSignupNoticeLectureList")
+	@GetMapping("/PI/lecture/listLectureSignupNoticeLecture")
 	public ModelAndView piGetNoticeLectureList(ModelAndView mav, HttpSession session
 												, @RequestParam String institutionCode) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
@@ -59,7 +59,7 @@ public class PILectureController {
 			
 			System.out.println("[PILectureController piGetNoticeLectureList]");
 			System.out.println("[PILectureController piGetNoticeLectureList] institutionCode:"+institutionCode);	
-			mav.setViewName("PI/lecture/lectureSignupNoticeLectureList");
+			mav.setViewName("PI/lecture/listLectureSignupNoticeLecture");
 			
 			// service에서 메서드 호출하여 mav내부에 값 담아서 뷰에서 활용하자
 			Map<String, Object> map = piLectureService.piGetNoticeLectureList(institutionCode);
@@ -89,7 +89,7 @@ public class PILectureController {
 	}
 	
 	// PI layout 수강신청을 위한 세부강의공고 출력 controller 
-	@GetMapping("/PI/lecture/lectureSignupNoticeLectureDetail")
+	@GetMapping("/PI/lecture/detailLectureSignupNoticeLecture")
 	public ModelAndView piSelectNoticeLectureDetailByNoticeLectureCode(ModelAndView mav, HttpSession session
 																	, @RequestParam String noticeLectureCode
 																	, @RequestParam String institutionCode) {
@@ -102,7 +102,7 @@ public class PILectureController {
 			
 			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode]");
 			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] noticeLectureCode : "+noticeLectureCode);
-			mav.setViewName("PI/lecture/lectureSignupNoticeLectureDetail");
+			mav.setViewName("PI/lecture/detailLectureSignupNoticeLecture");
 			
 			// service에서 메서드 호출하여 mav내부에 값 담아서 뷰에서 활용하자
 			Map<String, Object> map = piLectureService.piSelectNoticeLectureDetailByNoticeLectureCode(institutionCode, noticeLectureCode);
@@ -132,7 +132,7 @@ public class PILectureController {
 	}
 	
 	// PI layout 수강신청 폼 controller  
-	@GetMapping("/PI/lecture/lectureSignup")
+	@GetMapping("/PI/lecture/viewLectureSignup")
 	public ModelAndView piAddLectureSignup(ModelAndView mav, HttpSession session
 																	, @RequestParam String noticeLectureCode
 																	, @RequestParam String institutionCode) {
@@ -145,7 +145,7 @@ public class PILectureController {
 			
 			System.out.println("[PILectureController piAddLectureSignup]");
 			System.out.println("[PILectureController piAddLectureSignup] noticeLectureCode : "+noticeLectureCode);
-			mav.setViewName("/PI/lecture/lectureSignup");
+			mav.setViewName("/PI/lecture/viewLectureSignup");
 			
 			// 세션에 담긴 member정보 가져와서 Service 메서드 호출 시 사용하자
 			String memberCode = (String)session.getAttribute("memberCode");
@@ -188,7 +188,7 @@ public class PILectureController {
 	}
 	
 	// 수강신청 처리 
-	@PostMapping("/PI/lecture/lectureSignup")
+	@PostMapping("/PI/lecture/viewLectureSignup")
 	public ModelAndView piAddLectureSignup(ModelAndView mav, HttpSession session, LectureSignup lectureSignup
 										, @RequestParam String institutionCode, @RequestParam String noticeLectureCode) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
