@@ -1,4 +1,4 @@
-package kr.or.ksmart.lms.member.controller;
+package kr.or.ksmart.lms.association.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.or.ksmart.lms.member.service.SendEmailService;
+import kr.or.ksmart.lms.association.service.AssociationSendEmailService;
 
 @Controller
-public class SendEmailController {
-
-	@Autowired
-	SendEmailService sendEmailService;
+public class AssociationApprovalController {
+	@Autowired AssociationSendEmailService associationSendEmailService;
 	
+	//	강사 승인코드
 	@GetMapping("/sendEmailToTeacher")
 	public ModelAndView sendEmailToTeacher(HttpSession session, ModelAndView mav) {
 		String memberRank = (String)session.getAttribute("memberRank");
@@ -28,7 +27,7 @@ public class SendEmailController {
 		}
 		return mav;
 	}
-	
+	//	직원 승인코드
 	@GetMapping("/sendEmailToInstitution")
 	public ModelAndView sendEmailToInstitution(HttpSession session, ModelAndView mav) {
 		String memberRank = (String)session.getAttribute("memberRank");
@@ -39,17 +38,9 @@ public class SendEmailController {
 		}
 		return mav;
 	}
-	
 	@PostMapping("/sendEmailToTeacher")
 	public ModelAndView sendEmailToTeacherController(ModelAndView mav, String emailAddress) {
-		sendEmailService.sendEmailToTeacherService(emailAddress);
-		mav.setViewName("redirect:/sendApprovalCode");
-		return mav;
-	}
-	
-	@PostMapping("/sendEmailToAdmin")
-	public ModelAndView sendEmailToInstitutionController(ModelAndView mav, String emailAddress) {
-		sendEmailService.sendEmailToInstitutionService(emailAddress);
+		associationSendEmailService.sendEmailToTeacherService(emailAddress);
 		mav.setViewName("redirect:/sendApprovalCode");
 		return mav;
 	}
