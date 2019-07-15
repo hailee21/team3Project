@@ -17,7 +17,7 @@ import kr.or.ksmart.lms.pi.vo.MemberOnline;
 @Service
 @Transactional
 public class AssociationMemberService {
-	@Autowired AssociationMemberMapper associationMemberMapper;
+	@Autowired private AssociationMemberMapper associationMemberMapper;
 	
 	//	직원 회원 가입화면에서 select박스에 institutionList 출력
 	public List<Institution> insertAdmin() {
@@ -26,7 +26,7 @@ public class AssociationMemberService {
 		return instList;
 	}
 	
-	// 직원 승인코드 존재유무와 사용여부 조회
+	// 	직원 승인코드 존재유무와 사용여부 조회
 	public boolean instApprovalCheck(String institutionApprovalCode) {
 		String search = associationMemberMapper.selectAdminApprovalCode(institutionApprovalCode);
 		String result = associationMemberMapper.selectMemberInstitutionApprovalCode(institutionApprovalCode);

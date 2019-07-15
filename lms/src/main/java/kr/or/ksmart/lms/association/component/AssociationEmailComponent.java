@@ -1,4 +1,4 @@
-package kr.or.ksmart.lms.member.component;
+package kr.or.ksmart.lms.association.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -8,9 +8,8 @@ import org.springframework.stereotype.Component;
 import kr.or.ksmart.lms.member.vo.EmailContents;
 
 @Component
-public class EmailComponent {
-	@Autowired
-	public JavaMailSender emailSender;
+public class AssociationEmailComponent {
+	@Autowired public JavaMailSender emailSender;
 	
 	public void searchId (EmailContents emailContents) {
 		SimpleMailMessage message = new SimpleMailMessage();

@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.or.ksmart.lms.member.mapper.SendEmailMapper">
+<mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationSendEmailMapper">
 	<insert id="insertTeacherApproval"
 			parameterType="String">
 		INSERT INTO teacher_approval (
@@ -11,7 +10,7 @@
 			#{teacherApprovalCode}
 			, now())
 	</insert>
-	<insert id="insertInstitutionApproval"
+	<insert id="insertAdminApproval"
 			parameterType="String">
 		INSERT INTO institution_approval (
 			institution_approval_code
