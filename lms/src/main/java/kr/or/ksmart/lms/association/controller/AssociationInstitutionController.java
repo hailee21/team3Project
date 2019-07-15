@@ -51,7 +51,7 @@ public class AssociationInstitutionController {
 			System.out.println("[AssociationInstitutionController POST associationAddInstitution] institution:"+institution);
 			
 			associationInstitutionService.associationAddInstitution(institution);			
-			mav.setViewName("redirect:/association/institution/institutionList");
+			mav.setViewName("redirect:/association/institution/listInstitution");
 		}else {
 			System.out.println("협회직원아님");
 			
@@ -61,7 +61,7 @@ public class AssociationInstitutionController {
 	}
 	
 	// association layout 교육원 리스트 출력 controller
-	@GetMapping("/association/institution/institutionList")
+	@GetMapping("/association/institution/listInstitution")
 	public ModelAndView associationGetInstitutionList(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		if(memberRank == null) {
@@ -73,7 +73,7 @@ public class AssociationInstitutionController {
 			System.out.println("[AssociationInstitutionController associationGetInstitutionList]");
 			// service에서 받아온 교육원 정보들이 담긴 list를 mav에 담아 뷰에서 활용한다. 
 			List<Institution> list = associationInstitutionService.associationGetInstitutionList();			
-			mav.setViewName("association/institution/institutionList");
+			mav.setViewName("association/institution/listInstitution");
 			mav.addObject("list", list);
 		}else {
 			System.out.println("협회직원아님");

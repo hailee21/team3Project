@@ -24,7 +24,7 @@ public class InstitutionLectureFailController {
 	@Autowired InstitutionLectureFailService institutionLectureFailService;
 
 	// institution layout 폐강, 폐강예정 목록 출력하기 controller
-	@GetMapping("/institution/lecture/failLectureList")
+	@GetMapping("/institution/lecture/listFailLecture")
 	public ModelAndView institutionGetFailWaitingLectureList(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		if(memberRank == null) {
@@ -48,7 +48,7 @@ public class InstitutionLectureFailController {
 			List<LectureFail> failLectureList = (List<LectureFail>)map.get("failLectureList");
 			System.out.println("[InstitutionLectureFailController institutionGetFailWaitingLectureList] failLectureList: "+failLectureList);
 			
-			mav.setViewName("institution/lecture/failLectureList");
+			mav.setViewName("institution/lecture/listFailLecture");
 			mav.addObject("failWaitingList", failWaitingList);
 			mav.addObject("failLectureList", failLectureList);
 		}else {
@@ -134,7 +134,7 @@ public class InstitutionLectureFailController {
 			
 			// service에서 가져온 공고 상세내용을 mav에 담아서 뷰에서 활용
 			institutionLectureFailService.institutionAddFailLectureAndUpdateNoticeLecture(lectureFail, noticeLectureCode);
-			mav.setViewName("redirect:/institution/lecture/noticeLectureList");
+			mav.setViewName("redirect:/institution/lecture/listNoticeLecture");
 		}else {
 			System.out.println("교육원직원아님");
 			

@@ -22,7 +22,7 @@ public class AssociationClassroomController {
 	
 	// 협회
 	// association layout 교육원 검색 controller 
-	@GetMapping("/association/classroom/searchInstitution")
+	@GetMapping("/association/classroom/viewSearchInstitution")
 	public ModelAndView associationGetInstitutionList(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		if(memberRank == null) {
@@ -32,7 +32,7 @@ public class AssociationClassroomController {
 			System.out.println("협회직원");
 			
 			System.out.println("[ClassroomController associationGetInstitutionList 교육원 검색]");
-			mav.setViewName("association/classroom/searchInstitution");
+			mav.setViewName("association/classroom/viewSearchInstitution");
 		}else {
 			System.out.println("협회직원아님");
 			
@@ -84,7 +84,7 @@ public class AssociationClassroomController {
 			
 			// 강의실 추가 처리 후에 강의실조회페이지로 redirect
 			associationClassroomService.associationAddClassroom(classroom);
-			mav.setViewName("redirect:/association/classroom/classroomList");
+			mav.setViewName("redirect:/association/classroom/listClassroom");
 		}else {
 			System.out.println("협회직원아님");
 			
@@ -94,7 +94,7 @@ public class AssociationClassroomController {
 	}
 				
 	// association layout 강의실 리스트 조회 controller 
-	@GetMapping("/association/classroom/classroomList")
+	@GetMapping("/association/classroom/listClassroom")
 	public ModelAndView associationGetClassroomList(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		if(memberRank == null) {
@@ -104,7 +104,7 @@ public class AssociationClassroomController {
 			System.out.println("협회직원");
 			
 			System.out.println("[ClassroomController associationGetClassroomList]");
-			mav.setViewName("association/classroom/classroomList");
+			mav.setViewName("association/classroom/listClassroom");
 			
 			// service에서 불러온 리스트를 classroomList 내부에 담고 mav에 담아서 뷰에서 사용하기
 			List<Classroom> classroomList = associationClassroomService.associationGetClassroomList();

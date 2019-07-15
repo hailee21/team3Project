@@ -71,7 +71,7 @@ public class InstitutionClassroomController {
 			System.out.println("[InstitutionClassroomController institutionAddClassroom]");
 			institutionClassroomService.institutionAddClassroom(classroom);
 			// 강의실 추가 처리 이후에 강의실 리스트 조회 페이지로 이동
-			mav.setViewName("redirect:/institution/classroom/classroomList");
+			mav.setViewName("redirect:/institution/classroom/listClassroom");
 		}else {
 			System.out.println("교육원직원아님");
 			
@@ -81,7 +81,7 @@ public class InstitutionClassroomController {
 	}
 	
 	// institution layout 강의실목록조회 controller
-	@GetMapping("/institution/classroom/classroomList")
+	@GetMapping("/institution/classroom/listClassroom")
 	public ModelAndView institutionGetClassroomListByInstitutionCode(ModelAndView mav, HttpSession session) {
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
@@ -91,7 +91,7 @@ public class InstitutionClassroomController {
 			System.out.println("교육원직원");
 			
 			System.out.println("[InstitutionClassroomController institutionGetClassroomListByInstitutionCode]");
-			mav.setViewName("/institution/classroom/classroomList");
+			mav.setViewName("/institution/classroom/listClassroom");
 			
 			// 해당 교육원의 강의만을 보여주어야 하므로 로그인시 session에 담아둔 institutionCode를 꺼내어서 service의 메서드 호출하자
 			String institutionCode = (String)session.getAttribute("institutionCode");

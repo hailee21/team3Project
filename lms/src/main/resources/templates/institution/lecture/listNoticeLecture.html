@@ -18,7 +18,7 @@
 	// 폐강 등록하기 버튼 클릭시 이벤트 처리
 	$('#btnAddFailLecture').on('click',function(){
 		console.log('#btnAddFailLecture click test');
-		location.href='/institution/lecture/failLectureList'
+		location.href='/institution/lecture/listFailLecture'
 	});
 	
 });
@@ -29,7 +29,6 @@
 	<h1>강의공고 목록</h1>
 		
 	<button type="button" id="btnAdd" class="btn btn-primary btn-rightLarge">강의공고 등록하기</button>
-	<button type="button" id="btnAddFailLecture" class="btn btn-primary btn-rightLarge">폐강대상 조회하기</button><br><br>
 	
 	<h3>전체 강의공고</h3>
 	<table class="table table-striped">
@@ -57,6 +56,9 @@
 	<br>
 	<br>
 	<h3>폐강된 강의공고</h3>
+		
+	<button type="button" id="btnAddFailLecture" class="btn btn-primary btn-rightLarge">폐강대상 조회하기</button><br><br>
+	
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -68,7 +70,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="list:${failLectureList}">
-				<td><a th:href="@{'/institution/lecture/detailLectureFail?lectureFailCode='+${list.lectureFailCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.lectureFailCode}"></a></td>
+				<td><a th:href="@{'/institution/lecture/detailFailLecture?lectureFailCode='+${list.lectureFailCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.lectureFailCode}"></a></td>
 				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
 				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
 				<td th:text="${list.lectureFailDate}" th:value="${list.lectureFailDate}"></td>				
