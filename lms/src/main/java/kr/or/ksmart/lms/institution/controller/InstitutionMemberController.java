@@ -79,15 +79,15 @@ public class InstitutionMemberController {
 	public ModelAndView instMemberList(ModelAndView mav, HttpSession session) {
 		System.out.println("[InstitutionMemberController instMemberList 호출]");
 		String memberRank = (String)session.getAttribute("memberRank");
-		String institutionCode = (String)session.getAttribute("institutionCode");
+//		String institutionCode = (String)session.getAttribute("institutionCode");
 		if (memberRank == null) {
 			System.out.println("[InstitutionMemberController instMemberList] 로그아웃상태");
 			mav.setViewName("institution/institutionLogin");
 		} else if (memberRank.equals("교육원직원")) {
 			mav.setViewName("institution/member/list");
 			List<InstitutionMember> rank = institutionMemberService.selectMemberRankList();
-			List<InstitutionMember> memberList = institutionMemberService.institutionMemberList(institutionCode);
-			mav.addObject("memberList", memberList);
+//			List<InstitutionMember> memberList = institutionMemberService.institutionMemberList(institutionCode);
+//			mav.addObject("memberList", memberList);
 			mav.addObject("rank", rank);
 		} else {
 			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");

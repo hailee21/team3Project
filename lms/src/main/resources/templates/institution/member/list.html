@@ -12,18 +12,43 @@
 <th:block layout:fragment="script">
 <script>
 $(document).ready(function(){
+	$('#btnList').hide();
+	//	회원 등급별로 조회하기 select 출력
 	$('#memberRank').change(function(){
 		console.log("조회할회원등급: "+$('#memberRank').val());
-		$.ajax({
+		/*$.ajax({
             type : 'GET'
 	        ,data : {'memberRank':memberRank}
     	    ,url : '/rankList'
         	,success : function(data) {
             	console.log(data)
-				
             }
-	    });
+	    });*/
 	});
+	//	회원목록 출력하기
+	$('#btnList').on('click',function(){
+		console.log("btnList click test")
+		$.ajax({
+			url:'/getMembers'
+    		,type:'GET'
+//    		,data:{'list':list}
+			,success:function(result){	//	Controller에서 currentPage를 받아옴.
+			//	$('#memberList').empty();
+				$(result).each(function(index,item){//	반복문 사용해서 member list 가져오기
+					$('#memberList').append('<tr>');
+//					$('#memberList').append('<td th:text><input type="checkbox" class="ck" value="'+item.memberOnlineId+'"></td>');
+					$('#memberList').append('<td th:text>'+item.memberName+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberOnlineId+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberPhoneNumber+'</td>');
+					$('#memberList').append('<td th:text>'+item.institutionName+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberRank+'</td>');
+					$('#memberList').append('</tr>');
+				});
+			}
+		});
+		
+	});
+	$('#btnList').trigger('click');
 });
 </script>
 </th:block>
@@ -42,6 +67,7 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+	<button id="btnList" class="btn btn-primary">회원리스트</button>
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -52,14 +78,14 @@ $(document).ready(function(){
 				<th scope="col">회원등급</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr th:each="member:${memberList}">
-				<!-- <input type="hidden" value="${member.memberCode}"> -->
+		<tbody id="memberList">
+			<!-- <tr th:each="member:${memberList}">
+				<input type="hidden" value="${member.memberCode}">
 				<th scope="row" th:text="${member.memberName}"></th>
 				<td th:text="${member.memberOnlineId}"></td>
 				<td th:text="${member.memberPhoneNumber}"></td>
 				<td th:text="${member.institutionName}"></td>
-				<td th:text="${member.memberRank}"></td>
+				<td th:text="${member.memberRank}"></td> -->
 		</tbody>
 	</table>
 </div>
