@@ -13,5 +13,10 @@
 
 <div layout:fragment="content">
 <h3 th:text="'안녕하세요 '+${institutionName}+' 입니다.'"></h3>
+
+	<h3>수강 정보</h3>
+	<ul>
+		<li><a th:href="@{'/PI/myPage/viewLectureSignupResult?institutionCode='+${institutionCode}}">수강신청 내역</a></li>
+	</ul>
 </div>
 </html>

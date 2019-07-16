@@ -21,6 +21,7 @@ import kr.or.ksmart.lms.pi.vo.Member;
 public class PILectureController {
 
 	@Autowired private PILectureService piLectureService;	
+	
 	// PI layout 강의항목, 과목 리스트 출력 controller
 	@GetMapping("/PI/lecture/listSubject")
 	public ModelAndView piGetSubjectList(ModelAndView mav, @RequestParam String institutionCode) {
@@ -219,6 +220,69 @@ public class PILectureController {
 			// 교육원코드, 교육원명을 mav에 담아 활용
 			String institutionName = (String)session.getAttribute("institutionName");
 			
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
+		}
+		return mav;
+	}
+	
+	// PI layout mypage-수강정보 조회 controller  
+	@GetMapping("/PI/myPage/viewSignupIndex")
+	public ModelAndView piViewSignupIndex(ModelAndView mav, HttpSession session, @RequestParam String institutionCode) {
+		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("수강생")) {
+			System.out.println("수강생");
+		
+			System.out.println("[PILectureController piViewSignupIndex]");
+			mav.setViewName("/PI/myPage/viewSignupIndex");	
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
+		}else {
+			System.out.println("수강생아님");
+		
+			mav.setViewName("PI/PILogin");
+		
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
+		}
+		return mav;
+	}
+		
+	// PI layout 수강신청 내역 조회 controller  
+	@GetMapping("/PI/myPage/viewLectureSignupResult")
+	public ModelAndView piViewLectureSignupResult(ModelAndView mav, HttpSession session, @RequestParam String institutionCode) {
+		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("수강생")) {
+			System.out.println("수강생");
+		
+			System.out.println("[PILectureController piViewSignupIndex]");
+			mav.setViewName("/PI/myPage/viewLectureSignupResult");
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
+		
+			// 수강신청 내역 출력 메서드
+			String memberCode = (String)session.getAttribute("memberCode");
+			
+		}else {
+			System.out.println("수강생아님");
+		
+			mav.setViewName("PI/PILogin");
+		
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
 			mav.addObject("institutionCode", institutionCode);
 			mav.addObject("institutionName", institutionName);
 		}

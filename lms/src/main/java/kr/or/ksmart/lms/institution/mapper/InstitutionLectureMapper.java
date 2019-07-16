@@ -24,7 +24,18 @@ public interface InstitutionLectureMapper {
 	// detailSubject 조회 메서드
 	public InfoSubject institutionSelectDetailSubjectByInfoSubjectCode(String infoSubjectCode);
 	
-	// lecture 리스트 조회하는 메서드
+	// 강의등록 준비
+	// 1. notice_lecture에서 모집완료 상태인 강의공고 조회하는 메서드
+	public List<NoticeLecture> institutionSelectNoticeLectureListForInsertLecture();
+	// 2. lecture테이블 내 중복 조회
+	public Lecture institutionLectureCheck(String noticeLectureCode);
+	// 3. 강의등록 메서드
+	public void institutionInsertLecture(Lecture lecture);
+	// 4. 강의등록 후 notice_lecture테이블의 notice_lecture_status 업데이트
+	public void institutionUpdateLastNoticeLectureStatusByNoticeLectureCode(String noticeLectureCode);
+	
+	// 강의 목록 조회
+	// lecture 리스트 조회하는 메서드 
 	public List<Lecture> institutionSelectLectureListByInstitutionCode(String institutionCode);
 	// detailLecture 조회하는 메서드
 	public Lecture institutionSelectDetailLectureByLectureCode(String lectureCode);

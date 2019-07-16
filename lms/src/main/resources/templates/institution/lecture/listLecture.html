@@ -21,21 +21,17 @@
 			<tr>
 				<th>강의공고명</th>
 				<th>교육원</th>
-				<th>강사명</th>
-				<th>모집 시작일</th>
-				<th>모집마감일</th>				
+				<th>강사명</th>			
 				<th>강의 시작일</th>
 				<th>강의 마감일</th>
 				<th>등록</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="list:${failWaitingList}">
+			<tr th:each="list:${NLlist}">
 				<td><a th:href="@{'/institution/lecture/detailNoticeLecture?noticeLectureCode='+${list.noticeLectureCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.noticeLectureCode}"></a></td>
 				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
 				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>	
-				<td th:text="${list.noticeLectureRecruitmentStartDate}" th:value="${list.noticeLectureRecruitmentStartDate}"></td>
-				<td th:text="${list.noticeLectureRecruitmentEndDate}" th:value="${list.noticeLectureRecruitmentEndDate}"></td>
 				<td th:text="${list.noticeLectureStartDate}" th:value="${list.noticeLectureStartDate}"></td>
 				<td th:text="${list.noticeLectureEndDate}" th:value="${list.noticeLectureEndDate}"></td>		
 				<td><a th:href="@{'/institution/lecture/addLecture?noticeLectureCode='+${list.noticeLectureCode}}" type="submit" class="btn btn-primary">등록하기</a></td>		
@@ -47,18 +43,18 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>강의공고명</th>
+				<th>강의명</th>
 				<th>교육원</th>
 				<th>강사명</th>
-				<th>폐강일자</th>
+				<th>등록일자</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="list:${failLectureList}">
+			<tr th:each="list:${lectureList}">
 				<td><a th:href="@{'/institution/lecture/detailLecture?lectureCode='+${list.lectureCode}}" th:text="${list.noticeLectureTitle}" th:value="${list.lectureCode}"></a></td>
 				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
 				<td th:text="${list.memberTeacherName}" th:value="${list.memberTeacherName}"></td>
-				<td th:text="${list.lectureFailDate}" th:value="${list.lectureFailDate}"></td>				
+				<td th:text="${list.lectureDate}" th:value="${list.lectureDate}"></td>				
 			</tr>
 		</tbody>
 	</table>
