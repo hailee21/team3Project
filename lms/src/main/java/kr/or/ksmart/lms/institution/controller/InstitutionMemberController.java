@@ -88,7 +88,7 @@ public class InstitutionMemberController {
 			List<InstitutionMember> rank = institutionMemberService.selectMemberRankList();
 //			List<InstitutionMember> memberList = institutionMemberService.institutionMemberList(institutionCode);
 //			mav.addObject("memberList", memberList);
-			mav.addObject("rank", rank);
+			mav.addObject("memberRank", rank);
 		} else {
 			System.out.println("[InstitutionMemberController instMemberList] 교육원 직원이 아님");
 			mav.setViewName("institution/institutionLogin");

@@ -17,6 +17,7 @@
 			member_rank AS memberRank
 		FROM
 			member
+		LIMIT 1,5
 	</select>
 	<!-- memberlist 조회시 권한별로 조회하기 -->
 	<select id="selectMemberRank" parameterType="String" resultMap="InstitutionMemberListMap">

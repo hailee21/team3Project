@@ -16,5 +16,5 @@ public interface InstitutionMemberMapper {
 	//	Institution 관리자 회원 조회시 권한별 선택
 	public List<InstitutionMember> selectInstitutionMemberRank();
 	//	Institution 관리자 회원 조회시 권한별 조회(결과)
-	public List<InstitutionMember> selectMemberRank(String memberRank);
+	public List<InstitutionMember> selectMemberRank(String institutionCode, String memberRank);
 }
