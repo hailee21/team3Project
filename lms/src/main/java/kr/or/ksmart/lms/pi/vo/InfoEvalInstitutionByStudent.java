@@ -3,21 +3,29 @@ package kr.or.ksmart.lms.pi.vo;
 public class InfoEvalInstitutionByStudent {
 
 	private String infoEvalInstitutionByStudentCode;
-	private String infoEvalInstitutionByStudentSort;	
+	private String infoEvalInstitutionByStudentSort;
+	private String infoEvalInstitutionByStudentType;
 	private String infoEvalInstitutionByStudentContents;
-	private int infoEvalInstitutionByStudentYear;
+	private String infoEvalInstitutionByStudentEffectiveDate;
+	private String infoEvalInstitutionByStudentInsertDate;
 	
+	public String getInfoEvalInstitutionByStudentCode() {
+		return infoEvalInstitutionByStudentCode;
+	}
+	public void setInfoEvalInstitutionByStudentCode(String infoEvalInstitutionByStudentCode) {
+		this.infoEvalInstitutionByStudentCode = infoEvalInstitutionByStudentCode;
+	}
 	public String getInfoEvalInstitutionByStudentSort() {
 		return infoEvalInstitutionByStudentSort;
 	}
 	public void setInfoEvalInstitutionByStudentSort(String infoEvalInstitutionByStudentSort) {
 		this.infoEvalInstitutionByStudentSort = infoEvalInstitutionByStudentSort;
 	}
-	public String getInfoEvalInstitutionByStudentCode() {
-		return infoEvalInstitutionByStudentCode;
+	public String getInfoEvalInstitutionByStudentType() {
+		return infoEvalInstitutionByStudentType;
 	}
-	public void setInfoEvalInstitutionByStudentCode(String infoEvalInstitutionByStudentCode) {
-		this.infoEvalInstitutionByStudentCode = infoEvalInstitutionByStudentCode;
+	public void setInfoEvalInstitutionByStudentType(String infoEvalInstitutionByStudentType) {
+		this.infoEvalInstitutionByStudentType = infoEvalInstitutionByStudentType;
 	}
 	public String getInfoEvalInstitutionByStudentContents() {
 		return infoEvalInstitutionByStudentContents;
@@ -25,25 +33,27 @@ public class InfoEvalInstitutionByStudent {
 	public void setInfoEvalInstitutionByStudentContents(String infoEvalInstitutionByStudentContents) {
 		this.infoEvalInstitutionByStudentContents = infoEvalInstitutionByStudentContents;
 	}
-	public int getInfoEvalInstitutionByStudentYear() {
-		return infoEvalInstitutionByStudentYear;
+	public String getInfoEvalInstitutionByStudentEffectiveDate() {
+		return infoEvalInstitutionByStudentEffectiveDate;
 	}
-	public void setInfoEvalInstitutionByStudentYear(int infoEvalInstitutionByStudentYear) {
-		this.infoEvalInstitutionByStudentYear = infoEvalInstitutionByStudentYear;
+	public void setInfoEvalInstitutionByStudentEffectiveDate(String infoEvalInstitutionByStudentEffectiveDate) {
+		this.infoEvalInstitutionByStudentEffectiveDate = infoEvalInstitutionByStudentEffectiveDate;
 	}
-	
+	public String getInfoEvalInstitutionByStudentInsertDate() {
+		return infoEvalInstitutionByStudentInsertDate;
+	}
+	public void setInfoEvalInstitutionByStudentInsertDate(String infoEvalInstitutionByStudentInsertDate) {
+		this.infoEvalInstitutionByStudentInsertDate = infoEvalInstitutionByStudentInsertDate;
+	}
 	@Override
 	public String toString() {
 		return "InfoEvalInstitutionByStudent [infoEvalInstitutionByStudentCode=" + infoEvalInstitutionByStudentCode
 				+ ", infoEvalInstitutionByStudentSort=" + infoEvalInstitutionByStudentSort
+				+ ", infoEvalInstitutionByStudentType=" + infoEvalInstitutionByStudentType
 				+ ", infoEvalInstitutionByStudentContents=" + infoEvalInstitutionByStudentContents
-				+ ", infoEvalInstitutionByStudentYear=" + infoEvalInstitutionByStudentYear + "]";
+				+ ", infoEvalInstitutionByStudentEffectiveDate=" + infoEvalInstitutionByStudentEffectiveDate
+				+ ", infoEvalInstitutionByStudentInsertDate=" + infoEvalInstitutionByStudentInsertDate + "]";
 	}
-	
-	
-	
-	
-	
 	
 	
 	
