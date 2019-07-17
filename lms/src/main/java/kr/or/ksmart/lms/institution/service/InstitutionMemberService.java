@@ -32,7 +32,7 @@ public class InstitutionMemberService {
 		return memberRank;
 	}
 	//	회원 목록에서 권한별로 조회하기
-	public List<InstitutionMember> selectMemberRank(String institution, String memberRank) {
+	public List<InstitutionMember> selectMemberRank(String memberRank, String institution) {
 		System.out.println("[InstitutionMemberService selectMemberRank] 서비스 호출" + memberRank);
 		List<InstitutionMember> rank = institutionMemberMapper.selectMemberRank(institution, memberRank);
 		System.out.println("[InstitutionMemberService selectMemberRank] 맵퍼 실행 result" + rank);
