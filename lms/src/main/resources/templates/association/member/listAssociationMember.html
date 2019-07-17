@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/associationLayout">
+<meta charset="utf-8">
+<title>회원 리스트</title>
+<!-- html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>
+$(document).ready(function(){
+	//	회원 등급별로 조회하기 select 출력
+	$('#memberRank').change(function(){
+		console.log('조회할회원등급: '+$('#memberRank').val());
+		$.ajax({
+			url:'/getAssociationMembersRank'
+    		,type:'GET'
+    		,data:{memberRank:$('#memberRank').val()}
+			,success:function(result){	//	Controller에서 currentPage를 받아옴.
+				$('#memberList').empty();
+				$(result).each(function(index,item){//	반복문 사용해서 member list 가져오기
+					$('#memberList').append('<tr>');
+//					$('#memberList').append('<td th:text><input type="checkbox" class="ck" value="'+item.memberOnlineId+'"></td>');
+					$('#memberList').append('<td th:text>'+item.memberName+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberOnlineId+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberPhoneNumber+'</td>');
+					$('#memberList').append('<td th:text>'+item.institutionName+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberRank+'</td>');
+					$('#memberList').append('</tr>');
+				});
+			}
+		});
+		$('#btnList').trigger('click');
+	});
+	document.getElementById("btnList").addEventListener("click", function(){
+		if(document.getElementById("memberRank").value == ""){		
+			$.ajax({
+				url:'/getAssociationMembers'
+	    		,type:'GET'
+//	    		,data:{memberRank:$('#memberRank').val()}
+				,success:function(result){	//	Controller에서 currentPage를 받아옴.
+				//	$('#memberList').empty();
+					$(result).each(function(index,item){//	반복문 사용해서 member list 가져오기
+						$('#memberList').append('<tr>');
+//						$('#memberList').append('<td th:text><input type="checkbox" class="ck" value="'+item.memberOnlineId+'"></td>');
+						$('#memberList').append('<td th:text>'+item.memberName+'</td>');
+						$('#memberList').append('<td th:text>'+item.memberOnlineId+'</td>');
+						$('#memberList').append('<td th:text>'+item.memberPhoneNumber+'</td>');
+						$('#memberList').append('<td th:text>'+item.institutionName+'</td>');
+						$('#memberList').append('<td th:text>'+item.memberRank+'</td>');
+						$('#memberList').append('</tr>');
+					});
+				}
+			});
+			$('#btnList').trigger('click');
+		}
+	//	회원목록 출력하기
+	$('#btnList').hide();
+/* 	$('#btnList').on('click',function(){
+		console.log("btnList click test")
+ */		
+	});
+	$('#btnList').trigger('click');
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h1>회원 조회</h1>
+	<div class="row">
+		<div class="col-md-2">
+			<div class="form-group">
+				<label for="memberRank">등급별조회</label>
+				<select class="form-control" id="memberRank" name="memberRank">
+					<option value="">전체보기</option>
+					<option th:each="memberRank:${memberRank}" th:value="${memberRank.memberRank}" th:text="${memberRank.memberRank}"></option>
+				</select>
+				<small class="form-text text-muted">조회할 등급을 선택하세요</small>
+			</div>
+		</div>
+	</div>
+	<button id="btnList" class="btn btn-primary">회원리스트</button>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">이름</th>
+				<th scope="col">아이디</th>
+				<th scope="col">전화번호</th>
+				<th scope="col">교육원</th>
+				<th scope="col">회원등급</th>
+			</tr>
+		</thead>
+		<tbody id="memberList">
+			<!-- <tr th:each="member:${memberList}">
+				<input type="hidden" value="${member.memberCode}">
+				<th scope="row" th:text="${member.memberName}"></th>
+				<td th:text="${member.memberOnlineId}"></td>
+				<td th:text="${member.memberPhoneNumber}"></td>
+				<td th:text="${member.institutionName}"></td>
+				<td th:text="${member.memberRank}"></td> -->
+		</tbody>
+	</table>
+</div>
+</html>

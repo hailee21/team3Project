@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.lms.association.mapper.AssociationMemberMapper;
+import kr.or.ksmart.lms.association.vo.AssociationMember;
 import kr.or.ksmart.lms.association.vo.MemberInstitution;
 import kr.or.ksmart.lms.institution.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.Member;
@@ -84,5 +85,32 @@ public class AssociationMemberService {
 		memberInstitution.setMemberCode(memberCode);
 		
 		associationMemberMapper.insertAdmin(memberInstitution);
+	}
+	
+	//	회원목록에서 권한별 select
+	public List<AssociationMember> selectMemberRankList() {
+		List<AssociationMember> memberRank = associationMemberMapper.selectAssociationMemberRank();
+		return memberRank;
+	}
+	//	회원목록에서 교육원별 select
+	public List<AssociationMember> selectMemberInstitutionList() {
+		List<AssociationMember> Institution = associationMemberMapper.selectAssociationMemberInstitution();
+		return Institution;
+	}
+	//	회원목록 전체조회
+	public List<AssociationMember> associationMemberList() {
+		System.out.println("[AssocationMemberService assocationMemberList] 호출");
+		List<AssociationMember> memberList = associationMemberMapper.selectAssociationMemberList();
+		return memberList;
+	}
+	//	회원권한별 조회
+	public List<AssociationMember> selectMemberRank (String memberRank) {
+		List<AssociationMember> rank = associationMemberMapper.selectMemberRank(memberRank);
+		return rank;
+	}
+	//	회원 조회-교육원별 조회
+	public List<AssociationMember> selectMemberInstitution(String institutionCode){
+		List<AssociationMember> instCode = associationMemberMapper.selectMemberInstitution(institutionCode);
+		return instCode;
 	}
 }
