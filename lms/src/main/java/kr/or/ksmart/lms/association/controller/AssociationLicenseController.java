@@ -29,7 +29,7 @@ public class AssociationLicenseController {
     	return mav;
     	
 	}
-	@GetMapping("/association/license/licenseList") //자격증 발급 리스트
+	@GetMapping("/association/license/listLicense") //자격증 발급 리스트
     public ModelAndView selectLicense(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationLicenseController selectLicense]");
     	String memberRank = (String)session.getAttribute("memberRank");
@@ -38,7 +38,7 @@ public class AssociationLicenseController {
 		}
 		if(memberRank.equals("협회직원")) {
 			System.out.println();
-			mav.setViewName("/association/license/licenseList");
+			mav.setViewName("/association/license/listLicense");
 		} else {
 			System.out.println("[AssociationLicenseController selectLicense] 협회직원 아님");
 			

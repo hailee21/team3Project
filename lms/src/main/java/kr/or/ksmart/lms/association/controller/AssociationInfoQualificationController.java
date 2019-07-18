@@ -53,9 +53,9 @@ public class AssociationInfoQualificationController {
 		return mav;
 	}
 		
-	@GetMapping("/PI/infoQualificationList") // 자격 정보 개요 리스트를 보여주기 위한 메서드
+	@GetMapping("/PI/listInfoQualification") // 자격 정보 개요 리스트를 보여주기 위한 메서드
 	public ModelAndView infoQualification(HttpSession session, ModelAndView mav) {
-		mav.setViewName("/PI/infoQualificationList");
+		mav.setViewName("/PI/listInfoQualification");
 		List<InfoQualification> list = associationinfoQualificationService.getInfoQualification();
 		mav.addObject("list", list);
 		return mav;

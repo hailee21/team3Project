@@ -7,7 +7,6 @@
 <th:block layout:fragment="css">
 </th:block>
 
-<!-- html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 </th:block>
 
@@ -34,7 +33,7 @@
 			<td th:text="${subject.noticeAnnualLicenseTestApplyEndDate}"></td>
 			<td th:text="${subject.noticeLicenseTestDate}"></td>
 			<td th:text="${subject.noticeAnnualLicenseTestResultDate}"></td>
-			<td><a class="btn btn-primary" th:href="@{'/association/notice/addNoticeLicenseTest?infoQualificationCode='+${subject.infoQualificationCode}+'&'+'noticeAnnualLicenseTestCode='+${subject.noticeAnnualLicenseTestCode}+'&licenseTestLocationCode='+${subject.licenseTestLocationCode}}">수정</a></td>			
+			<td><a class="btn btn-primary" th:href="@{'/association/notice/addNoticeLicenseTest?infoQualificationCode='+${subject.infoQualificationCode}+'&'+'noticeAnnualLicenseTestCode='+${subject.noticeAnnualLicenseTestCode}+'&licenseTestLocationCode='+${subject.licenseTestLocationCode}+'&'+'noticeLicenseTestCode='+${subject.noticeLicenseTestCode}}">수정</a></td>			
 		</tr>
 	</table>
 </div>

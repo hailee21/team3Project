@@ -35,7 +35,7 @@
 			<td th:text="${subject.licenseTestLocationUse}"></td>
 			<td th:text="${subject.licenseTestLocationMaximumNumber}"></td>
 			<td th:text="${subject.licenseTestLocationInsertDate}"></td>
-			<td type="button" class="btn btn-secondary" th:href="@{'/association/license/licenseTestLocationDetailList?licenseTestLocationCode='+${subject.licenseTestLocationCode}}" th:value="${subject.licenseTestLocationCode}">				
+			<td type="button" class="btn btn-secondary" th:href="@{'/association/license/listLicenseTestLocationDetail?licenseTestLocationCode='+${subject.licenseTestLocationCode}}" th:value="${subject.licenseTestLocationCode}">				
 		</tr>
 	</table>
 </div>

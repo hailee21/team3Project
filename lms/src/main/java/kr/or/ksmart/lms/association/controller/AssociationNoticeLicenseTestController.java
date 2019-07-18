@@ -22,13 +22,23 @@ public class AssociationNoticeLicenseTestController {
 	
 	@GetMapping("/association/notice/addNoticeLicenseTest") //자격 시험 공고 등록 폼
 	public ModelAndView addNoticeLicenseTest(HttpSession session, ModelAndView mav,
-			@RequestParam String noticeAnnualLicenseTestCode) {
+											@RequestParam String noticeLicenseTestCode,
+											@RequestParam String infoQualificationCode,
+											@RequestParam String licenseTestLocationCode,
+											@RequestParam String noticeAnnualLicenseTestCode) {
+		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest]noticeLicenseTestCode"+noticeLicenseTestCode);
+		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest]infoQualificationCode"+infoQualificationCode);
+		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest]licenseTestLocationCode"+licenseTestLocationCode);
+		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest]noticeAnnualLicenseTestCode"+noticeAnnualLicenseTestCode);
 		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
 		if(memberRank == null) {
 			memberRank = "로그인 실패";
 		}
 		if(memberRank.equals("협회직원")) {
+			mav.addObject("noticeLicenseTestCode", noticeLicenseTestCode);
+			mav.addObject("infoQualificationCode", infoQualificationCode);
+			mav.addObject("licenseTestLocationCode", licenseTestLocationCode);
 			mav.addObject("noticeAnnualLicenseTestCode", noticeAnnualLicenseTestCode);
 			mav.setViewName("/association/notice/addNoticeLicenseTest");
 		} else {
@@ -48,7 +58,7 @@ public class AssociationNoticeLicenseTestController {
 			
 			associationNoticeLicenseTestService.insertNoticeLicenseTest(noticeLicenseTest);
 			System.out.println("[AssociationNoticeLicenseTestController addNoticeLicenseTest]noticeLicenseTest"+noticeLicenseTest);
-			mav.setViewName("redirect:/association/notice/noticeLicenseTestLocationList?noticeAnnualLicenseTestCode="+noticeLicenseTest.getNoticeAnnualLicenseTestCode());
+			mav.setViewName("redirect:/association/notice/noticelistLicenseTestLocation?noticeAnnualLicenseTestCode="+noticeLicenseTest.getNoticeAnnualLicenseTestCode());
 			
 		} else {
 			System.out.println("[AssociationInfoQualificationController addinfoQualification] 협회직원 아님");
@@ -56,7 +66,7 @@ public class AssociationNoticeLicenseTestController {
 		}
 		return mav;
 	}
-	@GetMapping("/association/notice/noticeLicenseTestLocationList") //자격 시험 공고 리스트
+	@GetMapping("/association/notice/listNoticeLicenseTestLocation") //자격 시험 공고 리스트
 	public ModelAndView selectNoticeLicenseTest(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest] 호출");
 		String memberRank = (String)session.getAttribute("memberRank");
@@ -67,7 +77,7 @@ public class AssociationNoticeLicenseTestController {
 			List<NoticeLicenseTest> list = associationNoticeLicenseTestService.selectNoticeLicenseTest();
 			System.out.println("[AssociationNoticeLicenseTestController selectNoticeLicenseTest]list"+list);
 			mav.addObject("list", list);
-			mav.setViewName("/association/notice/noticeLicenseTestLocationList");
+			mav.setViewName("/association/notice/listNoticeLicenseTestLocation");
 		} else {
 			System.out.println("[AssociationInfoQualificationController addinfoQualification] 협회직원 아님");
 			mav.setViewName("association/associationLogin");

@@ -53,7 +53,7 @@ public class AssocitationNoticeAnnualLicenseTestController {
 		}
     	return mav;
     }
-	@GetMapping("/association/notice/noticeAnnualLicenseTestList") //연간 자격 시험 일정 List
+	@GetMapping("/association/notice/listNoticeAnnualLicenseTest") //연간 자격 시험 일정 List
 	public ModelAndView selectNoticeAnnualLicenseTestController(HttpSession session, ModelAndView mav) {
 		System.out.println("[AssocitationNoticeAnnualLicenseTestController selectLicenseTestLocation]");
     	String memberRank = (String)session.getAttribute("memberRank");
@@ -64,7 +64,7 @@ public class AssocitationNoticeAnnualLicenseTestController {
 			List<NoticeAnnualLicenseTest> list = associtationNoticeAnnualLicenseTestService.selectNoticeAnnualLicenseTest();
 			System.out.println("[AssocitationNoticeAnnualLicenseTestController selectNoticeAnnualLicenseTestController]list" +list);
 			mav.addObject("list", list);
-			mav.setViewName("association/notice/noticeAnnualLicenseTestList");
+			mav.setViewName("association/notice/listNoticeAnnualLicenseTest");
 		} else {
 			System.out.println("[AssocitationNoticeAnnualLicenseTestController selectLicenseTestLocation] 협회직원 아님");
 			

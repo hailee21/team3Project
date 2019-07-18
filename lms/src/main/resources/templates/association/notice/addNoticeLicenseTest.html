@@ -174,11 +174,11 @@
 	<form id="addNoticeLicenseTest" action="/association/notice/addNoticeLicenseTest" method="post">
 		<div class="form-group">
 			<label>자격시험공고코드 :</label>
-			<input type="text" class="form-control" id="noticeLicenseTestCode" name="noticeLicenseTestCode" th:value="${noticeAnnualLicenseTestCode}">
+			<input th:value="${noticeLicenseTestCode}" type="text" class="form-control" id="noticeLicenseTestCode" name="noticeLicenseTestCode">
 		</div>
 		<div class="form-group">
 			<label>자격종목코드 :</label>
-			<input type="text" class="form-control" id="infoQualificationCode" name="infoQualificationCode">
+			<input th:value="${infoQualificationCode}" type="text" class="form-control" id="infoQualificationCode" name="infoQualificationCode">
 		</div>
 		<div class="form-group">
 			<label>시험명 :</label>
@@ -186,11 +186,11 @@
 		</div>
 		<div class="form-group">
 			<label>연간자격시험계획코드 :</label>
-			<input type="text" class="form-control" id="noticeAnnualLicenseTestCode" name="noticeAnnualLicenseTestCode">
+			<input th:value="${noticeAnnualLicenseTestCode}" type="text" class="form-control" id="noticeAnnualLicenseTestCode" name="noticeAnnualLicenseTestCode">
 		</div>
 		<div class="form-group">
 			<label>시험장소코드 :</label>
-			<input type="text" class="form-control" id="licenseTestLocationCode" name="licenseTestLocationCode">
+			<input th:value="${licenseTestLocationCode}" type="text" class="form-control" id="licenseTestLocationCode" name="licenseTestLocationCode">
 		</div>
 		<div class="form-group">
 			<label>지역 :</label>

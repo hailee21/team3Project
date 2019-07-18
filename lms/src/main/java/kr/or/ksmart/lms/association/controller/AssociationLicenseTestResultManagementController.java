@@ -49,7 +49,7 @@ public class AssociationLicenseTestResultManagementController {
 			System.out.println("[AssociationLicenseTestResultManagementController addLicenseTestResultManagement]로그인");
 			System.out.println("[AssociationLicenseTestResultManagementController addLicenseTestResultManagement]licenseTestResultManagement"+licenseTestResultManagement);
 			mav.addObject("licenseTestResultManagement", licenseTestResultManagement);
-			mav.setViewName("redirect:/association/license/licenseTestResultManagementList");
+			mav.setViewName("redirect:/association/license/ListlicenseTestResultManagement");
 		} else {
 			System.out.println("[AssociationLicenseController selectLicense] 협회직원 아님");
 			
@@ -59,7 +59,7 @@ public class AssociationLicenseTestResultManagementController {
     	
 	}
 	
-	@GetMapping("/association/license/licenseTestResultManagementList") //자격 시험 결과 관리 리스트
+	@GetMapping("/association/license/listLicenseTestResultManagement") //자격 시험 결과 관리 리스트
 	public ModelAndView selectLicenseTestResultManagement(HttpSession session, ModelAndView mav) {
 		System.out.println("[LicenseTestResultManagement addLicenseTestResultManagement]");
     	String memberRank = (String)session.getAttribute("memberRank");
@@ -71,7 +71,7 @@ public class AssociationLicenseTestResultManagementController {
 			System.out.println("[AssociationLicenseController selectLicenseTestResultManagement]로그인");
 			System.out.println("[AssociationLicenseController selectLicenseTestResultManagement]list"+list);
 			mav.addObject("list", list);
-			mav.setViewName("/association/license/licenseTestResultManagementList");
+			mav.setViewName("/association/license/listLicenseTestResultManagement");
 		} else {
 			System.out.println("[AssociationLicenseController selectLicense] 협회직원 아님");
 			
