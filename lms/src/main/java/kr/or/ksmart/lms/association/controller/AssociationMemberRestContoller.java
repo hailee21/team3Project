@@ -17,14 +17,20 @@ public class AssociationMemberRestContoller {
 	@GetMapping("/getAssociationMembers")
 	public List<AssociationMember> selectMembers() {
 		List<AssociationMember> list = associationMemberService.associationMemberList();
-		System.out.println("[AssociationMemberService selectMembers] " + list);
+		System.out.println("[AssociationMemberRestController selectMembers] " + list);
 		return list;
 	}
 	@GetMapping("/getAssociationMembersRank")
 	public List<AssociationMember> selectMemberRank(@RequestParam () String memberRank) {
-		System.out.println("[AssociationMemberService selectMemberRank] 호출");
+		System.out.println("[AssociationMemberRestController selectMemberRank] 호출");
 		List<AssociationMember> rank = associationMemberService.selectMemberRank(memberRank);
 		return rank;
 	}
+	@GetMapping("/getAssociationMembersInstitution")
+	public List<AssociationMember> selectMemberInstitution(@RequestParam() String institutionCode) {
+			System.out.println("[AssociationMemberRestController selectMemberInstitution] 호출");
+			List<AssociationMember> code = associationMemberService.selectMemberInstitution(institutionCode);
+			return code;
+		}
 	
 }

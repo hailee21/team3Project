@@ -56,7 +56,7 @@ public class AssociationMemberContoller {
 			System.out.println("[AssociationMemberController associationMemberList] 로그아웃상태");
 			mav.setViewName("association/associationLogin");
 		} else if (memberRank.equals("협회직원")) {
-			mav.setViewName("association/member/list");
+			mav.setViewName("association/member/listAssociationMember");
 			List<AssociationMember> rank = associationMemberService.selectMemberRankList();
 			mav.addObject("memberRank", rank);
 		} else {

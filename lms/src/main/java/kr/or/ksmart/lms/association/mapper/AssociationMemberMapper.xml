@@ -15,7 +15,6 @@
 		<result column="institution_code" property="institutionCode"/>
 		<result column="institution_name" property="institutionName"/>
 		<result column="member_rank" property="memberRank"/>
-		<result column="member_date" property="memberDate"/>
 	</resultMap>
 	<!-- memberlist 조회시 권한별로 선택 조회하기 위한 쿼리문 -->
 	<select id="selectAssociationMemberRank" resultType="kr.or.ksmart.lms.association.vo.AssociationMember">
@@ -41,11 +40,11 @@
 			, institution_code
 			, institution_name
 			, mo.member_rank
-			, member_date
+			, left(member_date, 10) AS memberDate
 		FROM member AS m
 		INNER JOIN member_online AS mo
 		ON m.member_code = mo.member_code
-		ORDER BY member_date
+		ORDER BY memberDate
 	</select>
 	<!-- memberlist 조회시 권한별로 조회하기 -->
 	<select id="selectMemberRank" parameterType="String" resultMap="AssociationMemberListMap">
@@ -57,12 +56,12 @@
 			, institution_code
 			, institution_name
 			, mo.member_rank
-			, member_date
+			, left(member_date, 10) AS memberDate
 		FROM member AS m
 		INNER JOIN member_online AS mo
 		ON m.member_code = mo.member_code
 		AND mo.member_rank = #{memberRank}
-		ORDER BY member_date
+		ORDER BY memberDate
 	</select>
 	<!-- memberlist 조회시 교육원별로 조회하기 -->
 	<select id="selectMemberInstitution" parameterType="String" resultMap="AssociationMemberListMap">
@@ -74,12 +73,12 @@
 			, institution_code
 			, institution_name
 			, mo.member_rank
-			, member_date
+			, left(member_date, 10) AS memberDate
 		FROM member AS m
 		INNER JOIN member_online AS mo
 		ON m.member_code = mo.member_code
 		WHERE institution_code = #{institutionCode}
-		ORDER BY member_date
+		ORDER BY memberDate
 	</select>
 	
 	<!-- 	institution_approval 테이블에서 발행된 코드인지 확인	 -->
