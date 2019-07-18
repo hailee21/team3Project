@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ksmart.lms.association.service.AssociationMemberService;
+import kr.or.ksmart.lms.association.vo.AssociationMember;
 import kr.or.ksmart.lms.association.vo.MemberInstitution;
 import kr.or.ksmart.lms.institution.vo.Institution;
+import kr.or.ksmart.lms.institution.vo.InstitutionMember;
 import kr.or.ksmart.lms.pi.vo.Member;
 import kr.or.ksmart.lms.pi.vo.MemberOnline;
 
@@ -44,5 +46,24 @@ public class AssociationMemberContoller {
 			mav.setViewName("institution/institutionLogin");	//	처리 후 교육원 로그인 바로가기
 		}
 		return mav;
+	}
+	//	협회관리자 교육원 회원 리스트
+	@GetMapping("/association/memberlist")
+	public ModelAndView associationMemberList(ModelAndView mav, HttpSession session) {
+		System.out.println("[AssociationMemberController associationMemberList 호출]");
+		String memberRank = (String)session.getAttribute("memberRank");
+		if (memberRank == null) {
+			System.out.println("[AssociationMemberController associationMemberList] 로그아웃상태");
+			mav.setViewName("association/associationLogin");
+		} else if (memberRank.equals("협회직원")) {
+			mav.setViewName("association/member/listAssociationMember");
+			List<AssociationMember> institution = associationMemberService.selectMemberInstitutionList();
+			mav.addObject("institution", institution);
+		} else {
+			System.out.println("[AssociationMemberController associationMemberList] 교육원 직원이 아님");
+			mav.setViewName("association/associationLogin");
+		}
+		
+		return mav;			
 	}
 }

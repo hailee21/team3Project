@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.institution.mapper.InstitutionMemberMapper">
+	<!-- memberlist 조회시 권한별로 선택 조회하기 위한 resultMap -->
 	<resultMap type="kr.or.ksmart.lms.institution.vo.InstitutionMember" id="InstitutionMemberListMap">
 		<result column="member_code" property="memberCode"/>
 		<result column="member_name" property="memberName"/>
@@ -11,7 +12,7 @@
 		<result column="member_rank" property="memberRank"/>
 		<result column="member_date" property="memberDate"/>
 	</resultMap>
-	<!-- memberlist 조회시 권한별로 선택 조회하기 위한 resultMap -->
+	<!-- memberlist 조회시 권한 selectbox에 출력 -->
 	<select id="selectInstitutionMemberRank" resultType="kr.or.ksmart.lms.institution.vo.InstitutionMember">
 		SELECT DISTINCT
 			member_rank AS memberRank
@@ -19,6 +20,7 @@
 			member
 		LIMIT 1,5
 	</select>
+	
 	<!-- memberlist 조회시 권한별로 조회하기 -->
 	<select id="selectMemberRank" parameterType="String" resultMap="InstitutionMemberListMap">
 		SELECT

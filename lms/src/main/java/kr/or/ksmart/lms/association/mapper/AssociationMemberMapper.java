@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.or.ksmart.lms.association.vo.AssociationMember;
 import kr.or.ksmart.lms.association.vo.MemberInstitution;
 import kr.or.ksmart.lms.institution.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.Member;
@@ -27,4 +28,15 @@ public interface AssociationMemberMapper {
 	public int insertMemberOnline(MemberOnline memberOnline);
 	//	신규 직원 등록
 	public void insertAdmin(MemberInstitution memberInstitution);
+	
+	//	Association 관리자 회원 전체조회
+	public List<AssociationMember> selectAssociationMemberList();
+	//	Association 관리자 회원 조회시 권한별 선택하기(select박스에 권한 리스트를 출력)
+	public List<AssociationMember> selectAssociationMemberRank();
+	//	Association 관리자 회원 조회시 교육원별 선택하기(select박스에 교육원 리스트를 출력)
+	public List<AssociationMember> selectAssociationMemberInstitution();
+	//	Association 관리자 회원 조회시 권한별 조회(결과)
+	public List<AssociationMember> selectMemberRank(String memberRank);
+	//	Association 관리자 회언 조회시 교육원별 조회
+	public List<AssociationMember> selectMemberInstitution(String institutionCode);
 }

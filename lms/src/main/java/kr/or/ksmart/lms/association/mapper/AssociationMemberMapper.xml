@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.lms.association.mapper.AssociationMemberMapper">
+	<!-- Association 관리자 권한으로 member 조회 resultMap-->
+	<resultMap type="kr.or.ksmart.lms.association.vo.AssociationMember" id="AssociationMemberListMap">
+	<result column="member_code" property="memberCode"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_online_id" property="memberOnlineId"/>
+		<result column="member_registration_number_front" property="memberRegistrationNumberFront"/>
+		<result column="member_registration_number_back" property="memberRegistrationNumberBack"/>
+		<result column="member_phone_number" property="memberPhoneNumber"/>
+		<result column="member_postcode" property="memberPostcode"/>
+		<result column="member_address" property="memberAddress"/>
+		<result column="member_address_desc" property="memberAddressDesc"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="member_rank" property="memberRank"/>
+	</resultMap>
+	<!-- memberlist 조회시 권한별로 선택 조회하기 위한 쿼리문 -->
+	<select id="selectAssociationMemberRank" resultType="kr.or.ksmart.lms.association.vo.AssociationMember">
+		SELECT DISTINCT
+			member_rank AS memberRank
+		FROM
+			member
+	</select>
+	<select id="selectAssociationMemberInstitution" resultType="kr.or.ksmart.lms.association.vo.AssociationMember">
+		SELECT DISTINCT
+			institution_name AS institutionName
+		FROM
+			member_online
+	</select>
+	<!-- memberlist 조회시 전체회원 조회하기 -->
+	<select id="selectAssociationMemberList" parameterType="String"
+			resultMap="AssociationMemberListMap">
+		SELECT
+			m.member_code
+			, m.member_name
+			, member_online_id
+			, member_phone_number
+			, institution_code
+			, institution_name
+			, mo.member_rank
+			, left(member_date, 10) AS memberDate
+		FROM member AS m
+		INNER JOIN member_online AS mo
+		ON m.member_code = mo.member_code
+		ORDER BY memberDate
+	</select>
+	<!-- memberlist 조회시 권한별로 조회하기 -->
+	<select id="selectMemberRank" parameterType="String" resultMap="AssociationMemberListMap">
+		SELECT
+			m.member_code
+			, m.member_name
+			, member_online_id
+			, member_phone_number
+			, institution_code
+			, institution_name
+			, mo.member_rank
+			, left(member_date, 10) AS memberDate
+		FROM member AS m
+		INNER JOIN member_online AS mo
+		ON m.member_code = mo.member_code
+		AND mo.member_rank = #{memberRank}
+		ORDER BY memberDate
+	</select>
+	<!-- memberlist 조회시 교육원별로 조회하기 -->
+	<select id="selectMemberInstitution" parameterType="String" resultMap="AssociationMemberListMap">
+		SELECT
+			m.member_code
+			, m.member_name
+			, member_online_id
+			, member_phone_number
+			, institution_code
+			, institution_name
+			, mo.member_rank
+			, left(member_date, 10) AS memberDate
+		FROM member AS m
+		INNER JOIN member_online AS mo
+		ON m.member_code = mo.member_code
+		WHERE institution_code = #{institutionCode}
+		ORDER BY memberDate
+	</select>
+	
 	<!-- 	institution_approval 테이블에서 발행된 코드인지 확인	 -->
 	<select id="selectAdminApprovalCode" parameterType="String" resultType="String">
 		SELECT institution_approval_code
