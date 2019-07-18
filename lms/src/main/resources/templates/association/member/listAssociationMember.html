@@ -12,13 +12,13 @@
 <th:block layout:fragment="script">
 <script>
 $(document).ready(function(){
-	//	회원 등급별로 조회하기 select 출력
-	$('#memberRank').change(function(){
-		console.log('조회할회원등급: '+$('#memberRank').val());
+	//	회원 교육원별로 조회하기 select 출력
+	$('#institution').change(function(){
+		console.log('조회할교육원: '+$('#institutionCode').val());
 		$.ajax({
-			url:'/getAssociationMembersRank'
+			url:'/getAssociationMembersInstitution'
     		,type:'GET'
-    		,data:{memberRank:$('#memberRank').val()}
+    		,data:{institutionCode:$('#institutionCode').val()}
 			,success:function(result){	//	Controller에서 currentPage를 받아옴.
 				$('#memberList').empty();
 				$(result).each(function(index,item){//	반복문 사용해서 member list 가져오기
@@ -32,7 +32,6 @@ $(document).ready(function(){
 					$('#memberList').append('<td th:text>'+item.institutionName+'</td>');
 					$('#memberList').append('<td th:text>'+item.memberRank+'</td>');
 					$('#memberList').append('<td th:text>'+item.memberDate+'</td>');
-					
 					$('#memberList').append('</tr>');
 				});
 			}
@@ -42,7 +41,7 @@ $(document).ready(function(){
 	//	회원 교육원별 조회하기 select 출력
 	
 	document.getElementById("btnList").addEventListener("click", function(){
-		if(document.getElementById("memberRank").value == ""){		
+		if(document.getElementById("institution").value == ""){		
 			$.ajax({
 				url:'/getAssociationMembers'
 	    		,type:'GET'
@@ -68,7 +67,7 @@ $(document).ready(function(){
 			$('#btnList').trigger('click');
 		}
 	//	회원목록 출력하기
-	$('#btnList').hide();
+//	$('#btnList').hide();
 /* 	$('#btnList').on('click',function(){
 		console.log("btnList click test")
  */		
@@ -83,12 +82,13 @@ $(document).ready(function(){
 	<div class="row">
 		<div class="col-md-2">
 			<div class="form-group">
-				<label for="memberRank">등급별조회</label>
-				<select class="form-control" id="memberRank" name="memberRank">
+				<label for="institution">교육원선택</label>
+				<select class="form-control" id="institution" name="institution">
 					<option value="">전체보기</option>
-					<option th:each="memberRank:${memberRank}" th:value="${memberRank.memberRank}" th:text="${memberRank.memberRank}"></option>
+					<option th:each="institution:${institution}" th:value="${institution.institutionCode}" th:text="${institution.institutionName}"></option>
+					<!-- value=requestParam으로 institutionCode를 보내서 조회할 수 있도록 한다. -->
 				</select>
-				<small class="form-text text-muted">조회할 등급을 선택하세요</small>
+				<small class="form-text text-muted">조회할 교육원을 선택하세요</small>
 			</div>
 		</div>
 	</div>

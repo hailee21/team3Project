@@ -27,10 +27,10 @@ public class AssociationMemberRestContoller {
 		return rank;
 	}
 	@GetMapping("/getAssociationMembersInstitution")
-	public List<AssociationMember> selectMemberInstitution(@RequestParam() String institutionCode) {
-			System.out.println("[AssociationMemberRestController selectMemberInstitution] 호출");
-			List<AssociationMember> code = associationMemberService.selectMemberInstitution(institutionCode);
-			return code;
-		}
+	public List<AssociationMember> selectMemberInstitution(@RequestParam () String institutionCode) {
+		System.out.println("[AssociationMemberRestController selectMemberInstitution] 호출");
+		List<AssociationMember> code = associationMemberService.selectMemberInstitution(institutionCode);
+		return code;
+	}
 	
 }

@@ -94,8 +94,8 @@ public class AssociationMemberService {
 	}
 	//	회원목록에서 교육원별 select
 	public List<AssociationMember> selectMemberInstitutionList() {
-		List<AssociationMember> Institution = associationMemberMapper.selectAssociationMemberInstitution();
-		return Institution;
+		List<AssociationMember> institution = associationMemberMapper.selectAssociationMemberInstitution();
+		return institution;
 	}
 	//	회원목록 전체조회
 	public List<AssociationMember> associationMemberList() {
