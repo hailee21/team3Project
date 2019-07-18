@@ -52,7 +52,7 @@ public class AssociationEvaluationController {
 			mav.addObject("evalList", returnMap.get("evalList"));
 			mav.addObject("searchYear", evalTotalYear);
 			mav.addObject("searchSort", evalTotalType);
-			mav.setViewName("association/evaluation/evaluationTotal");
+			mav.setViewName("association/evaluation/listEvaluationTotal");
 		} else {
 			System.out.println("[AssociationEvaluationController getEvalTotatList] 협회직원 아님");
 			mav.setViewName("association/associationLogin");
