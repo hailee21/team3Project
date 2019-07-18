@@ -59,14 +59,75 @@ public class InstitutionLectureService {
 	}
 	
 	// lecture리스트 조회 메서드
-	public List<Lecture> institutionGetLectureListByInstitutionCode(String institutionCode){
+	public Map<String, Object> institutionGetLectureListByInstitutionCode(String institutionCode){
 		System.out.println("[InstitutionLectureService institutionGetDetailSubjectByInfoSubjectCode]");
+				
+		// mapper에서 받은 list처리된 값들을 map객체참조변수 내부에담아서 controller에서 사용하기
+		List<NoticeLecture> NLlist = institutionLectureMapper.institutionSelectNoticeLectureListForInsertLecture();
+		System.out.println("[InstitutionLectureService institutionGetDetailSubjectByInfoSubjectCode] NLlist: "+NLlist);
 		
-		// mapper에서 받은 list처리된 Lecture들을 list객체참조변수 내부에담아서 controller에서 사용하기
-		List<Lecture> list = institutionLectureMapper.institutionSelectLectureListByInstitutionCode(institutionCode);
-		System.out.println("[InstitutionLectureService institutionGetDetailSubjectByInfoSubjectCode] list: "+list);
-		return list;
+		List<Lecture> lectureList = institutionLectureMapper.institutionSelectLectureListByInstitutionCode(institutionCode);
+		System.out.println("[InstitutionLectureService institutionGetDetailSubjectByInfoSubjectCode] lectureList: "+lectureList);
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("NLlist", NLlist);
+		map.put("lectureList", lectureList);
+		return map;
 	}
+	// lecture 입력시 중복 검사
+	public boolean institutionCheckLectureByNoticeLectureCode(String noticeLectureCode) {
+		System.out.println("[InstitutionLectureService institutionCheckLectureByNoticeLectureCode]");
+		System.out.println("[InstitutionLectureService institutionCheckLectureByNoticeLectureCode] noticeLectureCode: "+noticeLectureCode);
+		
+		boolean lectureCheck = false;
+		
+		Lecture lecture = institutionLectureMapper.institutionLectureCheck(noticeLectureCode);
+		
+		if(lecture == null) {
+			System.out.println("Service ■■oo수강신청 등록 가능oo■■");
+		} else {
+			lectureCheck = true;
+			System.out.println("Service ■■xx수강신청 등록 불가xx■■");
+		}
+		return lectureCheck;
+	}
+	// 강의등록 메서드 
+	public void institutionAddLecture(Lecture lecture) {
+		System.out.println("[InstitutionLectureService institutionAddLecture]");
+		System.out.println("[InstitutionLectureService institutionAddLecture] lecture: "+lecture);
+		
+		// 1. lecture 테이블에 추가할 PK 구하는 코드 
+		// 1-1. 테이블의 PK를 위한 무작위 숫자 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+		String nowDate = dateFormat.format(now);
+		System.out.println("nowDate1: "+nowDate);
+		nowDate = nowDate.substring(0, 13);
+		nowDate = nowDate.toString().replace("-", "");
+		nowDate = nowDate.toString().replace(" ", "");
+		System.out.println("nowDate2: "+nowDate);
+		int randomNo1 = (int)(Math.random()*10000);
+		int randomNo2 = (int)(Math.random()*1000);
+		int randomNo3 = (int)(Math.random()*100);
+		int randomNo = randomNo1 + randomNo2 + randomNo3;
+		if(randomNo > 10000) {
+			randomNo = randomNo/10;
+		}
+		// 1-2. 테이블 형식에 맞게 변수를 선언하고  이를 vo에 담는다. 
+		String LECPK = "LEC"+nowDate+randomNo;
+		lecture.setLectureCode(LECPK);
+		System.out.println("[InstitutionLectureService institutionAddLecture] 최종 LECPK: "+LECPK);
+		
+		// 2. lectureFail 테이블에 폐강 등록하기		
+		institutionLectureMapper.institutionInsertLecture(lecture);
+		
+		// notice_lecture테이블 내 notice_lecture_status 컬럼 업데이트
+		String noticeLectureCode = lecture.getNoticeLectureCode();
+		System.out.println("[InstitutionLectureService institutionAddLecture] noticeLectureCode : "+noticeLectureCode);
+		institutionLectureMapper.institutionUpdateLastNoticeLectureStatusByNoticeLectureCode(noticeLectureCode);
+	}
+	
 	// detailLecture 조회 메서드
 	public Lecture institutionGetDetailLectureByLectureCode(String lectureCode) {
 		System.out.println("[InstitutionLectureService institutionGetDetailLectureByLectureCode]");

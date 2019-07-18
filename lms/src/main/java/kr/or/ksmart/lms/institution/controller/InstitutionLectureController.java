@@ -77,33 +77,6 @@ public class InstitutionLectureController {
 		return mav;
 	}
 	
-	// institution layout 강의등록 출력 controller	
-	@GetMapping("/institution/lecture/addLecture")
-	public ModelAndView institutionAddLecture(ModelAndView mav, HttpSession session) {
-		String memberRank = (String)session.getAttribute("memberRank");
-		if(memberRank == null) {
-			memberRank="로그인 실패";
-		}
-		if(memberRank.equals("교육원직원")) {
-			System.out.println("교육원직원");
-			
-			System.out.println("[InstitutionLectureController institutionAddLecture]");
-			mav.setViewName("/institution/lecture/addLecture");
-			
-			// 해당 교육원의 강의만을 보여주어야 하므로 로그인시 session에 담아둔 institutionCode를 꺼내어서 service의 메서드 호출하자
-			String institutionCode = (String)session.getAttribute("institutionCode");
-			System.out.println("[InstitutionLectureController institutionGetLectureListByInstitutionCode]session에서 가져온 institutionCode :"+institutionCode);
-			
-			// mav내부에 service에서 받은 리스트 처리된 lectureList값을 list객체참조변수에 담아서 뷰에서 활용하자
-			
-		}else {
-			System.out.println("교육원직원아님");
-			
-			mav.setViewName("/institution/institutionLogin");
-		}		
-		return mav;
-	}
-	
 	// institution layout 강의목록 출력 controller
 	@GetMapping("/institution/lecture/listLecture")
 	public ModelAndView institutionGetLectureListByInstitutionCode(ModelAndView mav, HttpSession session) {
@@ -121,11 +94,13 @@ public class InstitutionLectureController {
 			String institutionCode = (String)session.getAttribute("institutionCode");
 			System.out.println("[InstitutionLectureController institutionGetLectureListByInstitutionCode]session에서 가져온 institutionCode :"+institutionCode);
 			
-			// mav내부에 service에서 받은 리스트 처리된 lectureList값을 list객체참조변수에 담아서 뷰에서 활용하자
-			List<Lecture> lectureList = institutionLectureService.institutionGetLectureListByInstitutionCode(institutionCode);
-			System.out.println("[InstitutionLectureController institutionGetLectureListByInstitutionCode] lectureList : "+ lectureList);
+			// service에서 받은 리스트 처리된 값들을 map에서 꺼내어 mav내부에 담아서 뷰에서 활용하자
+			Map<String, Object> map = institutionLectureService.institutionGetLectureListByInstitutionCode(institutionCode);		
 			
-			mav.addObject("lectureList", lectureList);
+			mav.addObject("lectureList", map.get("lectureList"));
+			mav.addObject("NLlist", map.get("NLlist"));			
+			System.out.println("[InstitutionLectureController institutionGetLectureListByInstitutionCode] lectureList : "+ map.get("lectureList"));			
+			System.out.println("[InstitutionLectureController institutionGetLectureListByInstitutionCode] NLlist : "+ map.get("NLlist"));
 		}else {
 			System.out.println("교육원직원아님");
 			
@@ -153,6 +128,59 @@ public class InstitutionLectureController {
 			Lecture lecture = institutionLectureService.institutionGetDetailLectureByLectureCode(lectureCode);
 			// mav내부에 service에서 받은 detailLecture값을 lecture객체참조변수에 담아서 뷰에서 활용하자
 			mav.addObject("lecture", lecture);
+		}else {
+			System.out.println("교육원직원아님");
+			
+			mav.setViewName("/institution/institutionLogin");
+		}		
+		return mav;
+	}
+	
+	// institution layout 강의등록 출력 controller	
+	@GetMapping("/institution/lecture/addLecture")
+	public ModelAndView institutionAddLecture(ModelAndView mav, HttpSession session) {
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("교육원직원")) {
+			System.out.println("교육원직원");
+			
+			System.out.println("[InstitutionLectureController institutionAddLecture]");
+			mav.setViewName("/institution/lecture/addLecture");
+			
+			// 해당 교육원의 강의만을 보여주어야 하므로 로그인시 session에 담아둔 institutionCode를 꺼내어서 service의 메서드 호출하자
+			String institutionCode = (String)session.getAttribute("institutionCode");
+			System.out.println("[InstitutionLectureController institutionAddLecture]session에서 가져온 institutionCode :"+institutionCode);
+			
+			// service에서 받은 리스트 처리된 값을 map에서 꺼내어 mav내부에 담아서 뷰에서 활용하자
+			Map<String, Object> map = institutionLectureService.institutionGetLectureListByInstitutionCode(institutionCode);		
+			
+			mav.addObject("NLlist", map.get("NLlist"));				
+			System.out.println("[InstitutionLectureController institutionAddLecture] NLlist : "+ map.get("NLlist"));			
+		}else {
+			System.out.println("교육원직원아님");
+			
+			mav.setViewName("/institution/institutionLogin");
+		}		
+		return mav;
+	}
+	// 강의등록 처리 controller
+	@PostMapping("/institution/lecture/addLecture")
+	public ModelAndView institutionAddLecture(ModelAndView mav, HttpSession session, Lecture lecture) {
+		String memberRank = (String)session.getAttribute("memberRank");
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("교육원직원")) {
+			System.out.println("교육원직원");
+			
+			System.out.println("[InstitutionLectureController institutionAddLecture]");
+			System.out.println("[InstitutionLectureController institutionAddLecture] lecture: "+lecture);
+			mav.setViewName("redirect:/institution/lecture/listLecture");
+			
+			// service의 강의등록 메서드 호출
+			institutionLectureService.institutionAddLecture(lecture);
 		}else {
 			System.out.println("교육원직원아님");
 			

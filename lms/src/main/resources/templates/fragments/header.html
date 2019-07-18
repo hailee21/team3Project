@@ -94,7 +94,7 @@
 	                    <button class="dropbtn">마이페이지 
 	                    </button>
 	                    <div class="dropdownatuo-content">
-	                        <a href="@{'/PI/myPage/viewSignupIndex?institutionCode='+${institutionCode}}">수강정보</a>
+	                        <a th:href="@{'/PI/myPage/viewSignupIndex?institutionCode='+${institutionCode}}">수강정보</a>
 	                        <a href="#">#학습자료실</a>
 	                        <a href="#">#학사종합정보</a>
 	                        <a href="@{'/PI/lecture/subjectScore?institutionCode='+${institutionCode}}">#성적관리</a>

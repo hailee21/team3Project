@@ -42,7 +42,6 @@ public class RestPILectureController {
 			System.out.println("RestController ■■xx수강신청 등록 불가xx■■");
 		}else {
 			System.out.println("RestController ■■oo수강신청 등록 가능oo■■");
-			
 		}
 		return  lectureSignupCheck;
 	}

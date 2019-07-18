@@ -5,7 +5,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import kr.or.ksmart.lms.member.vo.EmailContents;
+import kr.or.ksmart.lms.association.vo.EmailContents;
 
 @Component
 public class AssociationEmailComponent {

@@ -176,7 +176,81 @@
 		)		
 	</insert>
 
-	<!-- institutionCode를 입력받아 해당 lecture리스트 출력 -->
+	<!-- 강의등록을 위한 준비 -->
+	<!-- 1. notice_lecture에서 모집완료 상태인 강의공고 조회 -->
+	<select id="institutionSelectNoticeLectureListForInsertLecture"
+			resultMap="NoticeLectureResultMap">
+		SELECT 
+			notice_lecture_code
+			,notice_lecture_title
+			,info_lecture_code
+			,institution_code
+			,institution_name
+			,member_teacher_code
+			,member_teacher_name
+			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
+			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
+		FROM 
+			notice_lecture
+		WHERE
+			notice_lecture_status = '모집완료'
+	</select>
+	<!-- 2. lecture 테이블 내 중복 조회 -->
+	<select id="institutionLectureCheck"
+			parameterType="String"
+			resultMap="LectureSignupResultMap">
+		SELECT 
+			lecture_code
+		FROM
+			lecture
+		WHERE 
+			notice_lecture_code = #{noticeLectureCode}
+	</select>
+	<!-- 3. 강의등록 메서드 -->
+	<insert id="institutionInsertLecture"
+			parameterType="kr.or.ksmart.lms.institution.vo.Lecture">
+		INSERT INTO lecture (
+			lecture_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,info_lecture_code
+			,institution_code
+			,institution_name
+			,member_teacher_code
+			,member_teacher_name
+			,notice_lecture_start_date
+			,notice_lecture_end_date
+			,lecture_class_days
+			,lecture_date
+		) VALUES (
+			#{lectureCode}
+			,#{noticeLectureCode}
+			,#{noticeLectureTitle}
+			,#{infoLectureCode}
+			,#{institutionCode}
+			,#{institutionName}
+			,#{memberTeacherCode}
+			,#{memberTeacherName}
+			,#{noticeLectureStartDate}
+			,#{noticeLectureEndDate}
+			,#{lectureClassDays}
+			,now()
+		
+		)
+	</insert>
+	<!-- 4. 강의등록 후 notice_lecture테이블의 notice_lecture_status 업데이트 -->
+	<update id="institutionUpdateLastNoticeLectureStatusByNoticeLectureCode"
+			parameterType="String">
+		UPDATE
+			notice_lecture
+		SET	
+			notice_lecture_status = '강의중'
+		WHERE
+			notice_lecture_code = #{noticeLectureCode}
+	</update>
+	
+	<!-- 강의목록 조회 -->
+	<!-- 1. institutionCode를 입력받아 해당 lecture리스트 출력 -->
 	<select id="institutionSelectLectureListByInstitutionCode"
 			parameterType="String"
 			resultMap="LectureResultMap">
@@ -197,9 +271,8 @@
 			lecture
 		WHERE
 			institution_code = #{institutionCode}
-	</select>
-	
-	<!-- lectureCode 입력받아 detailLecture 조회하는 메서드 -->
+	</select>	
+	<!-- 2. lectureCode 입력받아 detailLecture 조회하는 메서드 -->
 	<select id="institutionSelectDetailLectureByLectureCode"
 			parameterType="String"
 			resultMap="LectureResultMap">

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.lms.association.component.AssociationEmailComponent;
 import kr.or.ksmart.lms.association.mapper.AssociationSendEmailMapper;
-import kr.or.ksmart.lms.member.vo.EmailContents;
+import kr.or.ksmart.lms.association.vo.EmailContents;
 
 @Service
 @Transactional

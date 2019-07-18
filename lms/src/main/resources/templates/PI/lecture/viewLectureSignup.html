@@ -65,30 +65,30 @@ $(document).ready(function(){
 	</div>
 	<div class="form-group">
 		<div class="row">
-			<div class="col-sm-2">
+			<div class="col-sm-4">
 				<label>회원명</label>	
 				<input class="form-control" th:value="${memberName}" name="memberName" readonly="readonly">
 			</div>
-			<div class="col-sm-2">
+			<div class="col-sm-4">
 				<label>생년월일</label>	
 				<input class="form-control" th:value="${memberRegistrationNumberFront}" id= "memberRegistrationNumberFront" name="memberRegistrationNumberFront" readonly="readonly">
 			</div>
-			<div class="col-sm-8">			
+			<div class="col-sm-4">			
 				<input hidden="hidden" th:value="${memberCode}" name="memberCode">
 			</div>
 		</div>		
 	</div>
 	<div class="form-group">
 		<div class="row">
-			<div class="col-sm-2">
+			<div class="col-sm-4">
 				<label>강의시작일자</label>	
 				<input type="date" readonly="readonly" class="form-control" th:value="${noticeLectureStartDate}" name="noticeLectureStartDate">
 			</div>
-			<div class="col-sm-2">		
+			<div class="col-sm-4">		
 				<label>강의종료일자</label>		
 				<input type="date" readonly="readonly" class="form-control" th:value="${noticeLectureEndDate}" name="noticeLectureEndDate">
 			</div>
-			<div class="col-sm-8">			
+			<div class="col-sm-4">			
 				<input hidden="hidden">
 			</div>
 		</div>		

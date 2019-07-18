@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ksmart.lms.license.mapper.InfoQualificationMapper">
+	
+	
+	<resultMap type="kr.or.ksmart.lms.license.vo.InfoQualification" id="InfoQualificationMap">
+		<result column="info_qualification_code" property="infoQualificationCode"/>
+		<result column="info_qualification_name" property="infoQualificationName"/>
+		<result column="info_qualification_required_code" property="infoQualificationRequiredCode"/>
+		<result column="info_qualification_required_type" property="infoQualificationRequiredType"/>
+		<result column="info_qualification_description" property="infoQualificationDescription"/>
+		<result column="info_qualification_renewal_date" property="infoQualificationRenewalDate"/>
+		
+	</resultMap>
+
+	<!--자격 개요 등록 쿼리문-->
+	<insert id="insertInfoQualification"
+			parameterType="kr.or.ksmart.lms.license.vo.InfoQualification">
+		INSERT INTO
+			info_qualification
+		VALUE (
+			#{infoQualificationCode}
+			, #{infoQualificationName}
+			, #{infoQualificationRequiredCode}
+			, #{infoQualificationRequiredType}
+			, #{infoQualificationDescription}
+			, now()
+			)
+			
+	</insert>
+	<!--자격 개요 조회 쿼리문-->
+	<select id="selectInfoQualification"
+			resultMap="InfoQualificationMap">
+			
+		SELECT
+			info_qualification_code
+			, info_qualification_name
+			, info_qualification_required_code
+			, info_qualification_required_type
+			, info_qualification_description
+			, info_qualification_renewal_date
+		FROM info_qualification
+	</select>
+</mapper>
