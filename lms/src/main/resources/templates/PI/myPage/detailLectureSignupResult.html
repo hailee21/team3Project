@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/PILayout">
+<meta charset="utf-8">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+<script>$(document).ready(function(){
+	// 강의공고 등록하기 버튼 클릭시 이벤트 처리
+	$('#btnPay').on('click',function(){
+		console.log('#btnPay click test');
+		location.href='/PI/myPage/addNoticeLecture'
+	});	
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<h3>수강신청 내역</h3>
+	<form id="paymentLectureSignup" action="" method="Post">
+	<div class="row">
+		<div class="col-sm-6">
+			<table id="lectureSignup" class="table table-striped">
+				<tr th:each="info:${result}">
+					<th>강의명</th>
+					<td th:text="${noticeLectureTitle}" th:value="${noticeLectureTitle}"></td>
+				</tr>
+				<tr>
+					<th>교육원명</th>
+					<td th:text="${info.institutionName}" th:value="${info.institutionName}"></td>
+				</tr>
+				<tr>
+					<th>강의시작일</th>
+					<td th:text="${info.noticeLectureStartDate}" th:value="${info.noticeLectureStartDate}"></td>
+				</tr>
+				<tr>
+					<th>결과발표일</th>
+					<td th:text="${info.noticeLectureResultDate}" th:value="${info.noticeLectureResultDate}"></td>
+				</tr>
+				<tr>
+					<th>수강신청일자</th>
+					<td th:text="${lectureSignupDate}" th:value="${lectureSignupDate}"></td>
+				</tr>			
+			</table>
+		</div>
+		
+		<div class="col-sm-6">
+			<table id="lectureSignupResult" class="table table-striped">
+				<tr th:each="info:${result}">						
+					<th>수강신청결과코드</th>
+					<td th:text="${info.lectureSignupResultCode}" th:value="${info.lectureSignupResultCode}"></td>
+				</tr>
+				<tr>	
+					<th>수강신청코드</th>
+					<td th:text="${info.lectureSignupCode}" th:value="${info.lectureSignupCode}"></td>
+				</tr>
+				<tr>
+					<th>면접 결과</th>
+					<td id="result" th:value="${info.lectureSignupResult}"><a type="button" id="btnPay" class="btn btn-primary btn-rightLarge" th:href="@{'/PI/myPage/viewPaymentLecture?lectureSignupCode='+${info.lectureSignupCode}+'&institutionCode='+${institutionCode}}">해당 강의 결제하기</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	</form>
+</div>
+</html>

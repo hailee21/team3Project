@@ -193,7 +193,7 @@
 		FROM 
 			notice_lecture
 		WHERE
-			notice_lecture_status = '모집완료'
+			notice_lecture_status = '결제완료'
 	</select>
 	<!-- 2. lecture 테이블 내 중복 조회 -->
 	<select id="institutionLectureCheck"
@@ -285,8 +285,8 @@
 			,institution_name
 			,member_teacher_code
 			,member_teacher_name
-			,notice_lecture_start_date
-			,notice_lecture_end_date
+			,left(notice_lecture_start_date, 10) AS notice_lecture_start_date
+			,left(notice_lecture_end_date, 10) AS notice_lecture_end_date
 			,lecture_class_days
 			,left(lecture_date, 10) AS lecture_date
 		FROM 

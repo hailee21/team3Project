@@ -14,6 +14,7 @@ import kr.or.ksmart.lms.pi.vo.InfoLecture;
 import kr.or.ksmart.lms.pi.vo.InfoSubject;
 import kr.or.ksmart.lms.pi.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.LectureSignup;
+import kr.or.ksmart.lms.pi.vo.LectureSignupResult;
 import kr.or.ksmart.lms.pi.vo.Member;
 import kr.or.ksmart.lms.pi.vo.NoticeLecture;
 
@@ -203,5 +204,25 @@ public class PILectureService {
 		Institution institution = piGetInstitutionName(institutionCode);
 		returnMap.put("institution", institution);		
 		return returnMap;
+	}
+	
+	// 수강신청 내역 목록 조회
+	public List<LectureSignup> piGetLectureSignupListByMemberCode(String memberCode){
+		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] memberCode: "+memberCode);
+		
+		// mapper에서 불러온 수강신청내역 리스트를 list객체참조변수내에 담아서 controller로 리턴보내기
+		List<LectureSignup> list = piLectureMapper.piSelectLectureSignupListByMemberCode(memberCode);
+		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] list: "+list);
+		return list;
+	}
+	
+	// 수강신청 내역 목록 조회
+	public LectureSignupResult piGetLectureSignupResultByLectureSignupCode(String lectureSignupCode){
+		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] lectureSignupCode: "+lectureSignupCode);
+		
+		// mapper에서 불러온 해당 내역을 lectureSignup 객체참조변수내에 담아서 controller로 리턴보내기
+		LectureSignupResult result = piLectureMapper.piSelectLectureSignupResultBylectureSignupCode(lectureSignupCode);
+		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] result: "+result);
+		return result;
 	}
 }

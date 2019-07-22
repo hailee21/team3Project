@@ -1,5 +1,6 @@
 package kr.or.ksmart.lms.pi.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import kr.or.ksmart.lms.pi.vo.NoticeLecture;
 import kr.or.ksmart.lms.pi.service.PILectureService;
 import kr.or.ksmart.lms.pi.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.LectureSignup;
+import kr.or.ksmart.lms.pi.vo.LectureSignupResult;
 import kr.or.ksmart.lms.pi.vo.Member;
 
 @Controller
@@ -158,8 +160,8 @@ public class PILectureController {
 			Institution institution = (Institution)map.get("institution");
 			mav.addObject("institutionCode", institution.getInstitutionCode());
 			mav.addObject("institutionName", institution.getInstitutionName());
-			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionCode:"+institution.getInstitutionCode());
-			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionName:"+institution.getInstitutionName());
+			System.out.println("[PILectureController piAddLectureSignup] institutionCode:"+institution.getInstitutionCode());
+			System.out.println("[PILectureController piAddLectureSignup] institutionName:"+institution.getInstitutionName());
 			
 			// 강의공고 코드를 이용하여 noticeLecture 정보 가져와서 mav에 담고 뷰에서 사용하자
 			NoticeLecture noticeLecture = (NoticeLecture)map.get("noticeLecture");
@@ -210,8 +212,8 @@ public class PILectureController {
 			Institution institution = (Institution)map.get("institution");
 			mav.addObject("institutionCode", institution.getInstitutionCode());
 			mav.addObject("institutionName", institution.getInstitutionName());
-			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionCode:"+institution.getInstitutionCode());
-			System.out.println("[PILectureController piSelectNoticeLectureDetailByNoticeLectureCode] institutionName:"+institution.getInstitutionName());			
+			System.out.println("[PILectureController piAddLectureSignup] institutionCode:"+institution.getInstitutionCode());
+			System.out.println("[PILectureController piAddLectureSignup] institutionName:"+institution.getInstitutionName());			
 		}else {
 			System.out.println("수강생아님");
 			
@@ -225,39 +227,9 @@ public class PILectureController {
 		}
 		return mav;
 	}
-	
-	// PI layout mypage-수강정보 조회 controller  
-	@GetMapping("/PI/myPage/viewSignupIndex")
-	public ModelAndView piViewSignupIndex(ModelAndView mav, HttpSession session, @RequestParam String institutionCode) {
-		String memberRank = (String)session.getAttribute(("memberRank"));
-		if(memberRank == null) {
-			memberRank="로그인 실패";
-		}
-		if(memberRank.equals("수강생")) {
-			System.out.println("수강생");
-		
-			System.out.println("[PILectureController piViewSignupIndex]");
-			mav.setViewName("/PI/myPage/viewSignupIndex");	
 			
-			// 교육원코드, 교육원명을 mav에 담아 활용
-			String institutionName = (String)session.getAttribute("institutionName");
-			mav.addObject("institutionCode", institutionCode);
-			mav.addObject("institutionName", institutionName);
-		}else {
-			System.out.println("수강생아님");
-		
-			mav.setViewName("PI/PILogin");
-		
-			// 교육원코드, 교육원명을 mav에 담아 활용
-			String institutionName = (String)session.getAttribute("institutionName");
-			mav.addObject("institutionCode", institutionCode);
-			mav.addObject("institutionName", institutionName);
-		}
-		return mav;
-	}
-		
-	// PI layout 수강신청 내역 조회 controller  
-	@GetMapping("/PI/myPage/viewLectureSignupResult")
+	// PI layout 수강신청목록 내역 조회 controller  
+	@GetMapping("/PI/myPage/viewLectureSignupList")
 	public ModelAndView piViewLectureSignupResult(ModelAndView mav, HttpSession session, @RequestParam String institutionCode) {
 		String memberRank = (String)session.getAttribute(("memberRank"));
 		if(memberRank == null) {
@@ -266,8 +238,8 @@ public class PILectureController {
 		if(memberRank.equals("수강생")) {
 			System.out.println("수강생");
 		
-			System.out.println("[PILectureController piViewSignupIndex]");
-			mav.setViewName("/PI/myPage/viewLectureSignupResult");
+			System.out.println("[PILectureController piViewLectureSignupResult]");
+			mav.setViewName("/PI/myPage/viewLectureSignupList");
 			// 교육원코드, 교육원명을 mav에 담아 활용
 			String institutionName = (String)session.getAttribute("institutionName");
 			mav.addObject("institutionCode", institutionCode);
@@ -275,7 +247,53 @@ public class PILectureController {
 		
 			// 수강신청 내역 출력 메서드
 			String memberCode = (String)session.getAttribute("memberCode");
-			
+			List<LectureSignup> list = piLectureService.piGetLectureSignupListByMemberCode(memberCode);
+			// 내역 목록을 mav내부에 담아 뷰에서 활용하기
+			mav.addObject("list", list);
+		}else {
+			System.out.println("수강생아님");
+		
+			mav.setViewName("PI/PILogin");
+		
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
+		}
+		return mav;
+	}
+	
+	// PI layout 해당수강신청 상세내역 조회 controller  
+	@GetMapping("/PI/myPage/detailLectureSignupResult")
+	public ModelAndView piGetDetailLectureSignupResult(ModelAndView mav, HttpSession session
+														, @RequestParam String institutionCode
+														, @RequestParam String noticeLectureTitle
+														, @RequestParam String lectureSignupCode
+														, @RequestParam String lectureSignupDate) {
+		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("수강생")) {
+			System.out.println("수강생");
+		
+			System.out.println("[PILectureController piGetDetailLectureSignupResult]");
+			System.out.println("[PILectureController piGetDetailLectureSignupResult] noticeLectureTitle: "+noticeLectureTitle);
+			System.out.println("[PILectureController piGetDetailLectureSignupResult] lectureSignupCode: "+lectureSignupCode);
+			System.out.println("[PILectureController piGetDetailLectureSignupResult] lectureSignupDate: "+lectureSignupDate);
+			mav.setViewName("/PI/myPage/detailLectureSignupResult");
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
+			// 강의공고명, 수강신청일자를 mav에 담아 보여주자
+			mav.addObject("noticeLectureTitle", noticeLectureTitle);
+			mav.addObject("lectureSignupDate", lectureSignupDate);
+		
+			// 해당 수강신청 상세조회 출력 메서드
+			LectureSignupResult result = piLectureService.piGetLectureSignupResultByLectureSignupCode(lectureSignupCode);
+			// 내역 목록을 mav내부에 담아 뷰에서 활용하기
+			mav.addObject("result", result);
 		}else {
 			System.out.println("수강생아님");
 		

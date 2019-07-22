@@ -73,7 +73,8 @@
 	<resultMap id="LectureSignupResultMap"
 				type="kr.or.ksmart.lms.pi.vo.LectureSignup">
 		<result column="lecture_signup_code" property="lectureSignupCode"/>
-		<result column="notice_lecture_code" property="noticeLectureCode"/>
+		<result column="notice_lecture_code" property="noticeLectureCode"/>		
+		<result column="notice_lecture_title" property="noticeLectureTitle"/>
 		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
 		<result column="notice_lecture_end_date" property="noticeLectureEndDate"/>
 		<result column="institution_code" property="institutionCode"/>
@@ -83,6 +84,20 @@
 		<result column="member_registration_number_front" property="memberRegistrationNumberFront"/>
 		<result column="lecture_signup_date" property="lectureSignupDate"/>
 	</resultMap>
+	<!-- PILectureMapper LectureSignupResult resultMap  -->
+	<resultMap id="LectureSignupResultResultMap"
+				type="kr.or.ksmart.lms.pi.vo.LectureSignupResult">
+		<result column="lecture_signup_result_code" property="lectureSignupResultCode"/>
+		<result column="lecture_signup_code" property="lectureSignupCode"/>
+		<result column="lecture_signup_result" property="lectureSignupResult"/>
+		<result column="notice_lecture_code" property="noticeLectureCode"/>		
+		<result column="notice_lecture_result_date" property="noticeLectureResultDate"/>
+		<result column="notice_lecture_start_date" property="noticeLectureStartDate"/>
+		<result column="institution_code" property="institutionCode"/>
+		<result column="institution_name" property="institutionName"/>
+		<result column="lecture_signup_result_date" property="lectureSignupResultDate"/>
+	</resultMap>
+	
 	<!-- 교육원명 출력을 위한 메서드 -->
 	<select id="piSelectInstitution"
 			parameterType="String"
@@ -227,6 +242,7 @@
 		INSERT INTO lecture_signup (
 			lecture_signup_code
 			,notice_lecture_code
+			,notice_lecture_title
 			,notice_lecture_start_date
 			,notice_lecture_end_date
 			,institution_code
@@ -238,6 +254,7 @@
 		) VALUES (
 			#{lectureSignupCode}
 			,#{noticeLectureCode}
+			,#{noticeLectureTitle}
 			,#{noticeLectureStartDate}
 			,#{noticeLectureEndDate}
 			,#{institutionCode}
@@ -277,4 +294,43 @@
 		WHERE
 			notice_lecture_code = #{noticeLectureCode}
 	</update>
+	
+	<!-- 수강생 권한 수강신청 내역 조회 -->
+	<!-- 1. 수강신청 내역 조회 -->
+	<select id="piSelectLectureSignupListByMemberCode"
+			parameterType="String"
+			resultMap="LectureSignupResultMap">
+		SELECT 
+			lecture_signup_code
+			,notice_lecture_code
+			,notice_lecture_title
+			,institution_code
+			,institution_name
+			,left(lecture_signup_date, 10) AS lecture_signup_date
+		FROM
+			lecture_signup
+		WHERE 
+			member_code = #{memberCode}
+	</select>
+	<!-- 1-1. 상세내역 조회 -->
+	<select id="piSelectLectureSignupResultBylectureSignupCode"
+			parameterType="String"
+			resultMap="LectureSignupResultResultMap">
+		SELECT 
+		
+			lecture_signup_result_code
+			,lecture_signup_code
+			,lecture_signup_result
+			,notice_lecture_code
+			,notice_lecture_result_date
+			,notice_lecture_start_date
+			,institution_code
+			,institution_name
+			,left(lecture_signup_result_date, 10) AS lecture_signup_result_date
+		FROM
+			lecture_signup_result
+		WHERE 
+			lecture_signup_result_code = #{lectureSignupResultCode}
+	</select>
+	<!-- 2. 수강신청 내역 결제 -->
 </mapper>

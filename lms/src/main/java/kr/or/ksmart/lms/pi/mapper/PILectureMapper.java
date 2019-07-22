@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.lms.pi.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.LectureSignup;
+import kr.or.ksmart.lms.pi.vo.LectureSignupResult;
 import kr.or.ksmart.lms.pi.vo.Member;
 import kr.or.ksmart.lms.pi.vo.NoticeLecture;
 import kr.or.ksmart.lms.pi.vo.InfoLecture;
@@ -40,4 +41,11 @@ public interface PILectureMapper {
 	public Integer piSelectNoticeLectureCurrentApplicantNoByNoticeLectureCode(String NoticeLectureCode);
 	// Update
 	public void piUpdateNoticeLectureCurrentApplicationNoWithNoticeLectureCode(Map<String, Object> map);
+	
+	// 수강생 - 수강신청 내역 조회, 결제
+	// 1. 수강신청 내역 조회
+	public List<LectureSignup> piSelectLectureSignupListByMemberCode(String memberCode);
+	// 1-1. 수강신청 내역 상세조회
+	public LectureSignupResult piSelectLectureSignupResultBylectureSignupCode(String lectureSignupCode);
+	// 2. 수강신청 결제
 }
