@@ -88,8 +88,8 @@ public class AssociationMemberService {
 	}
 	
 	//	회원목록에서 권한별 select
-	public List<AssociationMember> selectMemberRankList() {
-		List<AssociationMember> memberRank = associationMemberMapper.selectAssociationMemberRank();
+	public List<Member> selectMemberRankList() {
+		List<Member> memberRank = associationMemberMapper.selectAssociationMemberRank();
 		return memberRank;
 	}
 	//	회원목록에서 교육원별 select
@@ -104,8 +104,8 @@ public class AssociationMemberService {
 		return memberList;
 	}
 	//	회원권한별 조회
-	public List<AssociationMember> selectMemberRank (String memberRank) {
-		List<AssociationMember> rank = associationMemberMapper.selectMemberRank(memberRank);
+	public List<AssociationMember> selectMemberRank (String memberRank, String institutionCode) {
+		List<AssociationMember> rank = associationMemberMapper.selectMemberRank(memberRank, institutionCode);
 		return rank;
 	}
 	//	회원 조회-교육원별 조회

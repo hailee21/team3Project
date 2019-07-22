@@ -32,11 +32,11 @@ public interface AssociationMemberMapper {
 	//	Association 관리자 회원 전체조회
 	public List<AssociationMember> selectAssociationMemberList();
 	//	Association 관리자 회원 조회시 권한별 선택하기(select박스에 권한 리스트를 출력)
-	public List<AssociationMember> selectAssociationMemberRank();
+	public List<Member> selectAssociationMemberRank();
 	//	Association 관리자 회원 조회시 교육원별 선택하기(select박스에 교육원 리스트를 출력)
 	public List<AssociationMember> selectAssociationMemberInstitution();
 	//	Association 관리자 회원 조회시 권한별 조회(결과)
-	public List<AssociationMember> selectMemberRank(String memberRank);
+	public List<AssociationMember> selectMemberRank(String memberRank, String institutionCode);
 	//	Association 관리자 회언 조회시 교육원별 조회
 	public List<AssociationMember> selectMemberInstitution(String institutionCode);
 }
