@@ -9,11 +9,45 @@
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-<script>$(document).ready(function(){
+<script>
+$(document).ready(function(){
+	// 면접결과 0, 1을 문자열로 바꾸어주는 작업 시작
+	let LSresult = $('#LSresult').val();
+	// alert(LSresult+'값 확인');
+	
+	if(LSresult == 0){
+		$('#helper').text('불합격');
+	}else{
+		$('#helper').text('합격');
+	}
+	
 	// 강의공고 등록하기 버튼 클릭시 이벤트 처리
+	let noticeLectureCode = $('#noticeLectureCode').val();
+	let institutionCode = $('#institutionCode').val();
+	alert(institutionCode+'값 확인');
+	
 	$('#btnPay').on('click',function(){
 		console.log('#btnPay click test');
-		location.href='/PI/myPage/addNoticeLecture'
+		if(LSresult == 0){
+			alert('불합격한 강의는 결제하실 수 없습니다.');
+			location.href='/PI/myPage/viewLectureSignupList?institutionCode'+institutionCode
+		}else if(LSresult == 1){
+			$.ajax({
+				url:'/PI/paymentLectureCheck'
+				,data: {noticeLectureCode:noticeLectureCode}
+				,type:'Post'
+				,dataType:'json'
+				,success:function(result){
+					if(result){
+					alert('강의결제 내역이 존재합니다. 해당강의는 결제하실 수 없습니다');
+					location.href='/PI/PIIndex'
+					} else{
+						alert('결제창으로 이동합니다.');
+						location.href='/PI/myPage/viewPaymentLecture?noticeLectureCode?'+noticeLectureCode+'&institutionCode='+institutionCode
+					}
+				}
+			});	
+		}
 	});	
 });
 </script>
@@ -21,17 +55,16 @@
 
 <div layout:fragment="content">
 	<h3>수강신청 내역</h3>
-	<form id="paymentLectureSignup" action="" method="Post">
 	<div class="row">
 		<div class="col-sm-6">
-			<table id="lectureSignup" class="table table-striped">
-				<tr th:each="info:${result}">
+			<table id="lectureSignup" class="table table-striped" th:each="info:${result}">
+				<tr>
 					<th>강의명</th>
-					<td th:text="${noticeLectureTitle}" th:value="${noticeLectureTitle}"></td>
+					<td th:text="${noticeLectureTitle}" th:value="${info.noticeLectureCode}" id="noticeLectureCode"></td>
 				</tr>
 				<tr>
 					<th>교육원명</th>
-					<td th:text="${info.institutionName}" th:value="${info.institutionName}"></td>
+					<td th:text="${info.institutionName}" th:value="${institutionCode}" id="institutionCode"></td>
 				</tr>
 				<tr>
 					<th>강의시작일</th>
@@ -49,8 +82,8 @@
 		</div>
 		
 		<div class="col-sm-6">
-			<table id="lectureSignupResult" class="table table-striped">
-				<tr th:each="info:${result}">						
+			<table id="lectureSignupResult" class="table table-striped" th:each="info:${result}">
+				<tr>						
 					<th>수강신청결과코드</th>
 					<td th:text="${info.lectureSignupResultCode}" th:value="${info.lectureSignupResultCode}"></td>
 				</tr>
@@ -60,11 +93,14 @@
 				</tr>
 				<tr>
 					<th>면접 결과</th>
-					<td id="result" th:value="${info.lectureSignupResult}"><a type="button" id="btnPay" class="btn btn-primary btn-rightLarge" th:href="@{'/PI/myPage/viewPaymentLecture?lectureSignupCode='+${info.lectureSignupCode}+'&institutionCode='+${institutionCode}}">해당 강의 결제하기</a></td>
+					<td><input hidden="true" id="LSresult" th:value="${lectureSignupResult}"><span id="helper" style="color:red"></span></td>
+				</tr>
+				<tr>	
+					<th></th>
+					<td><button type="submit" id="btnPay" class="btn btn-primary btn-rightLarge">결제하기</button></td>
 				</tr>
 			</table>
 		</div>
 	</div>
-	</form>
 </div>
 </html>

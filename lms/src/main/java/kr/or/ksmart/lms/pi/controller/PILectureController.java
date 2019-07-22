@@ -294,6 +294,50 @@ public class PILectureController {
 			LectureSignupResult result = piLectureService.piGetLectureSignupResultByLectureSignupCode(lectureSignupCode);
 			// 내역 목록을 mav내부에 담아 뷰에서 활용하기
 			mav.addObject("result", result);
+			mav.addObject("lectureSignupResult", result.getLectureSignupResult());
+		}else {
+			System.out.println("수강생아님");
+		
+			mav.setViewName("PI/PILogin");
+		
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
+		}
+		return mav;
+	}
+	
+	// PI layout 강의결제 화면 출력 controller  
+	@GetMapping("/PI/myPage/viewPaymentLecture")
+	public ModelAndView piAddPaymentLecture(ModelAndView mav, HttpSession session
+														, @RequestParam String institutionCode
+														, @RequestParam String noticeLectureCode) {
+		String memberRank = (String)session.getAttribute(("memberRank"));
+		if(memberRank == null) {
+			memberRank="로그인 실패";
+		}
+		if(memberRank.equals("수강생")) {
+			System.out.println("수강생");
+		
+			System.out.println("[PILectureController piAddPaymentLecture]");
+			System.out.println("[PILectureController piAddPaymentLecture] noticeLectureCode: "+noticeLectureCode);
+			mav.setViewName("/PI/myPage/viewPaymentLecture");
+			
+			// 교육원코드, 교육원명을 mav에 담아 활용
+			String institutionName = (String)session.getAttribute("institutionName");
+			mav.addObject("institutionCode", institutionCode);
+			mav.addObject("institutionName", institutionName);
+			
+			// session에서 회원코드 가져와서 service메서드 호출 시 사용(memberCode-> 회원정보, noticeLectureCode->결제할 강의 정보)
+			String memberCode = (String)session.getAttribute("memberCode");
+			String memberOnlineId = (String)session.getAttribute("memberOnlineId");
+			// 강의결제 화면 출력을 위한 준비
+			Map<String, Object> map = piLectureService.piAddPaymentLecture(memberCode, noticeLectureCode);
+			// 내역 목록을 mav내부에 담아 뷰에서 활용하기
+			mav.addObject("member", map.get("member"));
+			mav.addObject("member", map.get("noticeLecture"));
+			mav.addObject("memberOnlineId", memberOnlineId);
 		}else {
 			System.out.println("수강생아님");
 		

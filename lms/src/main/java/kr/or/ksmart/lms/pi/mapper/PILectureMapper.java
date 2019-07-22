@@ -10,6 +10,7 @@ import kr.or.ksmart.lms.pi.vo.LectureSignup;
 import kr.or.ksmart.lms.pi.vo.LectureSignupResult;
 import kr.or.ksmart.lms.pi.vo.Member;
 import kr.or.ksmart.lms.pi.vo.NoticeLecture;
+import kr.or.ksmart.lms.pi.vo.PaymentLecture;
 import kr.or.ksmart.lms.pi.vo.InfoLecture;
 import kr.or.ksmart.lms.pi.vo.InfoSubject;
 
@@ -43,9 +44,17 @@ public interface PILectureMapper {
 	public void piUpdateNoticeLectureCurrentApplicationNoWithNoticeLectureCode(Map<String, Object> map);
 	
 	// 수강생 - 수강신청 내역 조회, 결제
-	// 1. 수강신청 내역 조회
-	public List<LectureSignup> piSelectLectureSignupListByMemberCode(String memberCode);
-	// 1-1. 수강신청 내역 상세조회
-	public LectureSignupResult piSelectLectureSignupResultBylectureSignupCode(String lectureSignupCode);
+	// 1. 수강신청 조회
+		// 1-1. 수강신청 내역 조회
+		public List<LectureSignup> piSelectLectureSignupListByMemberCode(String memberCode);
+		// 1-2. 수강신청 내역 상세조회
+		public LectureSignupResult piSelectLectureSignupResultBylectureSignupCode(String lectureSignupCode);
+		// 1-3. 결제내역 중복조회
+		public PaymentLecture piPaymentLectureCheck(Map<String, Object> map);
 	// 2. 수강신청 결제
+		// 2-1. 결제등록창을 위한 준비 (회원정보 가져오기)
+		public PaymentLecture piSelectMemberInfoByMemberCode(String memberCode);
+		// 2-2. 결제등록창을 위한 준비 (강의공고정보 가져오기)
+		public PaymentLecture piSelectNoticeLectureInfoByNoticeLectureCode(String noticeLectureCode);
+		
 }

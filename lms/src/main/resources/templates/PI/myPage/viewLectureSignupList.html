@@ -29,7 +29,7 @@
 				<td th:text="${list.noticeLectureTitle}" th:value="${list.noticeLectureTitle}"></td>
 				<td th:text="${list.institutionName}" th:value="${list.institutionName}"></td>
 				<td th:text="${list.lectureSignupDate}" th:value="${list.lectureSignupDate}"></td>
-				<td><a type="button" id="btnAdd" class="btn btn-primary" th:href="@{'/PI/myPage/detailLectureSignupResult?lectureSignupCode='+${list.lectureSignupCode}+'&'+'noticeLectureTitle='+${list.noticeLectureTitle}+'&institutionCode='+${institutionCode}+'?lectureSignupDate='+${list.lectureSignupDate}}">상세조회</a></td>
+				<td><a type="button" id="btnAdd" class="btn btn-primary" th:href="@{'/PI/myPage/detailLectureSignupResult?lectureSignupCode='+${list.lectureSignupCode}+'&'+'noticeLectureTitle='+${list.noticeLectureTitle}+'&institutionCode='+${institutionCode}+'&lectureSignupDate='+${list.lectureSignupDate}}">상세조회</a></td>
 			</tr>
 		</tbody>
 	</table>
