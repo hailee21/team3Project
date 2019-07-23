@@ -23,25 +23,38 @@
 </script>
 <div class="sidenav bg-light">
 	<a class="text-dark" href="/institutionIndex">교육원</a>
-	<button class="navdropdown-btn"><span class="text-dark">관리1</span>
+	<a class="text-dark" href="/institution/annualFee/annualFee">교육원 사용권한 관리</a>
+	<a class="text-dark" href="/institution/evaluation/evaluationTeacherList">강사 평가 관리</a>
+	<button class="navdropdown-btn"><span class="text-dark">강의관리</span>
 		<i style="color:dark" class="fas fa-caret-down"></i>
 	</button>	
 	<div class="navdropdown-container">
-		<button class="navdropdown-btn"><span class="text-dark">관리1.1</span>
+		<button class="navdropdown-btn"><span class="text-dark">강의공고 관리</span>
 			<i style="color:dark" class="fas fa-caret-down"></i>
 		</button>
 		<div class="navdropdown-container">
-			<a class="text-dark" href="#">Link 11</a>
-			<a class="text-dark" href="#">Link 22</a>
-			<a class="text-dark" href="#">Link 33</a>
+			<a class="text-dark" href="/institution/lecture/addNoticeLecture">강의공고 등록</a>
+			<a class="text-dark" href="/institution/lecture/listNoticeLecture">강의공고 목록조회 및 관리</a>
 		</div>
-		<a class="text-dark" href="#">관리1.2</a>
-		<a class="text-dark" href="#">관리1.3</a>
-		<a class="text-dark" href="#">관리1.4</a>
+		<button class="navdropdown-btn"><span class="text-dark">강의 관리</span>
+			<i style="color:dark" class="fas fa-caret-down"></i>
+		</button>
+		<div class="navdropdown-container">
+			<a class="text-dark" href="/institution/student/listLectureSignupResult">면접결과 등록</a>
+			<a class="text-dark" href="/institution/lecture/listFailLecture">폐강등록,조회 및 관리</a>
+			<a class="text-dark" href="/institution/lecture/listLecture">강의 등록,조회 및 관리</a>
+			<a class="text-dark" href="/institution/lecture/listSubject">과목 조회</a>
+		</div>
+			<a class="text-dark" href="/institution/classroom/addClassroom">강의실 등록</a>
+			<a class="text-dark" href="/institution/classroom/listClassroom">강의실 조회 및 관리</a>
 	</div>
-	<a class="text-dark" href="/institution/annualFee/annualFee">교육원 사용권한 관리</a>
-	<a class="text-dark" href="#clients">Clients</a>
-	<a class="text-dark" href="#contact">Contact</a>
+	<button class="navdropdown-btn"><span class="text-dark">회원관리</span>
+		<i style="color:dark" class="fas fa-caret-down"></i>
+	</button>
+	<div class="navdropdown-container">
+		<a class="text-dark" href="/institution/memberList">회원 조회</a>
+		<a class="text-dark" href="/sendApprovalCode">승인코드 전송</a>
+	</div>
 </div>
 </header>
 </html>

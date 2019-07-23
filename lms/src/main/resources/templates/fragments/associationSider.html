@@ -50,10 +50,6 @@ $(document).ready(function() {
 		</button>	
 		<div class="navdropdown-container">
 			<a class="text-white" href="/association/evaluation/evaluationTotal">교육원평가관리</a>
-			<a class="text-white" href="#">#강사평가</a>
-			<a class="text-white" href="#">#강의평가-수강생</a>
-			<a class="text-white" href="#">#교육원평가-수강생</a>
-			<a class="text-white" href="#">#우수교육원관리</a>
 		</div>
 		<button class="navdropdown-btn"><span class="text-white">평가항목관리</span>
 			<i style="color:white" class="fas fa-caret-down"></i>
@@ -69,8 +65,57 @@ $(document).ready(function() {
 		<i style="color:white" class="fas fa-caret-down"></i>
 	</button>
 	<div class="navdropdown-container">
-		<a class="text-white" href="/association/memberlist">회원조회</a>
+		<a class="text-white" href="/">회원조회</a>
 		<a class="text-white" href="/sendApprovalCode">승인코드전송</a>
+	</div>
+	<button class="navdropdown-btn"><span class="text-white">교육원관리</span>
+		<i style="color:white" class="fas fa-caret-down"></i>
+	</button>
+	<div class="navdropdown-container">
+		<a class="text-white" href="/association/institution/addInstitution">교육원 등록</a>
+		<a class="text-white" href="/association/institution/listInstitution">교육원 조회 및 관리</a>
+		<a class="text-white" href="/association/classroom/viewSearchInstitution">교육원 강의실 등록</a>
+		<a class="text-white" href="/association/classroom/listClassroom">교육원 강의실 조회 및 관리</a>
+	</div>
+	<button class="navdropdown-btn"><span class="text-white">강의관리</span>
+		<i style="color:white" class="fas fa-caret-down"></i>
+	</button>
+	<div class="navdropdown-container">
+		<a class="text-white" href="/association/lecture/addInfoLecture">강의표준 등록</a>
+		<a class="text-white" href="/association/lecture/listInfoLecture">강의표준 조회 및 관리</a>
+		<a class="text-white" href="/association/lecture/addInfoSubject">과목 등록</a>
+		<a class="text-white" href="/association/lecture/listSubject">과목 조회 및 관리</a>
+	</div>
+	<button class="navdropdown-btn"><span class="text-white">자격시험관리</span>
+		<i style="color:white" class="fas fa-caret-down"></i>
+	</button>
+	<div class="navdropdown-container">
+		<button class="navdropdown-btn"><span class="text-white">시험공고관리</span>
+			<i style="color:white" class="fas fa-caret-down"></i>
+		</button>	
+		<div class="navdropdown-container">
+			<a class="text-white" href="/association/notice/addNoticeAnnualLicenseTest">연간 자격 시험 일정 등록</a>
+			<a class="text-white" href="/association/notice/noticeAnnualLicenseTestList">연간 자격 시험 일정 조회</a>
+			<a class="text-white" href="/association/notice/noticeLicenseTestLocationList">자격 시험 공고 조회</a>
+			<a class="text-white" href="/association/notice/addNoticeLicenseTest">자격 시험 공고 등록</a>
+		</div>
+		<button class="navdropdown-btn"><span class="text-white">자격시험 장소관리</span>
+			<i style="color:white" class="fas fa-caret-down"></i>
+		</button>	
+		<div class="navdropdown-container">
+			<a class="text-white" href="/association/license/addLicenseTestLocation">자격시험 장소 등록</a>
+		</div>
+	</div>
+	<button class="navdropdown-btn"><span class="text-white">자격증 관리</span>
+		<i style="color:white" class="fas fa-caret-down"></i>
+	</button>	
+	<div class="navdropdown-container">
+		<a class="text-white" href="/association/license/addInfoQualification">자격증 등록</a>
+		<a class="text-white" href="/PI/infoQualificationList">자격증 조회</a>
+		<a class="text-white" href="/association/license/addLicense">자격증 발급 등록</a>
+		<a class="text-white" href="/association/license/licenseList">자격증 발급 조회</a>
+		<a class="text-white" href="/association/license/addLicenseTestResultManagement">자격증 발급 결제 등록</a>
+		<a class="text-white" href="/association/license/licenseTestResultManagementList">자격증 발급 결제 조회</a>
 	</div>
 </div>
 </header>
