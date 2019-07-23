@@ -3,6 +3,7 @@ package kr.or.ksmart.lms.pi.vo;
 public class LectureSignup {
 	private String lectureSignupCode;
 	private String noticeLectureCode;
+	private String noticeLectureTitle;
 	private String noticeLectureStartDate;
 	private String noticeLectureEndDate;
 	private String institutionCode;
@@ -23,6 +24,12 @@ public class LectureSignup {
 	}
 	public void setNoticeLectureCode(String noticeLectureCode) {
 		this.noticeLectureCode = noticeLectureCode;
+	}
+	public String getNoticeLectureTitle() {
+		return noticeLectureTitle;
+	}
+	public void setNoticeLectureTitle(String noticeLectureTitle) {
+		this.noticeLectureTitle = noticeLectureTitle;
 	}
 	public String getNoticeLectureStartDate() {
 		return noticeLectureStartDate;
@@ -76,9 +83,10 @@ public class LectureSignup {
 	@Override
 	public String toString() {
 		return "LectureSignup [lectureSignupCode=" + lectureSignupCode + ", noticeLectureCode=" + noticeLectureCode
-				+ ", noticeLectureStartDate=" + noticeLectureStartDate + ", noticeLectureEndDate="
-				+ noticeLectureEndDate + ", institutionCode=" + institutionCode + ", institutionName=" + institutionName
-				+ ", memberCode=" + memberCode + ", memberName=" + memberName + ", memberRegistrationNumberFront="
-				+ memberRegistrationNumberFront + ", lectureSignupDate=" + lectureSignupDate + "]";
-	}
+				+ ", noticeLectureTitle=" + noticeLectureTitle + ", noticeLectureStartDate=" + noticeLectureStartDate
+				+ ", noticeLectureEndDate=" + noticeLectureEndDate + ", institutionCode=" + institutionCode
+				+ ", institutionName=" + institutionName + ", memberCode=" + memberCode + ", memberName=" + memberName
+				+ ", memberRegistrationNumberFront=" + memberRegistrationNumberFront + ", lectureSignupDate="
+				+ lectureSignupDate + "]";
+	}	
 }

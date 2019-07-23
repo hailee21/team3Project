@@ -2,6 +2,8 @@ package kr.or.ksmart.lms.pi.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,5 +46,16 @@ public class RestPILectureController {
 			System.out.println("RestController ■■oo수강신청 등록 가능oo■■");
 		}
 		return  lectureSignupCheck;
+	}
+	
+	// PI layout 과목리스트 출력 controller
+	@PostMapping("/PI/paymentLectureCheck")
+	public boolean piPaymentLectureCheck(@RequestParam() String noticeLectureCode, HttpSession session){
+		System.out.println("[RestPILectureController piGetSubjectListByLectureCode] noticeLectureCode: "+ noticeLectureCode);
+		
+		// 검색조건을 위해 session에서 memberCode를 가져오자
+		String memberCode = (String)session.getAttribute("memberCode");
+		System.out.println("[RestPILectureController piGetSubjectListByLectureCode] memberCode: "+ memberCode);
+		return  piLectureService.piPaymentLectureCheck(noticeLectureCode, memberCode);
 	}
 }

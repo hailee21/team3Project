@@ -14,8 +14,10 @@ import kr.or.ksmart.lms.pi.vo.InfoLecture;
 import kr.or.ksmart.lms.pi.vo.InfoSubject;
 import kr.or.ksmart.lms.pi.vo.Institution;
 import kr.or.ksmart.lms.pi.vo.LectureSignup;
+import kr.or.ksmart.lms.pi.vo.LectureSignupResult;
 import kr.or.ksmart.lms.pi.vo.Member;
 import kr.or.ksmart.lms.pi.vo.NoticeLecture;
+import kr.or.ksmart.lms.pi.vo.PaymentLecture;
 
 @Service
 public class PILectureService {
@@ -204,4 +206,66 @@ public class PILectureService {
 		returnMap.put("institution", institution);		
 		return returnMap;
 	}
+	
+	// 수강신청 내역 목록 조회
+	public List<LectureSignup> piGetLectureSignupListByMemberCode(String memberCode){
+		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] memberCode: "+memberCode);
+		
+		// mapper에서 불러온 수강신청내역 리스트를 list객체참조변수내에 담아서 controller로 리턴보내기
+		List<LectureSignup> list = piLectureMapper.piSelectLectureSignupListByMemberCode(memberCode);
+		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] list: "+list);
+		return list;
+	}	
+	// 해당 수강신청 내역 상세 조회
+	public LectureSignupResult piGetLectureSignupResultByLectureSignupCode(String lectureSignupCode){
+		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] lectureSignupCode: "+lectureSignupCode);
+		
+		// mapper에서 불러온 해당 내역을 lectureSignup 객체참조변수내에 담아서 controller로 리턴보내기
+		LectureSignupResult result = piLectureMapper.piSelectLectureSignupResultBylectureSignupCode(lectureSignupCode);
+		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] result: "+result);
+		return result;
+	}
+	
+	// 3. 중복결제 검사를 위한 메서드
+	public boolean piPaymentLectureCheck(String noticeLectureCode, String memberCode) {
+		System.out.println("[PILectureService piLectureSignupCheck]");
+		System.out.println("[PILectureService piLectureSignupCheck] noticeLectureCode: "+noticeLectureCode);
+		System.out.println("[PILectureService piLectureSignupCheck] memberCode: "+memberCode);
+		
+		boolean paymentLectureCheck = false;
+		
+		// mapper로 리턴보내기 위한 map 객체잠조변수 선언
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noticeLectureCode", noticeLectureCode);
+		map.put("memberCode", memberCode);
+		PaymentLecture paymentLecture = piLectureMapper.piPaymentLectureCheck(map);
+		
+		if(paymentLecture == null) {
+			System.out.println("Service ■■oo수강신청 등록 가능oo■■");
+		} else {
+			paymentLectureCheck = true;
+			System.out.println("Service ■■xx수강신청 등록 불가xx■■");
+		}
+		return paymentLectureCheck;
+	}
+		
+	// 해당 수강신청 내역 상세 조회
+	public Map<String, Object> piAddPaymentLecture(String memberCode, String noticeLectureCode){
+		System.out.println("[PILectureService piAddPaymentLecture] memberCode: "+memberCode);
+		System.out.println("[PILectureService piAddPaymentLecture] noticeLectureCode: "+noticeLectureCode);
+		
+		// 입력받은 값들로 mapper의 메서드 호출하기 
+		PaymentLecture member = piLectureMapper.piSelectMemberInfoByMemberCode(memberCode);
+		PaymentLecture noticeLecture = piLectureMapper.piSelectNoticeLectureInfoByNoticeLectureCode(noticeLectureCode);
+		System.out.println("[PILectureService piAddPaymentLecture] member: "+member);
+		System.out.println("[PILectureService piAddPaymentLecture] noticeLecture: "+noticeLecture);
+		
+		// mapper에서 불러온 해당 내역을 Map 내부에 담아 Controller로 리턴한 뒤 사용하자.
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("member", member);
+		map.put("noticeLecture", noticeLecture);
+		return map;
+	}
+	
+	
 }

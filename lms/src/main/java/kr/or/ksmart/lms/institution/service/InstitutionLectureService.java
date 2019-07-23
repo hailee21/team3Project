@@ -92,42 +92,7 @@ public class InstitutionLectureService {
 		}
 		return lectureCheck;
 	}
-	// 강의등록 메서드 
-	public void institutionAddLecture(Lecture lecture) {
-		System.out.println("[InstitutionLectureService institutionAddLecture]");
-		System.out.println("[InstitutionLectureService institutionAddLecture] lecture: "+lecture);
 		
-		// 1. lecture 테이블에 추가할 PK 구하는 코드 
-		// 1-1. 테이블의 PK를 위한 무작위 숫자 생성
-		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
-		Date now = new Date(); 
-		String nowDate = dateFormat.format(now);
-		System.out.println("nowDate1: "+nowDate);
-		nowDate = nowDate.substring(0, 13);
-		nowDate = nowDate.toString().replace("-", "");
-		nowDate = nowDate.toString().replace(" ", "");
-		System.out.println("nowDate2: "+nowDate);
-		int randomNo1 = (int)(Math.random()*10000);
-		int randomNo2 = (int)(Math.random()*1000);
-		int randomNo3 = (int)(Math.random()*100);
-		int randomNo = randomNo1 + randomNo2 + randomNo3;
-		if(randomNo > 10000) {
-			randomNo = randomNo/10;
-		}
-		// 1-2. 테이블 형식에 맞게 변수를 선언하고  이를 vo에 담는다. 
-		String LECPK = "LEC"+nowDate+randomNo;
-		lecture.setLectureCode(LECPK);
-		System.out.println("[InstitutionLectureService institutionAddLecture] 최종 LECPK: "+LECPK);
-		
-		// 2. lectureFail 테이블에 폐강 등록하기		
-		institutionLectureMapper.institutionInsertLecture(lecture);
-		
-		// notice_lecture테이블 내 notice_lecture_status 컬럼 업데이트
-		String noticeLectureCode = lecture.getNoticeLectureCode();
-		System.out.println("[InstitutionLectureService institutionAddLecture] noticeLectureCode : "+noticeLectureCode);
-		institutionLectureMapper.institutionUpdateLastNoticeLectureStatusByNoticeLectureCode(noticeLectureCode);
-	}
-	
 	// detailLecture 조회 메서드
 	public Lecture institutionGetDetailLectureByLectureCode(String lectureCode) {
 		System.out.println("[InstitutionLectureService institutionGetDetailLectureByLectureCode]");
@@ -208,16 +173,52 @@ public class InstitutionLectureService {
             lectureSignupResultDomain.setInstitutionCode(lectureSignupResult.getInstitutionCode());
             lectureSignupResultDomain.setInstitutionName(lectureSignupResult.getInstitutionName());
             
-            // 3. lectureSignupResult테이블에 결과 등록하기
+            // 2-3. 한명씩 lectureSignupResult테이블에 결과 등록하기
             institutionLectureMapper.institutionInsertLectureSignupResult(lectureSignupResultDomain);
 		}
-		// 4. notice_lecture 테이블 상태 수정
+		// 3. notice_lecture 테이블 상태 수정
         String noticeLectureCode = lectureSignupResult.getNoticeLectureCode();
         System.out.println("[InstitutionLectureService institutionAddLectureSignupResult] noticeLectureCode: "+noticeLectureCode);
         
         institutionLectureMapper.institutionSelectNoticeLectureStatusByNoticeLectureCode(noticeLectureCode);
+
+    	// 4. notice_lecture_status 모집완료 로 업데이트
         institutionLectureMapper.institutionUpdateNoticeLectureStatusByNoticeLectureCode(noticeLectureCode);        
 	}
-	// 4. notice_lecture_status 모집완료 로 업데이트
+	
+	// 강의등록 메서드 
+	public void institutionAddLecture(Lecture lecture) {
+		System.out.println("[InstitutionLectureService institutionAddLecture]");
+		System.out.println("[InstitutionLectureService institutionAddLecture] lecture: "+lecture);
 		
+		// 1. lecture 테이블에 추가할 PK 구하는 코드 
+		// 1-1. 테이블의 PK를 위한 무작위 숫자 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//날짜
+		Date now = new Date(); 
+		String nowDate = dateFormat.format(now);
+		System.out.println("nowDate1: "+nowDate);
+		nowDate = nowDate.substring(0, 13);
+		nowDate = nowDate.toString().replace("-", "");
+		nowDate = nowDate.toString().replace(" ", "");
+		System.out.println("nowDate2: "+nowDate);
+		int randomNo1 = (int)(Math.random()*10000);
+		int randomNo2 = (int)(Math.random()*1000);
+		int randomNo3 = (int)(Math.random()*100);
+		int randomNo = randomNo1 + randomNo2 + randomNo3;
+		if(randomNo > 10000) {
+			randomNo = randomNo/10;
+		}
+		// 1-2. 테이블 형식에 맞게 변수를 선언하고  이를 vo에 담는다. 
+		String LECPK = "LEC"+nowDate+randomNo;
+		lecture.setLectureCode(LECPK);
+		System.out.println("[InstitutionLectureService institutionAddLecture] 최종 LECPK: "+LECPK);
+		
+		// 2. lectureFail 테이블에 폐강 등록하기		
+		institutionLectureMapper.institutionInsertLecture(lecture);
+		
+		// notice_lecture테이블 내 notice_lecture_status 컬럼 업데이트
+		String noticeLectureCode = lecture.getNoticeLectureCode();
+		System.out.println("[InstitutionLectureService institutionAddLecture] noticeLectureCode : "+noticeLectureCode);
+		institutionLectureMapper.institutionUpdateLastNoticeLectureStatusByNoticeLectureCode(noticeLectureCode);
+	}		
 }
