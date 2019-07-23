@@ -41,14 +41,14 @@ public class RestPILectureController {
 		
 		// service에서 boolean 리턴데이터타입으로 검사한 값 확인하기
 		if(lectureSignupCheck) {
-			System.out.println("RestController ■■xx수강신청 등록 불가xx■■");
+			System.out.println("RestController ■■xx강의결제 등록 불가xx■■");
 		}else {
-			System.out.println("RestController ■■oo수강신청 등록 가능oo■■");
+			System.out.println("RestController ■■oo강의결제 등록 가능oo■■");
 		}
 		return  lectureSignupCheck;
 	}
 	
-	// PI layout 과목리스트 출력 controller
+	// PI layout 강의결제 중복조회 출력 controller
 	@PostMapping("/PI/paymentLectureCheck")
 	public boolean piPaymentLectureCheck(@RequestParam() String noticeLectureCode, HttpSession session){
 		System.out.println("[RestPILectureController piGetSubjectListByLectureCode] noticeLectureCode: "+ noticeLectureCode);

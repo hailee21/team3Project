@@ -378,7 +378,7 @@
 			resultMap="PaymentLectureResultMap">
 		SELECT 
 			notice_lecture_code
-			,notice_lecture_price AS payment_lecture_price
+			,notice_lecture_fee AS payment_lecture_price
 		FROM 
 			notice_lecture
 		WHERE 

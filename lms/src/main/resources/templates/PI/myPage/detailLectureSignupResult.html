@@ -13,7 +13,7 @@
 $(document).ready(function(){
 	// 면접결과 0, 1을 문자열로 바꾸어주는 작업 시작
 	let LSresult = $('#LSresult').val();
-	// alert(LSresult+'값 확인');
+	// alert(LSresult+'<- LSresult 값 확인');
 	
 	if(LSresult == 0){
 		$('#helper').text('불합격');
@@ -22,15 +22,15 @@ $(document).ready(function(){
 	}
 	
 	// 강의공고 등록하기 버튼 클릭시 이벤트 처리
-	let noticeLectureCode = $('#noticeLectureCode').val();
-	let institutionCode = $('#institutionCode').val();
-	alert(institutionCode+'값 확인');
+	let noticeLectureCode = $('#noticeLectureCode').attr('value');
+	let institutionCode = $('#institutionCode').attr('value');
+	// alert(institutionCode+'<- institutionCode 값 확인');
 	
 	$('#btnPay').on('click',function(){
 		console.log('#btnPay click test');
 		if(LSresult == 0){
 			alert('불합격한 강의는 결제하실 수 없습니다.');
-			location.href='/PI/myPage/viewLectureSignupList?institutionCode'+institutionCode
+			location.href='/PI/myPage/viewLectureSignupList?institutionCode='+institutionCode
 		}else if(LSresult == 1){
 			$.ajax({
 				url:'/PI/paymentLectureCheck'
@@ -43,7 +43,7 @@ $(document).ready(function(){
 					location.href='/PI/PIIndex'
 					} else{
 						alert('결제창으로 이동합니다.');
-						location.href='/PI/myPage/viewPaymentLecture?noticeLectureCode?'+noticeLectureCode+'&institutionCode='+institutionCode
+						location.href='/PI/myPage/viewPaymentLecture?noticeLectureCode='+noticeLectureCode+'&institutionCode='+institutionCode
 					}
 				}
 			});	

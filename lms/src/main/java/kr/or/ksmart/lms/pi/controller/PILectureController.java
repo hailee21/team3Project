@@ -295,6 +295,7 @@ public class PILectureController {
 			// 내역 목록을 mav내부에 담아 뷰에서 활용하기
 			mav.addObject("result", result);
 			mav.addObject("lectureSignupResult", result.getLectureSignupResult());
+			System.out.println("[PILectureController piGetDetailLectureSignupResult] lectureSignupResult: "+result.getLectureSignupResult());
 		}else {
 			System.out.println("수강생아님");
 		

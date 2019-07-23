@@ -218,11 +218,11 @@ public class PILectureService {
 	}	
 	// 해당 수강신청 내역 상세 조회
 	public LectureSignupResult piGetLectureSignupResultByLectureSignupCode(String lectureSignupCode){
-		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] lectureSignupCode: "+lectureSignupCode);
+		System.out.println("[PILectureService piGetLectureSignupResultByLectureSignupCode] lectureSignupCode: "+lectureSignupCode);
 		
 		// mapper에서 불러온 해당 내역을 lectureSignup 객체참조변수내에 담아서 controller로 리턴보내기
 		LectureSignupResult result = piLectureMapper.piSelectLectureSignupResultBylectureSignupCode(lectureSignupCode);
-		System.out.println("[PILectureService piGetLectureSignupListByMemberCode] result: "+result);
+		System.out.println("[PILectureService piGetLectureSignupResultByLectureSignupCode] result: "+result);
 		return result;
 	}
 	
@@ -241,10 +241,10 @@ public class PILectureService {
 		PaymentLecture paymentLecture = piLectureMapper.piPaymentLectureCheck(map);
 		
 		if(paymentLecture == null) {
-			System.out.println("Service ■■oo수강신청 등록 가능oo■■");
+			System.out.println("Service ■■oo강의결제 등록 가능oo■■");
 		} else {
 			paymentLectureCheck = true;
-			System.out.println("Service ■■xx수강신청 등록 불가xx■■");
+			System.out.println("Service ■■xx강의결제 등록 불가xx■■");
 		}
 		return paymentLectureCheck;
 	}
