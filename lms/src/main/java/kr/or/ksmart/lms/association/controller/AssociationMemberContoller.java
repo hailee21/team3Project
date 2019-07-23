@@ -58,7 +58,9 @@ public class AssociationMemberContoller {
 		} else if (memberRank.equals("협회직원")) {
 			mav.setViewName("association/member/listAssociationMember");
 			List<AssociationMember> institution = associationMemberService.selectMemberInstitutionList();
+			List<Member> rank = associationMemberService.selectMemberRankList();
 			mav.addObject("institution", institution);
+			mav.addObject("rank", rank);
 		} else {
 			System.out.println("[AssociationMemberController associationMemberList] 교육원 직원이 아님");
 			mav.setViewName("association/associationLogin");

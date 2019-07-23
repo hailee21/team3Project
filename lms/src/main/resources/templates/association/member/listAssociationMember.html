@@ -12,13 +12,13 @@
 <th:block layout:fragment="script">
 <script>
 $(document).ready(function(){
-	//	회원 교육원별로 조회하기 select 출력
-	$('#institution').change(function(){
-		console.log('조회할교육원: '+$('#institutionCode').val());
+	//	회원 등급별로 조회하기
+/*	$('#btnRank').on('click',function(){
+		console.log('조회할 rank: '+$('#rank').val());
 		$.ajax({
-			url:'/getAssociationMembersInstitution'
+			url:'/getAssociationMembersRank'
     		,type:'GET'
-    		,data:{institutionCode:$('#institutionCode').val()}
+    		,data:{'institutionCode':$('#institution').val(),'memberRank':$('#rank').val()}
 			,success:function(result){	//	Controller에서 currentPage를 받아옴.
 				$('#memberList').empty();
 				$(result).each(function(index,item){//	반복문 사용해서 member list 가져오기
@@ -27,7 +27,40 @@ $(document).ready(function(){
 					$('#memberList').append('<td th:text>'+item.memberCode+'</td>');
 					$('#memberList').append('<td th:text>'+item.memberName+'</td>');
 					$('#memberList').append('<td th:text>'+item.memberOnlineId+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberRegistrationNumberFront+'</td>');
 					$('#memberList').append('<td th:text>'+item.memberPhoneNumber+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberPostcode+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberAddress+'</td>');
+					$('#memberList').append('<td th:text>'+item.institutionCode+'</td>');
+					$('#memberList').append('<td th:text>'+item.institutionName+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberRank+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberDate+'</td>');
+					$('#memberList').append('</tr>');
+				});
+			}
+		});
+		$('#btnList').trigger('click');
+	});*/
+
+	//	회원 교육원별로 조회하기 select 출력
+	$('#institution').change(function(){
+		console.log('institutionCode: '+$('#institution').val());
+		$.ajax({
+			url:'/getAssociationMembersInstitution'
+    		,type:'GET'
+    		,data:{institutionCode:$('#institution').val()}
+			,success:function(result){	//	Controller에서 currentPage를 받아옴.
+				$('#memberList').empty();
+				$(result).each(function(index,item){//	반복문 사용해서 member list 가져오기
+					$('#memberList').append('<tr>');
+//					$('#memberList').append('<td th:text><input type="checkbox" class="ck" value="'+item.memberOnlineId+'"></td>');
+					$('#memberList').append('<td th:text>'+item.memberCode+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberName+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberOnlineId+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberRegistrationNumberFront+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberPhoneNumber+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberPostcode+'</td>');
+					$('#memberList').append('<td th:text>'+item.memberAddress+'</td>');
 					$('#memberList').append('<td th:text>'+item.institutionCode+'</td>');
 					$('#memberList').append('<td th:text>'+item.institutionName+'</td>');
 					$('#memberList').append('<td th:text>'+item.memberRank+'</td>');
@@ -38,8 +71,8 @@ $(document).ready(function(){
 		});
 		$('#btnList').trigger('click');
 	});
-	//	회원 교육원별 조회하기 select 출력
-	
+
+	//	전체 회원 조회
 	document.getElementById("btnList").addEventListener("click", function(){
 		if(document.getElementById("institution").value == ""){		
 			$.ajax({
@@ -47,14 +80,17 @@ $(document).ready(function(){
 	    		,type:'GET'
 //	    		,data:{memberRank:$('#memberRank').val()}
 				,success:function(result){	//	Controller에서 currentPage를 받아옴.
-				//	$('#memberList').empty();
+					$('#memberList').empty();
 					$(result).each(function(index,item){//	반복문 사용해서 member list 가져오기
 						$('#memberList').append('<tr>');
 //						$('#memberList').append('<td th:text><input type="checkbox" class="ck" value="'+item.memberOnlineId+'"></td>');
 						$('#memberList').append('<td th:text>'+item.memberCode+'</td>');
 						$('#memberList').append('<td th:text>'+item.memberName+'</td>');
 						$('#memberList').append('<td th:text>'+item.memberOnlineId+'</td>');
+						$('#memberList').append('<td th:text>'+item.memberRegistrationNumberFront+'</td>');
 						$('#memberList').append('<td th:text>'+item.memberPhoneNumber+'</td>');
+						$('#memberList').append('<td th:text>'+item.memberPostcode+'</td>');
+						$('#memberList').append('<td th:text>'+item.memberAddress+'</td>');
 						$('#memberList').append('<td th:text>'+item.institutionCode+'</td>');
 						$('#memberList').append('<td th:text>'+item.institutionName+'</td>');
 						$('#memberList').append('<td th:text>'+item.memberRank+'</td>');
@@ -67,7 +103,7 @@ $(document).ready(function(){
 			$('#btnList').trigger('click');
 		}
 	//	회원목록 출력하기
-//	$('#btnList').hide();
+	$('#btnList').hide();
 /* 	$('#btnList').on('click',function(){
 		console.log("btnList click test")
  */		
@@ -80,7 +116,7 @@ $(document).ready(function(){
 <div layout:fragment="content">
 	<h1>회원 조회</h1>
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<div class="form-group">
 				<label for="institution">교육원선택</label>
 				<select class="form-control" id="institution" name="institution">
@@ -91,6 +127,13 @@ $(document).ready(function(){
 				<small class="form-text text-muted">조회할 교육원을 선택하세요</small>
 			</div>
 		</div>
+		<!-- <div class="col-md-5">
+			<div class="form-group">
+				<label for="memberRank">등급 선택</label>
+				<input type="checkbox" id="rank" th:each="rank:${rank}" th:value="${rank.memberRank}" th:text="${rank.memberRank}">
+				<button type="button" id="btnRank" class="btn btn-primary">조회</button>
+			</div>
+		</div> -->
 	</div>
 	<button id="btnList" class="btn btn-primary">회원리스트</button>
 	<table class="table table-hover">
@@ -99,7 +142,10 @@ $(document).ready(function(){
 				<th scope="col">회원코드</th>
 				<th scope="col">이름</th>
 				<th scope="col">아이디</th>
+				<th scope="col">생년월일</th>
 				<th scope="col">전화번호</th>
+				<th scope="col">우편번호</th>
+				<th scope="col">주소</th>
 				<th scope="col">교육원코드</th>
 				<th scope="col">교육원</th>
 				<th scope="col">회원등급</th>

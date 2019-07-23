@@ -17,7 +17,7 @@
 		<result column="member_rank" property="memberRank"/>
 	</resultMap>
 	<!-- memberlist 조회시 권한별로 선택 조회하기 위한 쿼리문 -->
-	<select id="selectAssociationMemberRank" resultType="kr.or.ksmart.lms.association.vo.AssociationMember">
+	<select id="selectAssociationMemberRank" resultType="kr.or.ksmart.lms.pi.vo.Member">
 		SELECT DISTINCT
 			member_rank AS memberRank
 		FROM
@@ -25,9 +25,10 @@
 	</select>
 	<select id="selectAssociationMemberInstitution" resultType="kr.or.ksmart.lms.association.vo.AssociationMember">
 		SELECT DISTINCT
-			institution_name AS institutionName
+			institution_code AS institutionCode
+			, institution_name AS institutionName
 		FROM
-			member_online
+			institution
 	</select>
 	<!-- memberlist 조회시 전체회원 조회하기 -->
 	<select id="selectAssociationMemberList" parameterType="String"
@@ -36,7 +37,10 @@
 			m.member_code
 			, m.member_name
 			, member_online_id
+			, member_registration_number_front
 			, member_phone_number
+			, member_postcode
+			, member_address
 			, institution_code
 			, institution_name
 			, mo.member_rank
@@ -52,7 +56,10 @@
 			m.member_code
 			, m.member_name
 			, member_online_id
+			, member_registration_number_front
 			, member_phone_number
+			, member_postcode
+			, member_address
 			, institution_code
 			, institution_name
 			, mo.member_rank
@@ -60,6 +67,7 @@
 		FROM member AS m
 		INNER JOIN member_online AS mo
 		ON m.member_code = mo.member_code
+		WHERE institution_code = #{institutionCode}
 		AND mo.member_rank = #{memberRank}
 		ORDER BY memberDate
 	</select>
@@ -69,7 +77,10 @@
 			m.member_code
 			, m.member_name
 			, member_online_id
+			, member_registration_number_front
 			, member_phone_number
+			, member_postcode
+			, member_address
 			, institution_code
 			, institution_name
 			, mo.member_rank
